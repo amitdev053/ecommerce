@@ -391,3 +391,14 @@ bottom: 0;
 background: white;
 width: 100%;
 }
+
+.cart_set_fixed_width{
+  width: 23.3% !important;
+}
+.cart_button{
+  justify-content: space-between;
+}
+.cart_continue_btn{
+  padding: 4px 20px 5px 20px !important;
+  border-radius: 50px;
+}

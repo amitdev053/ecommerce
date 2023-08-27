@@ -9,6 +9,7 @@ export default function Navbar() {
   const [password, setPassword] = useState("");
   const [loader, setloader] = useState(false);
   const [userCart, setUserCart] = useState([]);
+  const [totalCart, setTotalCart] = useState(0);
  
   // const [getuserCart, setgetuserCart] = useState([]);
 
@@ -56,7 +57,9 @@ export default function Navbar() {
   
   function getUserCart(){
     let  cartitem =  JSON.parse(localStorage.getItem("usercart") || "[]");
+   // console.log("getUserCart",cartitem.length)
     setUserCart(cartitem)
+    setTotalCart(cartitem.length)
   }
 
   useEffect(() => {
@@ -141,7 +144,7 @@ export default function Navbar() {
               <div className="icon_area" onClick={(event) => {openCart(event) }}>
                 <i className="fa-solid fa-cart-shopping mr-1"></i>
                 <span>Cart</span>
-                <sup>1</sup>
+                <sup>{totalCart}</sup>
               </div>
             </div>
           </div>
@@ -194,13 +197,15 @@ export default function Navbar() {
                     })}
                     <div className="col-12 position-relative">
                       <div className="cart_total cart_footer">
-                        <div className="col-12 cart_header">
-                          <h1>Cart Total</h1>
+                        <div className="col-4 position-relative cart_set_fixed_width">
+                          <div className="cart_button d-flex justify-space-between">
+                            <div className="btn btn-primary cart_continue_btn">Continue</div>
+                            <div className="btn btn-danger cart_continue_btn">Clear</div>
+                          </div>
+                          
+
                         </div>
-                        <div className="col-12 cart_header">
-                         <button class="btn btn-primary">Continue Shooping</button>
-                         <button class="btn btn-danger">Clear cart</button>
-                        </div>
+                        
                       </div>
                     </div>
                   </div>

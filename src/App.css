@@ -1,0 +1,393 @@
+@import "~react-image-gallery/styles/css/image-gallery.css";
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700;900&family=Titillium+Web:wght@200;300;400;600;700;900&display=swap');
+
+.App {
+  text-align: center;
+ 
+}
+body{
+  overflow-x: hidden;
+}
+
+.App-logo {
+  height: 40vmin;
+  pointer-events: none;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .App-logo {
+    animation: App-logo-spin infinite 20s linear;
+  }
+}
+
+.App-header {
+  background-color: #282c34;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
+  color: white;
+}
+
+.App-link {
+  color: #61dafb;
+}
+
+@keyframes App-logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+.navform{
+  margin-right: auto;
+  margin-left: auto;
+  display: flex;
+}
+.navul{
+  width: 68vw;
+}
+.navbtn{
+  margin-left: 1rem;
+}
+.aboutheading{
+  font-size: 30px;
+}
+.lowercasebtn{
+  margin-left: 1rem;
+}
+.card{
+ width: 15rem !important;
+ display: flex !important;
+ flex-direction: column !important;
+ justify-content: center !important;
+ align-items: center !important;
+ text-align: center !important;
+ padding: 0px 0px !important;
+ margin: 5px 5px !important;
+}
+.card .card-img-top{
+  width: 100% !important;
+ 
+}
+ .firstfooter{
+  margin-top:2rem !important;
+  padding: 0px !important;
+}
+.footerend{
+  background-color: rgba(0, 0, 0, 0.05);
+}
+.homecontainer{
+  display:flex !important;
+  flex-wrap: wrap !important;
+  
+ 
+}
+.card-title{
+  font-size: 12px !important;
+}
+.maxwidth{
+  max-width: 45%;
+  
+}
+.gallerycol{
+  display: flex;
+    flex-direction: column;
+    border: 1px solid #eee;
+    justify-content: center;
+    align-items: center;
+    border-radius: 10px;
+    margin: 5px 5px;
+    padding: 0px;
+    width: 24%;
+    border-radius: 10px;
+}
+.mediacontent{
+  width: 95%;
+  margin: 5px auto;
+  padding: 10px 0px;
+}
+.viewgallerybtn{
+  width: 100%  !important;
+  margin: 10px auto  !important;
+}
+.galleryimg{
+  width: 100% !important;
+    height: 250px !important;
+    display: flex !important;
+    justify-content: center !important;
+    align-items: normal !important;
+    border-radius: 10px;
+    margin: 0px auto;
+}
+.gallerytitle {
+  font-size: 21px !important;
+    font-weight: 600;
+}
+
+.galleryimg img{
+  border-radius: 10px 10px 0px 0px;
+  height: 250px !important;
+  object-fit: cover !important;
+  width: 100% !important;
+  object-position: center center;
+}
+@media (max-width:767px){
+  .gallerycol{
+    display: flex;
+    flex-direction: column;
+    border: 1px solid #eee;
+    justify-content: center;
+    align-items: center;
+    border-radius: 10px;
+    margin: 5px auto;
+    width: 89%;
+  }
+}
+.totalgal{
+  font-size: 10px;
+    font-weight: 700;
+    color: #5a3e3ebf;
+}
+.myalert{
+  border: 2px solid solid #696cff;
+  border-Width: 0 0 0 6px;
+ 
+  background: #696cff;
+  color: white !important;
+
+  width: 30%;
+  padding: 10px;
+  display: flex;
+  align-items: center;
+justify-content: center !important;
+  transform: translate(0%, -270%);
+  visibility: hidden;
+  opacity: 0;
+  transition: all 0.3s ease-in-out;
+  margin: 10px auto;
+}
+
+
+.showalert{
+  transform: translate(0%, 0%) !important;
+  visibility: visible !important;
+  opacity: 1 !important;
+}
+.downloadcentercontainer{
+
+width:60%;
+}
+.image-gallery {
+  width: 50%;
+  margin:auto;
+}
+.image-gallery-image{
+  width: 100%;
+  position: relative;
+}
+.image-gallery-icon {
+  position: absolute;
+}
+.mt-74{
+  margin-top: 74px ;
+}
+.loader {
+  
+  border: 5px solid #f3f3f3;
+  border-radius: 50%;
+  border-top: 5px solid #3498db;
+  width: 50px;
+  position: relative;
+  margin-top: 14rem;
+  height: 50px;
+  top: 30%;
+ bottom: 4rem;
+  animation: spin 2s linear infinite;
+  left: 50%;
+
+}
+
+/* Safari */
+@-webkit-keyframes spin {
+  0% { -webkit-transform: rotate(0deg); }
+  100% { -webkit-transform: rotate(360deg); }
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+.productname{
+  font-size: 14px !important;
+}
+.p_s_btn{
+  width: 48.5%;
+  font-family: 'Roboto';
+  font-weight: 500;
+
+  
+}
+.icon_area{
+  background: white;
+padding: 5px 13px 6px 13px;
+border-radius: 31px;
+display: flex;
+cursor: pointer;
+align-items: center;
+position: relative;
+}
+.icon_area i{
+  font-size: 12px;
+}
+.icon_area span{
+  font-size: 14px;
+  font-weight: 500;
+  font-family: 'Roboto' !important;
+
+}
+.icon_area sup{
+  background: #eee;
+  padding: 12px 9px;
+  border-radius: 50%;
+  font-weight: 700;
+  position: absolute;
+  right: -11px;
+  top: -11px;
+}
+.cart_container{
+  max-width: 25% !important;
+position: fixed;
+height: 100vh;
+background-color: white;
+top: 0;
+bottom: 0;
+padding: 0px !important;
+right: 0;
+z-index: 9999;
+border-radius: 0px 0px 0px 0px;
+border: 1px solid #eee;
+overflow-y: scroll;
+
+}
+
+.cart_row{
+  padding: 9px 13px;
+  margin-left: 0px !important;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.user_cart_img{
+  width: 50%;
+  margin: 0px 30px;
+  
+}
+.cart_header h1{
+  font-size: 20px;
+  padding: 0px;
+  margin: 0px;
+  font-weight: 600;
+}
+.cart_header{
+  padding: 0px;
+display: flex;
+align-items: center;
+justify-content: space-between;
+}
+.cart_header i{
+  font-size: 18px;
+  background: #eee;
+  padding: 6px 10px;
+  border-radius: 50%;
+  cursor: pointer;
+}
+.iconblink{
+transform: scale(0.9); 
+}
+.iconblinktwo{
+transform: scale(1); 
+}
+.cart_container_fluid{
+  background-color: rgba(43, 52, 69, 0.1) !important;
+position: fixed;
+width: 100% !important;
+height: 100vh;
+position: fixed;
+top: 0;
+padding: 0;
+z-index: 99999999999999999999999999;
+transform: translate(120%,0%);
+transition: all 0.1sease-in-out;
+}
+.show_cart_container{
+  transform: translate(0%,0%);
+transition: all 0.1s ease-in-out;
+}
+
+/* Coustom Slider Style Starts Here ----------------------------*/
+/* .slider-container { */
+  /* max-width: 600px; */
+  /* margin: 0 auto;
+  position: relative;
+  overflow: hidden;
+} */
+/* 
+.cards-slider {
+  display: flex;
+  width: fit-content;
+  margin: 0px auto;
+  transform: translateX(0);
+  transition: transform 4s ease;
+
+  
+
+}
+
+.card {
+  margin-right: 20px;
+  padding: 10px;
+  background-color: #f0f0f0;
+  border-radius: 10px;
+  width: 20vw;
+}
+
+.card img {
+  width: 100%;
+  height: auto;
+}
+
+.card-info {
+  text-align: center;
+}
+
+button {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  padding: 10px;
+}
+
+#prev-btn {
+  left: 10px;
+  cursor: pointer;
+}
+
+#next-btn {
+  right: 10px;
+  cursor: pointer;
+
+} */
+/* Coustom Slider Style End Here ----------------------------*/
+.cart_footer{
+  position: fixed;
+
+bottom: 0;
+background: white;
+width: 100%;
+}

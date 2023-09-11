@@ -16,6 +16,7 @@ export default function Navbar() {
   const [totalCart, setTotalCart] = useState(0);
   const [cartitems, setcartitems] = useState()
   const [cartitemsindex, setcartitemsindex] = useState()
+  const [cartQuantity, setCartQuantity] = useState(1)
   const [url, seturl] = useState("");
   const locations = useLocation();
 
@@ -119,7 +120,24 @@ console.log(deletecartitem)
   localStorage.setItem('usercart',JSON.stringify(remainingitem));
 
   }
+function quantityDecrement(){
+ 
+if(cartQuantity === 1){
+  setCartQuantity(1)
+}else{
+  setCartQuantity(cartQuantity - 1)
+}
+  
+}
+function quantityIncrement(event, cartitem){
+ let currentclick = event.target.click
+console.log(currentclick)
+  setCartQuantity(cartitem.productQuanity + cartQuantity)
 
+
+  
+
+}
 
 
 
@@ -285,9 +303,9 @@ console.log(deletecartitem)
                           </div>
                           <div className="cart_action_button my-2 cart_divide">
                             <div className="cart_action_qty_button cart_action_button set_width">
-                              <div className="decrementqty_btn">-</div>
-                              <span className="cartqty_number">1</span>
-                              <div className="decrementqty_btn">+</div>
+                              <div className="decrementqty_btn" onClick={()=>quantityDecrement()}>-</div>
+                              <span className="cartqty_number" >{cartQuantity}</span>
+                              <div className="decrementqty_btn" onClick={(event, cartitem)=>quantityIncrement(event, cartitem)}>+</div>
                             </div>
                             <i
                               className="fa-solid fa-trash"

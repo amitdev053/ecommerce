@@ -1,9 +1,7 @@
 import React from 'react'
 
 const DialogBox = () => {
-  function clearUserCart(){
-    localStorage.clear()
-  }
+ 
   return (
   
     <>

@@ -628,3 +628,9 @@ padding: 10px 10px;
 .list_view_action_button button i{
 margin: 0px 0px 0px 10px !important;
 }
+.decrement-translateX {
+  transform: translateX(-100px);
+}
+.increment-translateX {
+  transform: translateX(100px);
+}

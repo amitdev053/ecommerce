@@ -9,8 +9,8 @@ export default function ProductSlider(props) {
   const cartUrl = "/carts";
   const [loader, setloader] = useState(true);
   const [allproduct, setAllProduct] = useState([]);
-  let [slideIndex, setSlideIndex] = useState(0)
-  
+  let [slideIndex, setSlideIndex] = useState(0);
+  let [currentIndex, setCurrentIndex] = useState(0);
 
   function getProducts(baseUrl, productsUrl) {
     const getProductsUrl = baseUrl + productsUrl;
@@ -54,39 +54,47 @@ export default function ProductSlider(props) {
     getProducts(baseUrl, productsUrl);
   }, []);
 
-  // Function to display the current slide
-function showSlide() {
-  const slides = document.querySelectorAll('#gallerycolses');
-  const slider = document.querySelector('#sliderrow');
-  
-  if (slideIndex >= slides.length) {
-      setSlideIndex(0);
+  function goToSlide(currentIndex) {
+    const slider = document.getElementById("sliderrow");
+    const slideWidth = slider.firstElementChild.offsetWidth;
+    console.log("gottoSlider", currentIndex)
+    
+    const translateX = parseInt(-currentIndex * slideWidth);
+    slider.style.transform = `translateX(${translateX}px)`;
+    console.log("gottoSlider", slideWidth)
+
   }
-  
-  if (slideIndex < 0) {
-      
-      setSlideIndex(slides.length - 1)
+
+  function previousProduct() {
+    const slider = document.getElementById("sliderrow");
+    const slides = document.getElementById("gallerycolses");
+    const slideWidth = slider.firstElementChild.offsetWidth;
+    console.log("slidewidth", slideWidth);
+    console.log("slides", slides);
+    console.log("slider", slider);
+
+    if (currentIndex > 0) {
+      goToSlide(currentIndex - 1);
+    } else {
+      goToSlide(slides.length - 1);
+    }
   }
-  console.log(slider)
-  
- // slider.style.transform = `translateX(-${slideIndex * 100}%)`;
-}
+  function nextProduct() {
+    const slider = document.getElementById("sliderrow");
+    const slides = document.getElementById("gallerycolses");
+    const slideWidth = slider.firstElementChild.offsetWidth;
+    console.log("slidewidth", slideWidth);
+    console.log("slides", slides);
+    console.log("slider", slider);
 
-useEffect(()=>{
-showSlide();
 
-})
+    if (currentIndex < slides.length - 1) {
+      goToSlide(currentIndex + 1);
+    } else {
+      goToSlide(0);
+    }
+  }
 
-// Initial slide display
-function previousProduct(){
-  slideIndex--
-  showSlide()
-  
-}
-function nextProduct(){
-  slideIndex++
-  showSlide()
-}
   if (loader === true) {
     return (
       <>
@@ -119,7 +127,7 @@ function nextProduct(){
             {props.heading}
           </div>
 
-          <div className="row  setslider sliderrow" id="sliderrow">
+          <div className="row  setslider sliderrow " id="sliderrow">
             {/* Columns Started Here */}
             {allproduct.map((product) => {
               const formatter = new Intl.NumberFormat("en-US", {
@@ -128,7 +136,11 @@ function nextProduct(){
               });
 
               return (
-                <div className="col-md-3 col-sm-12 gallerycol slidercol" id="gallerycolses" key={product.id}>
+                <div
+                  className="col-md-3 col-sm-12 gallerycol slidercol"
+                  id="gallerycolses"
+                  key={product.id}
+                >
                   <div className="galleryimg position-relative">
                     <img src={product.image} id="productimg" alt="" />
                     <span id="productprice" className="productprice">
@@ -163,10 +175,9 @@ function nextProduct(){
                           );
                         }}
                       >
-                        Checkout 
+                        Checkout
                         <i class="fa-solid fa-cart-plus icon_margin"></i>
                       </button>
-                      
                     </div>
                   </div>
                 </div>
@@ -174,8 +185,16 @@ function nextProduct(){
             })}
             {/* Columns End Upon the div Here */}
             <div className="Slide_btn position-absolute">
-              <i class="fa-solid fa-angle-left prev_btn"  onClick={previousProduct}></i>
-              <i class="fa-solid fa-angle-right prev_btn coustom_padding" onClick={nextProduct}></i>
+              <i
+                class="fa-solid fa-angle-left prev_btn"
+                id="prevBtn"
+                onClick={previousProduct}
+              ></i>
+              <i
+                class="fa-solid fa-angle-right prev_btn coustom_padding"
+                id="nextbtn"
+                onClick={nextProduct}
+              ></i>
             </div>
           </div>
         </div>

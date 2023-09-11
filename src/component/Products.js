@@ -166,8 +166,7 @@ theme="dark"
             })}
             {/* Columns End Upon the div Here */}
           </div>
-          </>
-          
+          </>          
           :
           <ProductListView />
          

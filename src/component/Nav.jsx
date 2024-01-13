@@ -69,15 +69,18 @@ export default function Navbar() {
       .then((response) => setloader(false));
   }
   const getUserCart = () => {
-    let cartitem = JSON.parse(localStorage.getItem("usercart") || "[]");
-    // //console.log("getUserCart",cartitem.length)
-    setUserCart(cartitem);
-    setTotalCart(cartitem.length);
+    let cartitem = JSON.parse(localStorage.getItem("usercart") || "[]")
+    return cartitem 
+ 
   };
 
-  useEffect(() => {
-    getUserCart();
-  }, [userCart]); //userCart
+ useEffect(() => {
+    const cartLength = getUserCart();
+    setUserCart(cartLength);
+    setTotalCart(cartLength.length);
+  }, [getUserCart]);
+ 
+
 
   function clearCart() {
     document.getElementById("confirmDialogBox").classList.add("dialog_container_fluid_show")
@@ -304,7 +307,7 @@ console.log(currentclick)
                           <div className="cart_action_button my-2 cart_divide">
                             <div className="cart_action_qty_button cart_action_button set_width">
                               <div className="decrementqty_btn" onClick={()=>quantityDecrement()}>-</div>
-                              <span className="cartqty_number" >{cartQuantity}</span>
+                              <span className="cartqty_number" >{cartitem.productQuanity}</span>
                               <div className="decrementqty_btn" onClick={(event, cartitem)=>quantityIncrement(event, cartitem)}>+</div>
                             </div>
                             <i

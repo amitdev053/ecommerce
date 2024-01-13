@@ -9,8 +9,7 @@ export default function ProductSlider(props) {
   const cartUrl = "/carts";
   const [loader, setloader] = useState(true);
   const [allproduct, setAllProduct] = useState([]);
-  let [slideIndex, setSlideIndex] = useState(0);
-  let [currentIndex, setCurrentIndex] = useState(0);
+  
 
   function getProducts(baseUrl, productsUrl) {
     const getProductsUrl = baseUrl + productsUrl;
@@ -47,53 +46,19 @@ export default function ProductSlider(props) {
     console.log("pusharr", pusharr);
 
     localStorage.setItem("usercart", JSON.stringify(usercartarr));
-    toast.success("Your cart is added");
+    // toast.success("Your cart is added");
   }
 
   useEffect(() => {
     getProducts(baseUrl, productsUrl);
   }, []);
 
-  function goToSlide(currentIndex) {
-    const slider = document.getElementById("sliderrow");
-    const slideWidth = slider.firstElementChild.offsetWidth;
-    console.log("gottoSlider", currentIndex)
+   const nextProduct = ()=>{
+
+   }
+   const previousProduct = ()=>{
     
-    const translateX = parseInt(-currentIndex * slideWidth);
-    slider.style.transform = `translateX(${translateX}px)`;
-    console.log("gottoSlider", slideWidth)
-
-  }
-
-  function previousProduct() {
-    const slider = document.getElementById("sliderrow");
-    const slides = document.getElementById("gallerycolses");
-    const slideWidth = slider.firstElementChild.offsetWidth;
-    console.log("slidewidth", slideWidth);
-    console.log("slides", slides);
-    console.log("slider", slider);
-
-    if (currentIndex > 0) {
-      goToSlide(currentIndex - 1);
-    } else {
-      goToSlide(slides.length - 1);
-    }
-  }
-  function nextProduct() {
-    const slider = document.getElementById("sliderrow");
-    const slides = document.getElementById("gallerycolses");
-    const slideWidth = slider.firstElementChild.offsetWidth;
-    console.log("slidewidth", slideWidth);
-    console.log("slides", slides);
-    console.log("slider", slider);
-
-
-    if (currentIndex < slides.length - 1) {
-      goToSlide(currentIndex + 1);
-    } else {
-      goToSlide(0);
-    }
-  }
+   }
 
   if (loader === true) {
     return (
@@ -106,7 +71,7 @@ export default function ProductSlider(props) {
       <>
         <div className="container text-left my-5">
           <ToastContainer
-            position="top-right"
+            position="bottom-right"
             autoClose={3000}
             hideProgressBar={false}
             newestOnTop={false}

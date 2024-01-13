@@ -59,7 +59,7 @@ export default function ProductListView() {
       <>
         <div className="container text-left mt-1">
         <ToastContainer
-position="top-right"
+position="bottom-right"
 autoClose={3000}
 hideProgressBar={false}
 newestOnTop={false}

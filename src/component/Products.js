@@ -4,17 +4,21 @@ import 'react-toastify/dist/ReactToastify.css';
 import { ToastContainer, toast } from "react-toastify";
 import ProductSlider from "./ProductSlider";
 import ProductListView from "./ProductListView";
+import { json } from "react-router-dom";
 
 
 export default function Products() {
-  const baseUrl = "https://fakestoreapi.com";
+  const baseUrl = "https://fakestoreapi.com"; 
+  // const baseUrl = "https://dummyjson.com"
   const productsUrl = "/products";
   const cartUrl = "/carts";
   const [loader, setloader] = useState(true);
   const [allproduct, setAllProduct] = useState([]);
+
   const [SliderHeading, setSliderHeading] = useState("Choose Your Favourite");
   const [productView, setProductView] = useState(true)
- 
+ const [cartLength, setCartLength] = useState(0)
+ const [initalCartQty, setInitalCartQty] = useState(1)
 
 
   function getProducts(baseUrl, productsUrl) {
@@ -26,28 +30,56 @@ export default function Products() {
         return response.json();
       })
       .then((result) => {
-        console.log("products Result", result);
+        // console.log("products product.js", result);
+        console.log("products product.js", result);
         setAllProduct(result);
       });
   }
   function addToCart(productName,productPrice,ProductImage,productid) {
     console.log("set Cart");
    let usercartarr = JSON.parse(localStorage.getItem("usercart") || "[]");
-    let usercart = {    
-      productName: productName,
-      productImage: ProductImage,
-      productPrice: productPrice,
-      productid:productid,
-      productQuanity: 1,
-    };
-    
-      let pusharr =  usercartarr.push(usercart);
-    console.log("pusharr", pusharr);
+   let usercart = {    
+    productName: productName,
+    productImage: ProductImage,
+    productPrice: productPrice,
+    productid:productid,
+    productQuanity: initalCartQty,
+  };
+ 
 
+ 
+  let existingProduct = usercartarr.find((curElement)=>{
+  return  productid === curElement.productid
+  })
+  if(existingProduct){
+    let ModifyObj = {...existingProduct}
+    console.log(usercartarr[0]["productid"])
+    localStorage.removeItem(existingProduct)
+    ModifyObj.productQuanity = ModifyObj.productQuanity + 1
+
+
+    let pusharr = usercartarr.push(ModifyObj);
+    setCartLength(pusharr)
     localStorage.setItem("usercart", JSON.stringify(usercartarr));
-    toast.success("Your cart is added");
+
+}else{
+
+  console.log("addtocart", usercart)
+
+  let pusharr = usercartarr.push(usercart);
+    setCartLength(pusharr)
+    localStorage.setItem("usercart", JSON.stringify(usercartarr));
+        
+ 
   }
 
+
+
+    document.getElementById('userCartContainer').classList.add('show_cart_container')
+    // toast.success("Your cart is added");
+  }
+
+  
   useEffect(() => {
     getProducts(baseUrl, productsUrl);
   }, []);
@@ -71,6 +103,8 @@ export default function Products() {
   
  }
   
+ 
+
 
   if (loader === true) {
     return (
@@ -81,9 +115,10 @@ export default function Products() {
   } else {
     return (
       <>
+      <span id="cartLength">{cartLength}</span>
         <div className="container text-left mt-74">
         <ToastContainer
-position="top-right"
+position="bottom-right"
 autoClose={3000}
 hideProgressBar={false}
 newestOnTop={false}
@@ -118,6 +153,7 @@ theme="dark"
                 style: "currency",
                 currency: "USD",
               });
+              console.log("product map json", product.images)
 
               return (
                 <div className="col-md-3 col-sm-12 gallerycol" key={product.id}>
@@ -179,3 +215,11 @@ theme="dark"
     );
   }
 }
+
+function setCart(){
+  
+    let cartitem = JSON.parse(localStorage.getItem("usercart") || "[]");
+    
+    return cartitem
+}
+export {setCart}

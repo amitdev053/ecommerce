@@ -197,7 +197,7 @@ width:60%;
   position: absolute;
 }
 .mt-74{
-  margin-top: 74px ;
+  margin-top: 70px ;
 }
 .loader {
   
@@ -633,4 +633,15 @@ margin: 0px 0px 0px 10px !important;
 }
 .increment-translateX {
   transform: translateX(100px);
+}
+.navbar-brand{
+  display: flex;
+    justify-content: center;
+    align-items: center;
+  width: 30%  !important;
+    border-radius: 146%;
+    padding: 10px 0px !important;
+}
+.navbar-brand img{
+  width: 70% !important;
 }

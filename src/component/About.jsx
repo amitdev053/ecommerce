@@ -19,7 +19,7 @@ export default function About() {
 
 // Upper Case function defeindex Completed Here
 
-const [text, textlength] = useState(" ")
+const [text, textlength] = useState("")
 const [tag, settag] = useState([])
 function countword(){
   let countword =document.getElementById('textformatarea').value
@@ -41,9 +41,10 @@ function clearText(){
 let results
 function ReverseText(){
   let reversetext =document.getElementById('textformatarea').value 
- let reverse =  reversetext.split(" ").reverse()
- console.log(reverse)
+ let reverse =  reversetext.split(" ").reverse().join(",", " ").replaceAll(",", " ")
+ console.log(typeof reverse)
 
+ document.getElementById('textformatarea').value = reverse
 }
 function findHashtags() {
 let searchText = document.querySelector('#textformatarea').value 

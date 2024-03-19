@@ -10,6 +10,7 @@ import Download from './component/Download';
 import Viewgallery from './component/Viewgallery';
 import Login from './component/Login';
 import Products from './component/Products';
+import Coursel from './component/Counsel'
 
 import Footer from './component/Footer'
 import {Routes, Route, useLocation, useParams} from 'react-router-dom'
@@ -32,12 +33,13 @@ function App() {
   <Nav />
  
  <Routes>
-  <Route path ='/' Component={Products}/>
+  <Route path ='/' Component={Home}/>
   <Route exact path ='/Hastags' Component={About}/>
   <Route exact path ='/contact' Component={Contact}/>
   <Route exact path ='/services' Component={Home}/>
   <Route exact path ='/media' Component={Media}/>
   <Route exact path ='/products' Component={Products}/>
+  <Route exact path ='/productcoursel' Component={Coursel}/>
   <Route exact path ='/download' Component={Download}/>
   <Route exact path ='/Login' Component={Login}/>
   <Route exact path ='/viewgallery/:contentid' Component={Viewgallery}/>

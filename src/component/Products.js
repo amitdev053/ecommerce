@@ -5,6 +5,12 @@ import { ToastContainer, toast } from "react-toastify";
 import ProductSlider from "./ProductSlider";
 import ProductListView from "./ProductListView";
 import { json } from "react-router-dom";
+import Alert from "./Alert"
+import { useLocation, useParams} from 'react-router-dom'
+
+import 'react-toastify/dist/ReactToastify.css';
+import { changeProdiuctView } from './CustomHook'
+
 
 
 export default function Products() {
@@ -14,6 +20,9 @@ export default function Products() {
   const cartUrl = "/carts";
   const [loader, setloader] = useState(true);
   const [allproduct, setAllProduct] = useState([]);
+  const location = useLocation();
+
+  
 
   const [SliderHeading, setSliderHeading] = useState("Choose Your Favourite");
   const [productView, setProductView] = useState(true)
@@ -34,7 +43,11 @@ export default function Products() {
         console.log("products product.js", result);
         setAllProduct(result);
       });
-  }
+  }    
+  useEffect(() => {
+    getProducts(baseUrl, productsUrl);
+  }, []);
+
   function addToCart(productName,productPrice,ProductImage,productid) {
     console.log("set Cart");
    let usercartarr = JSON.parse(localStorage.getItem("usercart") || "[]");
@@ -46,21 +59,27 @@ export default function Products() {
     productQuanity: initalCartQty,
   };
  
-
+console.log(usercartarr)
  
   let existingProduct = usercartarr.find((curElement)=>{
   return  productid === curElement.productid
   })
+  console.log("existing product",existingProduct)
+
+
   if(existingProduct){
-    let ModifyObj = {...existingProduct}
-    console.log(usercartarr[0]["productid"])
-    localStorage.removeItem(existingProduct)
-    ModifyObj.productQuanity = ModifyObj.productQuanity + 1
+      let modifiedProducts = usercartarr.map((product) =>
+      product.productid === existingProduct.productid
+        ? { ...product, productQuanity: product.productQuanity + 1 }
+        : product
+    );
+
+    console.log("modified products", modifiedProducts);
+
+    setCartLength((prevLength) => prevLength + 1);
+    localStorage.setItem("usercart", JSON.stringify(modifiedProducts));
 
 
-    let pusharr = usercartarr.push(ModifyObj);
-    setCartLength(pusharr)
-    localStorage.setItem("usercart", JSON.stringify(usercartarr));
 
 }else{
 
@@ -68,25 +87,22 @@ export default function Products() {
 
   let pusharr = usercartarr.push(usercart);
     setCartLength(pusharr)
-    localStorage.setItem("usercart", JSON.stringify(usercartarr));
-        
+    localStorage.setItem("usercart", JSON.stringify(usercartarr));       
  
   }
 
 
 
     document.getElementById('userCartContainer').classList.add('show_cart_container')
-    // toast.success("Your cart is added");
+    toast.success("Your Product has been added !");
+    
   }
 
-  
-  useEffect(() => {
-    getProducts(baseUrl, productsUrl);
-  }, []);
+
 
  function  toggleView(){
  
-
+ 
   if(productView === true){
     setProductView(false)
     document.getElementById('listType').style.backgroundColor = "black"
@@ -94,15 +110,16 @@ export default function Products() {
   }else{
     setProductView(true)
     document.getElementById('listType').style.backgroundColor = "#eee"
-    document.getElementById('listType').style.color = "black"
-
+    document.getElementById('listType').style.color = "black"   
 
   }
  
 
+
   
  }
   
+
  
 
 
@@ -117,19 +134,8 @@ export default function Products() {
       <>
       <span id="cartLength">{cartLength}</span>
         <div className="container text-left mt-74">
-        <ToastContainer
-position="bottom-right"
-autoClose={3000}
-hideProgressBar={false}
-newestOnTop={false}
-closeOnClick
-rtl={false}
-pauseOnFocusLoss
-draggable
-pauseOnHover
-theme="dark"
+      <Alert position="bottom-center"> </Alert>
 
-/>
 <div style={{display:"flex", justifyContent:"space-between", alignItems:"center", padding:"0px 10px 0px 0px"}}>
       <div
             style={{
@@ -146,7 +152,7 @@ theme="dark"
           (productView === true) ?           
           
               <>
-              <div className="row">
+              <div className="row" id="ProductContainer">
             {/* Columns Started Here */}
             {allproduct.map((product) => {
               const formatter = new Intl.NumberFormat("en-US", {
@@ -156,7 +162,7 @@ theme="dark"
               console.log("product map json", product.images)
 
               return (
-                <div className="col-md-3 col-sm-12 gallerycol" key={product.id}>
+                <div className="col-md-3 col-sm-12 gallerycol" key={product.id} >
                   <div className="galleryimg position-relative">
                     <img src={product.image} id="productimg" alt="" />
                     <span id="productprice" className="productprice">
@@ -208,9 +214,7 @@ theme="dark"
          
          }
         </div>
-<ProductSlider heading={SliderHeading}/>
-
-
+<ProductSlider heading={SliderHeading} class="d-flex flex-column"/>
       </>
     );
   }

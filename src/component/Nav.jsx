@@ -68,19 +68,42 @@ export default function Navbar() {
       .post("https://backend.babusiya.com/account/verify_user", login)
       .then((response) => setloader(false));
   }
-  const getUserCart = () => {
-    let cartitem = JSON.parse(localStorage.getItem("usercart") || "[]")
-    return cartitem 
- 
-  };
+//   const getUserCart = () => {
+//     let cartitem = JSON.parse(localStorage.getItem("usercart") || "[]")
+   
+   
 
- useEffect(() => {
-    const cartLength = getUserCart();
-    setUserCart(cartLength);
-    setTotalCart(cartLength.length);
-  }, [getUserCart]);
- 
+//     return cartitem 
+//   };
+//   const prevUserCartRef = useRef(userCart);
 
+//  useEffect(() => {
+//   console.log("useeffect ****", prevUserCartRef.current)
+//   // setUserCart(cartitem);
+//   // setTotalCart(cartitem.length);
+//   const prevUserCart = prevUserCartRef.current;
+//   const newCart = getUserCart();
+
+//   // Update only if userCart has changed
+//   if (prevUserCart !== newCart) {
+//     setUserCart(newCart);
+//     setTotalCart(newCart.length);
+//     prevUserCartRef.current = newCart; // Update the previous userCart
+//   }
+ 
+  
+//   }, [userCart]);
+
+const getUserCart = () => {
+  let cartitem = JSON.parse(localStorage.getItem("usercart") || "[]");
+  setUserCart(cartitem);
+  setTotalCart(cartitem.length);
+  return cartitem;
+};
+useEffect(() => {  
+   getUserCart();    
+  
+}, [userCart]); 
 
   function clearCart() {
     document.getElementById("confirmDialogBox").classList.add("dialog_container_fluid_show")
@@ -123,22 +146,49 @@ console.log(deletecartitem)
   localStorage.setItem('usercart',JSON.stringify(remainingitem));
 
   }
-function quantityDecrement(){
+function quantityDecrement(event, cartitem){
  
-if(cartQuantity === 1){
+if(cartitem.productQuanity === 1){
   setCartQuantity(1)
+
 }else{
-  setCartQuantity(cartQuantity - 1)
-}
+  setCartQuantity(cartitem.productQuanity--)
   
+}
+
+updateCartItemQuantity(cartitem.productid,cartitem.productQuanity)
+  
+}
+function updateCartItemQuantity(productId, newQuantity) {
+  // Retrieve cart items from localStorage
+  let cartItems = JSON.parse(localStorage.getItem("usercart")) || [];
+
+  
+  const index = cartItems.findIndex(item => item.productid === productId);
+
+  if (index !== -1) {
+    // Update the quantity of the product
+    cartItems[index].productQuanity = newQuantity;
+
+    // Save the updated cart items back to localStorage
+    localStorage.setItem("usercart", JSON.stringify(cartItems));
+  }
 }
 function quantityIncrement(event, cartitem){
- let currentclick = event.target.click
-console.log(currentclick)
-  setCartQuantity(cartitem.productQuanity + cartQuantity)
-
-
+  console.log(cartitem)
+  setCartQuantity(cartitem.productQuanity++) 
+  updateCartItemQuantity(cartitem.productid,cartitem.productQuanity)
   
+
+}
+function OpenMobileNavbar(){
+  console.log("navbar button is clicked")
+let navbarContent = document.getElementById('navbarSupportedContent')
+console.log(navbarContent)
+navbarContent.classList.toggle('active_navbar')
+
+
+
 
 }
 
@@ -158,7 +208,7 @@ console.log(currentclick)
         <nav className="navbar navbar-expand-lg navbar-light bg-light fixed-top">
           <div className="container">
             <Link className="navbar-brand" to="/">
-              Navbar
+            <i class="fa-solid fa-shop"></i>
             </Link>
             <button
               className="navbar-toggler"
@@ -168,7 +218,7 @@ console.log(currentclick)
               aria-controls="navbarSupportedContent"
               aria-expanded="false"
               aria-label="Toggle navigation"
-            >
+              onClick={OpenMobileNavbar}>
               <span className="navbar-toggler-icon"></span>
             </button>
 
@@ -199,17 +249,7 @@ console.log(currentclick)
                     Hastags
                   </Link>
                 </li>
-                <li className="nav-item">
-                  <Link
-                    className={`${
-                      url === "/media" ? "nav-link active" : "nav-link"
-                    }`}
-                    to="/media"
-                    id="media"
-                  >
-                    Media
-                  </Link>
-                </li>
+               
                 <li className="nav-item">
                   <Link
                     className={`${
@@ -222,7 +262,7 @@ console.log(currentclick)
                   </Link>
                 </li>
 
-                <li className="nav-item">
+                {/* <li className="nav-item">
                   <Link className="nav-link " to="/contact" id="contact">
                     Contact
                   </Link>
@@ -241,7 +281,7 @@ console.log(currentclick)
                   <Link className="nav-link " to="/login" id="service">
                     Login
                   </Link>
-                </li>
+                </li> */}
               </ul>
               <div
                 className="icon_area"
@@ -306,9 +346,9 @@ console.log(currentclick)
                           </div>
                           <div className="cart_action_button my-2 cart_divide">
                             <div className="cart_action_qty_button cart_action_button set_width">
-                              <div className="decrementqty_btn" onClick={()=>quantityDecrement()}>-</div>
+                              <div className="decrementqty_btn" onClick={(event)=>quantityDecrement(event, cartitem)}>-</div>
                               <span className="cartqty_number" >{cartitem.productQuanity}</span>
-                              <div className="decrementqty_btn" onClick={(event, cartitem)=>quantityIncrement(event, cartitem)}>+</div>
+                              <div className="decrementqty_btn" onClick={(event)=>quantityIncrement(event, cartitem)}>+</div>
                             </div>
                             <i
                               className="fa-solid fa-trash"

@@ -67,25 +67,27 @@ let searchText = document.querySelector('#textformatarea').value
   <>
   
  <div className="container mt-74">
-  <h1 class="mt-3 text-center aboutheading">Enter Your Text to Format</h1>
+  <h1 class="mt-3 text-center app_heading m-0">Enter Your Text to Format</h1>
 
 <div className="mb-3">
-  <label forHTML="exampleFormControlTextarea1" className="form-label">Enter text to format</label>
-  <textarea class="form-control" onChange={countword} id="textformatarea" rows="6"></textarea>
+  <label forHTML="exampleFormControlTextarea1" className="form-label app_short_content">Enter text to format</label>
+  <textarea className="form-control" onChange={countword} id="textformatarea" rows="6"></textarea>
 </div>
-<div className="container mb-2">
-  <strong id="wordcharacter"> 0 word & 0 character</strong>
+<div className="container p-0">
+  <span id="wordcharacter" className='app_short_content'> 0 word & 0 character</span>
 </div>
-<div className="button d-flex">
-<button className="btn btn-primary" onClick={uppercase}>Convert to uppercase</button>
-<button className="btn btn-primary lowercasebtn" onClick={lowercase}>Convert to Lowercase</button>
-<button className="btn btn-primary lowercasebtn" onClick={clearText}>Clear Text</button>
-<button className="btn btn-primary lowercasebtn" onClick={ReverseText}>Resverse Text </button>
+<div className="button d-flex app_section_margin">
+<button className="btn btn-primary brand_color" onClick={uppercase}>Convert to uppercase</button>
+<button className="btn btn-primary lowercasebtn brand_color" onClick={lowercase}>Convert to Lowercase</button>
+<button className="btn btn-primary lowercasebtn brand_color" onClick={clearText}>Clear Text</button>
+<button className="btn btn-primary lowercasebtn brand_color" onClick={ReverseText}>Resverse Text </button>
 
-<button className="btn btn-primary lowercasebtn" onClick={findHashtags}>Find Hashtag </button>
+<button className="btn btn-primary lowercasebtn brand_color" onClick={findHashtags}>Find Hashtag </button>
 
 </div>
-<h1 class="text-center my-2">Your Hashtag</h1>
+
+<h1 className="brand_heading">Collect Hashtag</h1>
+<p className="app_short_content">Enter your social media title or discription in our input so you can collect all the hashtag in single click</p>
 <ul>
 {
   tag.map((element)=>

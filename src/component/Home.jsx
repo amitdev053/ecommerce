@@ -1,89 +1,66 @@
-import React, { useEffect } from 'react'
-// import About from './About'
-import Alert from './Alert'
-import { useState } from 'react'
-import { Message } from 'primereact/message';
-import Spinner from './Spinner';
+import React, {useEffect, useState} from 'react'
+import Products from './Products'
+import ProductSlider from './ProductSlider'
+import { useLocation, useParams} from 'react-router-dom'
+import { changeProdiuctView } from './CustomHook'
+
+
+
 
 
 export default function Home() {
-// Use Effect Hooks--------------------------------
-const[showbloglimit, setbloglimit]= useState(4)
-const[current_page, setcurrentpage]= useState(1)
-// const[alert, setalert] = useState(null)
+  const [SliderHeading, setSliderHeading] = useState("Choose Your Favourite");
+  const location = useLocation();
+  const [productView, setProductView] = useState("productView")
+  const [url, setUrl]= useState(location.pathname)
 
-// Show Alert -------------------------------------------------------
-// const showalert= (message, type)=>{
-//   setalert({
-//     msg:message,
-//     type: type 
-//   })
-// }
-
-// Useeffect Hook -------------------------------------------------------
-
-function getBlog(){
-  let blogdata = { 
-    "override_website_id": "MAGELLAN",
-    "rows":showbloglimit,  
-    "populate": "photos",
-   "asset_type": "BLOG",
-   "page": current_page   
-  }
-  console.log(blogdata)
-
-  let getBlogurl= "https://backend.babusiya.com/website_assets/list_web_assets"
-
-  fetch(getBlogurl, {
-    method:"Post",
-    Header: {
-      'method': "POST",
-      'accept': 'application/json',
-      'Content-type': 'application/json',
-    },
-    body: JSON.stringify(blogdata)
-  }).then(function(result){
-    return result.json()
-  }).then(function(response){
-    console.log(response)
-  })
+  
+  function hideSilder(){  
+    document.getElementById('ProductSlider').classList.add('d-none')   // for hide the Product Slider  on Product Page
+    let allProducts = document.getElementById('ProductContainer').children
+    let productListView = document.getElementById('ProductListView')
+    console.log("Home Page",allProducts)
+    // Loop through all children starting from the 5th child (index 4)
+for (let i = 4; i < allProducts.length; i++) {
+  // Hide the child element
+  allProducts[i].style.display = 'none';
+  
 }
 
+if(productListView){
+  for (let l = 4; l < productListView.children.length; l++) {
+  // Hide the child element
+  productListView[l].style.display = 'none';
+  
+} 
+}
+    
+    let viewType = changeProdiuctView()
+    console.log("viewType", viewType)
+setProductView(viewType)
+setUrl("/")
 
+    
 
+    
 
+  }
 useEffect(()=>{
-  getBlog()
+setTimeout(()=>{
+  hideSilder()
+}, 1000)
+}, [url, productView])
 
-})
-// Use Effect Hooks--------------------------------
 
-
-
-// Component Return Block Starts Here--------------------------------
 
   return (
     <>
-<div className="container mt-74" >
-<Message text="Message Content" id="alertcontainer"  className='border-primary w-full justify-content-start myalert alert_container ' />
+    <div id={productView}>
 
-</div>
- {/* <Alert alert={alert}/> */}
- 
 
-  <div className="container d-flex mt-3 homecontainer" id="appendcontainer">
-  
- 
-    
-  
-  
-    
-   </div>
-  <div className="container d-flex justify-content-between">
-    <div className="btn btn-primary btn-sm" id="prevbtn" >Previous</div>
-    <div className="btn btn-primary btn-sm" id="nextbtn" >Next</div>
-  
-  </div>
+<Products />
+    </div>
+
 
     
     </>

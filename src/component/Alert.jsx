@@ -1,21 +1,26 @@
 import React from 'react'
+import { ToastContainer, toast } from "react-toastify";
+
 
 
 const Alert = (props) => {
+
   return (
     <>
    
-   {props.alert && <div className="container mx-auto d-block mt-2 maxwidth">
-     
-     <div className="alert alert-warning alert-dismissible fade show" id="alert"  role="alert">
-    <strong>{props.alert.type} </strong> {props.alert.msg}
-     <button type="button" className="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-     </div>
-    
-    
- 
-  
-    </div> }
+   <ToastContainer
+position= {props.position}
+autoClose={3000}
+hideProgressBar={false}
+newestOnTop={false}
+closeOnClick
+rtl={false}
+pauseOnFocusLoss
+draggable
+pauseOnHover
+theme="dark"
+bodyClassName="show_message_toast"
+/>
     
     </>
   )

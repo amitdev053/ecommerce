@@ -10,8 +10,10 @@ export default function ProductListView() {
   const productsUrl = "/products";
   const cartUrl = "/carts";
   const [loader, setloader] = useState(true);
-  const [allproduct, setAllProduct] = useState([]);
+  const [allproduct, setAllProduct] = useState([]); 
   const [SliderHeading, setSliderHeading] = useState("Choose Your Favourite");
+  const [cartLength, setCartLength] = useState(0)
+ const [initalCartQty, setInitalCartQty] = useState(1)
 
 
   function getProducts(baseUrl, productsUrl) {
@@ -30,19 +32,51 @@ export default function ProductListView() {
   function addToCart(productName,productPrice,ProductImage,productid) {
     console.log("set Cart");
    let usercartarr = JSON.parse(localStorage.getItem("usercart") || "[]");
-    let usercart = {    
-      productName: productName,
-      productImage: ProductImage,
-      productPrice: productPrice,
-      productid:productid,
-      productQuanity: 1,
-    };
-    
-      let pusharr =  usercartarr.push(usercart);
-    console.log("pusharr", pusharr);
+   let usercart = {    
+    productName: productName,
+    productImage: ProductImage,
+    productPrice: productPrice,
+    productid:productid,
+    productQuanity: initalCartQty,
+  };
+ 
+console.log(usercartarr)
+ 
+  let existingProduct = usercartarr.find((curElement)=>{
+  return  productid === curElement.productid
+  })
+  console.log("existing product",existingProduct)
 
-    localStorage.setItem("usercart", JSON.stringify(usercartarr));
-    toast.success("Your cart is added");
+
+  if(existingProduct){
+      let modifiedProducts = usercartarr.map((product) =>
+      product.productid === existingProduct.productid
+        ? { ...product, productQuanity: product.productQuanity + 1 }
+        : product
+    );
+
+    console.log("modified products", modifiedProducts);
+
+    setCartLength((prevLength) => prevLength + 1);
+    localStorage.setItem("usercart", JSON.stringify(modifiedProducts));
+
+
+
+}else{
+
+  console.log("addtocart", usercart)
+
+  let pusharr = usercartarr.push(usercart);
+    setCartLength(pusharr)
+    localStorage.setItem("usercart", JSON.stringify(usercartarr));       
+ 
+  }
+
+
+
+    document.getElementById('userCartContainer').classList.add('show_cart_container')
+    toast.success("Your Product has been added !");
+    
   }
 
   useEffect(() => {
@@ -57,21 +91,9 @@ export default function ProductListView() {
   } else {
     return (
       <>
-        <div className="container text-left mt-1">
-        <ToastContainer
-position="bottom-right"
-autoClose={3000}
-hideProgressBar={false}
-newestOnTop={false}
-closeOnClick
-rtl={false}
-pauseOnFocusLoss
-draggable
-pauseOnHover
-theme="dark"
-
-/>
-  <div className="row flex-column">
+        <div className="container text-left mt-1" >
+      
+  <div className="row flex-column" id="ProductListView">
             {/* Columns Started Here */}
             {allproduct.map((product) => {
               const formatter = new Intl.NumberFormat("en-US", {

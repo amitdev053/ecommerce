@@ -53,10 +53,17 @@ export default function ProductSlider(props) {
     getProducts(baseUrl, productsUrl);
   }, []);
 
+
+  
    const nextProduct = ()=>{
+console.log("we are now going to the next prouct")
+let productRow = document.getElementById('sliderrow')
+console.log("productRow", productRow.children)
 
    }
    const previousProduct = ()=>{
+console.log("we are now going to the next prouct")
+
     
    }
 
@@ -69,19 +76,9 @@ export default function ProductSlider(props) {
   } else {
     return (
       <>
-        <div className="container text-left my-5">
-          <ToastContainer
-            position="bottom-right"
-            autoClose={3000}
-            hideProgressBar={false}
-            newestOnTop={false}
-            closeOnClick
-            rtl={false}
-            pauseOnFocusLoss
-            draggable
-            pauseOnHover
-            theme="dark"
-          />
+        <div className={`container text-left my-5 ${props.class}`} id="ProductSlider">
+       
+       
           <div
             style={{
               fontSize: "25px",

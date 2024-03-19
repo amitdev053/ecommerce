@@ -1,6 +1,34 @@
-import React from 'react'
+import React, {useState, useEffect} from 'react'
+import { Link, useLocation } from "react-router-dom";
+import {getSiteProducts} from "./CustomHook"
+
 
 export default function footer() {
+  const baseUrl = "https://fakestoreapi.com"; 
+  
+  const productsUrl = "/products";
+  // eslint-disable-next-line react-hooks/rules-of-hooks
+  const [allproduct, setAllProduct] = useState([]);
+  function getProducts(baseUrl, productsUrl) {
+    const getProductsUrl = baseUrl + productsUrl;
+    fetch(getProductsUrl)
+      .then((response) => {        
+        console.log("response", response);
+        return response.json();
+      })
+      .then((result) => {
+        // console.log("products product.js", result);
+        console.log("products product.js", result);
+        setAllProduct(result);
+      });
+  }   
+  
+  // eslint-disable-next-line react-hooks/rules-of-hooks
+  useEffect(() => {
+    getProducts(baseUrl, productsUrl);
+
+  }, []);
+
   return (
   <>
  <div className="container-fluid firstfooter">
@@ -57,18 +85,20 @@ export default function footer() {
           <h6 className="text-uppercase fw-bold mb-4">
             Products
           </h6>
-          <p>
-            <a href="#!" className="text-reset">Angular</a>
+          
+          {
+            
+            allproduct.splice(allproduct.length - 4, allproduct.length).map((product)=>{
+              return(
+                <p>
+            <span className="text-reset">{product.title.slice(0, 10)}...</span>
           </p>
-          <p>
-            <a href="#!" className="text-reset">React</a>
-          </p>
-          <p>
-            <a href="#!" className="text-reset">Vue</a>
-          </p>
-          <p>
-            <a href="#!" className="text-reset">Laravel</a>
-          </p>
+
+              )
+
+          })}
+         
+         
         </div>
   
         <div className="col-md-3 col-lg-2 col-xl-2 mx-auto mb-4">
@@ -110,8 +140,8 @@ export default function footer() {
 
 
   <div className="text-center p-4 footerend" >
-    © 2021 Copyright:
-    <a className="text-reset fw-bold" href="https://mdbootstrap.com/">MDBootstrap.com</a>
+    © 2021 Copyright: 
+    <Link className="text-reset fw-bold" to="http://shops.freewebhostmost.com/">shops.freewebhostmost.com</Link>
   </div>
 
 </footer>

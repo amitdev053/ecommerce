@@ -732,6 +732,9 @@ margin: 0px 0px 0px 10px !important;
       .icon_area span{
     color: black;
         }
+  .mobile_list_view{
+    width: 100% !important;
+  }
 }
 
 @media screen and (min-width : 993px) and (max-width : 1150px){ 

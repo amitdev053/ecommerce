@@ -102,7 +102,7 @@ console.log(usercartarr)
               });
 
               return (
-                <div className="col-12  gallerycol list_view_cols" key={product.id}>
+                <div className="col-12  gallerycol list_view_cols mobile_list_view" key={product.id}>
                   <div className="galleryimg position-relative list_view_product_image">
                     <img src={product.image} id="productimg" alt="" />
                     <span id="productprice" className="productprice">

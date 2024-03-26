@@ -318,7 +318,7 @@ overflow-y: scroll;
   background: white;
   /* left: 0; */
   /* right: 0; */
-  width: calc(100% - 76%);
+  width: calc(100% - 76.2%);
   z-index: 9;
 
 }

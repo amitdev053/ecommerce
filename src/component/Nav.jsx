@@ -31,6 +31,8 @@ export default function Navbar() {
     document
       .getElementById("userCartContainer")
       .classList.remove("show_cart_container");
+    document.body.style.overflowY = "visible"
+      
   }
   function closeConfirmBox() {
     document
@@ -41,16 +43,15 @@ export default function Navbar() {
       .classList.add("show_cart_container");
   }
   function openCart(event) {
-    document
-      .getElementById("userCartContainer")
-      .classList.add("show_cart_container");
+    document.getElementById("userCartContainer").classList.add("show_cart_container");
+    document.body.style.overflowY = "hidden"
 
-    document
-      .getElementById("userCartContainer")
-      .addEventListener("click", (event) => {
+    document.getElementById("userCartContainer").addEventListener("click", (event) => {
         if (event.target === document.getElementById("userCartContainer")) {
           closeCart();
+
         } else {
+
         }
       });
   }
@@ -305,7 +306,7 @@ navbarContent.classList.toggle('active_navbar')
             <div className="container cart_container">
               <div class="row cart_row w-100">
                 <div className="cart_header">
-                  <h1>Your Cart is Empty</h1>
+                  <div style={{fontSize: "20px", fontWeight:700}}>Your Cart Products</div>
                   <i
                     class="fa-solid fa-xmark"
                     id="cartclosebtn"

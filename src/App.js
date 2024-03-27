@@ -11,7 +11,7 @@ import Viewgallery from './component/Viewgallery';
 import Login from './component/Login';
 import Products from './component/Products';
 import Coursel from './component/Counsel'
-
+import { Analytics } from "@vercel/analytics/react"
 import Footer from './component/Footer'
 import {Routes, Route, useLocation, useParams} from 'react-router-dom'
 import React, { useState, useEffect } from 'react';

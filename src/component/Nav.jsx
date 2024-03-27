@@ -317,7 +317,14 @@ navbarContent.classList.toggle('active_navbar')
                 </div>
                 <div className="col-12 dividecartitem">
                   <div className="row p-0 align-items-center">
-                    {userCart.map((cartitem, index) => {
+                  {userCart.length <= 0 ? 
+                (
+                  <>
+                 <div> Add products to your cart</div>
+                 </>
+                 )
+                 
+                  : userCart.map((cartitem, index) => {
                       return (
                         <>
                           <div
@@ -361,7 +368,7 @@ navbarContent.classList.toggle('active_navbar')
                           </div>
                         </>
                       );
-                    })}
+                    })}                    
 
                     <div className="col-12 position-relative">
                       <div className="cart_total cart_footer">

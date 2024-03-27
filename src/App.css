@@ -568,13 +568,15 @@ color:#5a3e3ebf;
 }
 .Slide_btn{
   top: 45%;
-  left: 2px;
-  right: 100px;
+  left: 50%;
+  right: 0;
   display: flex;
   align-items: center;
   justify-content: space-between;
   bottom: 50%;
-  
+  transform: translate(-50%, -50%);
+  padding: 0;
+  width: 100%;
 }
 .prev_btn{
   background-color: white;

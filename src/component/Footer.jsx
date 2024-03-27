@@ -9,6 +9,7 @@ export default function footer() {
   const productsUrl = "/products";
   // eslint-disable-next-line react-hooks/rules-of-hooks
   const [allproduct, setAllProduct] = useState([]);
+  
   function getProducts(baseUrl, productsUrl) {
     const getProductsUrl = baseUrl + productsUrl;
     fetch(getProductsUrl)

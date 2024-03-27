@@ -95,6 +95,7 @@ console.log(usercartarr)
 
     document.getElementById('userCartContainer').classList.add('show_cart_container')
     toast.success("Your Product has been added !");
+    document.body.style.overflowY = "hidden"
     
   }
 

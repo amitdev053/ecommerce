@@ -9,7 +9,7 @@ export default function footer() {
   const productsUrl = "/products";
   // eslint-disable-next-line react-hooks/rules-of-hooks
   const [allproduct, setAllProduct] = useState([]);
-  
+
   function getProducts(baseUrl, productsUrl) {
     const getProductsUrl = baseUrl + productsUrl;
     fetch(getProductsUrl)
@@ -142,7 +142,7 @@ export default function footer() {
 
   <div className="text-center p-4 footerend" >
     © 2021 Copyright: 
-    <Link className="text-reset fw-bold" to="http://shops.freewebhostmost.com/">shops.freewebhostmost.com</Link>
+    <Link className="text-reset fw-bold" to="http://market-shops.vercel.app/">market-shops.vercel.app</Link>
   </div>
 
 </footer>

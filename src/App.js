@@ -2,7 +2,6 @@ import logo from './logo.svg';
 import './App.css';
 import 'primeflex/primeflex.css';
 import Home from './component/Home'
-import About from './component/About'
 import Nav from './component/Nav'
 import Contact from './component/Contact'
 import Media from './component/Media'
@@ -15,6 +14,7 @@ import { Analytics } from "@vercel/analytics/react"
 import Footer from './component/Footer'
 import {Routes, Route, useLocation, useParams} from 'react-router-dom'
 import React, { useState, useEffect } from 'react';
+import Hashtag from './component/Hashtag';
 
 
 
@@ -34,7 +34,7 @@ function App() {
  
  <Routes>
   <Route path ='/' Component={Home}/>
-  <Route exact path ='/Hastags' Component={About}/>
+  <Route exact path ='/Hastags' Component={Hashtag}/>
   <Route exact path ='/contact' Component={Contact}/>
   <Route exact path ='/services' Component={Home}/>
   <Route exact path ='/media' Component={Media}/>

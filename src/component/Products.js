@@ -137,7 +137,7 @@ console.log(usercartarr)
         <div className="container text-left mt-74">
       <Alert position="bottom-center"> </Alert>
 
-<div style={{display:"flex", justifyContent:"space-between", alignItems:"center", padding:"0px 10px 0px 0px"}}>
+<div style={{display:"flex", justifyContent:"space-between", alignItems:"center"}} className="app_product_headline">
       <div
             style={{
               fontSize: "25px",

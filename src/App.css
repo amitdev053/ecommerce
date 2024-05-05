@@ -508,6 +508,37 @@ color:#5a3e3ebf;
 }
 .app_section_margin{
   margin: 20px 0px;
+
+}
+@media screen and (max-width: 780px){
+.app_section_margin{
+  width: 100%;
+  overflow-x: scroll;
+  padding: 20px 0px;
+}
+
+.app_section_margin::-webkit-scrollbar {
+  width: 5px; /* Set scrollbar width */
+}
+
+.app_section_margin::-webkit-scrollbar-thumb {
+  background: #ffffff69; /* Set scrollbar thumb color */
+  border-radius: 5px; /* Round the corners of the scrollbar thumb */
+} 
+
+.app_section_margin::-webkit-scrollbar-track {
+  background: #ffffff; /* Set scrollbar track color */
+}
+.hashtags_button{
+  min-width: 40%;
+  padding: 21px 20px;
+}
+}
+@media screen and (max-width: 480px){
+  .hashtags_button{
+    min-width: 60%;
+    padding: 21px 20px;
+  }
 }
 .brand_button:hover{
   background-color: #000000b8;
@@ -717,22 +748,42 @@ margin: 0px 0px 0px 10px !important;
 }
 .navbar-brand{
   display: flex;
-    justify-content: center;
+    /* justify-content: center; */
     align-items: center;
   width: 30%  !important;
     border-radius: 146%;
     padding: 10px 0px !important;
 }
+
 .navbar-brand img{
   width: 70% !important;
 }
+
 .show_message_toast{
   font-size: 14px;
   width: 80% !important;
 }
+.app_product_headline{
+  padding:0px 0px 10px 0px;
+}
+@media screen and (max-width : 480px){
+  .app_product_headline{
+    padding:0px 0px 0px 0px;
 
+  }
+}
+@media screen and (max-width : 992px){
+  .navbar_brand{
+    justify-content: left;
+
+  }
+}
 
 @media screen and (max-width : 992px){
+  .navbar_brand{
+    justify-content: left;
+
+  }
   .icon_area{
     margin-right: auto;
   }

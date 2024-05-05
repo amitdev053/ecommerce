@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 
-export default function About() {
+export default function Hashtag() {
  
   function lowercase(){
     console.log("Lower function running on click function")
@@ -67,7 +67,7 @@ let searchText = document.querySelector('#textformatarea').value
   <>
   
  <div className="container mt-74">
-  <h1 class="mt-3 text-center app_heading m-0">Enter Your Text to Format</h1>
+  <h1 class="mt-3 text-center app_heading mb-3">Enter Your Text to Format</h1>
 
 <div className="mb-3">
   <label forHTML="exampleFormControlTextarea1" className="form-label app_short_content">Enter text to format</label>
@@ -77,12 +77,12 @@ let searchText = document.querySelector('#textformatarea').value
   <span id="wordcharacter" className='app_short_content'> 0 word & 0 character</span>
 </div>
 <div className="button d-flex app_section_margin">
-<button className="btn btn-primary brand_color" onClick={uppercase}>Convert to uppercase</button>
-<button className="btn btn-primary lowercasebtn brand_color" onClick={lowercase}>Convert to Lowercase</button>
-<button className="btn btn-primary lowercasebtn brand_color" onClick={clearText}>Clear Text</button>
-<button className="btn btn-primary lowercasebtn brand_color" onClick={ReverseText}>Resverse Text </button>
+<button className="btn btn-primary brand_color hashtags_button" onClick={uppercase}>Convert to uppercase</button>
+<button className="btn btn-primary lowercasebtn brand_color hashtags_button" onClick={lowercase}>Convert to Lowercase</button>
+<button className="btn btn-primary lowercasebtn brand_color hashtags_button" onClick={clearText}>Clear Text</button>
+<button className="btn btn-primary lowercasebtn brand_color hashtags_button" onClick={ReverseText}>Resverse Text </button>
 
-<button className="btn btn-primary lowercasebtn brand_color" onClick={findHashtags}>Find Hashtag </button>
+<button className="btn btn-primary lowercasebtn brand_color hashtags_button" onClick={findHashtags}>Find Hashtag </button>
 
 </div>
 

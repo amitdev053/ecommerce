@@ -379,7 +379,7 @@ navbarContent.addEventListener("click", (event)=>{
                       );
                     })}                    
 
-                    <div className="col-12 position-relative">
+                    <div className="col-12 position-relative cart_seter">
                       <div className="cart_total cart_footer">
                         <div className="col-4 position-relative cart_set_fixed_width">
                           <div className="cart_button d-flex justify-space-between">

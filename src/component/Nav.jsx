@@ -182,12 +182,21 @@ function quantityIncrement(event, cartitem){
   
 
 }
-function OpenMobileNavbar(){
-  console.log("navbar button is clicked")
-let navbarContent = document.getElementById('navbarSupportedContent')
-console.log(navbarContent)
-navbarContent.classList.toggle('active_navbar')
 
+function OpenMobileNavbar(event){
+  
+  
+let navbarContent = document.getElementById('navbarSupportedContent')
+
+navbarContent.classList.toggle('active_navbar')
+navbarContent.addEventListener("click", (event)=>{
+
+  if(event.target.id === "media" || event.target.id === "hastags" || event.target.id === "home" || event.target.id === "cartarea" || event.target.id === "cartText" || event.target.id === "carticon" || event.target.id === "cartcount"){
+    console.log("condition inside closeNavbar")
+    document.getElementById('navbarSupportedContent').classList.remove('active_navbar')
+  }
+
+})
 
 
 
@@ -219,7 +228,7 @@ navbarContent.classList.toggle('active_navbar')
               aria-controls="navbarSupportedContent"
               aria-expanded="false"
               aria-label="Toggle navigation"
-              onClick={OpenMobileNavbar}>
+              onClick={(event)=> OpenMobileNavbar(event)}>
               <span className="navbar-toggler-icon"></span>
             </button>
 
@@ -289,10 +298,10 @@ navbarContent.classList.toggle('active_navbar')
                 onClick={(event) => {
                   openCart(event);
                 }}
-              >
-                <i className="fa-solid fa-cart-shopping mr-1"></i>
-                <span>Cart</span>
-                <sup>{totalCart}</sup>
+               id="cartarea">
+                <i className="fa-solid fa-cart-shopping mr-1" id="carticon"></i>
+                <span id="cartText">Cart</span>
+                <sup id="cartcount">{totalCart}</sup>
               </div>
             </div>
           </div>

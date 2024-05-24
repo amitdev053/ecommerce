@@ -32,6 +32,7 @@ export default function Products() {
 
   function getProducts(baseUrl, productsUrl) {
     const getProductsUrl = baseUrl + productsUrl;
+    console.log("Product url",getProductsUrl)
     fetch(getProductsUrl)
       .then((response) => {
         setloader(false);

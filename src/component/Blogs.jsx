@@ -16,7 +16,6 @@ const [blogView, setBlogView] = useState(true)
   const getBlogs= ()=>{
     let getBlogUrl = "https://dev.to/api/articles"
     axios.get(getBlogUrl).then((blog)=>{
-      setLoaderStyle()
       setloader(false)
         console.log("blog response", blog)
         setBlogs(blog.data)
@@ -24,14 +23,7 @@ const [blogView, setBlogView] = useState(true)
     })
 
   }
-  const setLoaderStyle = () => {
-    setTimeout(() => {
-      const loaderElement = document.querySelector('.loader');
-      if (loaderElement) {
-    loaderElement.classList.add('margin_top_setzero')
-      }
-    }, 0); // Short delay to ensure DOM is rendered
-  };
+
  
   useEffect(()=>{
     getBlogs()   

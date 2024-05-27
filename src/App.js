@@ -31,9 +31,6 @@ function App() {
     const loaderElement = document.querySelector('.loader');
     if (loaderElement) {
      loaderElement.classList.add('margin_top_setzero')
-    }else{
-     loaderElement.classList.remove('margin_top_setzero')
-
     }
   }
     // Send request to your server to increment page view count

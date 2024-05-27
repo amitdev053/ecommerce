@@ -102,7 +102,7 @@ body{
   display: flex;
     flex-direction: column;
     border: 1px solid #eee;
-    justify-content: center;
+    /* justify-content: center; */
     align-items: center;
     border-radius: 10px;
     margin: 5px 5px;
@@ -145,7 +145,7 @@ body{
     display: flex;
     flex-direction: column;
     border: 1px solid #eee;
-    justify-content: center;
+    /* justify-content: center; */
     align-items: center;
     border-radius: 10px;
     margin: 5px auto;
@@ -215,6 +215,9 @@ width:60%;
   left: 50%;
   transform: translate(-50%, -50%);
 
+}
+.margin_top_setzero{
+  margin-top: 0 !important;
 }
 
 /* Safari */

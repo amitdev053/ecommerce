@@ -272,6 +272,18 @@ navbarContent.addEventListener("click", (event)=>{
                   </Link>
                 </li>
 
+                <li className="nav-item">
+                  <Link
+                    className={`${
+                      url === "/blogs" ? "nav-link active" : "nav-link"
+                    }`}
+                    to="/blogs"
+                    id="appBlogs"
+                  >
+                    Blogs
+                  </Link>
+                </li>
+
                 {/* <li className="nav-item">
                   <Link className="nav-link " to="/contact" id="contact">
                     Contact

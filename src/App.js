@@ -5,6 +5,7 @@ import Home from './component/Home'
 import Nav from './component/Nav'
 import Contact from './component/Contact'
 import Media from './component/Media'
+import Blogs from './component/Blogs'
 import Download from './component/Download';
 import Viewgallery from './component/Viewgallery';
 import Login from './component/Login';
@@ -26,6 +27,15 @@ function App() {
    let locate = location.pathname
 
   console.log(locate)
+  if(locate === "/blogs"){
+    const loaderElement = document.querySelector('.loader');
+    if (loaderElement) {
+     loaderElement.classList.add('margin_top_setzero')
+    }else{
+     loaderElement.classList.remove('margin_top_setzero')
+
+    }
+  }
     // Send request to your server to increment page view count
   }, [location]);
   return (
@@ -38,6 +48,7 @@ function App() {
   <Route exact path ='/contact' Component={Contact}/>
   <Route exact path ='/services' Component={Home}/>
   <Route exact path ='/media' Component={Media}/>
+  <Route exact path ='/blogs' Component={Blogs} />
   <Route exact path ='/products' Component={Products}/>
   <Route exact path ='/productcoursel' Component={Coursel}/>
   <Route exact path ='/download' Component={Download}/>

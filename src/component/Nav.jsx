@@ -3,6 +3,7 @@ import { Link, useLocation } from "react-router-dom";
 import axios from "axios";
 import Loader from "./Loader";
 import DialogBox from "./DialogBox";
+import appLogoImage from '../appimages/images.png'
 import Toast from "./Toast"
 import { ToastContainer, toast } from "react-toastify";
 

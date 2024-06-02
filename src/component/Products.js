@@ -138,12 +138,12 @@ console.log(usercartarr)
         <div className="container text-left mt-74">
       <Alert position="bottom-center"> </Alert>
 
-<div style={{display:"flex", justifyContent:"space-between", alignItems:"center"}} className="app_product_headline">
+<div style={{display:"flex", justifyContent:"space-between", alignItems:"center",  marginBottom: "20px"}} className="app_product_headline">
       <div
             style={{
               fontSize: "25px",
-              fontWeight: "700",
-              marginBottom: "20px",
+              fontWeight: "700"
+             
             }}
           >
             Flash Products

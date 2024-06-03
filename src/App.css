@@ -611,9 +611,21 @@ color:#5a3e3ebf;
 .setslider{
   flex-wrap: nowrap !important;
   justify-content: center !important;
-  overflow: hidden !important;
+  overflow-x: auto !important;
   width: 100% !important;
   position: relative;
+}
+.setslider::-webkit-scrollbar {
+  width: 5px; /* Set scrollbar width */
+}
+
+.setslider::-webkit-scrollbar-thumb {
+  background: #ffffff69; /* Set scrollbar thumb color */
+  border-radius: 5px; /* Round the corners of the scrollbar thumb */
+} 
+
+.setslider::-webkit-scrollbar-track {
+  background: #ffffff; /* Set scrollbar track color */
 }
 .Slide_btn{
   top: 45%;

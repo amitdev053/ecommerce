@@ -216,7 +216,7 @@ console.log(usercartarr)
          
          }
         </div>
-<ProductSlider heading={SliderHeading} class="d-flex flex-column"/>
+{/* <ProductSlider heading={SliderHeading} class="d-flex flex-column"/> */}
       </>
     );
   }

@@ -563,7 +563,11 @@ color:#5a3e3ebf;
   border-bottom: 1px solid #eee;
   position: relative;
   top: 100px;
-
+}
+.mt-ps100{
+  
+  position: relative;
+  top: 100px;
 }
 .cart_action_button{
   display: flex;
@@ -901,3 +905,17 @@ margin: 0px 0px 0px 10px !important;
   font-weight: 700;
 }
 /* blog cols content styles end here */
+/* empyty cart container cols content styles starts here */
+.empty_cart_container{
+ 
+  display: flex;
+
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  gap: 20px;
+  width: 100%;
+  padding: 17px;
+}
+
+/* empyty cart container cols content styles end here */

@@ -4,6 +4,7 @@ import axios from "axios";
 import Loader from "./Loader";
 import DialogBox from "./DialogBox";
 import appLogoImage from '../appimages/images.png'
+import EmptyCartImage from '../appimages/empty_cart.webp'
 import Toast from "./Toast"
 import { ToastContainer, toast } from "react-toastify";
 
@@ -337,12 +338,20 @@ navbarContent.addEventListener("click", (event)=>{
                     }}
                   ></i>
                 </div>
-                <div className="col-12 dividecartitem">
+                <div className={(userCart.length === 0 ) ? "col-12 mt-ps100" : "col-12 dividecartitem"}>
                   <div className="row p-0 align-items-center">
                   {userCart.length <= 0 ? 
                 (
                   <>
-                 <div> Add products to your cart</div>
+                 <div className="empty_cart_container">
+                  <span style={{color: "black", fontWeight: 700}}>  Add products to your cart</span>
+                  <img src={EmptyCartImage} alt="empty_cart" width="100%"/>
+                  <span className="productdiscripation gallerytitle ">Ready to Shop? Your Cart is Empty</span>
+                  <span className="brand_button" style={{color: "white", width: "fit-content", padding: "10px 40px 14px 40px", cursor: "pointer"}} onClick={() => {
+                      closeCart();
+                    }}>Shop Now</span>
+
+                 </div>
                  </>
                  )
                  

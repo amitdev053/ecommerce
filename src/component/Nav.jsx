@@ -350,7 +350,7 @@ navbarContent.addEventListener("click", (event)=>{
                   <Link to={(locations.pathname === "/" ? "/" : "/products")} style={{textDecoration:"none"}}>
                   <span className="brand_button" style={{color: "white", width: "fit-content", padding: "10px 40px 14px 40px", cursor: "pointer"}} onClick={() => {
                       closeCart();
-                    }}>Shop Now</span>
+                    }}>Explore Now</span>
                   </Link>
 
                  </div>

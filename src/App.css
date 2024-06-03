@@ -841,6 +841,8 @@ margin: 0px 0px 0px 10px !important;
   .cart_footer{
     
     width: calc(100% - 0%);
+    position: fixed !important;
+    bottom: 0;
     
   }
 

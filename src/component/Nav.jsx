@@ -344,7 +344,7 @@ navbarContent.addEventListener("click", (event)=>{
                 (
                   <>
                  <div className="empty_cart_container">
-                  <span style={{color: "black", fontWeight: 700}}>  Add products to your cart</span>
+                  <span style={{color: "black", fontWeight: 700, fontSize: "25px"}}>Your cart is empty</span>
                   <img src={EmptyCartImage} alt="empty_cart" width="100%"/>
                   <span className="productdiscripation gallerytitle ">Ready to Shop? Your Cart is Empty</span>
                   <span className="brand_button" style={{color: "white", width: "fit-content", padding: "10px 40px 14px 40px", cursor: "pointer"}} onClick={() => {

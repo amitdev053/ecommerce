@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 
 export default function Hashtag() {
  
@@ -8,6 +8,9 @@ export default function Hashtag() {
   let lowercase= textformatarea.toLowerCase()
   document.getElementById('textformatarea').value = lowercase
   }
+  useEffect(()=>{
+    document.title = "Make Amazing Text By Market-Shops"
+  }, [])
 
 // Upper Case function defeindex Start Here
   function uppercase(){

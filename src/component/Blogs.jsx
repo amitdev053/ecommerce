@@ -22,6 +22,7 @@ const Blogs = () => {
   };
 
   useEffect(() => {
+    document.title = "Market-Shops Tech Blogs"
     getBlogs();
   }, []);
 

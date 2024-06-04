@@ -46,6 +46,7 @@ export default function Products() {
       });
   }    
   useEffect(() => {
+    document.title = "Market-Shops Best Product Market"
     getProducts(baseUrl, productsUrl);
   }, []);
 

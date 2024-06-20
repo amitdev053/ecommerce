@@ -975,7 +975,7 @@ justify-content: space-between !important;
     width: 50% !important;
   }
 }
-@media screen and (max-width : 350px){
+@media screen and (max-width : 480px){
   #ProductContainer .gallerycol{
 width: 100% !important;
   }

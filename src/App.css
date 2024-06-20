@@ -934,9 +934,14 @@ margin: 0px 0px 0px 10px !important;
 
 /* empyty cart container cols content styles end here */
 /* Targeting the img and a tags within the container with class 'gallerytitle' */
+.blog_detail_top_image{
+  border-radius: 5px;
+}
 .gallerytitle.productname.productdiscripation.blog_detail_content_img img {
   max-width: 100%;
   height: auto;
+width: 100%;
+border-radius: 5px;
   border: 1px solid #ccc; /* example style */
 }
 
@@ -957,9 +962,7 @@ margin: 0px 0px 0px 10px !important;
 .gallerytitle.productname.productdiscripation.blog_detail_content_img a:hover {
   text-decoration: underline;
 }
-.blog_detail_top_image{
-  border-radius: 5px;
-}
+
 @media screen and (max-width : 780px){
   .list_view_action_button button{
 width: 50%;

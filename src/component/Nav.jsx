@@ -10,7 +10,7 @@ import { ToastContainer, toast } from "react-toastify";
 
 
 
-export default function Navbar() {
+export default function Navbar({trackCart}) {
   const [userName, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [loader, setloader] = useState(false);
@@ -19,6 +19,7 @@ export default function Navbar() {
   const [cartitems, setcartitems] = useState()
   const [cartitemsindex, setcartitemsindex] = useState()
   const [cartQuantity, setCartQuantity] = useState(1)
+
   const [url, seturl] = useState("");
   const locations = useLocation();
 
@@ -101,12 +102,13 @@ const getUserCart = () => {
   let cartitem = JSON.parse(localStorage.getItem("usercart") || "[]");
   setUserCart(cartitem);
   setTotalCart(cartitem.length);
+
   return cartitem;
 };
 useEffect(() => {  
    getUserCart();    
   
-}, [userCart]); 
+}, [userCart]); //userCart
 
   function clearCart() {
     document.getElementById("confirmDialogBox").classList.add("dialog_container_fluid_show")

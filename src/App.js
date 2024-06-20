@@ -8,6 +8,7 @@ import Media from './component/Media'
 import Blogs from './component/Blogs'
 import Download from './component/Download';
 import Viewgallery from './component/Viewgallery';
+import BlogDetail from './component/BlogDetail';
 import Login from './component/Login';
 import Products from './component/Products';
 import Coursel from './component/Counsel'
@@ -37,7 +38,7 @@ function App() {
   }, [location]);
   return (
     <>
-  <Nav />
+  <Nav trackCart={false} />
  
  <Routes>
   <Route path ='/' Component={Home}/>
@@ -50,7 +51,7 @@ function App() {
   <Route exact path ='/productcoursel' Component={Coursel}/>
   <Route exact path ='/download' Component={Download}/>
   <Route exact path ='/Login' Component={Login}/>
-  <Route exact path ='/viewgallery/:contentid' Component={Viewgallery}/>
+  <Route exact path ='/blog-detail/:blogId/:blogTitle' Component={BlogDetail}/>
  </Routes>
 
  <Footer />

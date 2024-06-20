@@ -19,6 +19,8 @@ export default function Products() {
   const productsUrl = "/products";
   const cartUrl = "/carts";
   const [loader, setloader] = useState(true);
+  const [refreshCart, setRefreshCart] = useState(1)
+  const [addTrackCart, setAddTrackCart] = useState(false)
   const [allproduct, setAllProduct] = useState([]);
   const location = useLocation();
 
@@ -80,11 +82,11 @@ console.log(usercartarr)
 
     setCartLength((prevLength) => prevLength + 1);
     localStorage.setItem("usercart", JSON.stringify(modifiedProducts));
-
+    setAddTrackCart(true)
 
 
 }else{
-
+  setAddTrackCart(true)
   console.log("addtocart", usercart)
 
   let pusharr = usercartarr.push(usercart);
@@ -136,6 +138,7 @@ console.log(usercartarr)
     return (
       <>
       <span id="cartLength">{cartLength}</span>
+      
         <div className="container text-left mt-74">
       <Alert position="bottom-center"> </Alert>
 
@@ -193,13 +196,25 @@ console.log(usercartarr)
                             product.image,
                             product.id,
                             baseUrl,
-                            cartUrl
+                            cartUrl, 
+                            addTrackCart
                           );
                         }}
                       >
-                        Cart
+                       Cart <i className="fa-solid fa-cart-plus icon_margin"></i>
+                      {/* {(addTrackCart) ? `Already in cart` :  `Cart
 
-                        <i class="fa-solid fa-cart-plus icon_margin"></i>
+<i class="fa-solid fa-cart-plus icon_margin"></i>`} */}
+{/* {addTrackCart ? (
+          <>
+          Checkout <i class="fa-solid fa-arrow-right-from-bracket"></i>
+        </>
+      ) : (
+        <>
+          Cart <i className="fa-solid fa-cart-plus icon_margin"></i>
+        </>
+      )} */}
+                       
                       </button>
                       <button className="btn btn-sm btn-primary p_s_btn brand_button ">
                         Save<i className="fa-solid fa-arrow-up-right-from-square icon_margin"></i>

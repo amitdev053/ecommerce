@@ -16,7 +16,7 @@ const Blogs = () => {
     let getBlogUrl = "https://dev.to/api/articles";
     axios.get(getBlogUrl).then((blog) => {
       setloader(false);
-      console.log("blog response", blog);
+      console.log("blog response", blog.data);
       setBlogs(blog.data);
     });
   };
@@ -54,6 +54,17 @@ const Blogs = () => {
       document.getElementById("blogFilterBtn").style.color = "black";
     }
   }
+  
+  const convertTextIntoUrl = (text) => {
+    return text
+        .toString()
+        .toLowerCase()
+        .replace(/\s+/g, '-')           // Replace spaces with -
+        .replace(/[^\w\-]+/g, '')       // Remove all non-word chars
+        .replace(/\-\-+/g, '-')         // Replace multiple - with single -
+        .replace(/^-+/, '')             // Trim - from start of text
+        .replace(/-+$/, '');            // Trim - from end of text
+}
 
   // if (loader === true) {
   //   return (
@@ -103,8 +114,8 @@ const Blogs = () => {
            console.log("enter in blogs map function", blog);
             return (
               <>
-                <div className="col-md-4 col-sm-12 col-lg-3 blog_content_border app_blogs" key={blog.id}>
-                <Link to={blog.canonical_url} target="_blank">
+                <div className="col-md-4 col-sm-12 col-lg-3 blog_content_border app_blogs" key={blog.id + i}>
+                <Link to={"/blog-detail/"+ blog.id  + "/"  + convertTextIntoUrl(blog.title)}>
                 <div className="app_blog_cover_container ">
                 <div className="galleryimg position-relative">
                     <img

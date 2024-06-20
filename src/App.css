@@ -960,3 +960,23 @@ margin: 0px 0px 0px 10px !important;
 .blog_detail_top_image{
   border-radius: 5px;
 }
+@media screen and (max-width : 780px){
+  .list_view_action_button button{
+width: 50%;
+  }
+  .list_view_action_button button{
+width: 100% !important;
+justify-content: space-between !important;
+  }
+  .list_view_product_image {
+    width: 50% !important;
+  }
+  .list_view_detail_content{
+    width: 50% !important;
+  }
+}
+@media screen and (max-width : 350px){
+  #ProductContainer .gallerycol{
+width: 100% !important;
+  }
+}

@@ -24,7 +24,15 @@ const BlogDetail = () => {
     });
   }
   useEffect(()=>{
+      // let fullTitle = blogId.blogTitle.substring(1
+    
     getBlogDetails()
+setTimeout(()=>{
+      
+      let fullTitle = blogDetail[0].title.substring(1)  
+          document.title = blogId.blogTitle.split("")[0].toUpperCase() + fullTitle
+      }, 2000)
+      
   }, [])
 
   if (loader === true) {
@@ -37,7 +45,7 @@ const BlogDetail = () => {
   return (
     <>
       <div className="app_detail_blog_container container mt-ps90 ">
-      <div class="row p-0 w-100 d-flex align-items-center">
+      <div class="row p-0 w-100 d-flex align-items-center overflow-hidden">
     
 
           {/* blog user action  starts Here*/}

@@ -146,7 +146,7 @@ console.log("we are now going to the next prouct")
               );
             })}
             {/* Columns End Upon the div Here */}
-            <div className="Slide_btn position-absolute">
+            {/* <div className="Slide_btn position-absolute">
               <i
                 class="fa-solid fa-angle-left prev_btn"
                 id="prevBtn"
@@ -157,7 +157,7 @@ console.log("we are now going to the next prouct")
                 id="nextbtn"
                 onClick={nextProduct}
               ></i>
-            </div>
+            </div> */}
           </div>
         </div>
       </>

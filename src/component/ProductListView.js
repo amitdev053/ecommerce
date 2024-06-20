@@ -128,14 +128,14 @@ console.log("Attempting to share content:",file, [file], URL.createObjectURL(fil
       
   <div className="row flex-column" id="ProductListView">
             {/* Columns Started Here */}
-            {allproduct.map((product) => {
+            {allproduct.map((product, i) => {
               const formatter = new Intl.NumberFormat("en-US", {
                 style: "currency",
                 currency: "USD",
               });
 
               return (
-                <div className="col-12  gallerycol list_view_cols mobile_list_view" key={product.id}>
+                <div className="col-12  gallerycol list_view_cols mobile_list_view " key={product.id+ i}>
                   <div className="galleryimg position-relative list_view_product_image">
                     <img src={product.image} id="productimg" alt="" />
                     <span id="productprice" className="productprice">

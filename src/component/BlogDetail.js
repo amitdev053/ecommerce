@@ -32,7 +32,7 @@ setTimeout(()=>{
       let fullTitle = blogDetail[0].title.substring(1)  
           document.title = blogId.blogTitle.split("")[0].toUpperCase() + fullTitle
       }, 2000)
-      
+
   }, [])
 
   if (loader === true) {
@@ -131,11 +131,11 @@ setTimeout(()=>{
           </div>
           {/* blog user action  end Here*/}
           {/* blog details appear starts Here*/}
-          <div className="col-10 blog_user_action">
+          <div className="col-10 blog_user_action w-100 blog_detail_full_content">
           <h2  style={{
             fontSize: "25px",
             fontWeight: "700",
-            margin:"0px 0px 40px 0px",
+            
             lineHeight: "30px"
            
           }}> {blogDetail[0].title}</h2>
@@ -144,7 +144,7 @@ setTimeout(()=>{
                         blogDetail[0].cover_image && blogDetail[0].cover_image.length > 0
                           ? blogDetail[0].cover_image
                           : defaultBlogImage
-                      } className="img-fluid blog_detail_top_image" height="500px"alt="" />
+                      } className="img-fluid blog_detail_top_image w-100" height="500px"alt="" />
             </div>
             
             <span className="gallerytitle productname productdiscripation blog_detail_content_img" dangerouslySetInnerHTML={{ __html: blogDetail[0].body_markdown }}  />

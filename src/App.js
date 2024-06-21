@@ -41,6 +41,7 @@ function App() {
   <Nav trackCart={false} />
  
  <Routes>
+ 
   <Route path ='/' Component={Home}/>
   <Route exact path ='/Hastags' Component={Hashtag}/>
   <Route exact path ='/contact' Component={Contact}/>

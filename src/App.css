@@ -520,13 +520,19 @@ color:#5a3e3ebf;
 }
 .hashtags_button{
   min-width: 40%;
-  padding: 21px 20px;
+  padding: 9px 20px;
 }
 }
 @media screen and (max-width: 480px){
   .hashtags_button{
     min-width: 60%;
-    padding: 21px 20px;
+    padding: 9px 20px;
+  }
+}
+@media screen and (max-width: 999px){
+  .hashtags_button{
+    font-size: 12px;
+    padding: 6px 17px;
   }
 }
 .brand_button:hover{

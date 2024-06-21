@@ -470,9 +470,11 @@ width: calc(100% - 76.2%);
   background: black;
   border: none;
   font-family: "Roboto";  
+  padding: 6px 20px;
   font-size: 14px;
   letter-spacing: 0.3px;
   transition: all 0.2s ease-in-out;
+  border-radius: 20px;
 }
 .app_short_content{  
 font-size: 14px !important;

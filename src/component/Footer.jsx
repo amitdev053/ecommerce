@@ -32,7 +32,7 @@ export default function footer() {
 
   return (
   <>
- <div className="container-fluid firstfooter">
+ <div className="container-fluid firstfooter footer_main_container">
 
 <footer className="text-center text-lg-start bg-light text-muted">
 
@@ -73,11 +73,10 @@ export default function footer() {
         <div className="col-md-3 col-lg-4 col-xl-3 mx-auto mb-4">
     
           <h6 className="text-uppercase fw-bold mb-4">
-            <i className="fas fa-gem me-3"></i>Company name
+          <i class="fa-solid fa-shop mx-2"></i>Market Shops
           </h6>
           <p>
-            Here you can use rows and columns to organize your footer content. Lorem ipsum
-            dolor sit amet, consectetur adipisicing elit.
+          Explore market-shop.vercel.app for a diverse selection of products. Stay updated with our engaging blog content.
           </p>
         </div>
     
@@ -108,23 +107,24 @@ export default function footer() {
             Useful links
           </h6>
           <p>
-            <a href="#!" className="text-reset">Pricing</a>
+            <a href="#!" className="text-reset">Store</a>
           </p>
+       
           <p>
-            <a href="#!" className="text-reset">Settings</a>
-          </p>
-          <p>
-            <a href="#!" className="text-reset">Orders</a>
+            <a href="#!" className="text-reset">Blogs</a>
           </p>
           <p>
             <a href="#!" className="text-reset">Help</a>
+          </p>
+          <p>
+            <a href="#!" className="text-reset">Hashtag</a>
           </p>
         </div>
 
         <div className="col-md-4 col-lg-3 col-xl-3 mx-auto mb-md-0 mb-4">
 
           <h6 className="text-uppercase fw-bold mb-4">Contact</h6>
-          <p><i className="fas fa-home me-3"></i> New York, NY 10012, US</p>
+        <p><i class="fa-solid fa-globe me-3"></i>Visit Market Shops</p>
           <p>
             <i className="fas fa-envelope me-3"></i>
             info@example.com
@@ -142,7 +142,7 @@ export default function footer() {
 
   <div className="text-center p-4 footerend" >
     © 2021 Copyright: 
-    <Link className="text-reset fw-bold" to="http://market-shops.vercel.app/">market-shops.vercel.app</Link>
+     <Link className="text-reset fw-bold" to="http://market-shops.vercel.app/"> market-shops.vercel.app</Link>
   </div>
 
 </footer>

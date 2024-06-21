@@ -944,10 +944,28 @@ width: 100%;
 border-radius: 5px;
   border: 1px solid #ccc; /* example style */
 }
+.gallerytitle.productname.productdiscripation.blog_detail_content_img video {
+ width: 100% !important;
+}
 
 .gallerytitle.productname.productdiscripation.blog_detail_content_img a {
   color: #007bff; /* example style */
   text-decoration: none;
+}
+ .gallerytitle.productname.productdiscripation.blog_detail_content_img{
+  font-size: 12px !important;
+  /* color: #5a3e3ebf !important; */
+  line-height: 22px !important;
+}
+.footer_main_container{
+  font-size: 14px !important;
+  color: #5a3e3ebf !important;
+
+  line-height: 22px !important;
+}
+.footer_main_container a{
+  text-decoration: none !important;
+
 }
 .gallerytitle.productname.productdiscripation.blog_detail_content_img h2 {
   color: black;

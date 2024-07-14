@@ -124,7 +124,7 @@ console.log("Attempting to share content:",file, [file], URL.createObjectURL(fil
   } else {
     return (
       <>
-        <div className="container text-left mt-1" >
+        <div className="container text-left mt-1" style={{overflowX: "hidden"}} >
       
   <div className="row flex-column" id="ProductListView">
             {/* Columns Started Here */}

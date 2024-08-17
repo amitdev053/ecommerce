@@ -23,7 +23,7 @@ const BlogDetail = () => {
       console.log("blog Details response", bDetails.data, blogDetail);
     });
 
-    axios.get("https://market-shops.vercel.app/api/getuser").then((userData) => {  
+    axios.get("https://market-shops.vercel.app/backend/getuser").then((userData) => {  
       console.log("my apies user data", userData);
     });
   }

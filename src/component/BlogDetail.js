@@ -4,11 +4,13 @@ import Loader from "./Loader";
 import defaultBlogImage from "../defaultBlog.jpg";
 import axios from "axios";
 import { json, useParams } from 'react-router-dom';
+import client from '../client'
 const BlogDetail = () => {
   console.log("blog Details Page");
 
   const [loader, setloader] = useState(true);
   const [blogDetail, setBlogDetail] = useState([]);
+  const baseUrl = client
   const blogId = useParams();
 
 
@@ -23,7 +25,7 @@ const BlogDetail = () => {
       console.log("blog Details response", bDetails.data, blogDetail);
     });
 
-    axios.get("https://market-shops.vercel.app/backend/getuser").then((userData) => {  
+    axios.get(`http://localhost:8000/getuser`).then((userData) => {  
       console.log("my apies user data", userData);
     });
   }

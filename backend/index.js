@@ -56,7 +56,7 @@ app.get('/', (req, res) => {
 });
 
 app.get('/getuser', async (req, res) => {
-  res.set('Cache-Control', 'no-store'); // Or 'no-cache'
+  // res.set('Cache-Control', 'no-store'); // Or 'no-cache'
     try {
         const db = getDb(); // Get the database instance
         const collection = db.collection('ragister_user'); 

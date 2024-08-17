@@ -138,6 +138,13 @@ setTimeout(()=>{
           {/* blog user action  end Here*/}
           {/* blog details appear starts Here*/}
           <div className="col-10 blog_user_action w-100 blog_detail_full_content">
+          <div className="blog_content_top_img w-100">
+              <img src={
+                        blogDetail[0].cover_image && blogDetail[0].cover_image.length > 0
+                          ? blogDetail[0].cover_image
+                          : defaultBlogImage
+                      } className="img-fluid blog_detail_top_image w-100" height="500px"alt="" />
+            </div>
           <h2  style={{
             fontSize: "25px",
             fontWeight: "700",
@@ -145,13 +152,7 @@ setTimeout(()=>{
             lineHeight: "30px"
            
           }}> {blogDetail[0].title}</h2>
-            <div className="blog_content_top_img w-100">
-              <img src={
-                        blogDetail[0].cover_image && blogDetail[0].cover_image.length > 0
-                          ? blogDetail[0].cover_image
-                          : defaultBlogImage
-                      } className="img-fluid blog_detail_top_image w-100" height="500px"alt="" />
-            </div>
+          
             
             <span className="gallerytitle productname productdiscripation blog_detail_content_img" dangerouslySetInnerHTML={{ __html: blogDetail[0].body_markdown }}  />
             <span className="gallerytitle productname productdiscripation blog_detail_content_img" dangerouslySetInnerHTML={{ __html: blogDetail[0].body_html}}  />

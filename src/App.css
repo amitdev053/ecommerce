@@ -959,6 +959,7 @@ border-radius: 5px;
 .gallerytitle.productname.productdiscripation.blog_detail_content_img a {
   color: #007bff; /* example style */
   text-decoration: none;
+  font-size: 1rem;
 }
  .gallerytitle.productname.productdiscripation.blog_detail_content_img{
   font-size: 12px !important;
@@ -975,18 +976,19 @@ border-radius: 5px;
   text-decoration: none !important;
 
 }
-.gallerytitle.productname.productdiscripation.blog_detail_content_img h2 {
+.gallerytitle.productname.productdiscripation.blog_detail_content_img h2 , h3{
   color: black;
   font-weight: 700;
   line-height: 20px;
   margin: 20px 0px;
   line-height: 30px;
-    text-transform: capitalize;
+  text-transform: capitalize;
+  font-size: 1.3rem;
 }
 
 
 .gallerytitle.productname.productdiscripation.blog_detail_content_img a:hover {
-  text-decoration: underline;
+  text-decoration: none;
 }
 
 @media screen and (max-width : 780px){

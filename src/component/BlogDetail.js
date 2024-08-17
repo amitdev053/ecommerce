@@ -4,13 +4,13 @@ import Loader from "./Loader";
 import defaultBlogImage from "../defaultBlog.jpg";
 import axios from "axios";
 import { json, useParams } from 'react-router-dom';
-import client from '../client'
+
 const BlogDetail = () => {
   console.log("blog Details Page");
 
   const [loader, setloader] = useState(true);
   const [blogDetail, setBlogDetail] = useState([]);
-  const baseUrl = client
+ 
   const blogId = useParams();
 
 

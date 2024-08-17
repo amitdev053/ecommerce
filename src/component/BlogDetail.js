@@ -27,7 +27,7 @@ const BlogDetail = () => {
 
     axios.get(`http://localhost:8000/getuser`).then((userData) => {  
       console.log("my apies user data", userData);
-    });
+    }).catch((err)=> console.log("api api not resloved", err));
   }
   useEffect(()=>{
       // let fullTitle = blogId.blogTitle.substring(1

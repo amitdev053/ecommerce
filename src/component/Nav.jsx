@@ -368,6 +368,7 @@ navbarContent.addEventListener("click", (event)=>{
                               justifyContent: "space-between",
                               alignItems: "center",
                             }}
+                            key={cartitem.id}
                           >
                             <div className="col-4 d-flex align-items-center">
                               <img

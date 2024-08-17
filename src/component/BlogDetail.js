@@ -51,7 +51,7 @@ setTimeout(()=>{
   return (
     <>
       <div className="app_detail_blog_container container mt-ps90 ">
-      <div class="row p-0 w-100 d-flex align-items-center overflow-hidden">
+      <div className="row p-0 w-100 d-flex align-items-center overflow-hidden">
     
 
           {/* blog user action  starts Here*/}
@@ -65,7 +65,7 @@ setTimeout(()=>{
                   fill="none"
                   role="img"
                   aria-hidden="true"
-                  class="crayons-icon"
+                  className="crayons-icon"
                 >
                   <g clip-path="url(#clip0_988_3276)">
                     <path
@@ -89,7 +89,7 @@ setTimeout(()=>{
                   fill="none"
                   role="img"
                   aria-hidden="true"
-                  class="crayons-icon"
+                  className="crayons-icon"
                 >
                   <g clip-path="url(#clip0_988_3276)">
                     <path
@@ -113,7 +113,7 @@ setTimeout(()=>{
                   fill="none"
                   role="img"
                   aria-hidden="true"
-                  class="crayons-icon"
+                  className="crayons-icon"
                 >
                   <g clip-path="url(#clip0_988_3276)">
                     <path

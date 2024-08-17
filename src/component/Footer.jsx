@@ -90,7 +90,7 @@ export default function footer() {
             
             allproduct.splice(allproduct.length - 4, allproduct.length).map((product)=>{
               return(
-                <p>
+                <p key={product.id}>
             <span className="text-reset">{product.title.slice(0, 10)}...</span>
           </p>
 

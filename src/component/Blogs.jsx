@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef  } from "react";
 import React from "react";
 import Loader from "./Loader";
 import Alert from "./Alert";
@@ -6,12 +6,13 @@ import { Link, useLocation } from "react-router-dom";
 import "react-toastify/dist/ReactToastify.css";
 import axios from "axios";
 import defaultBlogImage from "../defaultBlog.jpg";
+import SearchBlogs from "./SearchBlogs";
 
 const Blogs = () => {
   const [loader, setloader] = useState(true);
   const [blogs, setBlogs] = useState([]);
   const [blogView, setBlogView] = useState(true);
-
+ 
   const getBlogs = () => {
     let getBlogUrl = "https://dev.to/api/articles";
     axios.get(getBlogUrl).then((blog) => {
@@ -77,13 +78,14 @@ const Blogs = () => {
     // <>
     <div className="container text-left mt-ps90">
       <Alert position="bottom-center"> </Alert>
-
+<SearchBlogs setBlogs={setBlogs} setloader={setloader} />
       <div
         style={{
           display: "flex",
           justifyContent: "space-between",
           alignItems: "center",
           marginBottom: "20px",
+          marginTop: "20px"
         }}
         className="app_product_headline"
       >
@@ -103,13 +105,38 @@ const Blogs = () => {
         ></i>
       </div>
 
-      <div className="row app_blog_main_container" id="app-blog-Container">
+      <div className="row app_blog_main_container " id="app-blog-Container">
         {/* Blog Columns Start Here */}
 
         {loader === true ? (
           <Loader />
         ) : (
-          blogs.length > 1 &&
+          blogs.length <= 0 ? 
+          (
+            <>
+            <div className="col-md-4 col-sm-12 col-lg-3 blog_content_border app_blogs">
+                {/* <Link to={"/blog-detail/"+ blog.id  + "/"  + convertTextIntoUrl(blog.title)}> */}
+                <div className="app_blog_cover_container ">
+                <div className="galleryimg position-relative">
+                    <img
+                      src="https://e7.pngegg.com/pngimages/65/205/png-clipart-google-s-computer-icons-reverse-search-search-miscellaneous-text-thumbnail.png"
+                      id="productimg"
+                      alt=""
+                    />
+                    {/* <span id="productprice" className="productprice">
+                      {blog.readable_publish_date}, {blog.published_at.split("-")[0]}
+                    </span> */}
+                
+                  </div>
+                  <span className="gallerytitle productname productdiscripation">
+                    Blog not available yet stay tuned please try after some time...
+                    </span>
+                </div>
+        
+                
+                </div>
+              </> 
+          ) :
           blogs.map((blog, i) => {
            console.log("enter in blogs map function", blog);
             return (

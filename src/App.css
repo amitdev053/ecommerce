@@ -1029,3 +1029,79 @@ justify-content: space-between !important;
   justify-content:center;
   align-items:center;
 }
+/* blog search bar in blog Page */
+.blog_search_bar_container{
+  display: none;
+}
+.blog_search_suggected_content{
+  display: none;
+}
+@media screen and (max-width: 680px){
+  .blog_search_bar_container{
+  width: 100%;
+  display: block;
+  padding: 10px 10px;
+  background: #f8f9fa;
+  /* margin-bottom: 20px; */
+  border-radius: 5px;
+  }
+  .blog_search_start .search_icon{
+    font-size: 13px;
+  }
+  .search_text_container{
+    font-size: 15px;
+  font-family: 'Roboto';
+  font-weight: 500;
+  color: #5a3e3ebf;
+  }
+  .app_search_goicon{
+    color: #edf2fa;
+  }
+  .blog_search_suggected_content{
+    display: flex;
+    gap: 4px;
+    padding: 15px 10px !important;
+    background: #f8f9fa;
+    flex-wrap: wrap;
+    overflow: hidden;
+    overflow-x: scroll;
+    transform: translate(0px, -350%);
+    position:fixed;
+    /* opacity: 0; */
+   
+
+  }
+  .show_search{
+    display: flex;
+    gap: 4px;
+    padding: 15px 10px !important;
+    background: #f8f9fa;
+    flex-wrap: wrap;
+    overflow: hidden;
+    overflow-x: scroll;
+    transform: translate(0%, 0%);
+    opacity: 100;
+  }
+  .show_search::-webkit-scrollbar {
+    width: 5px; /* Set scrollbar width */
+  }
+  
+  .show_search::-webkit-scrollbar-thumb {
+    background: #ffffff69; /* Set scrollbar thumb color */
+    border-radius: 5px; /* Round the corners of the scrollbar thumb */
+  } 
+  
+  .show_search::-webkit-scrollbar-track {
+    background: #ffffff; /* Set scrollbar track color */
+  }
+  .suggested_content_text{
+ background-color: #ffffff;
+ padding: 10px;
+ border-radius: 20px;
+ font-size: 12px !important;
+ color: #5a3e3ebf;
+ font-weight: 600;
+  }
+}
+
+/* blog search bar in blog Page */

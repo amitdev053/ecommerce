@@ -12,7 +12,7 @@ const SearchBlogs = (props) => {
     const handleSearch = ()=>{
  
         searchRef.current.innerText = ""
-         document.getElementById("root").addEventListener('click', (e)=>{
+         document.body.addEventListener('click', (e)=>{
            console.log("handle search", e.target.className)
            if(e.target.id === "searchBar" || e.target ===  searchRef.current || e.target ===  showSuggestedSearch.current){
              searchRef.current.innerText = ""

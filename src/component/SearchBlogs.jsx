@@ -192,7 +192,8 @@ const SearchBlogs = (props) => {
       // setBlogDetail(bDetails.data);
       setSearchBlogs(searchDetails.data)
       props.setBlogs(searchDetails.data)
-    
+      showSuggestedSearch.current.classList.remove('show_search')
+      showSuggestedSearch.current.classList.add('blog_search_suggected_content')
       console.log("search Details response", searchDetails.data, searchDetails, getBlogUrl);
     });
         }

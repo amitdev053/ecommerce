@@ -1036,6 +1036,9 @@ justify-content: space-between !important;
 .blog_search_suggected_content{
   display: none;
 }
+.show_search{
+  display: none;
+}
 @media screen and (max-width: 680px){
   .blog_search_bar_container{
   width: 100%;

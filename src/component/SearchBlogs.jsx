@@ -5,6 +5,7 @@ const SearchBlogs = (props) => {
     const searchRef = useRef(null);
     const setSearch = useRef(null);
     const showSuggestedSearch = useRef(null);
+    const searchField = useRef(null);
     const [blogsCat, setBlogsCat] = useState([])
     const [firstCat, setfirstCat] = useState([])
     const [secoundCat, setSecoundCat] = useState([])
@@ -15,20 +16,21 @@ const SearchBlogs = (props) => {
          document.body.addEventListener('click', (e)=>{
            console.log("handle search", e.target.className)
            if(e.target.id === "searchBar" || e.target ===  searchRef.current || e.target ===  showSuggestedSearch.current){
-             searchRef.current.innerText = ""
-             // setSearch = true
+             searchRef.current.innerText = ""          
              showSuggestedSearch.current.classList.add('show_search')
+             searchField.current.classList.add('active_search')
              showSuggestedSearch.current.classList.remove('blog_search_suggected_content')
-               setSearch.current.style.color = "black"
+             setSearch.current.style.color = "black"
           
            }else if(e.target.className === "suggested_content_text"){
 
            }else{
             showSuggestedSearch.current.classList.remove('show_search')
+            searchField.current.classList.remove('active_search')
             showSuggestedSearch.current.classList.add('blog_search_suggected_content')
-             searchRef.current.innerText = "Search blog by category"
-       
-               setSearch.current.style.color = "#edf2fa"
+            searchRef.current.innerText = "Search blog by category"       
+            setSearch.current.style.color = "#edf2fa"
+
            }
          })
        }
@@ -187,20 +189,27 @@ const SearchBlogs = (props) => {
               searchRef.current.innerText = content
             //   https://dev.to/api/articles?tag=javascript&top=1
             let getBlogUrl = `https://dev.to/api/articles?tag=${content}`;
-    axios.get(getBlogUrl).then((searchDetails) => {
-      props.setloader(false);
-      // setBlogDetail(bDetails.data);
-      setSearchBlogs(searchDetails.data)
-      props.setBlogs(searchDetails.data)
-      showSuggestedSearch.current.classList.remove('show_search')
-      showSuggestedSearch.current.classList.add('blog_search_suggected_content')
-      console.log("search Details response", searchDetails.data, searchDetails, getBlogUrl);
-    });
+            console.log("getBlogUrl", getBlogUrl)
+            axios.get(getBlogUrl).then((searchDetails) => {
+            props.setloader(false);
+            // setBlogDetail(bDetails.data);
+            setSearchBlogs(searchDetails.data)
+            props.setBlogs(searchDetails.data)
+            showSuggestedSearch.current.classList.remove('show_search')
+            showSuggestedSearch.current.classList.add('blog_search_suggected_content')
+            console.log("search Details response", searchDetails.data, searchDetails, getBlogUrl);
+            });
+        }
+        const handleSearchRequest = ()=>{
+           let searchKey = searchRef.current.innerText
+            let getUrlKey = encodeURIComponent(searchKey)
+           searchRef.current.innerText = searchKey
+           postSearchRequest(getUrlKey)
         }
 
   return (
     <>
-    <div className="blog_search_bar_container p-2">
+    <div className="blog_search_bar_container"  ref={searchField}>
     <div className="blog_search_start d-flex align-items-center" onClick={handleSearch} id="searchBar"> 
   <div className="search_content  d-flex align-items-center flex-grow-1">
   <i className="fa-solid fa-magnifying-glass mr-2 search_icon"></i>
@@ -208,7 +217,7 @@ const SearchBlogs = (props) => {
   </div>
   
   
-    <i className="fa-solid fa-circle-chevron-right app_search_goicon"  ref={setSearch}></i>
+    <i className="fa-solid fa-circle-chevron-right app_search_goicon" onClick={handleSearchRequest} ref={setSearch}></i>
   
     </div>
   

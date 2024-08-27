@@ -1043,10 +1043,14 @@ justify-content: space-between !important;
   .blog_search_bar_container{
   width: 100%;
   display: block;
-  padding: 10px 10px;
+  padding: 15px 20px;
   background: #f8f9fa;
   /* margin-bottom: 20px; */
-  border-radius: 5px;
+  border-radius: 50px;
+  }
+  .active_search{
+    padding: 10px 10px;
+    border-radius: 5px;
   }
   .blog_search_start .search_icon{
     font-size: 13px;
@@ -1108,3 +1112,14 @@ justify-content: space-between !important;
 }
 
 /* blog search bar in blog Page */
+/* blog details header icon */
+.blog_detail_header_icon{
+  left: 90%;
+  bottom: 1%;
+  position: fixed !important;
+}
+.blog_detail_header_icon i {
+  font-size: 25px;
+  cursor: pointer;
+}
+/* blog details header icon */

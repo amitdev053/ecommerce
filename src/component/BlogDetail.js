@@ -34,7 +34,26 @@ const BlogDetail = () => {
     getBlogDetails() 
 
   }, [])
+// const readBlog = ()=>{
 
+//       const text = document.getElementById('textToSpeak').innerText;
+
+//       // Create a new instance of SpeechSynthesisUtterance
+//       const utterance = new SpeechSynthesisUtterance(text);
+
+//       // Set the voice (optional)
+//       const voices = window.speechSynthesis.getVoices();
+//       utterance.voice = voices.find(voice => voice.lang === 'en-US');
+
+//       // Set additional options like pitch, rate, and volume (optional)
+//       utterance.pitch = 1; // 0 to 2
+//       utterance.rate = 1;  // 0.1 to 10
+//       utterance.volume = 1; // 0 to 1
+
+//       // Speak the text
+//       window.speechSynthesis.speak(utterance);
+    
+// }
   if (loader === true) {
     return (
       <>
@@ -44,18 +63,23 @@ const BlogDetail = () => {
   } else {
   return (
     <>
-      <div className="app_detail_blog_container container mt-ps90 p-0">
+    
+      <div className="app_detail_blog_container container mt-ps90 p-0 ">
+     
       <div className="row p-0 w-100 d-flex align-items-center overflow-hidden">
     
           {/* blog user action  end Here*/}
           {/* blog details appear starts Here*/}
           <div className="col-10 blog_user_action w-100 blog_detail_full_content">
-          <div className="blog_content_top_img w-100">
+          <div className="blog_content_top_img w-100 ">
               <img src={
                         blogDetail[0].cover_image && blogDetail[0].cover_image.length > 0
                           ? blogDetail[0].cover_image
                           : defaultBlogImage
                       } className="img-fluid blog_detail_top_image w-100" height="500px"alt="" />
+             {/* <div className="position-absolute d-flex align-items-center justify-content-between blog_detail_header_icon">            
+            <i class="fa-solid fa-circle-play" onClick={readBlog}></i>
+            </div> */}
             </div>
           <h2  style={{
             fontSize: "25px",
@@ -63,13 +87,13 @@ const BlogDetail = () => {
             
             lineHeight: "30px"
            
-          }}> {blogDetail[0].title}</h2>
+          }}  > {blogDetail[0].title} </h2>
           
-            
+            <div id="textToSpeak" >
             <span className="gallerytitle productname productdiscripation blog_detail_content_img" dangerouslySetInnerHTML={{ __html: blogDetail[0].body_markdown }}  />
             <span className="gallerytitle productname productdiscripation blog_detail_content_img" dangerouslySetInnerHTML={{ __html: blogDetail[0].body_html}}  />
             <span className="gallerytitle productname productdiscripation blog_detail_content_img" dangerouslySetInnerHTML={{ __html: blogDetail[0].descripation}}  />
-
+</div>
           </div>
           {/* blog details appear starts Here*/}
 

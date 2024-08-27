@@ -78,7 +78,7 @@ const Blogs = () => {
     // <>
     <div className="container text-left mt-ps90">
       <Alert position="bottom-center"> </Alert>
-<SearchBlogs setBlogs={setBlogs} setloader={setloader} />
+<SearchBlogs setBlogs={setBlogs} setloader={setloader}  />
       <div
         style={{
           display: "flex",

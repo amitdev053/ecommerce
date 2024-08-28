@@ -188,8 +188,8 @@ const SearchBlogs = (props) => {
         }, [])
         const postSearchRequest = (content)=>{
             props.setloader(true)
-            console.log("post seatch content", content)
               searchRef.current.innerText = content
+              console.log("checking content", content)
             //   https://dev.to/api/articles?tag=javascript&top=1
             let getBlogUrl = `https://dev.to/api/articles?tag=${content}`;
             console.log("getBlogUrl", getBlogUrl)
@@ -205,7 +205,10 @@ const SearchBlogs = (props) => {
         }
         const handleSearchRequest = ()=>{
            let searchKey = searchRef.current.innerText
-            let getUrlKey = encodeURIComponent(searchKey)
+            // let getUrlKey = encodeURIComponent(searchKey)
+            let getUrlKey = searchKey.trim()
+            console.log("post seatch content", getUrlKey)
+
            searchRef.current.innerText = searchKey
            postSearchRequest(getUrlKey)
         }

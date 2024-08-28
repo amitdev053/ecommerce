@@ -186,7 +186,7 @@ const SearchBlogs = (props) => {
        useEffect(()=>{
         setBlogsSearchCategory()
         }, [])
-        const postSearchRequest = (content)=>{
+        const postSearchRequest = (content, showSearch)=>{
             props.setloader(true)
               searchRef.current.innerText = content
               console.log("checking content", content)
@@ -195,6 +195,8 @@ const SearchBlogs = (props) => {
             console.log("getBlogUrl", getBlogUrl)
             axios.get(getBlogUrl).then((searchDetails) => {
             props.setloader(false);
+            searchIcon.current.className = "fa-solid fa-arrow-left mr-2 search_icon"      
+            searchRef.current.innerText = showSearch
             // setBlogDetail(bDetails.data);
             setSearchBlogs(searchDetails.data)
             props.setBlogs(searchDetails.data)
@@ -209,8 +211,8 @@ const SearchBlogs = (props) => {
            let setSearch = encodeURIComponent(getUrlKey)
             console.log("post seatch content", setSearch)
 
-           searchRef.current.innerText = searchKey
-           postSearchRequest(setSearch)
+         
+           postSearchRequest(setSearch, getUrlKey)
         }
 
   return (

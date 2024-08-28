@@ -6,6 +6,7 @@ const SearchBlogs = (props) => {
     const setSearch = useRef(null);
     const showSuggestedSearch = useRef(null);
     const searchField = useRef(null);
+    const searchIcon = useRef(null);
     const [blogsCat, setBlogsCat] = useState([])
     const [firstCat, setfirstCat] = useState([])
     const [secoundCat, setSecoundCat] = useState([])
@@ -16,9 +17,10 @@ const SearchBlogs = (props) => {
          document.body.addEventListener('click', (e)=>{
            console.log("handle search", e.target.className)
            if(e.target.id === "searchBar" || e.target ===  searchRef.current || e.target ===  showSuggestedSearch.current){
-             searchRef.current.innerText = ""          
+             searchRef.current.innerText = ""    
+             searchIcon.current.className = "fa-solid fa-arrow-left mr-2 search_icon"      
              showSuggestedSearch.current.classList.add('show_search')
-             searchField.current.classList.add('active_search')
+             searchField.current.classList.add('active_search')             
              showSuggestedSearch.current.classList.remove('blog_search_suggected_content')
              setSearch.current.style.color = "black"
           
@@ -28,7 +30,8 @@ const SearchBlogs = (props) => {
             showSuggestedSearch.current?.classList?.remove('show_search')
             searchField.current.classList.remove('active_search')
             showSuggestedSearch.current.classList.add('blog_search_suggected_content')
-            searchRef.current.innerText = "Search blog by category"       
+            searchRef.current.innerText = "Search blog by category"   
+            searchIcon.current.className = "fa-solid fa-magnifying-glass mr-2 search_icon"          
             setSearch.current.style.color = "#edf2fa"
 
            }
@@ -212,7 +215,7 @@ const SearchBlogs = (props) => {
     <div className="blog_search_bar_container"  ref={searchField}>
     <div className="blog_search_start d-flex align-items-center" onClick={handleSearch} id="searchBar"> 
   <div className="search_content  d-flex align-items-center flex-grow-1">
-  <i className="fa-solid fa-magnifying-glass mr-2 search_icon"></i>
+  <i className="fa-solid fa-magnifying-glass mr-2 search_icon" ref={searchIcon}></i>
   <div className="search_text_container outline-none" contentEditable="true" ref={searchRef}>Search blog by category</div>
   </div>
   

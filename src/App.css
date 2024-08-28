@@ -1047,10 +1047,13 @@ justify-content: space-between !important;
   background: #f8f9fa;
   /* margin-bottom: 20px; */
   border-radius: 50px;
+  transition: all 0.3s ease-in-out;
   }
   .active_search{
     padding: 10px 10px;
     border-radius: 5px;
+    transition: all 0.3s ease-in-out;
+    font-size: 15px !important;
   }
   .blog_search_start .search_icon{
     font-size: 13px;

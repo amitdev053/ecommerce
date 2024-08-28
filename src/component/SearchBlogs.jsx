@@ -25,7 +25,7 @@ const SearchBlogs = (props) => {
            }else if(e.target.className === "suggested_content_text"){
 
            }else{
-            showSuggestedSearch.current.classList.remove('show_search')
+            showSuggestedSearch.current?.classList?.remove('show_search')
             searchField.current.classList.remove('active_search')
             showSuggestedSearch.current.classList.add('blog_search_suggected_content')
             searchRef.current.innerText = "Search blog by category"       

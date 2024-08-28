@@ -64,7 +64,7 @@ const BlogDetail = () => {
   return (
     <>
     
-      <div className="app_detail_blog_container container mt-ps90 p-0 ">
+      <div className="app_detail_blog_container container mt-ps90 ">
      
       <div className="row p-0 w-100 d-flex align-items-center overflow-hidden">
     

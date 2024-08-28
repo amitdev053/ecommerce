@@ -205,12 +205,12 @@ const SearchBlogs = (props) => {
         }
         const handleSearchRequest = ()=>{
            let searchKey = searchRef.current.innerText
-            // let getUrlKey = encodeURIComponent(searchKey)
-            let getUrlKey = searchKey.trim()
-            console.log("post seatch content", getUrlKey)
+           let getUrlKey = searchKey.trim()
+           let setSearch = encodeURIComponent(getUrlKey)
+            console.log("post seatch content", setSearch)
 
            searchRef.current.innerText = searchKey
-           postSearchRequest(getUrlKey)
+           postSearchRequest(setSearch)
         }
 
   return (

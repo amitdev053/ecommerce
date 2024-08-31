@@ -210,6 +210,7 @@ const SearchBlogs = (props) => {
            
             const postSearchRequest = (content, showSearch) => {
               props.setloader(true);
+              searchRef.current.blur();
               searchRef.current.innerText = content;
               console.log("checking content", content);
               //   https://dev.to/api/articles?tag=javascript&top=1

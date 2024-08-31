@@ -191,7 +191,7 @@ const SearchBlogs = (props) => {
                       } else if (searchField.current.contains(e.target) || showSuggestedSearch.current.contains(e.target)) {
                         // Inside search field or its children
                         searchRef.current.focus();
-                        searchRef.current.innerText = "Search";
+                        searchRef.current.innerText = "";
                         searchIcon.current.className = "fa-solid fa-arrow-left mr-2 search_icon";
                         searchIcon.current.setAttribute("info", "exitSearch");
                         showSuggestedSearch.current.classList.add("show_search");
@@ -209,15 +209,15 @@ const SearchBlogs = (props) => {
 
            
             const postSearchRequest = (content, showSearch) => {
-              props.setloader(true);
-              searchRef.current.blur();
+       
               searchRef.current.innerText = content;
-              console.log("checking content", content);
+              // console.log("checking content", content);
               //   https://dev.to/api/articles?tag=javascript&top=1
               let getBlogUrl = `https://dev.to/api/articles?tag=${content}`;
-              console.log("getBlogUrl", getBlogUrl);
+              // console.log("getBlogUrl", getBlogUrl);
               axios.get(getBlogUrl).then((searchDetails) => {
                 props.setloader(false);
+                searchRef.current.blur();
                 searchIcon.current.className = "fa-solid fa-arrow-left mr-2 search_icon";
                 searchRef.current.innerText = showSearch || content;
                 // setBlogDetail(bDetails.data);
@@ -238,10 +238,10 @@ const SearchBlogs = (props) => {
             const handleSearchRequest = () => {
               let searchKey = searchRef.current.innerText;
               let getUrlKey = searchKey.trim();
-              let goSearchIcon = encodeURIComponent(getUrlKey);
+              let searchText = encodeURIComponent(getUrlKey);
               console.log("post seatch content", goSearchIcon);
 
-              postSearchRequest(goSearchIcon, getUrlKey);
+              postSearchRequest(searchText, getUrlKey);
             };
 
             return (
@@ -307,7 +307,7 @@ const SearchBlogs = (props) => {
                     );
                   })}
                   {secoundCat[0]?.subcategories.map((content, index) => {
-                    console.log("suugested content", content);
+                    
                     return (
                       <>
                         <div

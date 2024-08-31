@@ -27,6 +27,9 @@ const Blogs = () => {
     getBlogs();
   }, []);
 
+  function showBlog() {
+    getBlogs()
+  }
   function toggleBlog() {
     if (blogView === true) {
       // blogs.reverse()
@@ -105,7 +108,7 @@ const Blogs = () => {
         ></i>
       </div>
 
-      <div className="row app_blog_main_container " id="app-blog-Container">
+      <div className="row app_blog_main_container px-2" id="app-blog-Container">
         {/* Blog Columns Start Here */}
 
         {loader === true ? (
@@ -114,9 +117,9 @@ const Blogs = () => {
           blogs.length <= 0 ? 
           (
             <>
-            <div className="col-md-4 col-sm-12 col-lg-3 blog_content_border app_blogs">
+            <div className="col-md-4 col-sm-12 col-lg-3 blog_content_border app_blogs no_blog_search">
                 {/* <Link to={"/blog-detail/"+ blog.id  + "/"  + convertTextIntoUrl(blog.title)}> */}
-                <div className="app_blog_cover_container ">
+           
                 <div className="galleryimg position-relative">
                     <img
                       src="https://e7.pngegg.com/pngimages/65/205/png-clipart-google-s-computer-icons-reverse-search-search-miscellaneous-text-thumbnail.png"
@@ -131,8 +134,11 @@ const Blogs = () => {
                   <span className="gallerytitle productname productdiscripation">
                     Blog not available yet stay tuned please try after some time...
                     </span>
-                </div>
-        
+                 
+              
+                <button className="btn btn-primary mr-1 brand_button search_not_found_button"  onClick={showBlog}>
+                       View All Blog                   
+                    </button>
                 
                 </div>
               </> 

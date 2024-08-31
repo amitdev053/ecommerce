@@ -1126,3 +1126,25 @@ justify-content: space-between !important;
   cursor: pointer;
 }
 /* blog details header icon */
+.no_blog_search{
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  align-items: center;
+  padding: 20px;
+  border-radius: 20px;
+  background: #f8f9fa;
+
+}
+.search_not_found_button{
+  padding: 12px 50px;
+  border-radius: 50px;
+  font-size: 15px;
+  width: fit-content !important;
+  font-weight: 500;
+  font-family: "Roboto";
+  color: white;
+}
+.btn-primary:active {
+  background-color: #000000b8 !important; /* Active button color */
+}

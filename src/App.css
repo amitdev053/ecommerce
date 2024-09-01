@@ -1056,7 +1056,7 @@ justify-content: space-between !important;
     font-size: 15px !important;
   }
   .blog_search_start .search_icon{
-    font-size: 13px;
+    font-size: 16px;
   }
   .search_text_container{
     font-size: 15px;
@@ -1147,4 +1147,7 @@ justify-content: space-between !important;
 }
 .btn-primary:active {
   background-color: #000000b8 !important; /* Active button color */
+}
+.f-16{
+  font-size: 16px !important;
 }

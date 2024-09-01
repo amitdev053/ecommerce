@@ -268,7 +268,7 @@ const SearchBlogs = (props) => {
                     </div>
 
                     <i
-                      className="fa-solid fa-circle-chevron-right app_search_goicon"
+                      className="fa-solid fa-circle-chevron-right app_search_goicon f-16"
                       onClick={handleSearchRequest}
                       ref={goSearchIcon}
                     ></i>

@@ -175,7 +175,7 @@ const SearchBlogs = (props) => {
               showSuggestedSearch.current?.classList?.remove("show_search");
               searchField.current?.classList?.remove("active_search");
               showSuggestedSearch.current.classList.add("blog_search_suggected_content");
-              searchRef.current.innerText =  searchRef.current.innerText === "Search blog by category" ? searchRef.current.innerText = "Search blog by category" : searchRef.current.innerText;
+              searchRef.current.innerText =  (searchRef.current.innerText === "Search blog by category" || searchRef.current.innerText === "") ? searchRef.current.innerText = "Search blog by category" : searchRef.current.innerText;
               searchIcon.current.className = "fa-solid fa-magnifying-glass mr-2 search_icon";
               searchIcon.current.setAttribute("info", "search");
               goSearchIcon.current.style.color = "#edf2fa";

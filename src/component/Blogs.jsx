@@ -2,7 +2,7 @@ import { useState, useEffect, useRef  } from "react";
 import React from "react";
 import Loader from "./Loader";
 import Alert from "./Alert";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useParams } from "react-router-dom";
 import "react-toastify/dist/ReactToastify.css";
 import axios from "axios";
 import defaultBlogImage from "../defaultBlog.jpg";
@@ -12,9 +12,18 @@ const Blogs = () => {
   const [loader, setloader] = useState(true);
   const [blogs, setBlogs] = useState([]);
   const [blogView, setBlogView] = useState(true);
- 
-  const getBlogs = () => {
-    let getBlogUrl = "https://dev.to/api/articles";
+  const location = useLocation();
+  
+  
+  const getBlogs = (forSearch = false, forSearchQuery = "") => {
+    let getBlogUrl
+    if(forSearch){
+      getBlogUrl = `https://dev.to/api/articles?tag=${forSearchQuery}`
+    }else{
+
+       getBlogUrl = "https://dev.to/api/articles";
+    }
+    console.log("manageing blogs", getBlogUrl, forSearchQuery)
     axios.get(getBlogUrl).then((blog) => {
       setloader(false);
       console.log("blog response", blog.data);
@@ -26,6 +35,17 @@ const Blogs = () => {
     document.title = "Market-Shops Tech Blogs"
     getBlogs();
   }, []);
+  useEffect(() => {
+    const searchParams = new URLSearchParams(location.search);
+
+    // console.log("Populate blogs", location.pathname, userSearchQuery, searchParams, location.search)   
+    if(location.pathname === "/blogs/search"){
+      const userSearchQuery = searchParams.get("query");
+      getBlogs(true, userSearchQuery)
+    }
+
+
+  }, [location.search]); // Run this effect whenever the search part of the URL changes
 
   function showBlog() {
     getBlogs()

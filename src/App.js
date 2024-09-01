@@ -48,6 +48,7 @@ function App() {
   <Route exact path ='/services' Component={Home}/>
   <Route exact path ='/media' Component={Media}/>
   <Route exact path ='/blogs' Component={Blogs} />
+  <Route path ='/blogs/search' Component={Blogs} />
   <Route exact path ='/products' Component={Products}/>
   <Route exact path ='/productcoursel' Component={Coursel}/>
   <Route exact path ='/download' Component={Download}/>

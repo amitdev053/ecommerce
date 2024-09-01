@@ -1,5 +1,6 @@
 import { React, useState, useEffect, useRef } from "react";
 import axios from "axios";
+import { useLocation, useParams } from 'react-router-dom';
 
 const SearchBlogs = (props) => {
             const searchRef = useRef(null);
@@ -11,7 +12,23 @@ const SearchBlogs = (props) => {
             const [firstCat, setfirstCat] = useState([]);
             const [secoundCat, setSecoundCat] = useState([]);
             const [searchBlogs, setSearchBlogs] = useState([]);
+            const location = useLocation();
+            const [searchString, setSearchString] = useState("Search blog by tagnames...");
             const [searchHandleEvent, setSearchHandleEvent] = useState(false);
+           
+            function refreshSearchString(){
+              const searchParams = new URLSearchParams(location.search);
+      const userSearchQuery = searchParams.get("query");
+      if(location.pathname === "/blogs/search"){
+        setSearchString(userSearchQuery)
+      }
+      // setSearchString(props.searchQuery || "Search blog by tagnames...")
+      console.log("search terms", searchString)
+            }
+     useEffect(()=>{
+      refreshSearchString()
+     }, [location.search])
+            
 
             function setBlogsSearchCategory() {
               let manageBlogsCatJson = {
@@ -171,6 +188,7 @@ const SearchBlogs = (props) => {
 
             function hideSearch() {
               // Outside search field
+              console.log("hideSearch", searchString)
               searchRef.current.blur();
               showSuggestedSearch.current?.classList?.remove("show_search");
               searchField.current?.classList?.remove("active_search");
@@ -179,6 +197,7 @@ const SearchBlogs = (props) => {
               searchIcon.current.className = "fa-solid fa-magnifying-glass mr-2 search_icon";
               searchIcon.current.setAttribute("info", "search");
               goSearchIcon.current.style.color = "#edf2fa";
+            
             }
             const handleSearch = () => {
              
@@ -227,12 +246,15 @@ const SearchBlogs = (props) => {
                 showSuggestedSearch.current.classList.add(
                   "blog_search_suggected_content"
                 );
-                console.log(
-                  "search Details response",
-                  searchDetails.data,
-                  searchDetails,
-                  getBlogUrl
-                );
+                // console.log(
+                //   "search Details response",
+                //   searchDetails.data,
+                //   searchDetails,
+                //   getBlogUrl
+                // );
+                    // Change the URL without reloading the page
+    const newUrl = `/blogs/search?query=${encodeURIComponent(content)}`;
+    window.history.pushState({ path: newUrl }, '', newUrl);
               });
             };
             const handleSearchRequest = () => {
@@ -260,11 +282,11 @@ const SearchBlogs = (props) => {
                       ></i>
                       <div
                         className="search_text_container outline-none"
-                        contentEditable="true" suppressContentEditableWarning={true}
+                        contentEditable="true" suppressContentEditableWarning={true} spellCheck="false"
                         ref={searchRef}
 
                       >
-                        Search blog by tagnames...
+                        {searchString}
                       </div>
                     </div>
 

@@ -15,6 +15,7 @@ const SearchBlogs = (props) => {
             const location = useLocation();
             const [searchString, setSearchString] = useState("Search blog by tagnames...");
             const [searchHandleEvent, setSearchHandleEvent] = useState(false);
+            
            
             function refreshSearchString(){
               const searchParams = new URLSearchParams(location.search);
@@ -28,7 +29,7 @@ const SearchBlogs = (props) => {
      useEffect(()=>{
       refreshSearchString()
      }, [location.search])
-            
+   
 
             function setBlogsSearchCategory() {
               let manageBlogsCatJson = {
@@ -269,6 +270,7 @@ const SearchBlogs = (props) => {
 
               postSearchRequest(searchText, getUrlKey);
             };
+                     
 
             return (
               <>

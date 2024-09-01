@@ -34,11 +34,14 @@ const Blogs = () => {
       setBlogs(blog.data);
     });
   };
+  // it is for one time operations 
 
   useEffect(() => {
     document.title = "Market-Shops Tech Blogs"
     getBlogs();
   }, []);
+  
+  // it is for every page render operations 
   useEffect(() => {
     let getSearchText = document.getElementById("searchTagText").innerText
     if(getSearchText){
@@ -61,9 +64,16 @@ const Blogs = () => {
 
   }, [location.search]); // Run this effect whenever the search part of the URL changes
 
-  function showBlog() {
-    getBlogs()
+  function setUrl(url){
+    const newUrl = url;
+    window.history.pushState({ path: newUrl }, '', newUrl);
   }
+  function showBlog() {    
+    setUrl("/blogs")
+    getBlogs()
+    
+  }
+  
   function toggleBlog() {
     if (blogView === true) {
       // blogs.reverse()

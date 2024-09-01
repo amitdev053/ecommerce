@@ -23,7 +23,7 @@ const SearchBlogs = (props) => {
         setSearchString(userSearchQuery)
       }
       // setSearchString(props.searchQuery || "Search blog by tagnames...")
-      console.log("search terms", searchString)
+      console.log("search terms",searchParams, searchString)
             }
      useEffect(()=>{
       refreshSearchString()
@@ -210,7 +210,10 @@ const SearchBlogs = (props) => {
                       } else if (searchField?.current?.contains(e.target) || showSuggestedSearch?.current?.contains(e.target)) {
                         // Inside search field or its children
                         searchRef.current.focus();
-                        searchRef.current.innerText = "";
+                       
+                        if(searchRef.current.innerText === "Search blog by tagnames..."){
+                          searchRef.current.innerText = "";
+                        }
                         searchIcon.current.className = "fa-solid fa-arrow-left mr-2 search_icon";
                         searchIcon.current.setAttribute("info", "exitSearch");
                         showSuggestedSearch.current.classList.add("show_search");
@@ -228,7 +231,7 @@ const SearchBlogs = (props) => {
 
            
             const postSearchRequest = (content, showSearch) => {
-       
+            
               searchRef.current.innerText = content;
               // console.log("checking content", content);
               //   https://dev.to/api/articles?tag=javascript&top=1
@@ -255,6 +258,7 @@ const SearchBlogs = (props) => {
                     // Change the URL without reloading the page
     const newUrl = `/blogs/search?query=${encodeURIComponent(content)}`;
     window.history.pushState({ path: newUrl }, '', newUrl);
+ 
               });
             };
             const handleSearchRequest = () => {

@@ -175,7 +175,7 @@ const SearchBlogs = (props) => {
               showSuggestedSearch.current?.classList?.remove("show_search");
               searchField.current?.classList?.remove("active_search");
               showSuggestedSearch.current.classList.add("blog_search_suggected_content");
-              searchRef.current.innerText =  (searchRef.current.innerText === "Search blog by category" || searchRef.current.innerText === "") ? searchRef.current.innerText = "Search blog by category" : searchRef.current.innerText;
+              searchRef.current.innerText =  (searchRef.current.innerText === "Search blog by tagnames..." || searchRef.current.innerText === "") ? searchRef.current.innerText = "Search blog by tagnames..." : searchRef.current.innerText;
               searchIcon.current.className = "fa-solid fa-magnifying-glass mr-2 search_icon";
               searchIcon.current.setAttribute("info", "search");
               goSearchIcon.current.style.color = "#edf2fa";
@@ -260,10 +260,11 @@ const SearchBlogs = (props) => {
                       ></i>
                       <div
                         className="search_text_container outline-none"
-                        contentEditable="true"
+                        contentEditable="true" suppressContentEditableWarning={true}
                         ref={searchRef}
+
                       >
-                        Search blog by tagName
+                        Search blog by tagnames...
                       </div>
                     </div>
 

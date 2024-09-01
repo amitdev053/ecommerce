@@ -286,7 +286,7 @@ const SearchBlogs = (props) => {
                       ></i>
                       <div
                         className="search_text_container outline-none"
-                        contentEditable="true" suppressContentEditableWarning={true} spellCheck="false"
+                        contentEditable="true" suppressContentEditableWarning={true} spellCheck="false" id="searchTagText"
                         ref={searchRef}
 
                       >

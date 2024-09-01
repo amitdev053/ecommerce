@@ -11,18 +11,22 @@ import SearchBlogs from "./SearchBlogs";
 const Blogs = () => {
   const [loader, setloader] = useState(true);
   const [blogs, setBlogs] = useState([]);
+  const [searchText, setSearchText] = useState("")
   const [blogView, setBlogView] = useState(true);
   const location = useLocation();
   
   
   const getBlogs = (forSearch = false, forSearchQuery = "") => {
     let getBlogUrl
+
     if(forSearch){
       getBlogUrl = `https://dev.to/api/articles?tag=${forSearchQuery}`
+     
     }else{
 
        getBlogUrl = "https://dev.to/api/articles";
     }
+  
     console.log("manageing blogs", getBlogUrl, forSearchQuery)
     axios.get(getBlogUrl).then((blog) => {
       setloader(false);
@@ -36,12 +40,22 @@ const Blogs = () => {
     getBlogs();
   }, []);
   useEffect(() => {
-    const searchParams = new URLSearchParams(location.search);
+    let getSearchText = document.getElementById("searchTagText").innerText
+    if(getSearchText){
+      setSearchText(getSearchText)
+    }
+  });
 
+  useEffect(() => {
+    const searchParams = new URLSearchParams(location.search);
+   
+   
     // console.log("Populate blogs", location.pathname, userSearchQuery, searchParams, location.search)   
     if(location.pathname === "/blogs/search"){
       const userSearchQuery = searchParams.get("query");
+      
       getBlogs(true, userSearchQuery)
+
     }
 
 
@@ -139,21 +153,27 @@ const Blogs = () => {
             <>
             <div className="col-md-4 col-sm-12 col-lg-3 blog_content_border app_blogs no_blog_search">
                 {/* <Link to={"/blog-detail/"+ blog.id  + "/"  + convertTextIntoUrl(blog.title)}> */}
-           
-                <div className="galleryimg position-relative">
-                    <img
+                <span className="gallerytitle productname productdiscripation text-center">
+                    Search for the <strong style={{color: "black"}}>"{searchText}"</strong> 
+                    </span> 
+                <div className="no_blog_image_found_insearch">
+                    {/* <img
                       src="https://e7.pngegg.com/pngimages/65/205/png-clipart-google-s-computer-icons-reverse-search-search-miscellaneous-text-thumbnail.png"
                       id="productimg"
-                      alt=""
-                    />
+                      alt="" className="make_png"
+                    /> */}
+                    <i
+                        className="fa-solid fa-magnifying-glass-plus f-70"
+                     
+                      ></i>
                     {/* <span id="productprice" className="productprice">
                       {blog.readable_publish_date}, {blog.published_at.split("-")[0]}
                     </span> */}
                 
                   </div>
-                  <span className="gallerytitle productname productdiscripation">
+                  <span className="gallerytitle productname productdiscripation text-center">
                     Blog not available yet stay tuned please try after some time...
-                    </span>
+                    </span> 
                  
               
                 <button className="btn btn-primary mr-1 brand_button search_not_found_button"  onClick={showBlog}>
@@ -164,7 +184,7 @@ const Blogs = () => {
               </> 
           ) :
           blogs.map((blog, i) => {
-           console.log("enter in blogs map function", blog);
+           {/* console.log("enter in blogs map function", blog); */}
             return (
               <>
                 <div className="col-md-4 col-sm-12 col-lg-3 blog_content_border app_blogs" key={blog.id + i}>

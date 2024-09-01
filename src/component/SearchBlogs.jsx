@@ -188,7 +188,7 @@ const SearchBlogs = (props) => {
                       // e.preventDefault();
                       if (e.target.getAttribute("info") === "exitSearch") {
                         hideSearch();
-                      } else if (searchField.current.contains(e.target) || showSuggestedSearch.current.contains(e.target)) {
+                      } else if (searchField?.current?.contains(e.target) || showSuggestedSearch?.current?.contains(e.target)) {
                         // Inside search field or its children
                         searchRef.current.focus();
                         searchRef.current.innerText = "";
@@ -263,7 +263,7 @@ const SearchBlogs = (props) => {
                         contentEditable="true"
                         ref={searchRef}
                       >
-                        Search blog by category
+                        Search blog by tagName
                       </div>
                     </div>
 

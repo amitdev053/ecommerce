@@ -208,21 +208,10 @@ const SearchBlogs = (props) => {
                       // e.preventDefault();
                       if (e.target.getAttribute("info") === "exitSearch") {
                         hideSearch();
-                      } else if (searchField?.current?.contains(e.target) || showSuggestedSearch?.current?.contains(e.target)) {
-                        // Inside search field or its children
-                        searchRef.current.focus();
-                       
-                        if(searchRef.current.innerText === "Search blog by tagnames..."){
-                          searchRef.current.innerText = "";
-                        }
-                        searchIcon.current.className = "fa-solid fa-arrow-left mr-2 search_icon";
-                        searchIcon.current.setAttribute("info", "exitSearch");
-                        showSuggestedSearch.current.classList.add("show_search");
-                        searchField.current.classList.add("active_search");
-                        showSuggestedSearch.current.classList.remove(
-                          "blog_search_suggected_content"
-                        );
-                        goSearchIcon.current.style.color = "black";
+                      }
+                      else if (searchField?.current?.contains(e.target) || showSuggestedSearch?.current?.contains(e.target)) {
+                        console.log("click on the search box", e.target)
+                       perfromSearch(e)
                       } else {
                         hideSearch();
                       }
@@ -230,9 +219,27 @@ const SearchBlogs = (props) => {
             }
             };
 
+            function perfromSearch(event){
+              
+               if(searchRef.current.innerText === "Search blog by tagnames..."){
+                 searchRef.current.innerText = "";             
+               }
+               searchIcon.current.className = "fa-solid fa-arrow-left mr-2 search_icon";
+               searchIcon.current.setAttribute("info", "exitSearch");
+               showSuggestedSearch.current.classList.add("show_search");
+               searchField.current.classList.add("active_search");
+               showSuggestedSearch.current.classList.remove(
+                 "blog_search_suggected_content"
+               );
+               goSearchIcon.current.style.color = "black";
+            }
            
-            const postSearchRequest = (content, showSearch) => {
-            
+            const postSearchRequest = (content, clickedElement,  showSearch) => {
+              document.querySelectorAll('.suggested_content_text').forEach(el => {
+                el.classList.remove('active_search_pointer'); // Remove active class from all elements
+              });
+              clickedElement.classList.add('active_search_pointer'); // Add active class to the clicked element
+              
               searchRef.current.innerText = content;
               // console.log("checking content", content);
               //   https://dev.to/api/articles?tag=javascript&top=1
@@ -240,7 +247,8 @@ const SearchBlogs = (props) => {
               // console.log("getBlogUrl", getBlogUrl);
               axios.get(getBlogUrl).then((searchDetails) => {
                 props.setloader(false);
-                searchRef.current.blur();
+                // searchRef.current.blur();
+                // searchRef.current.focus();
                 searchIcon.current.className = "fa-solid fa-arrow-left mr-2 search_icon";
                 searchRef.current.innerText = showSearch || content;
                 // setBlogDetail(bDetails.data);
@@ -259,7 +267,8 @@ const SearchBlogs = (props) => {
                     // Change the URL without reloading the page
     const newUrl = `/blogs/search?query=${encodeURIComponent(content)}`;
     window.history.pushState({ path: newUrl }, '', newUrl);
- 
+    searchRef.current.blur();       // reset the focuse event from the search box
+
               });
             };
             const handleSearchRequest = () => {
@@ -271,6 +280,7 @@ const SearchBlogs = (props) => {
               postSearchRequest(searchText, getUrlKey);
             };
                      
+ 
 
             return (
               <>
@@ -311,8 +321,8 @@ const SearchBlogs = (props) => {
                         <div
                           className="suggested_content_text"
                           key={index}
-                          onClick={() => {
-                            postSearchRequest(content);
+                          onClick={(event) => {
+                            postSearchRequest(content, event.currentTarget);
                           }}
                         >
                           {content}
@@ -326,8 +336,8 @@ const SearchBlogs = (props) => {
                         <div
                           className="suggested_content_text"
                           key={index}
-                          onClick={() => {
-                            postSearchRequest(content);
+                          onClick={(event) => {
+                            postSearchRequest(content, event.currentTarget);
                           }}
                         >
                           {content}
@@ -342,8 +352,8 @@ const SearchBlogs = (props) => {
                         <div
                           className="suggested_content_text"
                           key={index}
-                          onClick={() => {
-                            postSearchRequest(content);
+                          onClick={(event) => {
+                            postSearchRequest(content, event.currentTarget);
                           }}
                         >
                           {content}

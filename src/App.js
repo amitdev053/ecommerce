@@ -28,9 +28,11 @@ function App() {
    let locate = location.pathname
 
   console.log(locate)
-  if(locate === "/blogs"){
+  if(locate === "/blogs" || locate === "/blogs/search"){
+    
     const loaderElement = document.querySelector('.loader');
     if (loaderElement) {
+
      loaderElement.classList.add('margin_top_setzero')
     }
   }

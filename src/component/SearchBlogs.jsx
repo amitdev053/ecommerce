@@ -16,7 +16,7 @@ const SearchBlogs = (props) => {
             const [searchString, setSearchString] = useState("Search blog by tagnames...");
             const [searchHandleEvent, setSearchHandleEvent] = useState(false);
             
-           
+
             function refreshSearchString(){
               const searchParams = new URLSearchParams(location.search);
       const userSearchQuery = searchParams.get("query");
@@ -238,9 +238,13 @@ const SearchBlogs = (props) => {
               document.querySelectorAll('.suggested_content_text').forEach(el => {
                 el.classList.remove('active_search_pointer'); // Remove active class from all elements
               });
-              clickedElement.classList.add('active_search_pointer'); // Add active class to the clicked element
-              
+              if(clickedElement){
+
+                clickedElement?.classList?.add('active_search_pointer'); // Add active class to the clicked element
+              }
+
               searchRef.current.innerText = content;
+              props.setloader(true);
               // console.log("checking content", content);
               //   https://dev.to/api/articles?tag=javascript&top=1
               let getBlogUrl = `https://dev.to/api/articles?tag=${content}`;

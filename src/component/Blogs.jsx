@@ -207,6 +207,12 @@ const Blogs = () => {
                           ? blog.cover_image
                           : defaultBlogImage
                       }
+                        onError={(e) =>{
+                        e.target.src = defaultBlogImage;
+                        e.target.alt = "Default image";
+                      
+                        }}
+                      
                       id="productimg"
                       alt=""
                     />

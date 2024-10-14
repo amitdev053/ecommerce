@@ -216,14 +216,16 @@ const Blogs = () => {
                       id="productimg"
                       alt=""
                     />
-                    <span id="productprice" className="productprice">
-                      {blog.readable_publish_date}, {blog.published_at.split("-")[0]}
+                    <span id="productprice" className="productprice w-100">
+                     <date> {blog.readable_publish_date}, {blog.published_at.split("-")[0]} </date>
+
+                      {/* <i class="fa-solid fa-play  product_like"></i> */}
                     </span>
                   </div>
                   <div className="mediacontent d-inline-block app_blog_text_content_cover">
                     <p className="mb-1 totalgal">Public reactions :- {blog.public_reactions_count}</p>
                     <h4 className="gallerytitle productname" id="productname" style={{color: "black", fontWeight: 700, lineHeight: "20px"}}>
-                      {blog.title}
+                      {(blog.title.length > 30) ? blog.title.slice(0, 30)+ '...' : blog.title}
                     </h4>
                     <div className="gallerytitle productname productdiscripation">
                       {blog.description.slice(0, 100)}...

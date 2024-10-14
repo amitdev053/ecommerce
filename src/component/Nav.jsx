@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from "react";
-import { Link, useLocation } from "react-router-dom";
+import React, { useEffect, useState, useRef, useContext } from "react";
+import { Link, useNavigate, useLocation } from "react-router-dom";
 import axios from "axios";
 import Loader from "./Loader";
 import DialogBox from "./DialogBox";
@@ -7,6 +7,8 @@ import appLogoImage from '../appimages/images.png'
 import EmptyCartImage from '../appimages/empty_cart.webp'
 import Toast from "./Toast"
 import { ToastContainer, toast } from "react-toastify";
+import { CartContext } from './CartContext';
+
 
 
 
@@ -16,12 +18,19 @@ export default function Navbar({trackCart}) {
   const [loader, setloader] = useState(false);
   const [userCart, setUserCart] = useState([]);
   const [totalCart, setTotalCart] = useState(0);
+  const [userLike, setUserLike] = useState([]);
+  const [totalLike, setTotalLike] = useState(0);
   const [cartitems, setcartitems] = useState()
   const [cartitemsindex, setcartitemsindex] = useState()
   const [cartQuantity, setCartQuantity] = useState(1)
 
+
   const [url, seturl] = useState("");
   const locations = useLocation();
+  const navigate = useNavigate()
+  const { addToCart } = useContext(CartContext);
+  const [prevUrl,setPreviouseUrl] = useState(undefined)
+  
 
   useEffect(() => {
     //console.log("This is a pathname", locations.pathname);
@@ -30,11 +39,39 @@ export default function Navbar({trackCart}) {
 
   // const [getuserCart, setgetuserCart] = useState([]);
 
-  function closeCart() {
-    document
-      .getElementById("userCartContainer")
-      .classList.remove("show_cart_container");
-    document.body.style.overflowY = "visible"
+  function closeCart(action = undefined) {
+    if(action === undefined){
+
+      document.getElementById("userCartContainer").classList.remove("show_cart_container");    
+      let appBody = document.getElementById("appbody")
+      if(appBody){            
+        appBody.style.removeProperty('position', 'fixed', 'important');   
+      }
+    }else if(action === "userCart"){
+      
+      document.getElementById("userCartContainer").classList.remove("show_cart_container");    
+      let appBody = document.getElementById("appbody")
+      if(appBody){            
+        appBody.style.removeProperty('position', 'fixed', 'important');   
+      }
+    }else if (action === "userLike"){
+      // console.log("check location for userLike",locations)
+      window.history.pushState({ path: prevUrl }, '', prevUrl);
+      document.getElementById("userLikeContainer").classList.remove("show_like_container");    
+      document.getElementById("containUserLikes").classList.remove("show_like_container");    
+      let appBody = document.getElementById("appbody")
+      if(appBody){            
+        appBody.style.removeProperty('position', 'fixed', 'important');   
+      }
+      let appHeaderContainsLikeIcon = document.querySelector('.app_navbar_like_containericon')
+      if(document.getElementById("userLikeContainer").classList.contains("show_like_container")){
+        appHeaderContainsLikeIcon.style.background = "black"
+        appHeaderContainsLikeIcon.style.color = "white"
+      }else{
+        appHeaderContainsLikeIcon.style.background = "white"
+        appHeaderContainsLikeIcon.style.color = "black"
+      }
+    }
       
   }
   function closeConfirmBox() {
@@ -46,12 +83,18 @@ export default function Navbar({trackCart}) {
       .classList.add("show_cart_container");
   }
   function openCart(event) {
+    
     document.getElementById("userCartContainer").classList.add("show_cart_container");
-    document.body.style.overflowY = "hidden"
+    let appBody = document.getElementById("appbody")
+    if(appBody){      
+      console.log("appbody", appBody)
+      appBody.style.setProperty('position', 'fixed', 'important');
+    
+    }
 
     document.getElementById("userCartContainer").addEventListener("click", (event) => {
         if (event.target === document.getElementById("userCartContainer")) {
-          closeCart();
+          closeCart("userCart");
 
         } else {
 
@@ -59,6 +102,60 @@ export default function Navbar({trackCart}) {
       });
   }
 
+  function openLikes(event) {
+    setPreviouseUrl( window.location.pathname);  // Store the current URL
+    window.history.pushState({ path: "/saved" }, '', "/saved");
+    document.getElementById("userLikeContainer").classList.toggle("show_like_container");
+    document.getElementById("containUserLikes").classList.toggle("show_like_container");
+    let appHeaderContainsLikeIcon = document.querySelector('.app_navbar_like_containericon')
+    if(document.getElementById("userLikeContainer").classList.contains("show_like_container")){
+      appHeaderContainsLikeIcon.style.background = "black"
+      appHeaderContainsLikeIcon.style.color = "white"
+    }else{
+      appHeaderContainsLikeIcon.style.background = "white"
+      appHeaderContainsLikeIcon.style.color = "black"
+    }
+    console.log("appHeader icon container", appHeaderContainsLikeIcon)
+    let appBody = document.getElementById("appbody")
+    if(appBody){      
+      console.log("appbody", appBody)
+      appBody.style.setProperty('position', 'fixed', 'important');
+    
+    }
+
+    document.getElementById("userLikeContainer").addEventListener("click", (event) => {
+        if (event.target === document.getElementById("userLikeContainer")) {
+          // closeCart("userLike");
+          // animateContainers('containUserLikes')
+          let closeLikeIcon = document.getElementById('closeLikeModelIcon')
+          // closeLikeIcon.classList.add('blinking_aninmation')
+          closeLikeIcon.style.setProperty("background", "red")
+          setTimeout(()=>{
+            
+            closeLikeIcon.style.removeProperty("background", "red")
+            
+          }, 300)
+
+
+        } else {
+
+        }
+      });
+
+    
+  }
+
+  function animateContainers(element){
+    let sacleElement = document.getElementById(element)
+    sacleElement.classList.add('animate_container')
+    setTimeout(()=>{
+      sacleElement.classList.remove('animate_container')
+    }, 3200)
+    sacleElement.addEventListener('mouseover', ((e)=>{
+      sacleElement.classList.remove('animate_container')
+
+    }))
+  }
   function loginAuth(event) {
     setloader(true);
 
@@ -72,31 +169,7 @@ export default function Navbar({trackCart}) {
       .post("https://backend.babusiya.com/account/verify_user", login)
       .then((response) => setloader(false));
   }
-//   const getUserCart = () => {
-//     let cartitem = JSON.parse(localStorage.getItem("usercart") || "[]")
-   
-   
 
-//     return cartitem 
-//   };
-//   const prevUserCartRef = useRef(userCart);
-
-//  useEffect(() => {
-//   console.log("useeffect ****", prevUserCartRef.current)
-//   // setUserCart(cartitem);
-//   // setTotalCart(cartitem.length);
-//   const prevUserCart = prevUserCartRef.current;
-//   const newCart = getUserCart();
-
-//   // Update only if userCart has changed
-//   if (prevUserCart !== newCart) {
-//     setUserCart(newCart);
-//     setTotalCart(newCart.length);
-//     prevUserCartRef.current = newCart; // Update the previous userCart
-//   }
- 
-  
-//   }, [userCart]);
 
 const getUserCart = () => {
   let cartitem = JSON.parse(localStorage.getItem("usercart") || "[]");
@@ -110,6 +183,18 @@ useEffect(() => {
   
 }, [userCart]); //userCart
 
+const getUserLikes = () => {
+  let likeItems = JSON.parse(localStorage.getItem("userLike") || "[]");
+  setUserLike(likeItems);
+  setTotalLike(likeItems.length);
+
+  return likeItems;
+};
+useEffect(() => {  
+   getUserLikes();    
+  
+}, [userLike]); //userCart
+
   function clearCart() {
     document.getElementById("confirmDialogBox").classList.add("dialog_container_fluid_show")
     document.getElementById("confirmDialogBox").addEventListener("click", (event) => {
@@ -117,7 +202,8 @@ useEffect(() => {
         closeConfirmBox();
       } else if (event.target === document.getElementById("yesDialogBtn")){
 
-localStorage.clear()
+// localStorage.clear()
+localStorage.removeItem("usercart")
 closeConfirmBox();
 closeCart()
 // toast.success("Your cart has been cleared");
@@ -188,16 +274,27 @@ function quantityIncrement(event, cartitem){
 }
 
 function OpenMobileNavbar(event){
-  
-  
-let navbarContent = document.getElementById('navbarSupportedContent')
+  let navbarContent = document.getElementById('navbarSupportedContent')
+  navbarContent.classList.toggle('active_navbar')
+let navbarIcon = document.querySelector('.toggle_outline_elemenet')
 
-navbarContent.classList.toggle('active_navbar')
+console.log("navbarIcon", navbarIcon)
+navbarIcon.style.setProperty('background', '#eee');
+navbarIcon.firstElementChild.style.setProperty('font-size', "14px")
+setTimeout(()=>{
+  navbarIcon.style.removeProperty('background', '#eee');
+  navbarIcon.firstElementChild.style.removeProperty('font-size', "14px")
+  
+
+}, 100)
+
+
+
 navbarContent.addEventListener("click", (event)=>{
 
-  if(event.target.id === "media" || event.target.id === "hastags" || event.target.id === "home" || event.target.id === "cartarea" || event.target.id === "cartText" || event.target.id === "carticon" || event.target.id === "cartcount" || event.target.id === "appBlogs" ){
+  if(event.target.id === "media" || event.target.id === "hastags" || event.target.id === "home" || event.target.id === "cartarea" || event.target.id === "cartText" || event.target.id === "carticon" || event.target.id === "cartcount" || event.target.id === "appBlogs" || event.target.id === "AppHeaderLike" || event.target.id === "appLikeIcon"){
     console.log("condition inside closeNavbar")
-    document.getElementById('navbarSupportedContent').classList.remove('active_navbar')
+    document.getElementById('navbarSupportedContent').classList.remove('active_navbar')    
   }
 
 })
@@ -206,7 +303,16 @@ navbarContent.addEventListener("click", (event)=>{
 
 }
 
-
+function hitCartinProducts(productName,productPrice,ProductImage,productid){
+  console.log("hit cart from navbar.js", productName, productPrice, ProductImage, productid)
+ addToCart(productName,productPrice,ProductImage,productid)
+  
+}
+function RouteToLikeProducts(){
+  console.log("Route Link Products")
+  closeCart("userLike")
+  navigate("/products")
+}
 
   
   if (loader === true) {
@@ -222,10 +328,10 @@ navbarContent.addEventListener("click", (event)=>{
         <nav className="navbar navbar-expand-lg navbar-light bg-light fixed-top">
           <div className="container">
             <Link className="navbar-brand" to="/">
-            <i class="fa-solid fa-shop"></i>
+            <i className="fa-solid fa-shop"></i>
             </Link>
             <button
-              className="navbar-toggler"
+              className="toggle_outline_elemenet"
               type="button"
               data-toggle="collapse"
               data-target="#navbarSupportedContent"
@@ -233,11 +339,12 @@ navbarContent.addEventListener("click", (event)=>{
               aria-expanded="false"
               aria-label="Toggle navigation"
               onClick={(event)=> OpenMobileNavbar(event)}>
-              <span className="navbar-toggler-icon"></span>
+              {/* <span className="navbar-toggler-icon"></span> */}
+              <i className="fa-solid fa-bars navbar_toggle_icon"></i>
             </button>
 
             <div
-              className="collapse navbar-collapse"
+              className="collapse navbar-collapse app_header_main_content"
               id="navbarSupportedContent"
             >
               <ul className="navbar-nav mr-auto navul">
@@ -309,16 +416,19 @@ navbarContent.addEventListener("click", (event)=>{
                   </Link>
                 </li> */}
               </ul>
-              <div
-                className="icon_area"
-                onClick={(event) => {
-                  openCart(event);
-                }}
-               id="cartarea">
+              <div className="contains_likes_carts d-flex">
+              <div className="app_navbar_like_containericon" id="AppHeaderLike"  onClick={(event) => {openLikes(event)}}>
+              <i className="fa-solid fa-heart" id="appLikeIcon"></i>
+              </div>
+
+              <div className="icon_area" onClick={(event) => {openCart(event)}} id="cartarea">
                 <i className="fa-solid fa-cart-shopping mr-1" id="carticon"></i>
                 <span id="cartText">Cart</span>
                 <sup id="cartcount">{totalCart}</sup>
               </div>
+
+              </div>
+
             </div>
           </div>
         </nav>
@@ -329,11 +439,11 @@ navbarContent.addEventListener("click", (event)=>{
             id="userCartContainer"
           >
             <div className="container cart_container">
-              <div class="row cart_row w-100">
+              <div className="row cart_row w-100">
                 <div className="cart_header">
                   <div style={{fontSize: "20px", fontWeight:700}}>Your Cart Products</div>
                   <i
-                    class="fa-solid fa-xmark"
+                    className="fa-solid fa-xmark"
                     id="cartclosebtn"
                     onClick={() => {
                       closeCart();
@@ -411,14 +521,14 @@ navbarContent.addEventListener("click", (event)=>{
                         <div className="col-4 position-relative cart_set_fixed_width">
                           <div className="cart_button d-flex justify-space-between">
                             <div className="btn btn-primary cart_continue_btn">
-                              Continue <i class="fa-solid fa-angle-right"></i>
+                              Continue <i className="fa-solid fa-angle-right"></i>
                             </div>
                             <div
                               className="btn btn-danger cart_continue_btn"
                               onClick={clearCart}
                             >
                               Clear{" "}
-                              <i class="fa-solid fa-trash-can-arrow-up"></i>
+                              <i className="fa-solid fa-trash-can-arrow-up"></i>
                             </div>
                           </div>
                         </div>
@@ -430,6 +540,109 @@ navbarContent.addEventListener("click", (event)=>{
             </div>
           </div>
         </cart>
+        <like>
+          <div
+            className="container-fluid cart_container_fluid like_container_fluid"
+            id="userLikeContainer"
+          >
+           <div className="container dialog_row like_inside_container" id="containUserLikes">
+                  <div className="row">
+                  <div className="col-12 user_like_header" 
+                  style={{
+              fontSize: "20px",
+              fontWeight: "700",
+              display: "flex",
+              justifyContent : "space-between",
+              alignItems: "center",
+              padding: "10px",             
+            }}
+                  >
+                      Your Liked Products
+
+                      <i
+                    className="fa-solid fa-xmark app_cross_icon"
+                    id="closeLikeModelIcon"
+                    onClick={() => {
+                      closeCart("userLike");
+                    }}
+                  ></i>
+                  </div>
+               
+           <div className="user_likes_columns">
+           {userLike.length <= 0 ? 
+            (
+              <>
+             
+              <div className="empty_like_container" onClick={()=>{ RouteToLikeProducts()}}>
+              <span style={{color: "black", fontWeight: 700, fontSize: "25px"}}>Your Collection empty now !</span>
+              <img src={EmptyCartImage} alt="empty_cart" width="70%"/>
+             
+              <span className="productdiscripation gallerytitle text-center">Ready to Shop ? <br/> Add products to your favourite...</span>
+              <span className="brand_button" style={{color: "white", width: "fit-content", padding: "10px 40px 14px 40px", cursor: "pointer"}} onClick={() => {
+                  closeCart();
+                }}>Add Now</span>
+              
+              </div>
+              
+              </>
+              )
+            
+            :userLike.map((likeItems, i)=>{
+              return(
+                <>
+  
+   
+     {/* first Columns ------------ */}
+     
+   <div  className="col-md-3 col-sm-12 gallerycol user_favourite_items">
+                  <div className="galleryimg user_favourite_image position-relative">
+                    <img src={likeItems.productImage} id="productimg" alt=""  />                  
+                  </div>
+                  <div className="mediacontent d-inline-block">
+                    <h4 className="gallerytitle productname" id="productname">
+                      {(likeItems.productName.length > 25) ? likeItems.productName.substring(0, 25) + "..." : likeItems.productName}
+                    </h4>
+                   
+                    
+                    <div class="p_btns mt-3">
+                      <button
+                        className="btn btn-sm btn-primary p_s_btn  mr-1 brand_button"
+                        onClick={() => {
+                          hitCartinProducts(
+                            likeItems.productName,
+                            likeItems.productPrice,
+                            likeItems.productImage,
+                            likeItems.productid,
+                          );
+                        }}
+                      >
+                       Cart <i className="fa-solid fa-cart-plus icon_margin"></i>
+                       
+                      </button>
+                      <button className="btn btn-sm btn-primary p_s_btn brand_button ">
+                        Share <i class="fa-solid fa-share-nodes icon_margin"></i>
+                      </button>
+                    </div>
+                  </div>
+           </div>
+           {/* first Columns End  ------------ */}
+          
+
+
+
+                </>
+              )
+             })}
+           </div>
+               
+                  
+      
+                  </div>
+
+           </div>
+         
+          </div>
+        </like>
     {/* <Toast position="bottom-center"/> */}
         <DialogBox />
       </>

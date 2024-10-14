@@ -17,7 +17,7 @@ import Footer from './component/Footer'
 import {Routes, Route, useLocation, useParams} from 'react-router-dom'
 import React, { useState, useEffect } from 'react';
 import Hashtag from './component/Hashtag';
-
+import { CartProvider } from './component/CartContext';
 
 
 
@@ -40,6 +40,7 @@ function App() {
   }, [location]);
   return (
     <>
+  <CartProvider>
   <Nav trackCart={false} />
  
  <Routes>
@@ -60,6 +61,7 @@ function App() {
 
  <Footer />
  <Analytics/>
+ </CartProvider>
     </>
   );
 }

@@ -7,6 +7,7 @@
 }
 
 body{
+  width: 100%;
   overflow-x: hidden;
 }
 
@@ -38,6 +39,7 @@ body{
 .App-link {
   color: #61dafb;
 }
+
 
 @keyframes App-logo-spin {
   from {
@@ -133,12 +135,26 @@ body{
     font-weight: 600;
 }
 
+
 .galleryimg img{
   border-radius: 10px 10px 0px 0px;
   height: 250px !important;
   object-fit: cover !important;
   width: 100% !important;
   object-position: center center;
+}
+.user_favourite_items{
+  width: 23%;
+  background: #ffffff;
+  padding: 8px 8px 0px 8px;
+  height: fit-content;
+}
+
+.user_favourite_image{
+  height: 180px !important;
+}
+.user_favourite_image img{
+  height: 180px !important;
 }
 @media (max-width:767px){
   .gallerycol{
@@ -339,6 +355,14 @@ overflow-y: scroll;
   cursor: pointer;
   color: white
 }
+.app_cross_icon{
+  font-size: 15px;
+  background: black;
+  padding: 7px 9px;
+  border-radius: 50%;
+  cursor: pointer;
+  color: white
+}
 .cart_header i:hover{
   background-color:#000000b8;
 }
@@ -351,7 +375,7 @@ transform: scale(0.9);
 transform: scale(1); 
 }
 .cart_container_fluid{
-  background-color: rgba(43, 52, 69, 0.1) !important;
+  background-color: rgba(43, 52, 69, 0.1);
 position: fixed;
 width: 100% !important;
 height: 100vh;
@@ -360,13 +384,58 @@ top: 0;
 padding: 0;
 z-index: 999;
 transform: translate(120%,0%);
-transition: all 0.1sease-in-out;
+transition: all 0.1s ease-in-out;
+}
+.like_container_fluid{
+  transform: translate(0%,-150%);
+  padding: 70px 0px 0px 0px;
+  background-color: #ffffffcf;
 }
 .show_cart_container{
   transform: translate(0%,0%);
 transition: all 0.1s ease-in-out;
+
+}
+.user_likes_columns{
+  display: flex;
+    width: 100%;
+    flex-wrap: wrap;
+    height: 75vh;
+    overflow-y: auto;
+    gap: 5px 12px;
+    justify-content: center;
+    background-color: #f8f9fa !important;
+    flex-wrap: wrap;
+    
+}
+.like_inside_container{
+  padding: 5px 20px !important;
+  transform: translate(0%,-150%);
+  max-width: 80%;
+  transition: all 0.1s ease-in-out;
+
 }
 
+.show_like_container{
+  transform: translate(0%,0%);
+  transition: all 0.1s ease-in-out;
+}
+.blinking_aninmation{
+  animation: blink 1s infinite;
+  transition: all 0.2s ease-in-out;
+}
+
+@keyframes blink {
+  0% {
+    background-color: rgba(255, 26, 53, 0.952);
+    transform: scale(0.9);
+  }
+  100% {
+    background-color: black;
+    transform: scale(1);
+ 
+  }
+}
 /* Coustom Slider Style Starts Here ----------------------------*/
 /* .slider-container { */
   /* max-width: 600px; */
@@ -545,19 +614,41 @@ color:#5a3e3ebf;
 .productprice{
   position: absolute;
   top: 5px;
-  left: 1px;
-  background: black;
+  left: 1px;  
   color: white;
   padding: 2px 10px 3px 10px;
   border-radius: 8px;
   font-size: 14px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
   opacity: 0;
   transition: all 0.2s ease-in-out;
 }
+.productprice strong{
+  background-color: black;
+  padding: 6px 12px;
+  border-radius: 5px;
+}
+.productprice date{
+  background-color: black;
+  padding: 6px 12px;
+  border-radius: 5px;
+}
+.productprice .product_like{
+  color: black;
+  cursor: pointer;
+  transition: all 0.3s ease-in-out;
+  font-size: 18px;
+}
+.productprice .product_like:hover{
+transform: scale(1.2);
+}
 .gallerycol:hover .productprice{
-  opacity: 100%;
+  opacity: 100% !important;
 
 }
+
 
 .productdiscripation{
   font-size: 12px !important;
@@ -789,6 +880,88 @@ margin: 0px 0px 0px 10px !important;
     justify-content: left;
 
   }
+  .contains_likes_carts{
+    width: 100% !important;
+    gap: 0px 50px;
+  }
+  .like_inside_container{
+    max-width: 90% !important;
+  }
+}
+
+.toggle_outline_elemenet{
+  
+  visibility: hidden;
+}
+.app_header_main_content{
+  width: 93%;
+}
+.contains_likes_carts{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 14%;
+}
+.app_navbar_like_containericon{
+  border-radius: 50%;
+  padding: 6px 12px;
+  background: #ffff;
+  color: black;
+  cursor: pointer;
+  transition: all 0.3s ease-in-out;
+
+}
+.animate_container{
+  transition: all 0.2s ease-in-out;
+  animation: scale 2s infinite;
+
+}
+
+@keyframes scale {
+  0% {
+    transform: scale(0.9);
+  }
+  100% {
+    transform: scale(1);
+ 
+  }
+}
+.like_header_animation{
+  animation: pulse 1s infinite;
+  transition: none !important;
+}
+@keyframes pulse {
+  0% {
+    transform: scale(0.9);
+    /* opacity: 1; */
+    color: black;
+  }
+  100% {
+    transform: scale(1.1);
+    /* opacity: 0; */
+    color: red;
+  }
+}
+
+@keyframes bellanimation {
+  0% {
+    transform: rotate(0deg);
+  }
+  20% {
+    transform: rotate(10deg);
+  }
+  40% {
+    transform: rotate(-10deg);
+  }
+  60% {
+    transform: rotate(10deg);
+  }
+  80% {
+    transform: rotate(-10deg);
+  }
+  100% {
+    transform: rotate(0deg);
+  }
 }
 
 @media screen and (max-width : 992px){
@@ -796,9 +969,26 @@ margin: 0px 0px 0px 10px !important;
     justify-content: left;
 
   }
+  .navbar_toggle_icon{
+    font-size: 16px;
+    font-weight: 800;
+    /* padding: 5px 6px; */
+    transition: all 0.2s ease-in-out;
+    color: black;
+  }
+  .toggle_outline_elemenet{
+    border: 1px solid #eee;
+    background: white;
+    visibility: visible;
+    padding: 7px 13px 8px 13px;
+    border-radius: 50%;
+    transition: all 0.2s ease-in-out;
+  
+  }
   .icon_area{
     margin-right: auto;
   }
+ 
   .active_navbar{
     height: 100vh;
     position: fixed !important;
@@ -883,10 +1073,10 @@ margin: 0px 0px 0px 10px !important;
     max-width: 30% !important;
   }
   .cart_header{
-    width: calc(100% - 70.2%);
+    width: calc(100% - 71.5%);
   }
   .cart_footer{
-    width: calc(100% - 70.2%);
+    width: calc(100% - 71.5%);
   }
 
 }
@@ -938,6 +1128,20 @@ margin: 0px 0px 0px 10px !important;
   gap: 25px;
   width: 100%;
   padding: 17px;
+}
+.empty_like_container{
+  display: flex;
+cursor: pointer;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  gap: 25px;
+  width: 100%;
+  padding: 17px;
+  width: 45%;
+  background: white;
+  margin: 20px 0px 0px 0px;
+  border-radius: 20px;
 }
 
 /* empyty cart container cols content styles end here */
@@ -1185,3 +1389,10 @@ justify-content: space-between !important;
   font-size: 25px;
   cursor: pointer;
 }
+
+
+ /* introducing like for interaction */
+ .product_like{
+  position: absolute;
+  right: 10px;
+ }

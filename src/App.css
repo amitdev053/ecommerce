@@ -1029,6 +1029,7 @@ margin: 0px 0px 0px 10px !important;
   }
   .empty_like_container{
     width: 100% !important;
+    height: fit-content !important;
   }
 }
 

@@ -1228,6 +1228,9 @@ justify-content: space-between !important;
   #ProductContainer .gallerycol{
     width: 100% !important;
       }
+      .user_favourite_items{
+        width: 100% !important;
+      }
     /* .list_view_action_button{
       flex-direction: column !important;
       gap: 5px;

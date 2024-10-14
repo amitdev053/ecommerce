@@ -1229,7 +1229,7 @@ justify-content: space-between !important;
     width: 100% !important;
       }
       .user_favourite_items{
-        width: 48% !important;
+        width: 100% !important;
       }
     /* .list_view_action_button{
       flex-direction: column !important;

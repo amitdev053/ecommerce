@@ -1027,6 +1027,9 @@ margin: 0px 0px 0px 10px !important;
   .mobile_list_view{
     width: 100% !important;
   }
+  .empty_like_container{
+    width: 100% !important;
+  }
 }
 
 @media screen and (min-width : 993px) and (max-width : 1199px){ 

@@ -574,7 +574,7 @@ function RouteToLikeProducts(){
               <>
              
               <div className="empty_like_container" onClick={()=>{ RouteToLikeProducts()}}>
-              <span style={{color: "black", fontWeight: 700, fontSize: "25px"}}>Your Collection empty now !</span>
+              <span className="text-center" style={{color: "black", fontWeight: 700, fontSize: "25px"}}>Your Collection empty now !</span>
               <img src={EmptyCartImage} alt="empty_cart" width="70%"/>
              
               <span className="productdiscripation gallerytitle text-center">Ready to Shop ? <br/> Add products to your favourite...</span>

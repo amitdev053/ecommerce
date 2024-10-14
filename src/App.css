@@ -1031,6 +1031,12 @@ margin: 0px 0px 0px 10px !important;
     width: 100% !important;
     height: fit-content !important;
   }
+  .user_likes_columns{
+    align-items: center;
+  }
+  .user_favourite_items{
+    width: 50% !important;
+  }
 }
 
 @media screen and (min-width : 993px) and (max-width : 1199px){ 

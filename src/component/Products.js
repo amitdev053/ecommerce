@@ -196,27 +196,34 @@ console.log("Attempting to share content:",file, [file], URL.createObjectURL(fil
 
 const handleZoomImage = ()=>{
   let images = document.querySelectorAll(".productImages")
-  let scale = 1; // Initial scale factor
-  let currentScale = 1; // Store the current scale after each pinch
+ 
+  let currentScale = 1; // Store the current scale
+  let pinchCenter = { x: 0, y: 0 }; // To track the center of pinch
+  
   Array.from(images).forEach((image)=>{
-   
     const hammer = new Hammer(image);
 
-    // Enable pinch gestures
     hammer.get('pinch').set({ enable: true });
-
-    // Set the transform origin to the center of the image
+    
+    // Set transform origin to the center of the image to keep zooming centered
     image.style.transformOrigin = 'center center';
-
-    hammer.on('pinch', (event) => {
-      // Apply the pinch scale
-      scale = currentScale * event.scale;
-      image.style.transform = `scale(${scale})`;
+    
+    // When the pinch starts, capture the center point
+    hammer.on('pinchstart', (event) => {
+      pinchCenter = { x: event.center.x, y: event.center.y };
     });
 
-    hammer.on('pinchend', () => {
-      // Update the current scale when pinch ends
-      currentScale = scale;
+    // Handle pinch zooming
+    hammer.on('pinch', (event) => {
+      const newScale = currentScale * event.scale;
+      image.style.transform = `scale(${newScale})`; // Apply zoom
+      image.style.transition = 'none'; // Disable smooth transitions during pinch
+    });
+
+    // When pinch ends, update the current scale
+    hammer.on('pinchend', (event) => {
+      currentScale *= event.scale; // Update the scale factor
+      image.style.transition = 'transform 0.2s ease-out'; // Re-enable smooth transitions
     });
   
 

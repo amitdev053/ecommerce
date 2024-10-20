@@ -28,8 +28,9 @@ export default function Navbar({trackCart}) {
   const [url, seturl] = useState("");
   const locations = useLocation();
   const navigate = useNavigate()
+
   const { addToCart } = useContext(CartContext);
-  const [prevUrl,setPreviouseUrl] = useState(undefined)
+  
   
 
   useEffect(() => {
@@ -55,15 +56,9 @@ export default function Navbar({trackCart}) {
         appBody.style.removeProperty('position', 'fixed', 'important');   
       }
     }else if (action === "userLike"){
-      console.log("check location for userLike",prevUrl)
-      if(prevUrl === "/saved"){
-        navigate("/")
-
-      }else{
-
-        window.history.pushState({ path: (prevUrl) }, '', (prevUrl));
-      }
-
+      
+      window.history.back()
+        
       document.getElementById("userLikeContainer").classList.remove("show_like_container");    
       document.getElementById("containUserLikes").classList.remove("show_like_container");    
       let appBody = document.getElementById("appbody")
@@ -113,8 +108,32 @@ export default function Navbar({trackCart}) {
         }
       });
   }
+  function animateLikeHeaderIcon(isAnimate = true){
+
+    let appHeaderLikeIcon = document.querySelectorAll('.animate_like_icon')
+    if(isAnimate){
+      Array.from(appHeaderLikeIcon).forEach((headerLikeIcon)=>{
+        headerLikeIcon.classList.add('like_header_animation')
+        setTimeout(()=>{
+          headerLikeIcon.classList.remove('like_header_animation')
+        }, 3000) 
+
+      })
+    }else{
+      if(document.querySelector('.like_header_animation')){
+        // appHeaderLikeIcon.classList.remove('like_header_animation')
+        Array.from(appHeaderLikeIcon).forEach((headerLikeIcon)=>{
+          headerLikeIcon.classList.remove('like_header_animation')
+  
+        })
+      }
+      
+    }
+  
+  }
   useEffect(()=>{
 if(window.location.pathname === "/saved"){
+  window.history.back()
   openLikes()
 }
   }, [])
@@ -128,17 +147,19 @@ if(window.location.pathname === "/saved"){
         
       }, 100)
     }
-    setPreviouseUrl( window.location.pathname);  // Store the current URL
+    animateLikeHeaderIcon(false)
+       
     window.history.pushState({ path: "/saved" }, '', "/saved");
     document.getElementById("userLikeContainer").classList.toggle("show_like_container");
     document.getElementById("containUserLikes").classList.toggle("show_like_container");
-
+    let appBody = document.getElementById("appbody")
     let appHeaderContainsLikeIcon = document.querySelectorAll('.app_navbar_like_containericon')
-    if(document.getElementById("userLikeContainer").classList.contains("show_like_container")){
+    if(document.getElementById("userLikeContainer").classList.contains("show_like_container") && appBody){
       Array.from(appHeaderContainsLikeIcon).forEach((likeicon)=>{
 
         likeicon.style.background = "black"
         likeicon.style.color = "white"
+        appBody.style.setProperty('position', 'fixed', 'important');
 
       })
     }else{
@@ -146,16 +167,11 @@ if(window.location.pathname === "/saved"){
 
         likeicon.style.background = "white"
         likeicon.style.color = "black"
+        appBody.style.removeProperty('position', 'fixed', 'important');  
+        window.history.back()
       })
     }
-    console.log("appHeader icon container", appHeaderContainsLikeIcon)
-    let appBody = document.getElementById("appbody")
-    if(appBody){      
-      console.log("appbody", appBody)
-      appBody.style.setProperty('position', 'fixed', 'important');
     
-    }
-
     document.getElementById("userLikeContainer").addEventListener("click", (event) => {
         if (event.target === document.getElementById("userLikeContainer")) {
           // closeCart("userLike");

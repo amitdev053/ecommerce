@@ -110,8 +110,6 @@ export default function Products() {
     productQuanity: initalCartQty,
   };
  
-console.log(usercartarr)
- 
   let existingProduct = usercartarr.find((curElement)=>{
   return  productid === curElement.productid
   })
@@ -120,7 +118,7 @@ console.log(usercartarr)
 
   if(existingProduct){
      // If the product is already in the favorites, remove it
-     animateLikeHeaderIcon(false)
+     animateLikeHeaderIcon(true)
      setIsFavorite(false)
      usercartarr = usercartarr.filter((curElement) => curElement.productid !== productid);
      localStorage.setItem("userLike", JSON.stringify(usercartarr)); 
@@ -137,11 +135,6 @@ console.log(usercartarr)
     toast.success("Product saved to the  Favourite");
   }
 
-
-
-    // document.getElementById('userLikeContainer').classList.add('show_cart_container')
-
-    // document.body.style.overflowY = "hidden"
     
   }
 

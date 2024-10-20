@@ -5,6 +5,9 @@
   text-align: center;
  
 }
+.fs-14{
+font-size: 14px;
+}
 
 body{
   width: 100%;
@@ -904,11 +907,14 @@ margin: 0px 0px 0px 10px !important;
 }
 .app_navbar_like_containericon{
   border-radius: 50%;
-  padding: 6px 12px;
+  padding: 10px 12px;
   background: #ffff;
   color: black;
   cursor: pointer;
   transition: all 0.3s ease-in-out;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 
 }
 .animate_container{
@@ -963,8 +969,18 @@ margin: 0px 0px 0px 10px !important;
     transform: rotate(0deg);
   }
 }
+.mobile_header_action_icon{
+  display: none;
+}
 
 @media screen and (max-width : 992px){
+  .mobile_header_action_icon{
+    display: flex;
+    gap: 0px 0.8rem;
+  }
+  .hide_in_mobile_devices{
+    display: none;
+  }
   .navbar_brand{
     justify-content: left;
 

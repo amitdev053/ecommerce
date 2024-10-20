@@ -76,16 +76,24 @@ export default function Products() {
 
   function animateLikeHeaderIcon(isAnimate = true){
 
-    let appHeaderLikeIcon = document.getElementById('appLikeIcon')
+    let appHeaderLikeIcon = document.querySelectorAll('.animate_like_icon')
     if(isAnimate){
-      appHeaderLikeIcon.classList.add('like_header_animation')
-      setTimeout(()=>{
-        appHeaderLikeIcon.classList.remove('like_header_animation')
-      }, 3000) 
+      Array.from(appHeaderLikeIcon).forEach((headerLikeIcon)=>{
+        headerLikeIcon.classList.add('like_header_animation')
+        setTimeout(()=>{
+          headerLikeIcon.classList.remove('like_header_animation')
+        }, 3000) 
+
+      })
     }else{
       if(document.querySelector('.like_header_animation')){
-        appHeaderLikeIcon.classList.remove('like_header_animation')
+        // appHeaderLikeIcon.classList.remove('like_header_animation')
+        Array.from(appHeaderLikeIcon).forEach((headerLikeIcon)=>{
+          headerLikeIcon.classList.remove('like_header_animation')
+  
+        })
       }
+      
     }
   
   }

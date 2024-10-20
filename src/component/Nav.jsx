@@ -55,21 +55,33 @@ export default function Navbar({trackCart}) {
         appBody.style.removeProperty('position', 'fixed', 'important');   
       }
     }else if (action === "userLike"){
-      // console.log("check location for userLike",locations)
-      window.history.pushState({ path: prevUrl }, '', prevUrl);
+      console.log("check location for userLike",prevUrl)
+      if(prevUrl === "/saved"){
+        navigate("/")
+
+      }else{
+
+        window.history.pushState({ path: (prevUrl) }, '', (prevUrl));
+      }
+
       document.getElementById("userLikeContainer").classList.remove("show_like_container");    
       document.getElementById("containUserLikes").classList.remove("show_like_container");    
       let appBody = document.getElementById("appbody")
       if(appBody){            
         appBody.style.removeProperty('position', 'fixed', 'important');   
       }
-      let appHeaderContainsLikeIcon = document.querySelector('.app_navbar_like_containericon')
+      let appHeaderContainsLikeIcon = document.querySelectorAll('.app_navbar_like_containericon')
       if(document.getElementById("userLikeContainer").classList.contains("show_like_container")){
-        appHeaderContainsLikeIcon.style.background = "black"
-        appHeaderContainsLikeIcon.style.color = "white"
+        Array.from(appHeaderContainsLikeIcon).forEach((likeicon)=>{
+          likeicon.style.background = "black"
+          likeicon.style.color = "white"
+        })
       }else{
-        appHeaderContainsLikeIcon.style.background = "white"
-        appHeaderContainsLikeIcon.style.color = "black"
+        Array.from(appHeaderContainsLikeIcon).forEach((hlikeicon)=>{
+
+          hlikeicon.style.background = "white"
+          hlikeicon.style.color = "black"
+        })
       }
     }
       
@@ -101,19 +113,40 @@ export default function Navbar({trackCart}) {
         }
       });
   }
+  useEffect(()=>{
+if(window.location.pathname === "/saved"){
+  openLikes()
+}
+  }, [])
 
-  function openLikes(event) {
+  function openLikes() {
+    let mobileLikeIcon = document.querySelector('.mobile_like_icon')
+    if(mobileLikeIcon){
+      mobileLikeIcon.classList.add('fs-14')
+      setTimeout(()=>{
+        mobileLikeIcon.classList.remove('fs-14')
+        
+      }, 100)
+    }
     setPreviouseUrl( window.location.pathname);  // Store the current URL
     window.history.pushState({ path: "/saved" }, '', "/saved");
     document.getElementById("userLikeContainer").classList.toggle("show_like_container");
     document.getElementById("containUserLikes").classList.toggle("show_like_container");
-    let appHeaderContainsLikeIcon = document.querySelector('.app_navbar_like_containericon')
+
+    let appHeaderContainsLikeIcon = document.querySelectorAll('.app_navbar_like_containericon')
     if(document.getElementById("userLikeContainer").classList.contains("show_like_container")){
-      appHeaderContainsLikeIcon.style.background = "black"
-      appHeaderContainsLikeIcon.style.color = "white"
+      Array.from(appHeaderContainsLikeIcon).forEach((likeicon)=>{
+
+        likeicon.style.background = "black"
+        likeicon.style.color = "white"
+
+      })
     }else{
-      appHeaderContainsLikeIcon.style.background = "white"
-      appHeaderContainsLikeIcon.style.color = "black"
+      Array.from(appHeaderContainsLikeIcon).forEach((likeicon)=>{
+
+        likeicon.style.background = "white"
+        likeicon.style.color = "black"
+      })
     }
     console.log("appHeader icon container", appHeaderContainsLikeIcon)
     let appBody = document.getElementById("appbody")
@@ -292,7 +325,7 @@ setTimeout(()=>{
 
 navbarContent.addEventListener("click", (event)=>{
 
-  if(event.target.id === "media" || event.target.id === "hastags" || event.target.id === "home" || event.target.id === "cartarea" || event.target.id === "cartText" || event.target.id === "carticon" || event.target.id === "cartcount" || event.target.id === "appBlogs" || event.target.id === "AppHeaderLike" || event.target.id === "appLikeIcon"){
+  if(event.target.id === "media" || event.target.id === "hastags" || event.target.id === "home" || event.target.id === "cartarea" || event.target.id === "cartText" || event.target.id === "carticon" || event.target.id === "cartcount" || event.target.id === "appBlogs"){
     console.log("condition inside closeNavbar")
     document.getElementById('navbarSupportedContent').classList.remove('active_navbar')    
   }
@@ -330,6 +363,11 @@ function RouteToLikeProducts(){
             <Link className="navbar-brand" to="/">
             <i className="fa-solid fa-shop"></i>
             </Link>
+            <div className="mobile_header_action_icon">
+            <div className="app_navbar_like_containericon" id="AppHeaderLike"  onClick={(event) => {openLikes(event)}}>
+              <i className="fa-solid fa-heart animate_like_icon mobile_like_icon"  id="appLikeIcon"></i>
+            </div>
+
             <button
               className="toggle_outline_elemenet"
               type="button"
@@ -342,6 +380,7 @@ function RouteToLikeProducts(){
               {/* <span className="navbar-toggler-icon"></span> */}
               <i className="fa-solid fa-bars navbar_toggle_icon"></i>
             </button>
+            </div>
 
             <div
               className="collapse navbar-collapse app_header_main_content"
@@ -417,8 +456,8 @@ function RouteToLikeProducts(){
                 </li> */}
               </ul>
               <div className="contains_likes_carts d-flex">
-              <div className="app_navbar_like_containericon" id="AppHeaderLike"  onClick={(event) => {openLikes(event)}}>
-              <i className="fa-solid fa-heart" id="appLikeIcon"></i>
+              <div className="app_navbar_like_containericon hide_in_mobile_devices" id="AppHeaderLike"  onClick={(event) => {openLikes(event)}}>
+              <i className="fa-solid fa-heart animate_like_icon"  id="appLikeIcon"></i>
               </div>
 
               <div className="icon_area" onClick={(event) => {openCart(event)}} id="cartarea">

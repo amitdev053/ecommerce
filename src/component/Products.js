@@ -211,7 +211,8 @@ hammer.on('pinchstart', (event) => {
 
 hammer.on('pinch', (event) => {
   scale = event.scale;
-  image.style.transform = `scale(${scale}) translate(${x}px, ${y}px)`;
+  image.style.transform = `scale(${scale})`;
+  image.style.transition = 'transform 0.2s ease-out';
 });
 
 hammer.on('pinchend', () => {

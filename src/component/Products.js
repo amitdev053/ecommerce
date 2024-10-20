@@ -192,65 +192,33 @@ console.log("Attempting to share content:",file, [file], URL.createObjectURL(fil
     alert('Web Share API is not supported in your browser or the current device cannot share files.');
   }
 };
-// Calculate distance between two fingers
-const distance = (event) => {
-  return Math.hypot(event.touches[0].pageX - event.touches[1].pageX, event.touches[0].pageY - event.touches[1].pageY);
-};
+
 
 const handleZoomImage = ()=>{
   let images = document.querySelectorAll(".productImages")
-  let imageElementScale = 1;
-  let start = {};
+  let scale = 1; // Initial scale factor
+  let currentScale = 1; // Store the current scale after each pinch
   Array.from(images).forEach((image)=>{
    
-    image.addEventListener('touchstart', (event) => {
-      console.log('touchstart', event);
-      if (event.touches.length === 2) {
-        event.preventDefault(); // Prevent page scroll
-  
-        // Calculate where the fingers have started on the X and Y axis
-        start.x = (event.touches[0].pageX + event.touches[1].pageX) / 2;
-        start.y = (event.touches[0].pageY + event.touches[1].pageY) / 2;
-        start.distance = distance(event);
-      }
+    const hammer = new Hammer(image);
+
+    // Enable pinch gestures
+    hammer.get('pinch').set({ enable: true });
+
+    // Set the transform origin to the center of the image
+    image.style.transformOrigin = 'center center';
+
+    hammer.on('pinch', (event) => {
+      // Apply the pinch scale
+      scale = currentScale * event.scale;
+      image.style.transform = `scale(${scale})`;
+    });
+
+    hammer.on('pinchend', () => {
+      // Update the current scale when pinch ends
+      currentScale = scale;
     });
   
-    image.addEventListener('touchmove', (event) => {
-      console.log('touchmove', event);
-      if (event.touches.length === 2) {
-        event.preventDefault(); // Prevent page scroll
-        let scale;
-  
-        // Safari provides event.scale as two fingers move on the screen
-        // For other browsers just calculate the scale manually
-        if (event.scale) {
-          scale = event.scale;
-        } else {
-          const deltaDistance = distance(event);
-          scale = deltaDistance / start.distance;
-        }
-  
-        imageElementScale = Math.min(Math.max(1, scale), 4);
-  
-        // Calculate how much the fingers have moved on the X and Y axis
-        const deltaX = (((event.touches[0].pageX + event.touches[1].pageX) / 2) - start.x) * 2; // x2 for accelarated movement
-        const deltaY = (((event.touches[0].pageY + event.touches[1].pageY) / 2) - start.y) * 2; // x2 for accelarated movement
-  
-        // Transform the image to make it grow and move with fingers
-        const transform = `translate3d(${deltaX}px, ${deltaY}px, 0) scale(${imageElementScale})`;
-        image.style.transform = transform;
-        image.style.WebkitTransform = transform;
-        image.style.zIndex = "9999";
-      }
-    });
-  
-    image.addEventListener('touchend', (event) => {
-      console.log('touchend', event);
-      // Reset image to it's original format
-      image.style.transform = "";
-      image.style.WebkitTransform = "";
-      image.style.zIndex = "";
-    });
 
   })
 

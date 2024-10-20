@@ -11,6 +11,7 @@ import ColorThief from 'color-thief-react';
 import 'react-toastify/dist/ReactToastify.css';
 import { changeProdiuctView } from './CustomHook'
 import { CartContext } from './CartContext';
+import Hammer from 'hammerjs';
 
 
 export default function Products() {
@@ -192,6 +193,38 @@ console.log("Attempting to share content:",file, [file], URL.createObjectURL(fil
   }
 };
 
+const handleZoomImage = ()=>{
+  let images = document.querySelectorAll(".productImages")
+  let scale = 1;
+let x = 0;
+let y = 0;
+
+  Array.from(images).forEach((image)=>{
+    const hammer = new Hammer(image);
+
+    hammer.get('pinch').set({ enable: true });
+
+hammer.on('pinchstart', (event) => {
+  x = event.center.x;
+  y = event.center.y;
+});
+
+hammer.on('pinch', (event) => {
+  scale = event.scale;
+  image.style.transform = `scale(${scale}) translate(${x}px, ${y}px)`;
+});
+
+hammer.on('pinchend', () => {
+  // Handle pinch end
+});
+
+  })
+
+}
+useEffect(()=>{
+  handleZoomImage()
+}, [])
+
   if (loader === true) {
     return (
       <>
@@ -237,7 +270,7 @@ console.log("Attempting to share content:",file, [file], URL.createObjectURL(fil
               return (
                 <div className="col-md-3 col-sm-12 gallerycol" key={product.id} >
                   <div className="galleryimg position-relative">
-                    <img src={product.image} id="productimg" alt="" onLoad={handleImageLoad} />
+                    <img src={product.image} id="productimg" className="productImages" alt="" onLoad={handleImageLoad} />
                     <div id="productprice" className="productprice w-100" style={{opacity: isFavorite ? "100%" : "0"}}>
                  <strong>  {formatter.format(product.price)} </strong>
                      
@@ -308,7 +341,7 @@ console.log("Attempting to share content:",file, [file], URL.createObjectURL(fil
           </div>
           </>          
           :
-          <ProductListView />
+          <ProductListView  addToFavourite={addToFavourite} isFavorite={isFavorite}  />
          
          }
         </div>

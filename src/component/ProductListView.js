@@ -5,7 +5,7 @@ import { ToastContainer, toast } from "react-toastify";
 import ProductSlider from "./ProductSlider";
 
 
-export default function ProductListView() {
+export default function ProductListView({addToFavourite, isFavorite}) {
   const baseUrl = "https://fakestoreapi.com";
   const productsUrl = "/products";
   const cartUrl = "/carts";
@@ -138,10 +138,20 @@ console.log("Attempting to share content:",file, [file], URL.createObjectURL(fil
                 <div className="col-12  gallerycol list_view_cols mobile_list_view " key={product.id+ i}>
                   <div className="galleryimg position-relative list_view_product_image">
                     <img src={product.image} id="productimg" alt="" />
-                    <span id="productprice" className="productprice w-100">
+                    <span id="productprice" className="productprice w-100" style={{opacity: isFavorite ? "100%" : "0"}}>
                     <strong>  {formatter.format(product.price)} </strong>
 
-                      <i class="fa-regular fa-heart  product_like"></i>
+                      <i 
+                      className={`fa-${isFavorite ? 'solid' : 'regular'} fa-heart product_like`}
+                      onClick={() => {
+                          addToFavourite(
+                            product.title,
+                            product.price,
+                            product.image,
+                            product.id
+                          );
+                        }}
+                      ></i>
                     </span>
                   </div>
                   <div className="mediacontent d-inline-block list_view_detail_content">

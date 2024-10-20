@@ -632,7 +632,7 @@ function RouteToLikeProducts(){
               <span className="text-center" style={{color: "black", fontWeight: 700, fontSize: "25px"}}>Your Collection empty now !</span>
               <img src={EmptyCartImage} alt="empty_cart" width="70%"/>
              
-              <span className="productdiscripation gallerytitle text-center">Ready to Shop ? <br/> Add products to your favourite...</span>
+              <span className="productdiscripation gallerytitle text-center"> Add products to your favourite list <br/> that will appear here.</span>
               <span className="brand_button" style={{color: "white", width: "fit-content", padding: "10px 40px 14px 40px", cursor: "pointer"}} onClick={() => {
                   closeCart();
                 }}>Add Now</span>

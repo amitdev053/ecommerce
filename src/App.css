@@ -409,6 +409,7 @@ transition: all 0.1s ease-in-out;
     justify-content: center;
     background-color: #f8f9fa !important;
     flex-wrap: wrap;
+    align-items: center;
     
 }
 .like_inside_container{

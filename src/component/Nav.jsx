@@ -423,7 +423,7 @@ userCart.addEventListener('touchstart', (e) => {
 userCart.addEventListener('touchend', (e) => {
   endX = e.changedTouches[0].clientX;
   
-  if (startX <= 10 && endX > 0) {
+  if (startX <= 100 && endX > 0) {
     console.log("right side movement")
     closeCart(undefined)
   } else if (endX < startX) {

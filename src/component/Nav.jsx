@@ -81,13 +81,19 @@ export default function Navbar({trackCart}) {
     }
       
   }
-  function closeConfirmBox() {
+  function closeConfirmBox(CallingForOrder = false) {
     document
       .getElementById("confirmDialogBox")
       .classList.remove("dialog_container_fluid_show");
     document
       .getElementById("userCartContainer")
       .classList.add("show_cart_container");
+
+      if(CallingForOrder){
+        document
+        .getElementById("confirmOrderBox")
+        .classList.remove("dialog_container_fluid_show");
+      }
   }
   function openCart(event) {
     
@@ -268,6 +274,16 @@ closeCart()
       }
     });
     // clearUserCart()
+  }
+
+  function getOrders() {
+    document.getElementById("confirmOrderBox").classList.add("dialog_container_fluid_show")
+    document.getElementById("confirmOrderBox").addEventListener("click", (event) => {
+      if(event.target === document.getElementById("okOrder")){
+        closeConfirmBox(true);
+      }
+
+    })
   }
 
   const deleteCart = (cartitemid, index)=>{
@@ -571,24 +587,24 @@ function RouteToLikeProducts(){
                       );
                     })}                    
 
-                    <div className="col-12 position-relative cart_seter">
+                   {(userCart.length > 0) && <div className="col-12 position-relative cart_seter">
                       <div className="cart_total cart_footer">
                         <div className="col-4 position-relative cart_set_fixed_width">
                           <div className="cart_button d-flex justify-space-between">
-                            <div className="btn btn-primary cart_continue_btn">
+                            <div className="btn btn-primary cart_continue_btn" onClick={getOrders}>
                               Continue <i className="fa-solid fa-angle-right"></i>
                             </div>
                             <div
                               className="btn btn-danger cart_continue_btn"
                               onClick={clearCart}
                             >
-                              Clear{" "}
+                              Clear
                               <i className="fa-solid fa-trash-can-arrow-up"></i>
                             </div>
                           </div>
                         </div>
                       </div>
-                    </div>
+                    </div>}
                   </div>
                 </div>
               </div>

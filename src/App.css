@@ -1426,3 +1426,24 @@ justify-content: space-between !important;
   position: absolute;
   right: 10px;
  }
+ .app_order_button{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 3px 0px 5px 0px;
+  background-color: black !important;
+  border:none !important;
+  border-radius: 40px;
+ }
+.btn-primary:hover, 
+.btn-primary:focus, 
+.btn-primary:active, 
+.btn-primary.active {
+  background-color: #000000b8 !important;
+  border-color: none !important;
+  
+}
+.btn-primary{
+  background-color: black !important;
+  border: none !important;
+}

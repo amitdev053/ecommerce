@@ -409,6 +409,32 @@ console.log("Attempting to share content:",file, [file], URL.createObjectURL(fil
     alert('Web Share API is not supported in your browser or the current device cannot share files.');
   }
 };
+
+function moveToCloseCart(){
+  let startX = 0;
+let endX = 0;
+
+
+let userCart = document.getElementById('userCartContainer')
+userCart.addEventListener('touchstart', (e) => {
+  startX = e.touches[0].clientX;
+});
+
+userCart.addEventListener('touchend', (e) => {
+  endX = e.changedTouches[0].clientX;
+  
+  if (startX <= 10 && endX > 0) {
+    console.log("right side movement")
+    closeCart(undefined)
+  } else if (endX < startX) {
+    console.log('Left side movement');
+  }
+  
+});
+}
+useEffect(()=>{
+  moveToCloseCart()
+}, [])
   
   if (loader === true) {
     return (

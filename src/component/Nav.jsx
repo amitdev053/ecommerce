@@ -357,7 +357,7 @@ setTimeout(()=>{
 
 navbarContent.addEventListener("click", (event)=>{
 
-  if(event.target.id === "media" || event.target.id === "hastags" || event.target.id === "home" || event.target.id === "cartarea" || event.target.id === "cartText" || event.target.id === "carticon" || event.target.id === "cartcount" || event.target.id === "appBlogs"){
+  if(event.target.id === "media" || event.target.id === "hastags" || event.target.id === "home" || event.target.id === "cartarea" || event.target.id === "cartText" || event.target.id === "carticon" || event.target.id === "cartcount" || event.target.id === "appBlogs" || event.target.id === "navbarSupportedContent"){
     console.log("condition inside closeNavbar")
     document.getElementById('navbarSupportedContent').classList.remove('active_navbar')    
   }

@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 
-const DialogBox = () => {
+const DialogBox = ({cartProcess}) => {
     
  
   return (
@@ -27,8 +27,8 @@ const DialogBox = () => {
                We will take the orders as soon as possible...
             </div>
             <div className="dialog_action_btn d-flex align-items-center justify-content-center">
-           
-            <button className="btn btn-sm btn-primary app_order_button" id="okOrder">OK</button>
+            {/* {(cartProcess) ? <div className="cart_continue_loader" /> : <> <button className="btn btn-sm btn-primary app_order_button  position-relative" id="okOrder">OK</button> </>  } */}
+            <button className="btn btn-sm btn-primary app_order_button position-relative" style={{ color: cartProcess ? "black" : "white" }} id="okOrder">{(cartProcess) ?  <div className="cart_continue_loader" /> : "OK"}</button>
 
             </div>
           

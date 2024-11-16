@@ -7,6 +7,7 @@ import "react-toastify/dist/ReactToastify.css";
 import axios from "axios";
 import defaultBlogImage from "../defaultBlog.jpg";
 import SearchBlogs from "./SearchBlogs";
+import ScrollTag from "./ScrollTag";
 
 const Blogs = () => {
   const [loader, setloader] = useState(true);
@@ -18,7 +19,9 @@ const Blogs = () => {
   
   const getBlogs = (forSearch = false, forSearchQuery = "") => {
     let getBlogUrl
-
+    // let loader = document.querySelector(".loader")
+    // loader.classList.add('margin_top_setzero')
+    setloader(true);
     if(forSearch){
       getBlogUrl = `https://dev.to/api/articles?tag=${forSearchQuery}`
      
@@ -30,15 +33,56 @@ const Blogs = () => {
     console.log("manageing blogs", getBlogUrl, forSearchQuery)
     axios.get(getBlogUrl).then((blog) => {
       setloader(false);
-      console.log("blog response", blog.data);
+      // console.log("blog response", blog.data);
       setBlogs(blog.data);
     });
   };
-  // it is for one time operations 
+  
+  // function displayDynamicBlogs(){
+  //   let tagNames = document.querySelectorAll('.app_blog_tag_text')
+     
+  //   tagNames.forEach((tag) => {
+  //     tag.classList.remove('highlight_tag')
+  //   })
+ 
+  //   tagNames.forEach((tag)=>{  
+  //     tag.addEventListener("click", (e)=>{
+  //      console.log("clicked on tags...", tag, e.target)
+  //      e.target.classList.add("highlight_tag")
+  //           getBlogs(true, tag.innerText)
+            
+
+  //     })
+    
+
+  //   })
+  // }
+  function displayDynamicBlogs() {
+    let tagNames = document.querySelectorAll('.app_blog_tag_text');
+  
+    tagNames.forEach((tag) => {
+      tag.replaceWith(tag.cloneNode(true)); // Clone the tag to remove all listeners
+    });
+  
+    tagNames = document.querySelectorAll('.app_blog_tag_text'); // Re-query after replacing elements
+  
+    tagNames.forEach((tag) => {
+      tag.addEventListener("click", (e) => {
+        
+        tagNames.forEach((tag) => tag.classList.remove('highlight_tag'));
+        e.target.classList.add("highlight_tag");  
+        
+        // Call the getBlogs function
+        getBlogs(true, tag.innerText);
+      });
+    });
+  }
+
 
   useEffect(() => {
     document.title = "Market-Shops Tech Blogs"
     getBlogs();
+    displayDynamicBlogs()
   }, []);
   
   // it is for every page render operations 
@@ -126,6 +170,7 @@ const Blogs = () => {
     <div className="container text-left mt-ps90">
       <Alert position="bottom-center"> </Alert>
 <SearchBlogs setBlogs={setBlogs} setloader={setloader}  />
+<ScrollTag />
       <div
         style={{
           display: "flex",
@@ -156,7 +201,7 @@ const Blogs = () => {
         {/* Blog Columns Start Here */}
 
         {loader === true ? (
-          <Loader />
+          <Loader setPropClass="margin_top_setzero" />
         ) : (
           blogs.length <= 0 ? 
           (

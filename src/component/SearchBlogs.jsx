@@ -366,7 +366,11 @@ const SearchBlogs = (props) => {
                     );
                   })}
                 </div>
+
+
               </>
+
+              
             );
 };
 

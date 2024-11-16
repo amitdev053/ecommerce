@@ -1,9 +1,9 @@
 import React from 'react'
 
-const Loader = () => {
+const Loader = (props) => {
   return (
     <div>
-      <div className="loader" ></div>
+      <div className={`loader ${props.setPropClass}`} ></div>
     </div>
   )
 }

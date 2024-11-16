@@ -23,6 +23,7 @@ export default function Navbar({trackCart}) {
   const [cartitems, setcartitems] = useState()
   const [cartitemsindex, setcartitemsindex] = useState()
   const [cartQuantity, setCartQuantity] = useState(1)
+  const [cartProcess , setCartProcess] = useState(false)
 
 
   const [url, seturl] = useState("");
@@ -160,15 +161,19 @@ if(window.location.pathname === "/saved"){
     document.getElementById("containUserLikes").classList.toggle("show_like_container");
     let appBody = document.getElementById("appbody")
     let appHeaderContainsLikeIcon = document.querySelectorAll('.app_navbar_like_containericon')
+    let navbarHLikeIcon = document.getElementById('appLikeDIcon')
     if(document.getElementById("userLikeContainer").classList.contains("show_like_container") && appBody){
+      navbarHLikeIcon.classList.replace("fa-regular", "fa-solid")
       Array.from(appHeaderContainsLikeIcon).forEach((likeicon)=>{
-
+        
         likeicon.style.background = "black"
         likeicon.style.color = "white"
         appBody.style.setProperty('position', 'fixed', 'important');
-
+        
       })
     }else{
+      navbarHLikeIcon.classList.replace("fa-solid", "fa-regular")
+    
       Array.from(appHeaderContainsLikeIcon).forEach((likeicon)=>{
 
         likeicon.style.background = "white"
@@ -277,13 +282,21 @@ closeCart()
   }
 
   function getOrders() {
+
+    
     document.getElementById("confirmOrderBox").classList.add("dialog_container_fluid_show")
     document.getElementById("confirmOrderBox").addEventListener("click", (event) => {
       if(event.target === document.getElementById("okOrder")){
+            setCartProcess(true)
+    setTimeout(()=>{
+      setCartProcess(false)
         closeConfirmBox(true);
+        }, 1500)
       }
 
     })
+  
+ 
   }
 
   const deleteCart = (cartitemid, index)=>{
@@ -424,12 +437,12 @@ userCart.addEventListener('touchend', (e) => {
   endX = e.changedTouches[0].clientX;
   
   if (startX <= 100 && endX > 0) {
-    console.log("right side movement")
+    // console.log("right side movement")
     closeCart(undefined)
   } else if (endX < startX) {
-    console.log('Left side movement');
+    // console.log('Left side movement');
   }
-  
+  console.log("startX and endX", startX, endX)
 });
 }
 useEffect(()=>{
@@ -545,7 +558,7 @@ useEffect(()=>{
               </ul>
               <div className="contains_likes_carts d-flex">
               <div className="app_navbar_like_containericon hide_in_mobile_devices" id="AppHeaderLike"  onClick={(event) => {openLikes(event)}}>
-              <i className="fa-solid fa-heart animate_like_icon"  id="appLikeIcon"></i>
+              <i className="fa-regular fa-heart animate_like_icon"  id="appLikeDIcon"></i>
               </div>
 
               <div className="icon_area" onClick={(event) => {openCart(event)}} id="cartarea">
@@ -647,8 +660,9 @@ useEffect(()=>{
                       <div className="cart_total cart_footer">
                         <div className="col-4 position-relative cart_set_fixed_width">
                           <div className="cart_button d-flex justify-space-between">
-                            <div className="btn btn-primary cart_continue_btn" onClick={getOrders}>
-                              Continue <i className="fa-solid fa-angle-right"></i>
+                            <div className="btn btn-primary cart_continue_btn position-relative" onClick={getOrders}>
+                          {/* {(cartProcess) ? <div className="cart_continue_loader" /> : <> Continue <i className="fa-solid fa-angle-right"></i> </>  } */}
+                          Continue <i className="fa-solid fa-angle-right"></i>
                             </div>
                             <div
                               className="btn btn-danger cart_continue_btn"
@@ -771,7 +785,7 @@ useEffect(()=>{
           </div>
         </like>
     {/* <Toast position="bottom-center"/> */}
-        <DialogBox />
+        <DialogBox cartProcess={cartProcess} />
       </>
     );
   }

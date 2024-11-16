@@ -22,22 +22,7 @@ import { CartProvider } from './component/CartContext';
 
 
 function App() {
-  const location = useLocation();
-
-  useEffect(() => {
-   let locate = location.pathname
-
-  console.log(locate)
-  if(locate === "/blogs" || locate === "/blogs/search"){
-    
-    const loaderElement = document.querySelector('.loader');
-    if (loaderElement) {
-
-     loaderElement.classList.add('margin_top_setzero')
-    }
-  }
-    // Send request to your server to increment page view count
-  }, [location]);
+  
   return (
     <>
   <CartProvider>

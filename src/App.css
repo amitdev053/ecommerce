@@ -1,6 +1,10 @@
 @import "~react-image-gallery/styles/css/image-gallery.css";
 @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700;900&family=Titillium+Web:wght@200;300;400;600;700;900&display=swap');
 
+html{
+  user-select: none;
+  
+}
 .App {
   text-align: center;
  
@@ -219,8 +223,7 @@ width:60%;
 .mt-74{
   margin-top: 70px ;
 }
-.mt-ps90{
-  
+.mt-ps90{  
   margin-top: 90px;
 }
 .loader {
@@ -241,6 +244,7 @@ width:60%;
 }
 .margin_top_setzero{
   margin-top: 0 !important;
+  margin-bottom: 100px !important;
 }
 
 /* Safari */
@@ -700,7 +704,7 @@ transform: scale(1.2);
 .cart_continue_btn{
   background: black;
   border: none;
-  height: fit-content !important;
+  /* height: fit-content !important; */
   padding: 6px 21px 8px 20px !important;
   font-size: 13px;
   width: 45%;
@@ -1276,6 +1280,12 @@ justify-content: space-between !important;
 .no_blog_search{
   display: none;
 }
+@media screen and (max-width: 680px){
+  .st_blog_tag_suggestion{
+    display: none !important;
+  }
+}
+
 @media screen and (max-width: 400px){
   .no_blog_image_found_insearch{
     width: 100% !important;
@@ -1446,4 +1456,113 @@ justify-content: space-between !important;
 .btn-primary{
   background-color: black !important;
   border: none !important;
+}
+.st_blog_tag_suggestion{
+  display: flex;
+}
+.blog_tag_suggestion{
+  padding: 10px 10px;
+  background: #f8f9fa;
+  overflow-y: hidden;
+  overflow: auto;
+  gap: 0px 10px;
+  margin: 20px 0px;
+  border-radius: 50px;
+}
+.app_blog_tag_text {
+  display: inline-block;
+  white-space: nowrap;  
+  text-overflow: ellipsis;  
+  background: white;
+  border-radius: 20px;
+  margin: 5px;
+  cursor: pointer;
+  padding: 5px 10px 5px 10px;
+  font-size: 12px !important;
+  color: #5a3e3ebf;
+  text-align: center;
+  font-weight: 600;
+  font-family: "Roboto";
+  transition: all 0.3s ease-in-out;
+  border: 2px solid #f8f9fa;
+}
+.app_blog_tag_text:hover{
+background-color: #f8f9fa;
+border: 2px solid white;
+color: #000203;
+}
+
+/* Custom scrollbar styling for WebKit browsers (Chrome, Safari) */
+.blog_tag_suggestion::-webkit-scrollbar {
+  height: 0px; /* Adjusts scrollbar height for horizontal scrolling */
+}
+
+.blog_tag_suggestion::-webkit-scrollbar-track {
+  background: #f8f9fa; /* Same as container background color */
+}
+
+.blog_tag_suggestion::-webkit-scrollbar-thumb {
+  background: #f8f9fa; /* Same as container background color */
+  border-radius: 5px;
+}
+
+.blog_tag_suggestion::-webkit-scrollbar-thumb:hover {
+  background: #f8f9fa; /* Same as container background color */
+}
+.cart_continue_loader{
+  width: 15px;
+  height: 15px;
+  position: relative;
+  top: 50%;
+  /* left: 40%; */
+  left: 0;
+  transform: translate(-50%, -50%);
+  border-radius: 50%;
+  border: 2px solid white;
+  border-top: 5px solid  black ;
+  animation: spin 2s linear infinite;
+  margin: 4px;
+}
+/* Styles for highlight_tag to override hover */
+.app_blog_tag_text.highlight_tag {
+  background-color: black; /* Optional: Set a static background */
+  color: white; /* Optional: Set a static text color */
+  cursor: pointer;
+  
+}
+.highlight_tag{
+  background-color: black;
+  color: white;
+}
+.app_blog_tag_right{
+  right: 0px;
+  background: #f8f9fa;
+  padding: 10px 13px;
+  top: 0px;
+  bottom: 0px;
+  display: flex !important;
+  align-items: center;
+  justify-content: center;
+  font-weight: 800;
+  cursor: pointer;
+  border-radius: 0px 30px 30px 0px;
+}
+.app_blog_tag_right:hover{
+  background-color: white;
+  border-right: 1px solid #f8f9fa;
+}
+.app_blog_tag_left{
+  left: 0px;
+  background: #f8f9fa;
+  padding: 10px 13px;
+  top: 0px;
+  bottom: 0px;
+  display: flex !important;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  border-radius: 30px 0px 0px 30px;  
+}
+.app_blog_tag_left:hover{
+  background-color: white;
 }

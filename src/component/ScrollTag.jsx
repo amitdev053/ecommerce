@@ -7,7 +7,7 @@ const ScrollTag = () => {
   function nextTag() {
     const container = ScrollDivTags.current;
     if (container) {
-      container.scrollLeft += 700; // Adjust the scroll amount as needed
+      container.scrollLeft += 1000; // Adjust the scroll amount as needed
       hideLeftArrow();
     }
   }
@@ -20,7 +20,7 @@ const ScrollTag = () => {
   function prevTag() {
     const container = ScrollDivTags.current;
     if (container) {
-      container.scrollLeft -= 700; // Adjust the scroll amount as needed
+      container.scrollLeft -= 1000; // Adjust the scroll amount as needed
       hideLeftArrow();
     }
   }

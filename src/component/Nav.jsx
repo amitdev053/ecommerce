@@ -462,7 +462,7 @@ useEffect(()=>{
         <nav className="navbar navbar-expand-lg navbar-light bg-light fixed-top">
           <div className="container">
             <Link className="navbar-brand" to="/">
-            <i className="fa-solid fa-shop"></i>
+            <i className="fa-solid fa-shop app_nav_logo"></i>
             </Link>
             <div className="mobile_header_action_icon">
             <div className="app_navbar_like_containericon" id="AppHeaderLike"  onClick={(event) => {openLikes(event)}}>

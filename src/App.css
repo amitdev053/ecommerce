@@ -1595,3 +1595,9 @@ color: #000203;
 .app_blog_tag_left:hover{
   background-color: white;
 }
+@media screen and (min-width : 999px){
+  .app_nav_logo{
+    position: relative;
+    top: 2px;
+  }
+}

@@ -1278,8 +1278,37 @@ justify-content: space-between !important;
   display: none;
 }
 .no_blog_search{
-  display: none;
+  /* display: none; */
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  width: 100%;
+  align-items: center;
+  padding: 20px;
+  border-radius: 20px;
+  background: #f8f9fa;
 }
+.no_blog_image_found_insearch {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  background-color: #e7e7e763;
+  border-radius: 30px !important;
+  padding: 30px 80px !important;
+  font-size: 150px !important;
+}
+.search_not_found_button {
+  padding: 12px 50px;
+  border-radius: 50px;
+  font-size: 15px;
+  width: -moz-fit-content !important;
+  width: fit-content !important;
+  font-weight: 500;
+  font-family: "Roboto";
+  color: white;
+}
+
 @media screen and (max-width: 680px){
   .st_blog_tag_suggestion{
     display: none !important;

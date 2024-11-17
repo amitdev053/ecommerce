@@ -526,7 +526,7 @@ useEffect(()=>{
                 <li className="nav-item">
                   <Link
                     className={`${
-                      url === "/blogs" ? "nav-link active" : "nav-link"
+                      url === "/blogs" || url === "/blogs/suggest" || url === "/blogs/search" ? "nav-link active" : "nav-link"
                     }`}
                     to="/blogs"
                     id="appBlogs"

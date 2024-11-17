@@ -38,7 +38,7 @@ const ScrollTag = () => {
   return (
     <>
       <div
-        className="container d-flex align-items-center st_blog_tag_suggestion position-relative"
+        className="container d-flex align-items-center st_blog_tag_suggestion position-relative p-0"
         style={{ height: "60px" }}
       >
         {!isAtStart && (
@@ -53,8 +53,10 @@ const ScrollTag = () => {
           ref={ScrollDivTags}
           style={{ scrollBehavior: "smooth" }}
         >
-          <span class="app_blog_tag_text">Programming Languages</span>
           <span class="app_blog_tag_text">JavaScript</span>
+          <span class="app_blog_tag_text">React</span>
+          <span class="app_blog_tag_text">React Native</span>
+          <span class="app_blog_tag_text">Programming Languages</span>
           <span class="app_blog_tag_text">Python</span>
           <span class="app_blog_tag_text">Java</span>
           <span class="app_blog_tag_text">Ruby</span>
@@ -69,7 +71,6 @@ const ScrollTag = () => {
           <span class="app_blog_tag_text">Fullstack</span>
           <span class="app_blog_tag_text">HTML</span>
           <span class="app_blog_tag_text">CSS</span>
-          <span class="app_blog_tag_text">React</span>
           <span class="app_blog_tag_text">Angular</span>
           <span class="app_blog_tag_text">Vue.js</span>
           <span class="app_blog_tag_text">Node.js</span>
@@ -77,7 +78,6 @@ const ScrollTag = () => {
           <span class="app_blog_tag_text">Mobile Development</span>
           <span class="app_blog_tag_text">iOS</span>
           <span class="app_blog_tag_text">Android</span>
-          <span class="app_blog_tag_text">React Native</span>
           <span class="app_blog_tag_text">Flutter</span>
           <span class="app_blog_tag_text">Swift</span>
           <span class="app_blog_tag_text">Kotlin</span>

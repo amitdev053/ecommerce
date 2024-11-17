@@ -15,7 +15,7 @@ const SearchBlogs = (props) => {
             const location = useLocation();
             const [searchString, setSearchString] = useState("Search blog by tagnames...");
             const [searchHandleEvent, setSearchHandleEvent] = useState(false);
-            
+        
 
             function refreshSearchString(){
               const searchParams = new URLSearchParams(location.search);
@@ -28,6 +28,7 @@ const SearchBlogs = (props) => {
             }
      useEffect(()=>{
       refreshSearchString()
+      console.log("now refresh")
      }, [location.search])
    
 
@@ -197,7 +198,9 @@ const SearchBlogs = (props) => {
               searchRef.current.innerText =  (searchRef.current.innerText === "Search blog by tagnames..." || searchRef.current.innerText === "") ? searchRef.current.innerText = "Search blog by tagnames..." : searchRef.current.innerText;
               searchIcon.current.className = "fa-solid fa-magnifying-glass mr-2 search_icon";
               searchIcon.current.setAttribute("info", "search");
-              goSearchIcon.current.style.color = "#edf2fa";
+              goSearchIcon.current.style.color = "#edf2fa";                     
+              setSearchString(searchString)
+             
             
             }
             const handleSearch = () => {

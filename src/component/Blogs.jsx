@@ -7,6 +7,7 @@ import "react-toastify/dist/ReactToastify.css";
 import axios from "axios";
 import defaultBlogImage from "../defaultBlog.jpg";
 import SearchBlogs from "./SearchBlogs";
+import desktopicon from '../appimages/desktopicon.png'
 import ScrollTag from "./ScrollTag";
 
 const Blogs = () => {
@@ -15,6 +16,8 @@ const Blogs = () => {
   const [searchText, setSearchText] = useState("")
   const [blogView, setBlogView] = useState(true);
   const location = useLocation();
+  const[destktopSearch, setDesktopSearch] = useState(undefined)
+  const [searchPageString, setSearchPageString] = useState(undefined);
   
   
   const getBlogs = (forSearch = false, forSearchQuery = "") => {
@@ -23,7 +26,15 @@ const Blogs = () => {
     // loader.classList.add('margin_top_setzero')
     setloader(true);
     if(forSearch){
+      console.log("checking search text", forSearchQuery)
       getBlogUrl = `https://dev.to/api/articles?tag=${forSearchQuery}`
+      
+      let tags = document.querySelectorAll(".app_blog_tag_text")
+      tags.forEach((tag)=>{
+        if(tag === forSearchQuery){
+          tag.classList.add("highlight_tag")
+        }
+      })
      
     }else{
 
@@ -69,14 +80,22 @@ const Blogs = () => {
     tagNames.forEach((tag) => {
       tag.addEventListener("click", (e) => {
         
-        tagNames.forEach((tag) => tag.classList.remove('highlight_tag'));
-        e.target.classList.add("highlight_tag");  
-        
-        // Call the getBlogs function
+        tagNames.forEach((tag) => tag.classList.remove('highlight_tag'));     
+     
+    
+        e.target.classList.add("highlight_tag");          
         getBlogs(true, tag.innerText);
+      
+      const newUrl = `/blogs/suggest?query=${encodeURIComponent(tag.innerText)}`;
+        
+       
+        // Call the getBlogs function
+        window.history.pushState({ path: newUrl }, '', newUrl);
+    
       });
     });
   }
+
 
 
   useEffect(() => {
@@ -87,15 +106,35 @@ const Blogs = () => {
   
   // it is for every page render operations 
   useEffect(() => {
-    let getSearchText = document.getElementById("searchTagText").innerText
-    if(getSearchText){
-      setSearchText(getSearchText)
+    const urlParams = new URLSearchParams(window.location.search);
+    const searchText = urlParams.get('query');
+    console.log("checking search", searchText)
+    if(searchText){
+      setSearchText(searchText)
     }
+
   });
+
+  useEffect(()=>{
+    const urlParams = new URLSearchParams(window.location.search);
+    const searchText = urlParams.get('query');
+    const tags = document.querySelectorAll('.app_blog_tag_text')
+    
+    if(location.pathname === "/blogs/suggest"){
+      getBlogs(true, searchText)
+      tags.forEach((tag)=>{
+        if(tag.innerText === searchText){
+          tag.classList.add('highlight_tag')
+        }
+      })
+      
+    }
+   
+  }, [])
 
   useEffect(() => {
     const searchParams = new URLSearchParams(location.search);
-   
+   console.log("first..")
    
     // console.log("Populate blogs", location.pathname, userSearchQuery, searchParams, location.search)   
     if(location.pathname === "/blogs/search"){
@@ -104,9 +143,15 @@ const Blogs = () => {
       getBlogs(true, userSearchQuery)
 
     }
+    // else if(location.pathname === "/blogs/suggest"){
+    //   const userSearchQuery = searchParams.get("query");
+    //   getBlogs(true, userSearchQuery)
+
+    // }
 
 
   }, [location.search]); // Run this effect whenever the search part of the URL changes
+
 
   function setUrl(url){
     const newUrl = url;
@@ -114,6 +159,14 @@ const Blogs = () => {
   }
   function showBlog() {    
     setUrl("/blogs")
+
+    const tags = document.querySelectorAll('.app_blog_tag_text')
+    tags.forEach((tag)=>{
+      if(tag.classList.contains("highlight_tag")){
+        tag.classList.remove("highlight_tag")
+      }
+    })
+    setSearchPageString("Search blog by tagnames...")
     getBlogs()
     
   }
@@ -212,11 +265,7 @@ const Blogs = () => {
                     Search for the <strong style={{color: "black"}}>"{searchText}"</strong> 
                     </span> 
                 <div className="no_blog_image_found_insearch">
-                    {/* <img
-                      src="https://e7.pngegg.com/pngimages/65/205/png-clipart-google-s-computer-icons-reverse-search-search-miscellaneous-text-thumbnail.png"
-                      id="productimg"
-                      alt="" className="make_png"
-                    /> */}
+                  
                     <i
                         className="fa-solid fa-magnifying-glass-plus f-70"
                      

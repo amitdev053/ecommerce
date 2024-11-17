@@ -558,7 +558,7 @@ useEffect(()=>{
               </ul>
               <div className="contains_likes_carts d-flex">
               <div className="app_navbar_like_containericon hide_in_mobile_devices" id="AppHeaderLike"  onClick={(event) => {openLikes(event)}}>
-              <i className="fa-regular fa-heart animate_like_icon"  id="appLikeDIcon"></i>
+              <i className="fa-solid fa-heart animate_like_icon"  id="appLikeDIcon"></i>
               </div>
 
               <div className="icon_area" onClick={(event) => {openCart(event)}} id="cartarea">

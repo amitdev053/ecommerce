@@ -103,6 +103,15 @@ export default function Navbar({trackCart}) {
     if(appBody){      
       console.log("appbody", appBody)
       appBody.style.setProperty('position', 'fixed', 'important');
+      
+  const cartSeter = document.querySelector('.cart_container');
+  const setCartStyleElement = document.querySelector('.cart_total');
+  if (setCartStyleElement && window.innerWidth < 480) {
+    let cartHeight = cartSeter.clientHeight - (setCartStyleElement.offsetHeight + 190)
+    setCartStyleElement.style.top = `${cartHeight}px`
+    setCartStyleElement.style.height = "fit-content"
+   console.log("mobile devices", cartHeight)
+  }
     
     }
 
@@ -423,27 +432,34 @@ console.log("Attempting to share content:",file, [file], URL.createObjectURL(fil
   }
 };
 
+
 function moveToCloseCart(){
   let startX = 0;
 let endX = 0;
 
 
+
+
+
+
 let userCart = document.getElementById('userCartContainer')
 userCart.addEventListener('touchstart', (e) => {
-  startX = e.touches[0].clientX;
+  startX = e.touches[0].clientX;  
 });
 
 userCart.addEventListener('touchend', (e) => {
-  endX = e.changedTouches[0].clientX;
-  
+  endX = e.changedTouches[0].clientX;  
   if (startX <= 100 && endX > 0) {
     // console.log("right side movement")
+    if(!e.target.classList.contains('decrementqty_btn'))
     closeCart(undefined)
   } else if (endX < startX) {
     // console.log('Left side movement');
   }
   console.log("startX and endX", startX, endX)
+
 });
+
 }
 useEffect(()=>{
   moveToCloseCart()

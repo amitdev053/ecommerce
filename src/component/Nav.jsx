@@ -106,11 +106,11 @@ export default function Navbar({trackCart}) {
       
   const cartSeter = document.querySelector('.cart_container');
   const setCartStyleElement = document.querySelector('.cart_total');
-  if (setCartStyleElement && window.innerWidth < 480) {
-    let cartHeight = cartSeter.clientHeight - (setCartStyleElement.offsetHeight + 190)
-    setCartStyleElement.style.top = `${cartHeight}px`
-    setCartStyleElement.style.height = "fit-content"
-   console.log("mobile devices", cartHeight)
+  if (window.innerWidth < 480) {
+    // let cartHeight = cartSeter.clientHeight - (setCartStyleElement.offsetHeight + 190)
+    // setCartStyleElement.style.top = `${cartHeight}px`
+    // setCartStyleElement.style.height = "fit-content"
+  //  console.log("mobile devices", cartHeight)
   }
     
     }

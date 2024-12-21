@@ -73,6 +73,7 @@ export default function Products() {
   }, []);
   function clickToCart(productName,productPrice,ProductImage,productid){
     addToCart(productName, productPrice, ProductImage, productid)
+     
   }
 
   function animateLikeHeaderIcon(isAnimate = true){

@@ -24,6 +24,7 @@ export default function Navbar({trackCart}) {
   const [cartitemsindex, setcartitemsindex] = useState()
   const [cartQuantity, setCartQuantity] = useState(1)
   const [cartProcess , setCartProcess] = useState(false)
+  
 
 
   const [url, seturl] = useState("");
@@ -42,21 +43,28 @@ export default function Navbar({trackCart}) {
   // const [getuserCart, setgetuserCart] = useState([]);
 
   function closeCart(action = undefined) {
-    if(action === undefined){
+    if(action === undefined || action === "userCart"){
+      let mobileCartIcon = document.getElementById('cartmobileicon')
+      let cartCounter = document.getElementById('cartmobileicon').firstElementChild
+      document.getElementById("userCartContainer").classList.remove("show_cart_container");    
+      let appBody = document.getElementById("appbody")
+      if(appBody && mobileCartIcon && mobileCartIcon.classList.contains("active_cart_bg") && cartCounter){            
+        appBody.style.removeProperty('position', 'fixed', 'important');   
+        mobileCartIcon.classList.remove('active_cart_bg')
+        cartCounter.style.color = "black"
+        
+      }
 
-      document.getElementById("userCartContainer").classList.remove("show_cart_container");    
-      let appBody = document.getElementById("appbody")
-      if(appBody){            
-        appBody.style.removeProperty('position', 'fixed', 'important');   
-      }
-    }else if(action === "userCart"){
+    }
+    // else if(action === "userCart"){
       
-      document.getElementById("userCartContainer").classList.remove("show_cart_container");    
-      let appBody = document.getElementById("appbody")
-      if(appBody){            
-        appBody.style.removeProperty('position', 'fixed', 'important');   
-      }
-    }else if (action === "userLike"){
+    //   document.getElementById("userCartContainer").classList.remove("show_cart_container");    
+    //   let appBody = document.getElementById("appbody")
+    //   if(appBody){            
+    //     appBody.style.removeProperty('position', 'fixed', 'important');   
+    //   }
+    // }
+    else if (action === "userLike"){
       
       window.history.back()
         
@@ -97,32 +105,59 @@ export default function Navbar({trackCart}) {
       }
   }
   function openCart(event) {
-    
-    document.getElementById("userCartContainer").classList.add("show_cart_container");
-    let appBody = document.getElementById("appbody")
-    if(appBody){      
-      console.log("appbody", appBody)
-      appBody.style.setProperty('position', 'fixed', 'important');
-      
+if(document.getElementById('navbarSupportedContent') && document.getElementById('navbarSupportedContent').classList.contains('active_navbar')){
+  document.getElementById('navbarSupportedContent').classList.remove('active_navbar')    
+}
+
+
+let appBody = document.getElementById("appbody")
+if(appBody){      
+  console.log("appbody", appBody, event.currentTarget)
+  appBody.style.setProperty('position', 'fixed', 'important');
+  
   const cartSeter = document.querySelector('.cart_container');
   const setCartStyleElement = document.querySelector('.cart_total');
-  if (window.innerWidth < 480) {
+  if (window.innerWidth < 999) {
+    document.getElementById("userCartContainer").classList.add("show_cart_container");
     // let cartHeight = cartSeter.clientHeight - (setCartStyleElement.offsetHeight + 190)
     // setCartStyleElement.style.top = `${cartHeight}px`
     // setCartStyleElement.style.height = "fit-content"
-  //  console.log("mobile devices", cartHeight)
+    //  console.log("mobile devices", cartHeight)
+
+    // if(mobileCartIcon.classList.contains('active_cart_bg')){
+    //   mobileCartIcon.classList.remove('active_cart_bg');
+    //   cartCounter.style.color = "black";
+    // }else{
+    //   mobileCartIcon.classList.add('active_cart_bg');
+    //   cartCounter.style.color = "white";
+    // }
+
+  }else{
+    document.getElementById("userCartContainer").classList.add("show_cart_container");
+
   }
+ 
     
     }
+    let mobileCartIcon = document.getElementById('cartmobileicon')
+    let cartCounter = document.getElementById('cartmobileicon').firstElementChild
 
+    mobileCartIcon.classList.add('active_cart_bg');
+    cartCounter.style.color = "white";
     document.getElementById("userCartContainer").addEventListener("click", (event) => {
-        if (event.target === document.getElementById("userCartContainer")) {
-          closeCart("userCart");
-
-        } else {
-
+      if (event.target === document.getElementById("userCartContainer")) {        
+        closeCart("userCart");
         }
       });
+      
+      
+      
+          // if(mobileCartIcon.classList.contains('active_cart_bg') && event.currentTarget.id === "cartmobileicon" ){
+          //   closeCart("userCart");
+          // }
+        
+        
+    
   }
   function animateLikeHeaderIcon(isAnimate = true){
 
@@ -379,10 +414,11 @@ setTimeout(()=>{
 
 navbarContent.addEventListener("click", (event)=>{
 
-  if(event.target.id === "media" || event.target.id === "hastags" || event.target.id === "home" || event.target.id === "cartarea" || event.target.id === "cartText" || event.target.id === "carticon" || event.target.id === "cartcount" || event.target.id === "appBlogs" || event.target.id === "navbarSupportedContent"){
+  if(event.target.id === "media" || event.target.id === "hastags" || event.target.id === "home" || event.target.id === "cartarea" || event.target.id === "cartText" || event.target.id === "carticon" || event.target.id === "cartcount" || event.target.id === "appBlogs" || event.target.id === "navbarSupportedContent" ){
     console.log("condition inside closeNavbar")
     document.getElementById('navbarSupportedContent').classList.remove('active_navbar')    
   }
+ 
 
 })
 
@@ -476,7 +512,7 @@ useEffect(()=>{
       <>
   
         <nav className="navbar navbar-expand-lg navbar-light bg-light fixed-top">
-          <div className="container">
+          <div className="container navbar_container">
             <Link className="navbar-brand" to="/">
             <i className="fa-solid fa-shop app_nav_logo"></i>
             </Link>
@@ -484,7 +520,15 @@ useEffect(()=>{
             <div className="app_navbar_like_containericon" id="AppHeaderLike"  onClick={(event) => {openLikes(event)}}>
               <i className="fa-solid fa-heart animate_like_icon mobile_like_icon"  id="appLikeIcon"></i>
             </div>
-
+            <div className="icon_area position-relative mobile_cart" id="cartmobileicon"  onClick={(event) => {openCart(event)}}>
+              <i className="fa-solid fa-cart-shopping mobile_like_icon "  id="carticon"></i>
+              <sup className="cart_mobile_position cartmobileicon">{totalCart}</sup>
+            </div>
+    {/* <div className="icon_area" onClick={(event) => {openCart(event)}} id="cartarea">
+                <i className="fa-solid fa-cart-shopping mr-1" id="carticon"></i>
+                <span id="cartText">Cart</span>
+                <sup id="cartcount">{totalCart}</sup>
+              </div> */}
             <button
               className="toggle_outline_elemenet"
               type="button"
@@ -577,7 +621,7 @@ useEffect(()=>{
               <i className="fa-solid fa-heart animate_like_icon"  id="appLikeDIcon"></i>
               </div>
 
-              <div className="icon_area" onClick={(event) => {openCart(event)}} id="cartarea">
+              <div className="icon_area hide_in_mobile_devices" onClick={(event) => {openCart(event)}} id="cartarea">
                 <i className="fa-solid fa-cart-shopping mr-1" id="carticon"></i>
                 <span id="cartText">Cart</span>
                 <sup id="cartcount">{totalCart}</sup>

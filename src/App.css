@@ -1600,4 +1600,19 @@ color: #000203;
     position: relative;
     top: 2px;
   }
+
+}
+@media screen and (max-width : 999px){
+.mobile_cart{
+  background-color: white !important;
+
+}
+.cart_mobile_position{
+  right: -9px !important;  
+  top: -7px !important;
+}
+
+}
+.active_cart_bg{
+  background-color: black !important;
 }

@@ -50,9 +50,16 @@ export const CartProvider = ({ children }) => {
       setAddTrackCart(true);
     }
 
-    // Show the cart and prevent scrolling on the page
-    document.getElementById("userCartContainer").classList.add("show_cart_container");
-    toast.success("Your Product has been added!");
+   // Show the cart and prevent scrolling on the page
+   let mobileCartIcon = document.getElementById('cartmobileicon')
+   let cartCounter = document.getElementById('cartmobileicon').firstElementChild
+     document.getElementById("userCartContainer").classList.add("show_cart_container");
+     toast.success("Your Product has been added!");
+     if(mobileCartIcon){
+       mobileCartIcon.classList.add('active_cart_bg');
+       cartCounter.style.color = "white";
+
+     }
 
     // Disable page scroll
     document.body.style.overflowY = "hidden";

@@ -638,7 +638,7 @@ useEffect(()=>{
             className="container-fluid cart_container_fluid"
             id="userCartContainer"
           >
-            <div className="container cart_container">
+            <div className="container cart_container" style={{overflowX : "hidden"}}>
               <div className="row cart_row w-100">
                 <div className="cart_header">
                   <div style={{fontSize: "20px", fontWeight:700}}>Your Cart Products</div>
@@ -650,7 +650,7 @@ useEffect(()=>{
                     }}
                   ></i>
                 </div>
-                <div className={(userCart.length === 0 ) ? "col-12 mt-ps100" : "col-12 dividecartitem"}>
+                <div className={(userCart.length === 0 ) ? "col-12 mt-ps100" : "col-12 dividecartitem"} style={{paddingBottom: "40px"}}>
                   <div className="row p-0 align-items-center">
                   {userCart.length <= 0 ? 
                 (

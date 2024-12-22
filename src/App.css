@@ -1549,7 +1549,7 @@ color: #000203;
   border-radius: 50%;
   border: 2px solid white;
   border-top: 5px solid  black ;
-  animation: spin 2s linear infinite;
+  animation: spin 1s linear infinite;
   margin: 4px;
 }
 /* Styles for highlight_tag to override hover */

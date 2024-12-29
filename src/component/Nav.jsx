@@ -193,7 +193,7 @@ if(window.location.pathname === "/saved"){
     if(document.getElementById('navbarSupportedContent') && document.getElementById('navbarSupportedContent').classList.contains('active_navbar')){
       document.getElementById('navbarSupportedContent').classList.remove('active_navbar')    
     }
-    
+
     let mobileLikeIcon = document.querySelector('.mobile_like_icon')
     if(mobileLikeIcon){
       mobileLikeIcon.classList.add('fs-14')
@@ -418,7 +418,7 @@ setTimeout(()=>{
 
 navbarContent.addEventListener("click", (event)=>{
 
-  if(event.target.id === "media" || event.target.id === "hastags" || event.target.id === "home" || event.target.id === "cartarea" || event.target.id === "cartText" || event.target.id === "carticon" || event.target.id === "cartcount" || event.target.id === "appBlogs" || event.target.id === "navbarSupportedContent" ){
+  if(event.target.id === "media" || event.target.id === "hastags" || event.target.id === "home" || event.target.id === "cartarea" || event.target.id === "cartText" || event.target.id === "carticon" || event.target.id === "cartcount" || event.target.id === "appBlogs" || event.target.id === "appexplore" || event.target.id === "navbarSupportedContent" ){
     console.log("condition inside closeNavbar")
     document.getElementById('navbarSupportedContent').classList.remove('active_navbar')    
   }
@@ -563,7 +563,7 @@ useEffect(()=>{
                     Home
                   </Link>
                 </li>
-                <li className="nav-item">
+                {/* <li className="nav-item">
                   <Link
                     className={`${
                       url === "/Hastags" ? "nav-link active" : "nav-link"
@@ -573,7 +573,7 @@ useEffect(()=>{
                   >
                     Hastags
                   </Link>
-                </li>
+                </li> */}
                
                 <li className="nav-item">
                   <Link
@@ -596,6 +596,18 @@ useEffect(()=>{
                     id="appBlogs"
                   >
                     Blogs
+                  </Link>
+                </li>
+
+                <li className="nav-item">
+                  <Link
+                    className={`${
+                      url === "/explore" ? "nav-link active" : "nav-link"
+                    }`}
+                    to="/explore"
+                    id="appexplore"
+                  >
+                    Explore
                   </Link>
                 </li>
 

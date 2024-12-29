@@ -38,7 +38,7 @@ export default function footer() {
 
   <section className="d-flex justify-content-center justify-content-lg-between p-4 border-bottom">
    
-    <div className="me-5 d-none d-lg-block">
+    {/* <div className="me-5 d-none d-lg-block">
       <span>Get connected with us on social networks:</span>
     </div>
  
@@ -61,7 +61,7 @@ export default function footer() {
       <a href="" className="me-4 text-reset">
         <i className="fab fa-github"></i>
       </a>
-    </div>
+    </div> */}
 
   </section>
 
@@ -80,23 +80,32 @@ export default function footer() {
           </p>
         </div>
     
-        <div className="col-md-2 col-lg-2 col-xl-2 mx-auto mb-4">
+        <div className="col-md-2 col-lg-2 col-xl-2 mx-auto mb-4 position-relative">
        
           <h6 className="text-uppercase fw-bold mb-4">
             Products
           </h6>
           
           {
+            (allproduct.length > 0)?
+
+            
             
             allproduct.splice(allproduct.length - 4, allproduct.length).map((product)=>{
               return(
                 <p key={product.id}>
             <span className="text-reset">{product.title.slice(0, 10)}...</span>
           </p>
+            
 
               )
 
-          })}
+          })
+          :
+          <div className="footer_loader" />
+          
+          
+          }
          
          
         </div>
@@ -107,17 +116,17 @@ export default function footer() {
             Useful links
           </h6>
           <p>
-            <a href="#!" className="text-reset">Store</a>
+            <Link to="/products" target='_blank' className="text-reset">Store</Link>
           </p>
        
           <p>
-            <a href="#!" className="text-reset">Blogs</a>
+            <Link to="/blogs" className="text-reset" target='_blank'>Blogs</Link>
           </p>
           <p>
             <a href="#!" className="text-reset">Help</a>
           </p>
           <p>
-            <a href="#!" className="text-reset">Hashtag</a>
+          <Link to="/hashtags" className="text-reset" target='_blank'>Hashtags</Link>
           </p>
         </div>
 
@@ -141,8 +150,8 @@ export default function footer() {
 
 
   <div className="text-center p-4 footerend" >
-    © 2021 Copyright: 
-     <Link className="text-reset fw-bold" to="http://market-shops.vercel.app/"> market-shops.vercel.app</Link>
+    © <span className='fw-bold'>2024</span> Copyright: 
+     <Link className="text-reset fw-bold" to="http://market-shops.vercel.app/" target='_blank'> market-shops.vercel.app</Link>
   </div>
 
 </footer>

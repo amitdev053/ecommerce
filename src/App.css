@@ -1,9 +1,11 @@
 @import "~react-image-gallery/styles/css/image-gallery.css";
+
 @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700;900&family=Titillium+Web:wght@200;300;400;600;700;900&display=swap');
 
 html{
   user-select: none;
   overflow-x: hidden;
+  
   
 }
 .App {
@@ -17,6 +19,8 @@ font-size: 14px;
 body{
   width: 100%;
   overflow-x: hidden;
+  
+  
 }
 
 .App-logo {
@@ -1550,6 +1554,20 @@ color: #000203;
   border-radius: 50%;
   border: 2px solid white;
   border-top: 5px solid  black ;
+  animation: spin 1s linear infinite;
+  margin: 4px;
+}
+.footer_loader{
+  width: 15px;
+  height: 15px;
+  position: absolute;
+  top: 50%;
+  /* left: 40%; */
+  left: 50%;
+  transform: translate(-50%, -50%);
+  border-radius: 50%;
+  border: 2px solid black;
+  border-top: 2px solid  #25D366 ;
   animation: spin 1s linear infinite;
   margin: 4px;
 }

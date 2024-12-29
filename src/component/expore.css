@@ -1,0 +1,32 @@
+
+
+  .pinterest-layout {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+  
+  .column {
+    display: flex;
+    flex-direction: column;
+    margin: 10px; /* Adjust the margin as needed */
+    overflow: hidden;
+    border-radius: 10px; /* Optional */
+    height: 250px;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .column img {
+    width: 350px; /* Adjust the width as needed */
+    margin-bottom: 10px; /* Adjust the margin as needed */
+    border-radius: 10px; /* Optional */
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Optional */
+    transition: all 0.2s ease-in-out;
+  } 
+
+
+  .column img:hover{
+    transform: scale(1.2);
+    
+  } 

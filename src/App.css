@@ -1616,3 +1616,8 @@ color: #000203;
 .active_cart_bg{
   background-color: black !important;
 }
+
+
+.blog_detail_content_img iframe{
+  width: 100%;
+}

@@ -190,6 +190,10 @@ if(window.location.pathname === "/saved"){
   }, [])
 
   function openLikes() {
+    if(document.getElementById('navbarSupportedContent') && document.getElementById('navbarSupportedContent').classList.contains('active_navbar')){
+      document.getElementById('navbarSupportedContent').classList.remove('active_navbar')    
+    }
+    
     let mobileLikeIcon = document.querySelector('.mobile_like_icon')
     if(mobileLikeIcon){
       mobileLikeIcon.classList.add('fs-14')

@@ -3,6 +3,7 @@
 
 html{
   user-select: none;
+  overflow-x: hidden;
   
 }
 .App {

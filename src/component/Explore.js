@@ -3,6 +3,7 @@ import React, { useEffect, useState, useContext } from "react";
 import Loader from "./Loader";
 import axios from "axios";
 import EmptyCartImage from "../appimages/empty_cart.webp";
+import defaultBlogImage from "../defaultBlog.jpg";
 
 const Explore = () => {
   // let content = [ "couples", "Fashion", "Sports", "Music", "Gaming", "Technology", "Health", "Finance", "Education", "Lifestyle"]
@@ -69,7 +70,15 @@ const Explore = () => {
             console.log("app explore image", image);
             return (
               <div className="column">
-                <img src={image.largeImageURL} alt="Image 1" />
+                <img src={image.largeImageURL}
+                 onError={(e) =>{
+                        e.target.src = defaultBlogImage;
+                        e.target.alt = "Default image";
+                      
+                        }}
+                 alt="Image 1"
+                
+                  />
               </div>
             );
           })}

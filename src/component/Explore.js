@@ -17,7 +17,13 @@ const Explore = () => {
   
   const [index, setIndex] = useState(0);
   const [loader, setloader] = useState(true);
-  const [images, setImages] = useState([]);
+  const [images, setImages] = useState([]); // assume this is where you get your images
+  const [imageStates, setImageStates] = useState([]);
+
+  useEffect(() => {
+    setImageStates(images.map(() => ({ loaded: false })));
+  }, [images]);
+
   const baseUrl = `https://pixabay.com/api/?key=45283300-eddb6d21a3d3d06f2a2381d7d&q=${content[index]}&image_type=photo`
 
 
@@ -64,25 +70,36 @@ const Explore = () => {
   } else {
     return (
       <>
+ <div className="pinterest-layout mt-ps90">
+      {images.map((image, index) => {
+        if (!imageStates[index]) return null; // add this line
+        const { loaded } = imageStates[index];
 
-        <div className="pinterest-layout mt-ps90">
-          {images.map((image) => {
-            console.log("app explore image", image);
-            return (
-              <div className="column">
-                <img src={image.largeImageURL}
-                 onError={(e) =>{
+        return (
+          <div className="column position-relative" key={index}>
+            <img
+              src={image.largeImageURL}
+              onLoad={() =>
+                setImageStates((prevStates) =>
+                  prevStates.map((state, i) =>
+                    i === index ? { loaded: true } : state
+                  )
+                )
+              }
+              onError={(e) =>{
                         e.target.src = defaultBlogImage;
                         e.target.alt = "Default image";
                       
                         }}
-                 alt="Image 1"
-                
-                  />
-              </div>
-            );
-          })}
-        </div>
+           
+                      alt="Could'nt load"
+           
+            />
+            {!loaded && <div className="app_loader" />}
+          </div>
+        );
+      })}
+    </div>
       </>
     );
   }

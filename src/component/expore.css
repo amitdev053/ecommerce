@@ -30,3 +30,17 @@
     transform: scale(1.2);
     
   } 
+
+  .app_loader{
+    width: 25px;
+    height: 25px;
+    position: absolute;
+    top: 45%;
+    left: 45%;
+    transform: translate(-50%, -50%);
+    border-radius: 50%;
+    border: 2px solid white;
+    border-top: 5px solid  black ;
+    animation: spin 1s linear infinite;
+    margin: 4px;
+  }

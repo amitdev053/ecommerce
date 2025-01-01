@@ -35,7 +35,7 @@ const Explore = () => {
   }
 
   useEffect(() => {
-    document.title = `Explore Images for ${content[index].toUpperCase()}`;
+    document.title = `Explore images for ${content[index]}`;
 
     // Fetch images for the initial index
     getProducts(baseUrl);

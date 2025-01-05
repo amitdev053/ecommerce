@@ -14,15 +14,13 @@ const Explore = () => {
   ];
   
 
-  
-  const [index, setIndex] = useState(0);
+  const storedIndex = localStorage.getItem('exploreImage');
+  const [index, setIndex] = useState(storedIndex ? parseInt(storedIndex) : 0);
   const [loader, setloader] = useState(true);
   const [images, setImages] = useState([]); // assume this is where you get your images
   const [imageStates, setImageStates] = useState([]);
 
-  useEffect(() => {
-    setImageStates(images.map(() => ({ loaded: false })));
-  }, [images]);
+ 
 
   const baseUrl = `https://pixabay.com/api/?key=45283300-eddb6d21a3d3d06f2a2381d7d&q=${content[index]}&image_type=photo`
 
@@ -40,7 +38,7 @@ const Explore = () => {
         setImages(result.hits);
       });
   }
-
+ 
   useEffect(() => {
     document.title = `Explore images for ${content[index]}`;
 
@@ -50,15 +48,20 @@ const Explore = () => {
     // Update index and fetch images every 2 hours
     const interval = setInterval(() => {
       setIndex((prevIndex) => (prevIndex + 1) % content.length);
-    }, 1 * 60 * 60  * 1000); // 1 hours in milliseconds
+    
+    }, 1 * 60 * 60 * 1000); // 1 hours in milliseconds
 
     // Cleanup the interval on component unmount
     return () => clearInterval(interval);
   }, []);
-
+  useEffect(() => {
+    setImageStates(images.map(() => ({ loaded: false })));
+  }, [images, index]);
   // Fetch images whenever the index changes
   useEffect(() => {
     getProducts(baseUrl);
+    localStorage.setItem('exploreImage', index.toString());
+    setImageStates(images.map(() => ({ loaded: false })));
   }, [index]);
 
   if (loader === true) {

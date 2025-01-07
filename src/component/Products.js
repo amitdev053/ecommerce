@@ -12,6 +12,8 @@ import 'react-toastify/dist/ReactToastify.css';
 import { changeProdiuctView } from './CustomHook'
 import { CartContext } from './CartContext';
 import Hammer from 'hammerjs';
+import LazyLoad from 'react-lazy-load';
+import { handleShare, ShareButton } from "./HandleShare";
 
 
 export default function Products() {
@@ -31,6 +33,7 @@ export default function Products() {
   const [imageLoaded, setImageLoaded] = useState(false);
   const { addToCart } = useContext(CartContext);
   const [isFavorite, setIsFavorite] = useState(false);
+ 
 
  
 
@@ -163,35 +166,11 @@ export default function Products() {
   
 
  
- const handleShare = async (productTitle, productDesc, productImage) => {
+ function productShare(productTitle, productDesc, productImage) {
   console.log("Attempting to share content:", productTitle, productDesc, productImage);
 
-  if (navigator.canShare && navigator.canShare({ files: [new File([""], "test.jpg", { type: "image/jpeg" })] })) {
-    try {
-      const response = await fetch(productImage);
-      if (!response.ok) {
-        throw new Error('Network response was not ok');
-      }
-      const blob = await response.blob();
-      console.log("Image fetched successfully, creating file...");
+  handleShare(productTitle, productDesc, productImage, "product")
 
-      const file = new File([blob], 'image.jpg', { type: 'image/jpeg' });
-      console.log("File created successfully:", file);
-console.log("Attempting to share content:",file, [file], URL.createObjectURL(file))
-      await navigator.share({
-        title: productTitle,
-        text: productDesc,
-        url: window.location.href,
-        files: [file],
-      });
-
-      console.log('Content shared successfully');
-    } catch (error) {
-      console.error('Error sharing content:', error);
-    }
-  } else {
-    alert('Web Share API is not supported in your browser or the current device cannot share files.');
-  }
 };
 
 
@@ -234,6 +213,15 @@ const handleZoomImage = ()=>{
 useEffect(()=>{
   handleZoomImage()
 }, [])
+
+function ProductImageComponent({product}){
+  
+  return (
+    <LazyLoad height={250} offset={100}>
+       <img src={product.image} id="productimg" className="productImages" alt="" onLoad={handleImageLoad} />
+    </LazyLoad>
+  )
+}
 
   if (loader === true) {
     return (
@@ -280,7 +268,8 @@ useEffect(()=>{
               return (
                 <div className="col-md-3 col-sm-12 gallerycol" key={product.id} >
                   <div className="galleryimg position-relative">
-                    <img src={product.image} id="productimg" className="productImages" alt="" onLoad={handleImageLoad} />
+                   <ProductImageComponent product={product} />
+                   {/* <img src={product.image} id="productimg" className="productImages" alt="" onLoad={handleImageLoad} /> */}
                     <div id="productprice" className="productprice w-100" style={{opacity: isFavorite ? "100%" : "0"}}>
                  <strong>  {formatter.format(product.price)} </strong>
                      
@@ -339,9 +328,13 @@ useEffect(()=>{
       )} */}
                        
                       </button>
-                      <button className="btn btn-sm btn-primary p_s_btn brand_button " onClick={()=>{handleShare(product.title, product.description.slice(0, 100),  product.image )}}>
-                        Share <i class="fa-solid fa-share-nodes icon_margin"></i>
-                      </button>
+                      {/* <button className="btn btn-sm btn-primary p_s_btn brand_button " >
+                        Share 
+                        {/* <i class="fa-solid fa-share-nodes icon_margin"></i> 
+                        <i class="fa-regular fa-share-from-square icon_margin"></i>
+                        
+                      </button> */}
+                      <ShareButton  onClick={()=>{productShare(product.title, product.description.slice(0, 100),  product.image )}} />
                     </div>
                   </div>
                 </div>

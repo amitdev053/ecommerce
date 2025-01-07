@@ -195,6 +195,7 @@ const handleZoomImage = ()=>{
 
     // Handle pinch zooming
     hammer.on('pinch', (event) => {
+      console.log("pinch event", event)
       const newScale = currentScale * event.scale;
       image.style.transform = `scale(${newScale})`; // Apply zoom
       image.style.transition = 'none'; // Disable smooth transitions during pinch
@@ -268,8 +269,8 @@ function ProductImageComponent({product}){
               return (
                 <div className="col-md-3 col-sm-12 gallerycol" key={product.id} >
                   <div className="galleryimg position-relative">
-                   <ProductImageComponent product={product} />
-                   {/* <img src={product.image} id="productimg" className="productImages" alt="" onLoad={handleImageLoad} /> */}
+                   {/* <ProductImageComponent product={product} /> */}
+                   <img src={product.image} id="productimg" className="productImages" alt="" onLoad={handleImageLoad} />
                     <div id="productprice" className="productprice w-100" style={{opacity: isFavorite ? "100%" : "0"}}>
                  <strong>  {formatter.format(product.price)} </strong>
                      

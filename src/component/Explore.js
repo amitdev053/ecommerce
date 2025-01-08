@@ -8,14 +8,16 @@ import defaultBlogImage from "../defaultBlog.jpg";
 const Explore = () => {
   // let content = [ "couples", "Fashion", "Sports", "Music", "Gaming", "Technology", "Health", "Finance", "Education", "Lifestyle"]
   let content = [
-    "kisses", "Fashion", "Sports", "Music", "Gaming", "Technology", "Health", "Finance", "Education", "Lifestyle", "Travel and Adventure",    "Art and Creativity", "Nature and Wildlife", "Food and Culinary", "History and Culture","Fitness and Wellness", "Architecture and Design","Space and Astronomy", "Books and Literature",
+    "kiss", "Fashion", "Sports", "Music", "Gaming", "Technology", "Health", "Finance", "Education", "Lifestyle", "Travel and Adventure",    "Art and Creativity", "Nature and Wildlife", "Food and Culinary", "History and Culture","Fitness and Wellness", "Architecture and Design","Space and Astronomy", "Books and Literature",
     "Motivation and Productivity",  "Luxury and Lifestyle",  "Science and Innovation",   "Minimalism and Aesthetics", "Photography and Videography",  "Pets and Animals",
     "DIY and Crafting",  "Sustainability and Eco-living", "Hobbies and Skills",  "Vintage and Retro", "couples"
   ];
+
+
   
 
   const storedIndex = localStorage.getItem('exploreImage');
-  const [index, setIndex] = useState(storedIndex ? parseInt(storedIndex) : 0);
+  const [index, setIndex] = useState(0);
   const [loader, setloader] = useState(true);
   const [images, setImages] = useState([]); // assume this is where you get your images
   const [imageStates, setImageStates] = useState([]);
@@ -39,21 +41,54 @@ const Explore = () => {
       });
   }
  
+  // useEffect(() => {
+  //   document.title = `Explore images for ${content[index]}`;
+
+  //   // Fetch images for the initial index
+  //   getProducts(baseUrl);
+
+  //   // Update index and fetch images every 2 hours
+  //   const interval = setInterval(() => {
+  //     setIndex((prevIndex) => (prevIndex + 1) % content.length);    
+  //   }, 1 * 60 * 60 * 1000); // 1 hours in milliseconds
+
+  //   // Cleanup the interval on component unmount
+  //   return () => clearInterval(interval);
+  // }, []);
+
+
   useEffect(() => {
-    document.title = `Explore images for ${content[index]}`;
+    // Reference timestamp: Jan 1, 2025, 00:00:00 (UTC)
+    const referenceTime = new Date("2025-01-01T00:00:00Z").getTime();
+
+    // Function to calculate the current index based on elapsed hours
+    const calculateIndex = () => {
+      const currentTime = Date.now();
+      const hoursElapsed = Math.floor((currentTime - referenceTime) / (60 * 60 * 1000));
+      console.log("calc index", hoursElapsed % content.length);
+      content.forEach((element, index) => {
+        if(index === hoursElapsed % content.length){
+          console.log("element", element)
+        }
+      })
+      return hoursElapsed % content.length;
+    };
+
+    // Set the initial index
+    setIndex(calculateIndex());
 
     // Fetch images for the initial index
     getProducts(baseUrl);
 
-    // Update index and fetch images every 2 hours
+    // Update the index every hour
     const interval = setInterval(() => {
-      setIndex((prevIndex) => (prevIndex + 1) % content.length);
-    
-    }, 1 * 60 * 60 * 1000); // 1 hours in milliseconds
+      setIndex(calculateIndex());
+    }, 60 * 60 * 1000); // 1 hour in milliseconds
 
     // Cleanup the interval on component unmount
     return () => clearInterval(interval);
   }, []);
+
   useEffect(() => {
     setImageStates(images.map(() => ({ loaded: false })));
   }, [images, index]);

@@ -220,7 +220,7 @@ const Blogs = () => {
   // } else {
   return (
     // <>
-    <div className="container text-left mt-ps90">
+    <div className="container text-left mt-ps90 app_container">
       <Alert position="bottom-center"> </Alert>
 <SearchBlogs setBlogs={setBlogs} setloader={setloader}  />
 <ScrollTag />

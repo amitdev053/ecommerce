@@ -38,7 +38,7 @@ const ScrollTag = () => {
   return (
     <>
       <div
-        className="container d-flex align-items-center st_blog_tag_suggestion position-relative p-0"
+        className="container d-flex align-items-center st_blog_tag_suggestion position-relative p-0 app_container"
         style={{ height: "60px" }}
       >
         {!isAtStart && (

@@ -1646,3 +1646,10 @@ color: #000203;
 .blog_detail_content_img iframe{
   width: 100%;
 }
+
+/* Styles for app-container  in mobile devices*/
+@media screen and (max-width : 992px){
+  .app_container{
+    max-width: 100%;
+  }
+}

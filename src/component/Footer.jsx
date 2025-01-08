@@ -66,7 +66,7 @@ export default function footer() {
   </section>
 
   <section className="">
-    <div className="container text-center text-md-start mt-5">
+    <div className="container text-center text-md-start mt-5 app_container">
      
       <div className="row mt-3">
       

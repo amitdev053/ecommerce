@@ -235,7 +235,7 @@ function ProductImageComponent({product}){
       <>
       <span id="cartLength">{cartLength}</span>
       
-        <div className="container text-left mt-74">
+        <div className="container text-left mt-74 app_container">
       <Alert position="bottom-center"> </Alert>
 
 <div style={{display:"flex", justifyContent:"space-between", alignItems:"center",  marginBottom: "20px"}} className="app_product_headline">

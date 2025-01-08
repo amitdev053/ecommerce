@@ -518,7 +518,7 @@ useEffect(()=>{
       <>
   
         <nav className="navbar navbar-expand-lg navbar-light bg-light fixed-top">
-          <div className="container navbar_container">
+          <div className="container navbar_container app_container">
             <Link className="navbar-brand" to="/">
             <i className="fa-solid fa-shop app_nav_logo"></i>
             </Link>

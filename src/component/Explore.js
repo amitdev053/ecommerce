@@ -40,47 +40,31 @@ const Explore = () => {
       });
   }
  
-  // useEffect(() => {
-  //   document.title = `Explore images for ${content[index]}`;
+function addImageTouch(){
+  // transform: scale(1.5);
+  // transform-origin: center;
+  let exploreImage = document.querySelectorAll('.explore_image')
+  Array.from(exploreImage).forEach((item)=>{
+    item.addEventListener('touchstart', ()=>{
+      item.firstElementChild.style.transform = 'scale(1.5)';
+      item.firstElementChild.style.transformOrigin = 'center';
+    })
+    item.addEventListener('touchend', ()=>{
+      item.firstElementChild.style.transform = 'scale(1)';
+      item.firstElementChild.style.transformOrigin = 'center';
+    })
+  })
+}
 
-  //   // Fetch images for the initial index
-  //   getProducts(baseUrl);
-
-  //   // Update index and fetch images every 2 hours
-  //   const interval = setInterval(() => {
-  //     setIndex((prevIndex) => (prevIndex + 1) % content.length);    
-  //   }, 1 * 60 * 60 * 1000); // 1 hours in milliseconds
-
-  //   // Cleanup the interval on component unmount
-  //   return () => clearInterval(interval);
-  // }, []);
-
-
-  useEffect(() => {
-    
-    // Reference timestamp: Jan 1, 2025, 00:00:00 (UTC)
-    // const referenceTime = new Date("2025-01-01T00:00:00Z").getTime();
-
-    // // Function to calculate the current index based on elapsed hours
-    // const calculateIndex = () => {
-    //   const currentTime = Date.now();
-    //   const hoursElapsed = Math.floor((currentTime - referenceTime) / (60 * 60 * 1000));
-    //   console.log("calc index", hoursElapsed % content.length);
-    //   content.forEach((element, index) => {
-    //     if(index === hoursElapsed % content.length){
-    //       console.log("element", element)
-    //     }
-    //   })
-    //   return hoursElapsed % content.length;
-    // };
-
+  useEffect(() => { 
+   
     // Set the initial index
     let currentCalculatedIndex = updatedHours();
     setIndex(updatedHours());
     document.title = `Explore images for ${content[currentCalculatedIndex]}`;
     // Fetch images for the initial index
     getProducts(`https://pixabay.com/api/?key=45283300-eddb6d21a3d3d06f2a2381d7d&q=${content[currentCalculatedIndex]}&image_type=photo`);
-
+    addImageTouch();
     // Update the index every hour
     const interval = setInterval(() => {
       setIndex(updatedHours());
@@ -93,10 +77,10 @@ const Explore = () => {
   useEffect(() => {
     setImageStates(images.map(() => ({ loaded: false })));
   }, [images, index]);
+
   function updatedHours(){
     const referenceTime = new Date("2025-01-01T00:00:00Z").getTime();
-    // Function to calculate the current index based on elapsed hours
- 
+    // Function to calculate the current index based on elapsed hours 
       const currentTime = Date.now();
       const hoursElapsed = Math.floor((currentTime - referenceTime) / (60 * 60 * 1000));
       console.log("calc index", hoursElapsed % content.length);
@@ -106,11 +90,9 @@ const Explore = () => {
         }
       })
       return hoursElapsed % content.length;
-    
-
-    // Set the initial index
-    // const currentCalculatedIndex = calculateIndex();
+   
   }
+
   // Fetch images whenever the index changes
   useEffect(() => {
    let currentCalculatedIndex = updatedHours();
@@ -133,7 +115,7 @@ const Explore = () => {
         const { loaded } = imageStates[index];
 
         return (
-          <div className="column position-relative" key={index}>
+          <div className="column position-relative explore_image" key={index}>
             <img
               src={image.largeImageURL}
               onLoad={() =>

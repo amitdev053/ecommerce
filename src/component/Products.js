@@ -16,7 +16,7 @@ import LazyLoad from 'react-lazy-load';
 import { handleShare, ShareButton } from "./HandleShare";
 
 
-export default function Products() {
+export default function Products(props) {
   const baseUrl = "https://fakestoreapi.com"; 
   // const baseUrl = "https://dummyjson.com"
   const productsUrl = "/products";
@@ -233,9 +233,9 @@ function ProductImageComponent({product}){
   } else {
     return (
       <>
-      <span id="cartLength">{cartLength}</span>
+      {/* <span id="cartLength">{cartLength}</span> */}
       
-        <div className="container text-left mt-74 app_container">
+        <div  className={props.componentFrom === "home" ? 'container text-left app_container' : 'container text-left mt-74 app_container'}>
       <Alert position="bottom-center"> </Alert>
 
 <div style={{display:"flex", justifyContent:"space-between", alignItems:"center",  marginBottom: "20px"}} className="app_product_headline">

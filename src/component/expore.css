@@ -47,7 +47,43 @@
     animation: spin 1s linear infinite;
     margin: 4px;
   }
+  .explore_icons{
+    width: 100%;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    bottom: 0px;
+    left: 0;
+    right: 0;
+    background-color: white;
+    padding: 8px 0px;
+    transform: translate(0px , 50px);
+    transition: all 0.2s ease-in-out;
 
+  }
+  .column:hover .explore_icons{
+    transform: translate(0px , 0px);  
+  }
+  .explore_fonts{
+    font-size: 12px;
+    font-weight: 600;
+  }
+  .explore_images_share{
+    top: 1px;
+    right: 1px;
+    transition: all 0.2s ease-in-out;
+    transform: translate(0px , -50px);
+    cursor: pointer;
+
+  }
+  .explore_image_share_icon{
+    background: white;
+    padding: 8px;
+    border-radius: 30px;
+  }
+  .column:hover .explore_images_share{
+    transform: translate(0px , 0px);  
+  }
   /* Styles for app-container  in mobile devices*/
 @media screen and (max-width : 992px){
   .column{

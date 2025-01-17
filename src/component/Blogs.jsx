@@ -9,7 +9,7 @@ import defaultBlogImage from "../defaultBlog.jpg";
 import SearchBlogs from "./SearchBlogs";
 import desktopicon from '../appimages/desktopicon.png'
 import ScrollTag from "./ScrollTag";
-
+import AppPagesHeading from "./AppPagesHeading";
 const Blogs = () => {
   const [loader, setloader] = useState(true);
   const [blogs, setBlogs] = useState([]);
@@ -172,6 +172,7 @@ const Blogs = () => {
   }
   
   function toggleBlog() {
+    
     if (blogView === true) {
       // blogs.reverse()
       // setBlogView(false)
@@ -211,6 +212,92 @@ const Blogs = () => {
         .replace(/-+$/, '');            // Trim - from end of text
 }
 
+let tagList = [
+  "JavaScript",
+  "React",
+  "React Native",
+  "Programming Languages",
+  "Python",
+  "Java",
+  "Ruby",
+  "C#",
+  "Go",
+  "Rust",
+  "TypeScript",
+
+  "Web Development",
+  "Frontend",
+  "Backend",
+  "Fullstack",
+  "HTML",
+  "CSS",
+  "Angular",
+  "Vue.js",
+  "Node.js",
+
+  "Mobile Development",
+  "iOS",
+  "Android",
+  "Flutter",
+  "Swift",
+  "Kotlin",
+  "Job Hunting",
+  "Interviewing",
+  "Career Development",
+  "Resume Writing",
+  "Freelancing",
+  "Remote Work",
+  "Tech Industry",
+  "Open Source",
+  "Contributing",
+  "Projects",
+  "GitHub",
+  "Licensing",
+  "Hacktoberfest",
+  "Community",
+  "Security",
+  "Cybersecurity",
+  "Encryption",
+  "Penetration Testing",
+  "OWASP",
+  "Authentication",
+  "SSL/TLS",
+  "Vulnerability Management",
+
+  "Tools & Software",
+  "VS Code",
+  "Git",
+  "Command Line",
+  "Cloud & DevOps",
+  "AWS",
+  "Azure",
+  "Google Cloud",
+  "Docker",
+  "Kubernetes",
+  "CI/CD",
+  "Serverless",
+  "Terraform",
+
+  "Data Science & AI",
+  "Machine Learning",
+  "Data Analysis",
+  "Artificial Intelligence",
+  "Deep Learning",
+  "TensorFlow",
+  "Pandas",
+  "R",
+
+  "Databases",
+  "SQL",
+  "NoSQL",
+  "MongoDB",
+  "PostgreSQL",
+  "MySQL",
+  "Redis",
+  "Elasticsearch",
+  "Firebase",
+];
+
   // if (loader === true) {
   //   return (
   //     <>
@@ -223,32 +310,36 @@ const Blogs = () => {
     <div className="container text-left mt-ps90 app_container">
       <Alert position="bottom-center"> </Alert>
 <SearchBlogs setBlogs={setBlogs} setloader={setloader}  />
-<ScrollTag />
-      <div
-        style={{
-          display: "flex",
-          justifyContent: "space-between",
-          alignItems: "center",
-          marginBottom: "20px",
-          marginTop: "20px"
-        }}
-        className="app_product_headline"
-      >
-        <div
-          style={{
-            fontSize: "25px",
-            fontWeight: "700"
-           
-          }}
-        >
-          Flash Blogs
-        </div>
-        <i
-          className={`fa-solid fa-arrow-up-short-wide product_view_icon grid_view`}
-          id="blogFilterBtn"
-          onClick={toggleBlog}
-        ></i>
-      </div>
+<ScrollTag tagList={tagList} />
+
+
+<div
+    style={{
+      display: "flex",
+      justifyContent: "space-between",
+      alignItems: "center",
+      marginBottom: "20px",
+      marginTop: "20px"
+    }}
+    className="app_product_headline"
+  >
+    {/* <div
+      style={{
+        fontSize: "25px",
+        fontWeight: "700"
+       
+      }}
+    >
+      Flash Blogs
+    </div> */}
+
+    <AppPagesHeading heading="Flash Blogs"  />
+    <i
+      className={`fa-solid fa-arrow-up-short-wide product_view_icon grid_view`}
+      id="blogFilterBtn"
+      onClick={toggleBlog}
+    ></i>
+  </div>
 
       <div className="row app_blog_main_container px-2" id="app-blog-Container">
         {/* Blog Columns Start Here */}

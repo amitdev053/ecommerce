@@ -15,8 +15,8 @@ import Products from './component/Products';
 import Coursel from './component/Counsel'
 import { Analytics } from "@vercel/analytics/react"
 import Footer from './component/Footer'
-import {Routes, Route, useLocation, useParams} from 'react-router-dom'
-import React, { useState, useEffect } from 'react';
+import {Routes, Route, useLocation} from 'react-router-dom'
+import React, { useEffect } from 'react';
 import Hashtag from './component/Hashtag';
 import { CartProvider } from './component/CartContext';
 
@@ -25,6 +25,7 @@ import { CartProvider } from './component/CartContext';
 function App() {
   
   let location = useLocation()
+
 
   // Function to set a cookie
   function setCookie(name, value, days) {
@@ -67,6 +68,8 @@ function App() {
     <>
   <CartProvider>
   <Nav trackCart={false} />
+ 
+  
  
  <Routes>
  

@@ -119,9 +119,7 @@ function shareImage(image){
     setImageStates(images.map(() => ({ loaded: false })));
   }, [index]);
 
-  function sendClickFeed(event){
-    console.log("click feed")
-    
+  function sendClickFeed(event){    
     let shareButton = event?.currentTarget;
     if(shareButton){
       shareButton.firstElementChild.style.backgroundColor = "#05050524";
@@ -130,20 +128,24 @@ function shareImage(image){
     }
     
   }
-  function removeClickFeed(event){
-    console.log("click feed")
+  function removeClickFeed(event, imageUrl){    
     let shareButton = event?.currentTarget;
     if(shareButton){
       shareButton.firstElementChild.style.backgroundColor = "white";
       shareButton.firstElementChild.style.color = "";
+      shareImage(imageUrl)
       
     }
     
   }
-  useEffect(() => {
-    sendClickFeed();
-    removeClickFeed();
-  })
+  function orignalElement(event){
+    let shareButton = event?.currentTarget;
+    if(shareButton){
+      shareButton.firstElementChild.style.backgroundColor = "white";
+      shareButton.firstElementChild.style.color = "";         
+    }    
+  }
+
 
   if (loader === true) {
     return (
@@ -200,7 +202,7 @@ function shareImage(image){
             </div>                  
             </div>
 
-            <div className="explore_like_content d-flex align-items-center position-absolute explore_images_share" onTouchStart={sendClickFeed} onTouchEnd={removeClickFeed} onMouseUp={removeClickFeed} onMouseDown={sendClickFeed} onClick={()=>{shareImage(image.webformatURL)}}>
+            <div className="explore_like_content d-flex align-items-center position-absolute explore_images_share" onTouchStart={sendClickFeed} onTouchEnd={(event)=>{removeClickFeed(event, image.webformatURL)}} onMouseUp={(event)=>{removeClickFeed(event, image.webformatURL)}} onMouseDown={sendClickFeed} onMouseOut={orignalElement} >
             <i class="fa-solid fa-share explore_image_share_icon"></i>
             </div>    
           </div>

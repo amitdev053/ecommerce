@@ -16,7 +16,7 @@ const handleShare = async (productTitle, productDesc, productImage , fromWhere) 
         await navigator.share({
           title: productTitle,
           text: shareMessage,
-          url: window.location.href,
+          // url: window.location.href,
           files: [file],
         });
   

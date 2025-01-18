@@ -335,7 +335,7 @@ function ProductImageComponent({product}){
                         <i class="fa-regular fa-share-from-square icon_margin"></i>
                         
                       </button> */}
-                      <ShareButton  props={product} />
+                      <ShareButton  productTitle={product.productTitle} productDesc={product.description} productImage={product.image}/>
                     </div>
                   </div>
                 </div>

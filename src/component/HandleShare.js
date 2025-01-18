@@ -29,9 +29,10 @@ const handleShare = async (productTitle, productDesc, productImage , fromWhere) 
     }
   };
 
-  function ShareButton (props) {
+  function ShareButton ({productTitle, productDesc, productImage}) {
+  
     return (
-      <button className="btn btn-sm btn-primary p_s_btn brand_button " onClick={() => handleShare(props.productTitle, props.productDesc, props.productImage, props.fromWhere)}>
+      <button className="btn btn-sm btn-primary p_s_btn brand_button " onClick={() => handleShare(productTitle, productDesc, productImage)}>
         Share 
         <i class="fa-solid fa-share-nodes icon_margin"></i>
         {/* <i class="fa-regular fa-share-from-square icon_margin"></i> */}

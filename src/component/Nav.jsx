@@ -839,7 +839,7 @@ useEffect(()=>{
                        
                       </button>
                     
-                      <ShareButton   onClick={()=>{saveShare(likeItems.title, likeItems.description,  likeItems.image )}} />
+                      <ShareButton  props={likeItems} />
                     </div>
                   </div>
            </div>

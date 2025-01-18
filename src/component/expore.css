@@ -81,6 +81,11 @@
     padding: 8px;
     border-radius: 30px;
   }
+  /* .explore_image_share_icon:hover{
+    background: #05050524;
+    color: white;
+  
+  } */
   .column:hover .explore_images_share{
     transform: translate(0px , 0px);  
   }

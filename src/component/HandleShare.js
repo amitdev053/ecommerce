@@ -9,13 +9,13 @@ const handleShare = async (productTitle, productDesc, productImage , fromWhere) 
         }
         const blob = await response.blob();
         console.log("Image fetched successfully, creating file...");
-  
+        const shareMessage = `${productDesc}\n\nCheck out this amazing product: ${productTitle}\n${window.location.href}`;
         const file = new File([blob], 'image.jpg', { type: 'image/jpeg' });
         console.log("File created successfully:", file);
   console.log("Attempting to share content:",file, [file], URL.createObjectURL(file))
         await navigator.share({
           title: productTitle,
-          text: productDesc,
+          text: shareMessage,
           url: window.location.href,
           files: [file],
         });

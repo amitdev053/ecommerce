@@ -839,7 +839,7 @@ useEffect(()=>{
                        
                       </button>
                     
-                      <ShareButton  productTitle={likeItems.productTitle} productDesc={likeItems.description} productImage={likeItems.image} />
+                      <ShareButton  productTitle={likeItems.productName} productDesc={likeItems.description} productImage={likeItems.image} />
                     </div>
                   </div>
            </div>

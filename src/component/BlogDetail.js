@@ -22,12 +22,38 @@ const BlogDetail = () => {
       setloader(false);
       // setBlogDetail(bDetails.data);
       blogDetail.push(bDetails.data)
-      console.log("blog Details response", bDetails.data, blogDetail);
+      console.log("blog Details response", bDetails.data);
+      setTimeout(()=>{
+        setStyleCode()
+      }, 1000)
     });
 
     // axios.get(`http://localhost:8000/getuser`).then((userData) => {  
     //   console.log("my apies user data", userData);
     // }).catch((err)=> console.log("api api not resloved", err));
+  }
+  function setStyleCode(){
+   let blogDetails = document.querySelector('.blog_detail_full_content').querySelector('#textToSpeak').querySelectorAll('.gallerytitle')
+   console.log("blogDetails", blogDetails)
+   Array.from(blogDetails).forEach((item)=>{
+    console.log("items...",item.children)
+
+    Array.from(item.children).forEach((itemChildren)=>{
+          if(itemChildren.classList.contains('highlight')){
+            itemChildren.classList.add('custom-code-style')
+          }
+          Array.from(itemChildren.children).forEach((items)=>{
+            Array.from(items.children).forEach((itemsItems)=>{
+                if(itemsItems.classList.contains('highlight')){
+                itemsItems.classList.add('custom-code-style')
+              }
+            })
+
+          })
+    
+    })
+   })
+
   }
   useEffect(()=>{
          
@@ -93,7 +119,7 @@ const BlogDetail = () => {
             <span className="gallerytitle productname productdiscripation blog_detail_content_img" dangerouslySetInnerHTML={{ __html: blogDetail[0].body_markdown }}  />
             <span className="gallerytitle productname productdiscripation blog_detail_content_img" dangerouslySetInnerHTML={{ __html: blogDetail[0].body_html}}  />
             <span className="gallerytitle productname productdiscripation blog_detail_content_img" dangerouslySetInnerHTML={{ __html: blogDetail[0].descripation}}  />
-</div>
+            </div>
           </div>
           {/* blog details appear starts Here*/}
 

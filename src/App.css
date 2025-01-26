@@ -52,6 +52,9 @@ body{
   color: #61dafb;
 }
 
+.navbar>.container{
+  flex-wrap: nowrap;
+}
 
 @keyframes App-logo-spin {
   from {
@@ -1663,4 +1666,12 @@ color: #000203;
   border-radius: 50px;
   background-color: #000203;
   margin: 30px 0px 20px 0px ;
+}
+.custom-code-style {
+  background-color: black;
+  /* background-color: #002451; */
+  color: white;
+  padding: 0px 0px 0px 10px;
+  border-radius: 5px;
+  font-family: "Courier New", Courier, monospace;
 }

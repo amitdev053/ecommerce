@@ -126,7 +126,7 @@ export default function footer() {
             <a href="#!" className="text-reset">Help</a>
           </p>
           <p>
-          <Link to="/hashtags" className="text-reset" target='_blank'>Hashtags</Link>
+          <Link to="/explore" className="text-reset" target='_blank'>Explore</Link>
           </p>
         </div>
 
@@ -136,7 +136,7 @@ export default function footer() {
         <p><i class="fa-solid fa-globe me-3"></i>Visit Market Shops</p>
           <p>
             <i className="fas fa-envelope me-3"></i>
-            info@example.com
+            contact@vercel.app
           </p>
           <p><i className="fas fa-phone me-3"></i> + 01 234 567 88</p>
           <p><i className="fas fa-print me-3"></i> + 01 234 567 89</p>

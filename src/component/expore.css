@@ -9,21 +9,20 @@
   .column {
     display: flex;
     flex-direction: column;
-    margin: 10px; /* Adjust the margin as needed */
+    margin: 10px;
     overflow: hidden;
-    border-radius: 10px; /* Optional */
+    border-radius: 10px; 
     height: 250px;
-    width: 30%;
-    
+    width: 30%;    
     align-items: center;
     justify-content: center;
   }
   
   .column img {
-    width: 350px; /* Adjust the width as needed */
-    margin-bottom: 10px; /* Adjust the margin as needed */
-    border-radius: 10px; /* Optional */
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Optional */
+    width: 350px; 
+    margin-bottom: 10px; 
+    border-radius: 10px; 
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); 
     transition: all 0.2s ease-in-out;
   } 
 

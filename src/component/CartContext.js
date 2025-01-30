@@ -11,7 +11,7 @@ export const CartProvider = ({ children }) => {
 
   // Function to add items to the cart
   const addToCart = (productName, productPrice, ProductImage, productid) => {
-    console.log("set Cart");
+    // console.log("set Cart");
 
     let initalCartQty = 1;
     
@@ -26,7 +26,7 @@ export const CartProvider = ({ children }) => {
     };
 
     let existingProduct = usercartarr.find((curElement) => curElement.productid === productid);
-    console.log("existing product", existingProduct);
+    // console.log("existing product", existingProduct);
 
     if (existingProduct) {
       let modifiedProducts = usercartarr.map((product) =>
@@ -35,14 +35,14 @@ export const CartProvider = ({ children }) => {
           : product
       );
 
-      console.log("modified products", modifiedProducts);
+      // console.log("modified products", modifiedProducts);
 
       setCartItems(modifiedProducts);
       setCartLength(modifiedProducts.length);
       localStorage.setItem("usercart", JSON.stringify(modifiedProducts));
       setAddTrackCart(true);
     } else {
-      console.log("addtocart", usercart);
+      // console.log("addtocart", usercart);
       usercartarr.push(usercart);
       setCartItems(usercartarr);
       setCartLength(usercartarr.length);

@@ -58,10 +58,10 @@ function App() {
   const cookieValue = getCookie('userCookie');
   if (cookieValue) {
     
-    console.log('new', cookieValue);
+    // console.log('new', cookieValue);
     
   } else {
-    console.log('old user');
+    // console.log('old user');
   }
   
   return (

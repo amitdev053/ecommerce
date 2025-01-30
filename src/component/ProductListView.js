@@ -21,16 +21,16 @@ export default function ProductListView({addToFavourite, isFavorite}) {
     fetch(getProductsUrl)
       .then((response) => {
         setloader(false);
-        console.log("response", response);
+        // console.log("response", response);
         return response.json();
       })
       .then((result) => {
-        console.log("products Result", result);
+        // console.log("products Result", result);
         setAllProduct(result);
       });
   }
   function addToCart(productName,productPrice,ProductImage,productid) {
-    console.log("set Cart");
+    // console.log("set Cart");
    let usercartarr = JSON.parse(localStorage.getItem("usercart") || "[]");
    let usercart = {    
     productName: productName,
@@ -40,12 +40,12 @@ export default function ProductListView({addToFavourite, isFavorite}) {
     productQuanity: initalCartQty,
   };
  
-console.log(usercartarr)
+// console.log(usercartarr)
  
   let existingProduct = usercartarr.find((curElement)=>{
   return  productid === curElement.productid
   })
-  console.log("existing product",existingProduct)
+  // console.log("existing product",existingProduct)
 
 
   if(existingProduct){
@@ -55,7 +55,7 @@ console.log(usercartarr)
         : product
     );
 
-    console.log("modified products", modifiedProducts);
+    // console.log("modified products", modifiedProducts);
 
     setCartLength((prevLength) => prevLength + 1);
     localStorage.setItem("usercart", JSON.stringify(modifiedProducts));
@@ -64,7 +64,7 @@ console.log(usercartarr)
 
 }else{
 
-  console.log("addtocart", usercart)
+  // console.log("addtocart", usercart)
 
   let pusharr = usercartarr.push(usercart);
     setCartLength(pusharr)
@@ -85,7 +85,7 @@ console.log(usercartarr)
   
  
  const handleShare = async (productTitle, productDesc, productImage) => {
-  console.log("Attempting to share content:", productTitle, productDesc, productImage);
+  // console.log("Attempting to share content:", productTitle, productDesc, productImage);
 
   if (navigator.canShare && navigator.canShare({ files: [new File([""], "test.jpg", { type: "image/jpeg" })] })) {
     try {
@@ -94,11 +94,11 @@ console.log(usercartarr)
         throw new Error('Network response was not ok');
       }
       const blob = await response.blob();
-      console.log("Image fetched successfully, creating file...");
+      // console.log("Image fetched successfully, creating file...");
 
       const file = new File([blob], 'image.jpg', { type: 'image/jpeg' });
-      console.log("File created successfully:", file);
-console.log("Attempting to share content:",file, [file], URL.createObjectURL(file))
+      // console.log("File created successfully:", file);
+// console.log("Attempting to share content:",file, [file], URL.createObjectURL(file))
       await navigator.share({
         title: productTitle,
         text: productDesc,
@@ -106,7 +106,7 @@ console.log("Attempting to share content:",file, [file], URL.createObjectURL(fil
         files: [file],
       });
 
-      console.log('Content shared successfully');
+      // console.log('Content shared successfully');
     } catch (error) {
       console.error('Error sharing content:', error);
     }

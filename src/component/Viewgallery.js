@@ -33,18 +33,18 @@ const getid = (contentid)=>{
   }).then(function(response){
     return response.json()
   }).then(function(result){
-    console.log(result.records)
+    // console.log(result.records)
  let galleryimagess =  result.records.title
 
    
 
    let galleryimages = JSON.parse(galleryimagess)
-   console.log("Outside form loop",galleryimages.original_image_url)
+   // console.log("Outside form loop",galleryimages.original_image_url)
 
    Object.values(galleryimages).forEach((element)=>{
     
-   // console.log("Inside the loop ",element)
-   // console.log("Inside the loop",element)
+   // // console.log("Inside the loop ",element)
+   // // console.log("Inside the loop",element)
 let images = element
 
 
@@ -55,7 +55,7 @@ setmaingallery(images)
   
   setimage(element)
 
-console.log(typeof image)
+// console.log(typeof image)
 
 
    })

@@ -6,7 +6,7 @@ import axios from "axios";
 import { json, useParams } from 'react-router-dom';
 
 const BlogDetail = () => {
-  console.log("blog Details Page");
+  // console.log("blog Details Page");
 
   const [loader, setloader] = useState(true);
   const [blogDetail, setBlogDetail] = useState([]);
@@ -16,27 +16,27 @@ const BlogDetail = () => {
 
   function getBlogDetails(){
     
-    console.log("blogId", blogId)
+    // console.log("blogId", blogId)
  let getBlogUrl = `https://dev.to/api/articles/${blogId.blogId}`;
     axios.get(getBlogUrl).then((bDetails) => {
       setloader(false);
       // setBlogDetail(bDetails.data);
       blogDetail.push(bDetails.data)
-      console.log("blog Details response", bDetails.data);
+      // console.log("blog Details response", bDetails.data);
       setTimeout(()=>{
         setStyleCode()
       }, 1000)
     });
 
     // axios.get(`http://localhost:8000/getuser`).then((userData) => {  
-    //   console.log("my apies user data", userData);
-    // }).catch((err)=> console.log("api api not resloved", err));
+    //   // console.log("my apies user data", userData);
+    // }).catch((err)=> // console.log("api api not resloved", err));
   }
   function setStyleCode(){
    let blogDetails = document.querySelector('.blog_detail_full_content').querySelector('#textToSpeak').querySelectorAll('.gallerytitle')
-   console.log("blogDetails", blogDetails)
+   // console.log("blogDetails", blogDetails)
    Array.from(blogDetails).forEach((item)=>{
-    console.log("items...",item.children)
+    // console.log("items...",item.children)
 
     Array.from(item.children).forEach((itemChildren)=>{
           if(itemChildren.classList.contains('highlight')){

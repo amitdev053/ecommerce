@@ -29,24 +29,24 @@ export default function Media() {
       .then((res) => res.json())
       .then((res) => {
         setloader(false)
-        console.log("res=", res)
+        // console.log("res=", res)
         let title = res.records.title;
         settitle(title);
-        console.log(title);
+        // console.log(title);
         let data = res.records.records;
-        console.log(data);
+        // console.log(data);
         setmedia(data);
         return data;
       });
-    console.log("title is ");
+    // console.log("title is ");
   }
   useEffect(() => {
     getMedia();
   }, []);
-  console.log("Media is ", gallerymedia);
+  // console.log("Media is ", gallerymedia);
 
   function viewAlbumn(id) {
-    console.log(navigate);
+    // console.log(navigate);
     navigate("/viewgallery/"+id);
   }
   if(loader == true){

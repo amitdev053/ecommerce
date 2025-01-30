@@ -7,7 +7,7 @@
 //       useNewUrlParser: true,
 //       useUnifiedTopology: true,
 //     });
-//     console.log('Connected to MongoDB');
+//     // console.log('Connected to MongoDB');
 //   } catch (error) {
 //     console.error('Error connecting to MongoDB', error);
 //   }
@@ -24,7 +24,7 @@ let client;
 async function connectToDatabase() {
     client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true });
     await client.connect();
-    console.log('Connected to MongoDB');
+    // console.log('Connected to MongoDB');
 }
 
 function getDb() {

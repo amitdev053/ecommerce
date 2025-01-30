@@ -16,11 +16,11 @@ export default function ProductSlider(props) {
     fetch(getProductsUrl)
       .then((response) => {
         setloader(false);
-        console.log("response", response);
+        // console.log("response", response);
         return response.json();
       })
       .then((result) => {
-        console.log("products Result", result);
+        // console.log("products Result", result);
         setAllProduct(result);
       });
   }
@@ -32,7 +32,7 @@ export default function ProductSlider(props) {
     baseUrl,
     cartUrl
   ) {
-    console.log("set Cart");
+    // console.log("set Cart");
     let usercartarr = JSON.parse(localStorage.getItem("usercart") || "[]");
     let usercart = {
       productName: productName,
@@ -43,7 +43,7 @@ export default function ProductSlider(props) {
     };
 
     let pusharr = usercartarr.push(usercart);
-    console.log("pusharr", pusharr);
+    // console.log("pusharr", pusharr);
 
     localStorage.setItem("usercart", JSON.stringify(usercartarr));
     // toast.success("Your cart is added");
@@ -56,13 +56,13 @@ export default function ProductSlider(props) {
 
   
    const nextProduct = ()=>{
-console.log("we are now going to the next prouct")
+// console.log("we are now going to the next prouct")
 let productRow = document.getElementById('sliderrow')
-console.log("productRow", productRow.children)
+// console.log("productRow", productRow.children)
 
    }
    const previousProduct = ()=>{
-console.log("we are now going to the next prouct")
+// console.log("we are now going to the next prouct")
 
     
    }

@@ -36,19 +36,19 @@ const Explore = (props) => {
     fetch(url)
       .then((response) => {
         setloader(false);
-        console.log("response", response);
+        // console.log("response", response);
         return response.json();
       })
       .then((result) => {
-        // console.log("products product.js", result);
+        // // console.log("products product.js", result);
         if(props.componentFrom === "home"){
-console.log("routes run in home c")
+// console.log("routes run in home c")
 setImages(result.hits.splice(0, 8));
 
 }else{
-          console.log("routes not run in home c")
+          // console.log("routes not run in home c")
           setImages(result.hits);
-          console.log("explore images", result.hits);
+          // console.log("explore images", result.hits);
 
         }
       });
@@ -99,10 +99,10 @@ function addImageTouch(){
     // Function to calculate the current index based on elapsed hours 
       const currentTime = Date.now();
       const hoursElapsed = Math.floor((currentTime - referenceTime) / (60 * 60 * 1000));
-      console.log("calc index", hoursElapsed % content.length);
+      // console.log("calc index", hoursElapsed % content.length);
       content.forEach((element, index) => {
         if(index === hoursElapsed % content.length){
-          console.log("element", element)
+          // console.log("element", element)
         }
       })
       return hoursElapsed % content.length;

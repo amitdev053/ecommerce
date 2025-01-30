@@ -14,12 +14,12 @@ export default function footer() {
     const getProductsUrl = baseUrl + productsUrl;
     fetch(getProductsUrl)
       .then((response) => {        
-        console.log("response", response);
+        // console.log("response", response);
         return response.json();
       })
       .then((result) => {
+        // // console.log("products product.js", result);
         // console.log("products product.js", result);
-        console.log("products product.js", result);
         setAllProduct(result);
       });
   }   

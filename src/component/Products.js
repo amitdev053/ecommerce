@@ -43,10 +43,10 @@ export default function Products(props) {
   const icon = document.getElementById('productLike');
 
   if (img && icon) {
-    console.log("use color theif", img.src)
+    // console.log("use color theif", img.src)
     // colorThief.getColorFromUrl(img.src)
     // .then((color) => {
-    //   console.log("color-theif-color", color)
+    //   // console.log("color-theif-color", color)
     //   const isDark = color[0] < 128 && color[1] < 128 && color[2] < 128;
     //   icon.style.color = isDark ? 'white' : 'black';
     // })
@@ -57,16 +57,16 @@ export default function Products(props) {
 }
   function getProducts(baseUrl, productsUrl) {
     const getProductsUrl = baseUrl + productsUrl;
-    console.log("Product url",getProductsUrl)
+    // console.log("Product url",getProductsUrl)
     fetch(getProductsUrl)
       .then((response) => {
         setloader(false);
-        console.log("response", response);
+        // console.log("response", response);
         return response.json();
       })
       .then((result) => {
+        // // console.log("products product.js", result);
         // console.log("products product.js", result);
-        console.log("products product.js", result);
         setAllProduct(result);
       });
   }    
@@ -104,7 +104,7 @@ export default function Products(props) {
   }
 
   function addToFavourite(productName,productPrice,ProductImage,productid) {
-    console.log("set Cart");
+    // console.log("set Cart");
    
    let usercartarr = JSON.parse(localStorage.getItem("userLike") || "[]");
    let usercart = {    
@@ -118,7 +118,7 @@ export default function Products(props) {
   let existingProduct = usercartarr.find((curElement)=>{
   return  productid === curElement.productid
   })
-  console.log("existing product",existingProduct)
+  // console.log("existing product",existingProduct)
 
 
   if(existingProduct){
@@ -132,7 +132,7 @@ export default function Products(props) {
   setAddTrackCart(true)
   setIsFavorite(true)
   animateLikeHeaderIcon()
-  console.log("addtocart", usercart)
+  // console.log("addtocart", usercart)
 
   let pusharr = usercartarr.push(usercart);
     setCartLength(pusharr)
@@ -167,7 +167,7 @@ export default function Products(props) {
 
  
  function productShare(productTitle, productDesc, productImage) {
-  console.log("Attempting to share content:", productTitle, productDesc, productImage);
+  // console.log("Attempting to share content:", productTitle, productDesc, productImage);
 
   handleShare(productTitle, productDesc, productImage, "product")
 
@@ -195,7 +195,7 @@ const handleZoomImage = ()=>{
 
     // Handle pinch zooming
     hammer.on('pinch', (event) => {
-      console.log("pinch event", event)
+      // console.log("pinch event", event)
       const newScale = currentScale * event.scale;
       image.style.transform = `scale(${newScale})`; // Apply zoom
       image.style.transition = 'none'; // Disable smooth transitions during pinch
@@ -261,7 +261,7 @@ function ProductImageComponent({product}){
                 style: "currency",
                 currency: "USD",
               });
-              console.log("product map json", product.images)
+              // console.log("product map json", product.images)
               const favoriteProducts =  JSON.parse(localStorage.getItem("userLike") || "[]")
               const isFavorite = favoriteProducts.some((fav) => fav.productid === product.id);
               

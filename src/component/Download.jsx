@@ -15,11 +15,11 @@ const Download = () => {
     function fetchFile() {
 
   let url = document.getElementById('link').value
-        console.log(url)
+        // console.log(url)
         fetch(url).then(res => res.blob()).then(file => {
           let createurl = new URL
             let tempUrl = createurl.createObjectURL(file);
-           console.log(tempUrl)
+           // console.log(tempUrl)
         })
     }
 

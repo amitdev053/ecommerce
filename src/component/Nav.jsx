@@ -37,7 +37,7 @@ export default function Navbar({trackCart}) {
   
 
   useEffect(() => {
-    //console.log("This is a pathname", locations.pathname);
+    //// console.log("This is a pathname", locations.pathname);
     seturl(locations.pathname);
   }, [locations]);
 
@@ -113,7 +113,7 @@ if(document.getElementById('navbarSupportedContent') && document.getElementById(
 
 let appBody = document.getElementById("appbody")
 if(appBody){      
-  console.log("appbody", appBody, event.currentTarget)
+  // console.log("appbody", appBody, event.currentTarget)
   appBody.style.setProperty('position', 'fixed', 'important');
   
   const cartSeter = document.querySelector('.cart_container');
@@ -123,7 +123,7 @@ if(appBody){
     // let cartHeight = cartSeter.clientHeight - (setCartStyleElement.offsetHeight + 190)
     // setCartStyleElement.style.top = `${cartHeight}px`
     // setCartStyleElement.style.height = "fit-content"
-    //  console.log("mobile devices", cartHeight)
+    //  // console.log("mobile devices", cartHeight)
 
     // if(mobileCartIcon.classList.contains('active_cart_bg')){
     //   mobileCartIcon.classList.remove('active_cart_bg');
@@ -351,15 +351,15 @@ closeCart()
   const deleteCart = (cartitemid, index)=>{
     
     let cartitem = JSON.parse(localStorage.getItem("usercart") || "[]");
-console.log("remainingcartitenm", cartitem)
+// console.log("remainingcartitenm", cartitem)
 
 let deletecartitem = delete(cartitem[index])
-console.log(deletecartitem)
+// console.log(deletecartitem)
 
   const remainingitem =  cartitem.filter((localStorageitems) => {   
   return  localStorageitems !== index    
    })
-   console.log("remainingitem", remainingitem)
+   // console.log("remainingitem", remainingitem)
 // setUserCart(remainingitem)
   localStorage.setItem('usercart',JSON.stringify(remainingitem));
 
@@ -393,7 +393,7 @@ function updateCartItemQuantity(productId, newQuantity) {
   }
 }
 function quantityIncrement(event, cartitem){
-  console.log(cartitem)
+  // console.log(cartitem)
   setCartQuantity(cartitem.productQuanity++) 
   updateCartItemQuantity(cartitem.productid,cartitem.productQuanity)
   
@@ -405,7 +405,7 @@ function OpenMobileNavbar(event){
   navbarContent.classList.toggle('active_navbar')
 let navbarIcon = document.querySelector('.toggle_outline_elemenet')
 
-console.log("navbarIcon", navbarIcon)
+// console.log("navbarIcon", navbarIcon)
 navbarIcon.style.setProperty('background', '#eee');
 navbarIcon.firstElementChild.style.setProperty('font-size', "14px")
 setTimeout(()=>{
@@ -420,7 +420,7 @@ setTimeout(()=>{
 navbarContent.addEventListener("click", (event)=>{
 
   if(event.target.id === "media" || event.target.id === "hastags" || event.target.id === "home" || event.target.id === "cartarea" || event.target.id === "cartText" || event.target.id === "carticon" || event.target.id === "cartcount" || event.target.id === "appBlogs" || event.target.id === "appexplore" || event.target.id === "navbarSupportedContent" ){
-    console.log("condition inside closeNavbar")
+    // console.log("condition inside closeNavbar")
     document.getElementById('navbarSupportedContent').classList.remove('active_navbar')    
   }
  
@@ -432,18 +432,18 @@ navbarContent.addEventListener("click", (event)=>{
 }
 
 function hitCartinProducts(productName,productPrice,ProductImage,productid){
-  console.log("hit cart from navbar.js", productName, productPrice, ProductImage, productid)
+  // console.log("hit cart from navbar.js", productName, productPrice, ProductImage, productid)
  addToCart(productName,productPrice,ProductImage,productid)
   
 }
 function RouteToLikeProducts(){
-  console.log("Route Link Products")
+  // console.log("Route Link Products")
   closeCart("userLike")
   navigate("/products")
 }
 
 function saveShare (productTitle, productDesc, productImage) {
-  console.log("Attempting to share content:", productTitle, productDesc, productImage);
+  // console.log("Attempting to share content:", productTitle, productDesc, productImage);
   handleShare(productTitle, productDesc, productImage)
 
 //   if (navigator.canShare && navigator.canShare({ files: [new File([""], "test.jpg", { type: "image/jpeg" })] })) {
@@ -453,11 +453,11 @@ function saveShare (productTitle, productDesc, productImage) {
 //         throw new Error('Network response was not ok');
 //       }
 //       const blob = await response.blob();
-//       console.log("Image fetched successfully, creating file...");
+//       // console.log("Image fetched successfully, creating file...");
 
 //       const file = new File([blob], 'image.jpg', { type: 'image/jpeg' });
-//       console.log("File created successfully:", file);
-// console.log("Attempting to share content:",file, [file], URL.createObjectURL(file))
+//       // console.log("File created successfully:", file);
+// // console.log("Attempting to share content:",file, [file], URL.createObjectURL(file))
 //       await navigator.share({
 //         title: productTitle,
 //         text: productDesc,
@@ -465,7 +465,7 @@ function saveShare (productTitle, productDesc, productImage) {
 //         files: [file],
 //       });
 
-//       console.log('Content shared successfully');
+//       // console.log('Content shared successfully');
 //     } catch (error) {
 //       console.error('Error sharing content:', error);
 //     }
@@ -492,13 +492,13 @@ userCart.addEventListener('touchstart', (e) => {
 userCart.addEventListener('touchend', (e) => {
   endX = e.changedTouches[0].clientX;  
   if (startX <= 100 && endX > 0) {
-    // console.log("right side movement")
+    // // console.log("right side movement")
     if(!e.target.classList.contains('decrementqty_btn'))
     closeCart(undefined)
   } else if (endX < startX) {
-    // console.log('Left side movement');
+    // // console.log('Left side movement');
   }
-  console.log("startX and endX", startX, endX)
+  // console.log("startX and endX", startX, endX)
 
 });
 

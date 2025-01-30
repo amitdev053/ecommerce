@@ -10,6 +10,12 @@ import SearchBlogs from "./SearchBlogs";
 import desktopicon from '../appimages/desktopicon.png'
 import ScrollTag from "./ScrollTag";
 import AppPagesHeading from "./AppPagesHeading";
+import { Helmet } from 'react-helmet';
+
+const title = 'DeepSeek: AI-Powered Insights';
+const description = 'Get an in-depth look at DeepSeek, the revolutionary AI-driven data analysis tool. Explore its features and potential impact.';
+const keywords = 'DeepSeek, AI-powered insights, data analysis tool, business intelligence, AI solution';
+
 const Blogs = () => {
   const [loader, setloader] = useState(true);
   const [blogs, setBlogs] = useState([]);
@@ -19,14 +25,12 @@ const Blogs = () => {
   const[destktopSearch, setDesktopSearch] = useState(undefined)
   const [searchPageString, setSearchPageString] = useState(undefined);
   
-  
+ 
   const getBlogs = (forSearch = false, forSearchQuery = "") => {
     let getBlogUrl
-    // let loader = document.querySelector(".loader")
-    // loader.classList.add('margin_top_setzero')
     setloader(true);
     if(forSearch){
-      console.log("checking search text", forSearchQuery)
+      // console.log("checking search text", forSearchQuery)
       getBlogUrl = `https://dev.to/api/articles?tag=${forSearchQuery}`
       
       let tags = document.querySelectorAll(".app_blog_tag_text")
@@ -38,36 +42,18 @@ const Blogs = () => {
      
     }else{
 
-       getBlogUrl = "https://dev.to/api/articles";
+      //  getBlogUrl = "https://dev.to/api/articles";
+       getBlogUrl = "https://dev.to/api/articles?tag=deepseek";
     }
   
-    console.log("manageing blogs", getBlogUrl, forSearchQuery)
+    // console.log("manageing blogs", getBlogUrl, forSearchQuery)
     axios.get(getBlogUrl).then((blog) => {
-      setloader(false);
-      // console.log("blog response", blog.data);
+      setloader(false);      
       setBlogs(blog.data);
     });
   };
   
-  // function displayDynamicBlogs(){
-  //   let tagNames = document.querySelectorAll('.app_blog_tag_text')
-     
-  //   tagNames.forEach((tag) => {
-  //     tag.classList.remove('highlight_tag')
-  //   })
- 
-  //   tagNames.forEach((tag)=>{  
-  //     tag.addEventListener("click", (e)=>{
-  //      console.log("clicked on tags...", tag, e.target)
-  //      e.target.classList.add("highlight_tag")
-  //           getBlogs(true, tag.innerText)
-            
 
-  //     })
-    
-
-  //   })
-  // }
   function displayDynamicBlogs() {
     let tagNames = document.querySelectorAll('.app_blog_tag_text');
   
@@ -100,15 +86,26 @@ const Blogs = () => {
 
   useEffect(() => {
     document.title = "Market-Shops Tech Blogs"
-    getBlogs();
-    displayDynamicBlogs()
+    const urlParams = new URLSearchParams(window.location.search);
+    const searchText = urlParams.get('query');
+    
+    console.log("initalload data", urlParams,searchText)
+if(urlParams.size > 0){
+
+getBlogs(true, searchText)
+
+}else{
+
+  getBlogs();
+}
+    // displayDynamicBlogs()
   }, []);
   
   // it is for every page render operations 
   useEffect(() => {
     const urlParams = new URLSearchParams(window.location.search);
     const searchText = urlParams.get('query');
-    console.log("checking search", searchText)
+    // console.log("checking search", searchText)
     if(searchText){
       setSearchText(searchText)
     }
@@ -134,9 +131,9 @@ const Blogs = () => {
 
   useEffect(() => {
     const searchParams = new URLSearchParams(location.search);
-   console.log("first..")
+   // console.log("first..")
    
-    // console.log("Populate blogs", location.pathname, userSearchQuery, searchParams, location.search)   
+    // // console.log("Populate blogs", location.pathname, userSearchQuery, searchParams, location.search)   
     if(location.pathname === "/blogs/search"){
       const userSearchQuery = searchParams.get("query");
       
@@ -306,10 +303,16 @@ let tagList = [
   //   );
   // } else {
   return (
-    // <>
+    
+    <>
+    <Helmet>
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <meta name="keywords" content={keywords} />
+  </Helmet>
     <div className="container text-left mt-ps90 app_container">
       <Alert position="bottom-center"> </Alert>
-<SearchBlogs setBlogs={setBlogs} setloader={setloader}  />
+<SearchBlogs setBlogs={setBlogs} setloader={setloader}  searchText={searchText} />
 <ScrollTag tagList={tagList} />
 
 
@@ -379,7 +382,7 @@ let tagList = [
               </> 
           ) :
           blogs.map((blog, i) => {
-           {/* console.log("enter in blogs map function", blog); */}
+           {/* // console.log("enter in blogs map function", blog); */}
             return (
               <>
                 <div className="col-md-4 col-sm-12 col-lg-3 blog_content_border app_blogs" key={blog.id + i}>
@@ -434,7 +437,8 @@ let tagList = [
         {/* Blog Columns End Here */}
       </div>
     </div>
-    // </>
+    </>
+    
   );
   // }
 };

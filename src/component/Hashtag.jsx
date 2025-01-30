@@ -3,7 +3,7 @@ import React, { useState, useEffect } from 'react'
 export default function Hashtag() {
  
   function lowercase(){
-    console.log("Lower function running on click function")
+    // console.log("Lower function running on click function")
     let textformatarea =document.getElementById('textformatarea').value
   let lowercase= textformatarea.toLowerCase()
   document.getElementById('textformatarea').value = lowercase
@@ -14,7 +14,7 @@ export default function Hashtag() {
 
 // Upper Case function defeindex Start Here
   function uppercase(){
-    console.log("UpperCase function running on click function")
+    // console.log("UpperCase function running on click function")
     let textformatarea =document.getElementById('textformatarea').value
   let uppercase= textformatarea.toUpperCase()
   document.getElementById('textformatarea').value = uppercase
@@ -30,7 +30,7 @@ function countword(){
   textlength(countword.length + " " + "words "+ "and" + " " + countword.split(" ").length +" "+ "character")
 
    let wordcharacter =document.getElementById('wordcharacter').innerText = text
-   console.log(countword)
+   // console.log(countword)
    
 
 
@@ -45,7 +45,7 @@ let results
 function ReverseText(){
   let reversetext =document.getElementById('textformatarea').value 
  let reverse =  reversetext.split(" ").reverse().join(",", " ").replaceAll(",", " ")
- console.log(typeof reverse)
+ // console.log(typeof reverse)
 
  document.getElementById('textformatarea').value = reverse
 }
@@ -58,7 +58,7 @@ let searchText = document.querySelector('#textformatarea').value
       result.map(function(s) { return s.trim() });
       results = result
       settag(result)
-      console.log(result);
+      // console.log(result);
 
   return results
   } else {

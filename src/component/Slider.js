@@ -11,16 +11,16 @@ const Slider = () => {
       const getProductsUrl = baseUrl + productsUrl;
       fetch(getProductsUrl)
         .then((response) => {
-          console.log("response", response);
+          // console.log("response", response);
           return response.json();
         })
         .then((result) => {
-          console.log("products Result", result);
+          // console.log("products Result", result);
           setAllProduct(result);
         });
     }
     function addToCart(baseUrl, cartUrl) {
-      console.log("set Cart");
+      // console.log("set Cart");
       const cartapi = baseUrl + cartUrl;
     }
   

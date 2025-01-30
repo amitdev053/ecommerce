@@ -3,7 +3,7 @@
 
 // const app = express();
 // const port = process.env.PORT || 3000;
-// console.log(process.env)
+// // console.log(process.env)
 // // Connect to MongoDB
 // connectToDatabase();
 
@@ -12,7 +12,7 @@
 
 // // Example route
 // app.get('/', (req, res) => {
-//     console.log("send request", req)
+//     // console.log("send request", req)
 //   res.send('Hello World');
 // });
 // app.get(`/getuser`, async (req, res) => {
@@ -21,7 +21,7 @@
 //     const collection = db.collection('ragister_user'); // Replace with your collection name
 //     const users = await collection.find().toArray(); // Fetch all documents
 //     res.json(users); // Send the documents as a JSON response
-//     console.log("get user", users)
+//     // console.log("get user", users)
 // } catch (error) {
 //     console.error(error);
 //     res.status(500).send('Error fetching users');
@@ -31,7 +31,7 @@
 
 // // Start the server
 // app.listen(port, () => {
-//   console.log(`Server is running on port ${port}`);
+//   // console.log(`Server is running on port ${port}`);
 // });
 
 const express = require('express');
@@ -62,7 +62,7 @@ app.get('/getuser', async (req, res) => {
         const collection = db.collection('ragister_user'); 
         const users = await collection.find().toArray(); // Fetch all documents
         res.json(users);
-        console.log("get user", users)
+        // console.log("get user", users)
     } catch (error) {
         console.error(error);
         res.status(500).send('Error fetching users');
@@ -71,5 +71,5 @@ app.get('/getuser', async (req, res) => {
 
 // Start the server
 app.listen(port, () => {
-    console.log(`Server is running on port ${port}`);
+    // console.log(`Server is running on port ${port}`);
 });

@@ -1,5 +1,5 @@
 const handleShare = async (productTitle, productDesc, productImage , fromWhere) => {
-    console.log("Attempting to share content:", productTitle, productDesc, productImage);
+    // console.log("Attempting to share content:", productTitle, productDesc, productImage);
   
     if (navigator.canShare && navigator.canShare({ files: [new File([""], "test.jpg", { type: "image/jpeg" })] })) {
       try {
@@ -8,11 +8,11 @@ const handleShare = async (productTitle, productDesc, productImage , fromWhere) 
           throw new Error('Network response was not ok');
         }
         const blob = await response.blob();
-        console.log("Image fetched successfully, creating file...");
+        // console.log("Image fetched successfully, creating file...");
         
         const file = new File([blob], 'image.jpg', { type: 'image/jpeg' });
-        console.log("File created successfully:", file);
-  console.log("Attempting to share content:",file, [file], URL.createObjectURL(file))
+        // console.log("File created successfully:", file);
+  // console.log("Attempting to share content:",file, [file], URL.createObjectURL(file))
         await navigator.share({
           title: productTitle,
           text: productDesc,
@@ -20,7 +20,7 @@ const handleShare = async (productTitle, productDesc, productImage , fromWhere) 
           files: [file],
         });
   
-        console.log('Content shared successfully');
+        // console.log('Content shared successfully');
       } catch (error) {
         console.error('Error sharing content:', error);
       }

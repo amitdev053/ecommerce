@@ -42,8 +42,8 @@ const Blogs = () => {
      
     }else{
 
-       getBlogUrl = "https://dev.to/api/articles";
-      //  getBlogUrl = "https://dev.to/api/articles?tag=ngrok";
+      //  getBlogUrl = "https://dev.to/api/articles";
+       getBlogUrl = "https://dev.to/api/articles?tag=ngrok";
     }
   
     // console.log("manageing blogs", getBlogUrl, forSearchQuery)

@@ -1104,24 +1104,24 @@ margin: 0px 0px 0px 10px !important;
 }
 @media screen and (min-width: 480px) and  (max-width: 780px){
   .cart_container{
-    max-width: 47.5% !important;
+    max-width: 50% !important;
   }
   .cart_header{
-    width: calc(100% - 50%);
+    width: calc(100% - 52.2%);
   }
   .cart_footer{
-    width: calc(100% - 50%);
+    width: calc(100% - 52.2%);
   }
 }
 @media screen and (min-width: 780px) and  (max-width: 999px){
   .cart_container{
-    max-width: 28% !important;
+    max-width: 30% !important;
   }
   .cart_header{
-    width: calc(100% - 70%);
+    width: calc(100% - 71.5%);
   }
   .cart_footer{
-    width: calc(100% - 70%);
+    width: calc(100% - 71.5%);
   }
 
 }

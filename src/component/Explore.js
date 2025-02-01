@@ -90,9 +90,14 @@ function addImageTouch(){
     return () => clearInterval(interval);
   }, []);
 
+  // useEffect(() => {
+  //   setImageStates(images.map(() => ({ loaded: false })));
+  // }, [images, index]);
   useEffect(() => {
-    setImageStates(images.map(() => ({ loaded: false })));
-  }, [images, index]);
+    setImageStates((prevStates) =>
+      images.map((_, i) => prevStates[i] || { loaded: false })
+    );
+  }, [images]);
 
   function updatedHours(){
     const referenceTime = new Date("2025-01-01T00:00:00Z").getTime();
@@ -167,13 +172,21 @@ function shareImage(image){
 
             <img
               src={image.largeImageURL}
-              onLoad={() =>
-                setImageStates((prevStates) =>
-                  prevStates.map((state, i) =>
-                    i === index ? { loaded: true } : state
-                  )
-                )
-              }
+              // onLoad={() =>
+              //   setImageStates((prevStates) =>
+              //     prevStates.map((state, i) =>
+              //       i === index ? { loaded: true } : state
+              //     )
+              //   )
+              // }
+
+              onLoad={() => {
+  setImageStates((prevStates) => {
+    const newState = [...prevStates]; // Clone state to avoid mutation
+    newState[index] = { loaded: true }; // Update only the specific image
+    return newState;
+  });
+}}
               onError={(e) =>{
                         e.target.src = defaultBlogImage;
                         e.target.alt = "Default image";

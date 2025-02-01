@@ -34,7 +34,7 @@ const Blogs = () => {
       getBlogUrl = `https://dev.to/api/articles?tag=${forSearchQuery}`
       
       let tags = document.querySelectorAll(".app_blog_tag_text")
-      tags.forEach((tag)=>{
+      Array.from(tags).forEach((tag)=>{
         if(tag === forSearchQuery){
           tag.classList.add("highlight_tag")
         }
@@ -42,8 +42,8 @@ const Blogs = () => {
      
     }else{
 
-      //  getBlogUrl = "https://dev.to/api/articles";
-       getBlogUrl = "https://dev.to/api/articles?tag=deepseek";
+       getBlogUrl = "https://dev.to/api/articles";
+      //  getBlogUrl = "https://dev.to/api/articles?tag=ngrok";
     }
   
     // console.log("manageing blogs", getBlogUrl, forSearchQuery)
@@ -126,6 +126,10 @@ getBlogs(true, searchText)
       })
       
     }
+
+    Array.from(tags).forEach((scrollTag)=>{
+          scrollTag.onClick = displayDynamicBlogs()
+    })
    
   }, [])
 
@@ -143,7 +147,6 @@ getBlogs(true, searchText)
     // else if(location.pathname === "/blogs/suggest"){
     //   const userSearchQuery = searchParams.get("query");
     //   getBlogs(true, userSearchQuery)
-
     // }
 
 

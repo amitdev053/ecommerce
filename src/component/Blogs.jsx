@@ -12,9 +12,9 @@ import ScrollTag from "./ScrollTag";
 import AppPagesHeading from "./AppPagesHeading";
 import { Helmet } from 'react-helmet';
 
-const title = 'DeepSeek: AI-Powered Insights';
-const description = 'Get an in-depth look at DeepSeek, the revolutionary AI-driven data analysis tool. Explore its features and potential impact.';
-const keywords = 'DeepSeek, AI-powered insights, data analysis tool, business intelligence, AI solution';
+const title = 'Ngrok: | Ultimate Blogs';
+const description = `ngrok provides a secure and easy-to-use solution for exposing your local API to the world. Whether you're developing a web application, testing APIs, or integrating with third-party services, ngrok has got you covered.`;
+const keywords = 'ngrok | API Gateway, IoT Device Gateway, Secure Tunnels for Containers, Apps & APIs';
 
 const Blogs = () => {
   const [loader, setloader] = useState(true);
@@ -339,7 +339,7 @@ let tagList = [
       Flash Blogs
     </div> */}
 
-    <AppPagesHeading heading="Flash Blogs"  />
+    <AppPagesHeading heading="Explore Ngrok"  />
     <i
       className={`fa-solid fa-arrow-up-short-wide product_view_icon grid_view`}
       id="blogFilterBtn"
@@ -415,7 +415,7 @@ let tagList = [
                   </div>
                   <div className="mediacontent d-inline-block app_blog_text_content_cover">
                     <p className="mb-1 totalgal">Public reactions :- {blog.public_reactions_count}</p>
-                    <h4 className="gallerytitle productname" id="productname" style={{color: "black", fontWeight: 700, lineHeight: "20px"}}>
+                    <h4 className="gallerytitle productname" id="productname" style={{color: "black", fontWeight: 700, lineHeight: "20px"}} title={blog.title}>
                       {(blog.title.length > 30) ? blog.title.slice(0, 30)+ '...' : blog.title}
                     </h4>
                     <div className="gallerytitle productname productdiscripation">

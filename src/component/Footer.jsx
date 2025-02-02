@@ -23,11 +23,44 @@ export default function footer() {
         setAllProduct(result);
       });
   }   
+  function highlightedFotter(){
+      let footerRowElement = document.querySelector(".footer_main_row").children
+      if(footerRowElement){
+
+        Array.from(footerRowElement).forEach((element)=>{
+          console.log("footerelement", element)
+          element.setAttribute("footerHeader", "true")
+          element.addEventListener('mouseover', (e)=>{
+            let targetElement = e.target     
+            if(!element.classList.contains('footer_main_row') && !targetElement.classList.contains('app_container') && element.getAttribute("footerHeader") === "true"){
+              
+              element.style.backgroundColor = "rgba(0, 0, 0, 0.05)"
+              element.style.borderRadius = "5px"
+              // element.style.color= "black"
+              
+            }       
+          })
+          element.addEventListener('mouseout', (e)=>{
+            let targetElement = e.target            
+            if( !element.classList.contains('footer_main_row')&& !targetElement.classList.contains('app_container') && element.getAttribute("footerHeader") === "true"){
+              
+
+              element.style.backgroundColor = ""
+                 element.style.borderRadius = "none"
+                  // element.style.color= ""
+                 
+            }
+          })
+
+        })
+      }
+
+  }
   
   // eslint-disable-next-line react-hooks/rules-of-hooks
   useEffect(() => {
     getProducts(baseUrl, productsUrl);
-
+    highlightedFotter()
   }, []);
 
   return (
@@ -68,7 +101,7 @@ export default function footer() {
   <section className="">
     <div className="container text-center text-md-start mt-5 app_container">
      
-      <div className="row mt-3">
+      <div className="row mt-3 app_font footer_main_row">
       
         <div className="col-md-3 col-lg-4 col-xl-3 mx-auto mb-4">
     
@@ -130,16 +163,18 @@ export default function footer() {
           </p>
         </div>
 
-        <div className="col-md-4 col-lg-3 col-xl-3 mx-auto mb-md-0 mb-4">
+        <div className="col-md-4 col-lg-3 col-xl-3 mx-auto mb-md-0 mb-4 ">
 
-          <h6 className="text-uppercase fw-bold mb-4">Contact</h6>
-        <p><i class="fa-solid fa-globe me-3"></i>Visit Market Shops</p>
-          <p>
+          <h6 className="text-uppercase fw-bold mb-4">Contact With Us</h6>
+     <div  className='fotter_new'>
+     <p><i className="fa-solid fa-globe me-3"></i> <div>Visited On <br />Market Shops</div> </p>
+          {/* <p>
             <i className="fas fa-envelope me-3"></i>
             contact@vercel.app
-          </p>
-          <p><i className="fas fa-phone me-3"></i> + 01 234 567 88</p>
-          <p><i className="fas fa-print me-3"></i> + 01 234 567 89</p>
+          </p> */}
+          <a className="text-reset" href='https://wa.me/+918826483821?text=Hyy, i want to take a service !' target='_blank'><i className="fa-brands fa-whatsapp me-3"></i> <div>Connected on  <br /> Whatsapp</div> </a>
+          {/* <p><i className="fas fa-print me-3"></i> + 01 234 567 89</p> */}
+     </div>
         </div>
        
       </div>

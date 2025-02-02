@@ -1675,3 +1675,21 @@ color: #000203;
   border-radius: 5px;
   font-family: "Courier New", Courier, monospace;
 }
+.app_font{
+  font-family: 'Roboto' !important;
+}
+.fotter_new p{
+  /* display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center; */
+  gap: 9px;
+}
+.fotter_new p i{
+  font-size: 20px !important;
+  font-weight: 900 !important;
+}
+.fotter_new a i{
+  font-size: 20px !important;
+  font-weight: 900 !important;
+}

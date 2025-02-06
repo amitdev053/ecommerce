@@ -248,6 +248,7 @@ const SearchBlogs = (props) => {
 
               searchRef.current.innerText = content;
               props.setloader(true);
+              props.setHeading(content)
               // console.log("checking content", content);
               //   https://dev.to/api/articles?tag=javascript&top=1
               let getBlogUrl = `https://dev.to/api/articles?tag=${content}`;

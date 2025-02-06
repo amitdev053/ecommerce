@@ -317,7 +317,7 @@ let tagList = [
   </Helmet>
     <div className="container text-left mt-ps90 app_container">
       <Alert position="bottom-center"> </Alert>
-<SearchBlogs setBlogs={setBlogs} setloader={setloader}  searchText={searchText} />
+<SearchBlogs setBlogs={setBlogs} setHeading={setHeading} setloader={setloader}  searchText={searchText} />
 <ScrollTag tagList={tagList} />
 
 

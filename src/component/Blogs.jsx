@@ -11,8 +11,8 @@ import desktopicon from '../appimages/desktopicon.png'
 import ScrollTag from "./ScrollTag";
 import AppPagesHeading from "./AppPagesHeading";
 import { Helmet } from 'react-helmet';
-
-const title = 'Ngrok: | Ultimate Blogs';
+const topic = "react"
+const title = `Explore ${topic.split('')[0].toUpperCase() + topic.split('').slice(1, topic.length).join("")}: | Market Shops`;
 const description = `ngrok provides a secure and easy-to-use solution for exposing your local API to the world. Whether you're developing a web application, testing APIs, or integrating with third-party services, ngrok has got you covered.`;
 const keywords = 'ngrok | API Gateway, IoT Device Gateway, Secure Tunnels for Containers, Apps & APIs';
 
@@ -24,12 +24,14 @@ const Blogs = () => {
   const location = useLocation();
   const[destktopSearch, setDesktopSearch] = useState(undefined)
   const [searchPageString, setSearchPageString] = useState(undefined);
+  const [heading, setHeading] = useState(null)
   
  
   const getBlogs = (forSearch = false, forSearchQuery = "") => {
     let getBlogUrl
     setloader(true);
     if(forSearch){
+      setHeading(forSearchQuery)
       // console.log("checking search text", forSearchQuery)
       getBlogUrl = `https://dev.to/api/articles?tag=${forSearchQuery}`
       
@@ -41,9 +43,9 @@ const Blogs = () => {
       })
      
     }else{
-
+      setHeading(topic)
       //  getBlogUrl = "https://dev.to/api/articles";
-       getBlogUrl = "https://dev.to/api/articles?tag=ngrok";
+       getBlogUrl = `https://dev.to/api/articles?tag=${topic}`;
     }
   
     // console.log("manageing blogs", getBlogUrl, forSearchQuery)
@@ -339,7 +341,7 @@ let tagList = [
       Flash Blogs
     </div> */}
 
-    <AppPagesHeading heading="Explore Ngrok"  />
+    <AppPagesHeading heading={(heading) && "Explore "+heading.split('')[0].toUpperCase() + heading.split('').slice(1, heading.length).join("")}   />
     <i
       className={`fa-solid fa-arrow-up-short-wide product_view_icon grid_view`}
       id="blogFilterBtn"

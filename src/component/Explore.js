@@ -43,7 +43,7 @@ const Explore = (props) => {
         // // console.log("products product.js", result);
         if(props.componentFrom === "home"){
 // console.log("routes run in home c")
-setImages(result.hits.splice(0, 8));
+setImages(result.hits.splice(0, 6));
 
 }else{
           // console.log("routes not run in home c")

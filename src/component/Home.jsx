@@ -13,7 +13,14 @@ function ExploreLinkButton(props) {
   const usenavigate = useNavigate();
 
   function navigatePage() {
-    usenavigate('/explore')
+    if(props.buttonType === "blog"){
+      usenavigate('/blogs')
+    }else if(props.buttonType === "product"){
+      usenavigate('/products')
+    }else{
+
+      usenavigate('/explore')
+    }
   }
   return (
     <div className='d-flex justify-content-center align-items-center my-4'>
@@ -42,13 +49,13 @@ export default function Home() {
    
 
 <Products componentFrom="home" />
-<ExploreLinkButton  buttonText="Checkout More Products" />
+<ExploreLinkButton  buttonText="Checkout More Products" buttonType="product" />
 <div className="app_divider"/>
 <Explore componentFrom="home" />
-<ExploreLinkButton buttonText="Explore Trending Images" />
+<ExploreLinkButton buttonText="Explore Trending Images" buttonType="explore" />
 <div className="app_divider"/>
 <Blogs componentFrom="home" />
-<ExploreLinkButton buttonText="Explore Latest Blogs" />
+<ExploreLinkButton buttonText="Explore Latest Blogs" buttonType="blog" />
 
     </div>
 

@@ -92,6 +92,7 @@ function App() {
  <Footer />
  <Analytics/>
  </CartProvider>
+
     </>
   );
 }

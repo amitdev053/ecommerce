@@ -18,7 +18,6 @@ function ExploreLinkButton(props) {
     }else if(props.buttonType === "product"){
       usenavigate('/products')
     }else{
-
       usenavigate('/explore')
     }
   }
@@ -51,11 +50,11 @@ export default function Home() {
 <Products componentFrom="home" />
 <ExploreLinkButton  buttonText="Checkout More Products" buttonType="product" />
 <div className="app_divider"/>
+<Blogs componentFrom="home" />
+<ExploreLinkButton buttonText="Explore Latest Blogs " buttonType="blog" />
+<div className="app_divider"/>
 <Explore componentFrom="home" />
 <ExploreLinkButton buttonText="Explore Trending Images" buttonType="explore" />
-<div className="app_divider"/>
-<Blogs componentFrom="home" />
-<ExploreLinkButton buttonText="Explore Latest Blogs" buttonType="blog" />
 
     </div>
 

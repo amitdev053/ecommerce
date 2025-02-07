@@ -254,7 +254,8 @@ function ProductImageComponent({product}){
           >
             Flash Products
           </div>
-          <i className={`fa-solid fa-list-ul product_view_icon grid_view`} onClick={toggleView} id="listType"></i>
+           <i className={`fa-solid fa-list-ul product_view_icon grid_view`} onClick={toggleView} id="listType"></i>
+          
           </div>
          {
           (productView === true) ?           
@@ -351,7 +352,7 @@ function ProductImageComponent({product}){
           </div>
           </>          
           :
-          <ProductListView  addToFavourite={addToFavourite} isFavorite={isFavorite}  />
+          <ProductListView  addToFavourite={addToFavourite} isFavorite={isFavorite} componentFrom={props.componentFrom} />
          
          }
         </div>

@@ -5,7 +5,7 @@ import { ToastContainer, toast } from "react-toastify";
 import ProductSlider from "./ProductSlider";
 
 
-export default function ProductListView({addToFavourite, isFavorite}) {
+export default function ProductListView({addToFavourite, isFavorite, componentFrom}) {
   const baseUrl = "https://fakestoreapi.com";
   const productsUrl = "/products";
   const cartUrl = "/carts";
@@ -26,7 +26,13 @@ export default function ProductListView({addToFavourite, isFavorite}) {
       })
       .then((result) => {
         // console.log("products Result", result);
+        if(componentFrom === "home"){
+          // console.log("routes run in home c")
+          setAllProduct(result.splice(0, 8));
+          
+          }else{
         setAllProduct(result);
+          }
       });
   }
   function addToCart(productName,productPrice,ProductImage,productid) {

@@ -5,10 +5,11 @@ import { useLocation, useParams, useNavigate} from 'react-router-dom'
 import { changeProdiuctView } from './CustomHook'
 import Explore from './Explore'
 import AppPagesHeading from './AppPagesHeading'
+import Blogs from './Blogs'
 
 
 
-function ExploreLinkButton() {
+function ExploreLinkButton(props) {
   const usenavigate = useNavigate();
 
   function navigatePage() {
@@ -17,7 +18,7 @@ function ExploreLinkButton() {
   return (
     <div className='d-flex justify-content-center align-items-center my-4'>
 
-    <span className="brand_button" style={{color: "white", width: "fit-content", padding: "10px 40px 14px 40px", cursor: "pointer", borderRadius: "10px", fontWeight: 600}}onClick={navigatePage}>Explore Trending Images <i class="fa-solid fa-angles-right icon_space"></i></span>
+    <span className="brand_button" style={{color: "white", width: "fit-content", padding: "10px 40px 14px 40px", cursor: "pointer", borderRadius: "10px", fontWeight: 600}}onClick={navigatePage}>{props.buttonText} <i class="fa-solid fa-angles-right icon_space"></i></span>
     </div>
   )
 }
@@ -41,9 +42,13 @@ export default function Home() {
    
 
 <Products componentFrom="home" />
+<ExploreLinkButton  buttonText="Checkout More Products" />
 <div className="app_divider"/>
 <Explore componentFrom="home" />
-<ExploreLinkButton />
+<ExploreLinkButton buttonText="Explore Trending Images" />
+<div className="app_divider"/>
+<Blogs componentFrom="home" />
+<ExploreLinkButton buttonText="Explore Latest Blogs" />
 
     </div>
 

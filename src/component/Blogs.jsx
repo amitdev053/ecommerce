@@ -16,7 +16,7 @@ const title = `Explore ${topic.split('')[0].toUpperCase() + topic.split('').slic
 const description = `ngrok provides a secure and easy-to-use solution for exposing your local API to the world. Whether you're developing a web application, testing APIs, or integrating with third-party services, ngrok has got you covered.`;
 const keywords = 'ngrok | API Gateway, IoT Device Gateway, Secure Tunnels for Containers, Apps & APIs';
 
-const Blogs = () => {
+const Blogs = (props) => {
   const [loader, setloader] = useState(true);
   const [blogs, setBlogs] = useState([]);
   const [searchText, setSearchText] = useState("")
@@ -50,8 +50,14 @@ const Blogs = () => {
   
     // console.log("manageing blogs", getBlogUrl, forSearchQuery)
     axios.get(getBlogUrl).then((blog) => {
-      setloader(false);      
+      setloader(false);    
+      if(props.componentFrom === "home"){
+        // console.log("routes run in home c")
+        setBlogs(blog.data.splice(0, 8));
+        
+        }else{  
       setBlogs(blog.data);
+        }
     });
   };
   
@@ -315,12 +321,13 @@ let tagList = [
     <meta name="description" content={description} />
     <meta name="keywords" content={keywords} />
   </Helmet>
-    <div className="container text-left mt-ps90 app_container">
+    <div className={props.componentFrom === "home"? `container text-left mt-10 app_container`:`container text-left mt-ps90 app_container`}>
       <Alert position="bottom-center"> </Alert>
-<SearchBlogs setBlogs={setBlogs} setHeading={setHeading} setloader={setloader}  searchText={searchText} />
-<ScrollTag tagList={tagList} />
-
-
+      {props.componentFrom != "home" &&
+      <>
+       <SearchBlogs setBlogs={setBlogs} setHeading={setHeading} setloader={setloader}  searchText={searchText} />
+      <ScrollTag tagList={tagList} />
+      
 <div
     style={{
       display: "flex",
@@ -348,6 +355,11 @@ let tagList = [
       onClick={toggleBlog}
     ></i>
   </div>
+      </>
+      }
+
+
+
 
       <div className="row app_blog_main_container px-2" id="app-blog-Container">
         {/* Blog Columns Start Here */}

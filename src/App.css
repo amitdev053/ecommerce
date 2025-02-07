@@ -1665,7 +1665,20 @@ color: #000203;
   height: 15px;
   border-radius: 50px;
   background-color: #000203;
-  margin: 30px 0px 20px 0px ;
+  /* margin: 20px 0px 20px 0px ; */
+  position: absolute;
+  opacity: 0;
+}
+@media screen and (max-width : 999px){
+  .app_divider{
+    position: relative;
+    width: 110%;
+    left: -20px;
+    opacity: 100%;
+    background-color: #f8f9fa;
+    margin: 20px 0px 20px 0px ;
+  }
+
 }
 .custom-code-style {
   background-color: black;
@@ -1692,4 +1705,7 @@ color: #000203;
 .fotter_new a i{
   font-size: 20px !important;
   font-weight: 900 !important;
+}
+.mt-10{
+  margin-top: 40px;
 }

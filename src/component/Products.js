@@ -67,7 +67,13 @@ export default function Products(props) {
       .then((result) => {
         // // console.log("products product.js", result);
         // console.log("products product.js", result);
+        if(props.componentFrom === "home"){
+          // console.log("routes run in home c")
+          setAllProduct(result.splice(0, 8));
+          
+          }else{
         setAllProduct(result);
+          }
       });
   }    
   useEffect(() => {

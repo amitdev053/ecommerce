@@ -776,7 +776,7 @@ useEffect(()=>{
               padding: "10px",             
             }}
                   >
-                      Your Liked Products
+                      Liked Products
 
                       <i
                     className="fa-solid fa-xmark app_cross_icon"

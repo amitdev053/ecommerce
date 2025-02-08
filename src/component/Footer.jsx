@@ -28,7 +28,7 @@ export default function footer() {
       if(footerRowElement){
 
         Array.from(footerRowElement).forEach((element)=>{
-          console.log("footerelement", element)
+          // console.log("footerelement", element)
           element.setAttribute("footerHeader", "true")
           element.addEventListener('mouseover', (e)=>{
             let targetElement = e.target     

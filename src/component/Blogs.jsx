@@ -97,7 +97,7 @@ const Blogs = (props) => {
     const urlParams = new URLSearchParams(window.location.search);
     const searchText = urlParams.get('query');
     
-    console.log("initalload data", urlParams,searchText)
+    // console.log("initalload data", urlParams,searchText)
 if(urlParams.size > 0){
 
 getBlogs(true, searchText)

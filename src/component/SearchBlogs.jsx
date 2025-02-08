@@ -24,11 +24,11 @@ const SearchBlogs = (props) => {
         setSearchString(userSearchQuery)
       }
       // setSearchString(props.searchQuery || "Search blog by tagnames...")
-      console.log("search terms",searchParams, searchString)
+      // console.log("search terms",searchParams, searchString)
             }
      useEffect(()=>{
       refreshSearchString()
-      console.log("now refresh")
+      // console.log("now refresh")
      }, [location.search])
    
 
@@ -190,7 +190,7 @@ const SearchBlogs = (props) => {
 
             function hideSearch() {
               // Outside search field
-              console.log("hideSearch", searchString)
+              // console.log("hideSearch", searchString)
               searchRef.current.blur();
               showSuggestedSearch.current?.classList?.remove("show_search");
               searchField.current?.classList?.remove("active_search");
@@ -213,7 +213,7 @@ const SearchBlogs = (props) => {
                         hideSearch();
                       }
                       else if (searchField?.current?.contains(e.target) || showSuggestedSearch?.current?.contains(e.target)) {
-                        console.log("click on the search box", e.target)
+                        // console.log("click on the search box", e.target)
                        perfromSearch(e)
                       } else {
                         hideSearch();
@@ -283,7 +283,7 @@ const SearchBlogs = (props) => {
               let searchKey = searchRef.current.innerText;
               let getUrlKey = searchKey.trim();
               let searchText = encodeURIComponent(getUrlKey);
-              console.log("post seatch content", goSearchIcon);
+              // console.log("post seatch content", goSearchIcon);
 
               postSearchRequest(searchText, getUrlKey);
             };

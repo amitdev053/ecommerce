@@ -6,7 +6,8 @@ const AppPagesHeading = (props) => {
     <div className="container"
       style={{
         fontSize: "25px",
-        fontWeight: "700"
+        fontWeight: "700",
+        margin: "0px",
        
       }}
     >

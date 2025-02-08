@@ -101,6 +101,7 @@ body{
 }
 .footerend{
   background-color: rgba(0, 0, 0, 0.05);
+ 
 }
 .homecontainer{
   display:flex !important;
@@ -1218,7 +1219,7 @@ border-radius: 5px;
 .footer_main_container{
   font-size: 14px !important;
   color: #5a3e3ebf !important;
-
+  box-shadow: 0 4px 12px 0 rgba(0, 0, 0, 0.3);
   line-height: 22px !important;
 }
 .footer_main_container a{

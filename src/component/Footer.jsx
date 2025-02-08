@@ -172,7 +172,7 @@ export default function footer() {
             <i className="fas fa-envelope me-3"></i>
             contact@vercel.app
           </p> */}
-          <a className="text-reset" href='https://wa.me/+918826483821?text=Hyy, i want to take a service !' target='_blank'><i className="fa-brands fa-whatsapp me-3"></i> <div>Connected on  <br /> Whatsapp</div> </a>
+          <a className="text-reset" href='https://wa.me/+918826483821?text=Hyy, I want to take a service like web, app & software developments for that we are connecting now!' target='_blank'><i className="fa-brands fa-whatsapp me-3"></i> <div>Connected on  <br /> Whatsapp</div> </a>
           {/* <p><i className="fas fa-print me-3"></i> + 01 234 567 89</p> */}
      </div>
         </div>

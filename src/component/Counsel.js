@@ -5,10 +5,10 @@ import 'slick-carousel/slick/slick-theme.css';
 
 const Coursel = () => {
   const settings = {
-    dots: false,
+    dots: true,
     infinite: true,
-    speed: 500,
-    slidesToShow: 3,
+    speed: 400,
+    slidesToShow: 1,
     slidesToScroll: 1
   };
 
@@ -37,93 +37,93 @@ const Coursel = () => {
       descripation: "this is cartoon product that serves in the market this is most popular for the child",
       image: "https://www.animaker.com/hub/wp-content/uploads/2023/03/Cartoon-Characters-Banner.png",
     },
-    {
-      id: 5,
-      name:"Cartoon Pandas",
-      descripation: "this is cartoon product that serves in the market this is most popular for the child",
-      image: "https://www.animaker.com/hub/wp-content/uploads/2023/03/Cartoon-Characters-Banner.png",
-    },
-    {
-      id: 5,
-      name:"Cartoon Pandas",
-      descripation: "this is cartoon product that serves in the market this is most popular for the child",
-      image: "https://www.animaker.com/hub/wp-content/uploads/2023/03/Cartoon-Characters-Banner.png",
-    },
-    {
-      id: 5,
-      name:"Cartoon Pandas",
-      descripation: "this is cartoon product that serves in the market this is most popular for the child",
-      image: "https://www.animaker.com/hub/wp-content/uploads/2023/03/Cartoon-Characters-Banner.png",
-    },
-    {
-      id: 5,
-      name:"Cartoon Pandas",
-      descripation: "this is cartoon product that serves in the market this is most popular for the child",
-      image: "https://www.animaker.com/hub/wp-content/uploads/2023/03/Cartoon-Characters-Banner.png",
-    },
-    {
-      id: 5,
-      name:"Cartoon Pandas",
-      descripation: "this is cartoon product that serves in the market this is most popular for the child",
-      image: "https://www.animaker.com/hub/wp-content/uploads/2023/03/Cartoon-Characters-Banner.png",
-    },
-    {
-      id: 5,
-      name:"Cartoon Pandas",
-      descripation: "this is cartoon product that serves in the market this is most popular for the child",
-      image: "https://www.animaker.com/hub/wp-content/uploads/2023/03/Cartoon-Characters-Banner.png",
-    },
-    {
-      id: 5,
-      name:"Cartoon Pandas",
-      descripation: "this is cartoon product that serves in the market this is most popular for the child",
-      image: "https://www.animaker.com/hub/wp-content/uploads/2023/03/Cartoon-Characters-Banner.png",
-    },
-    {
-      id: 5,
-      name:"Cartoon Pandas",
-      descripation: "this is cartoon product that serves in the market this is most popular for the child",
-      image: "https://www.animaker.com/hub/wp-content/uploads/2023/03/Cartoon-Characters-Banner.png",
-    },
-    {
-      id: 5,
-      name:"Cartoon Pandas",
-      descripation: "this is cartoon product that serves in the market this is most popular for the child",
-      image: "https://www.animaker.com/hub/wp-content/uploads/2023/03/Cartoon-Characters-Banner.png",
-    },
-    {
-      id: 5,
-      name:"Cartoon Pandas",
-      descripation: "this is cartoon product that serves in the market this is most popular for the child",
-      image: "https://www.animaker.com/hub/wp-content/uploads/2023/03/Cartoon-Characters-Banner.png",
-    },
-    {
-      id: 5,
-      name:"Cartoon Pandas",
-      descripation: "this is cartoon product that serves in the market this is most popular for the child",
-      image: "https://www.animaker.com/hub/wp-content/uploads/2023/03/Cartoon-Characters-Banner.png",
-    },
-    {
-      id: 5,
-      name:"Cartoon Pandas",
-      descripation: "this is cartoon product that serves in the market this is most popular for the child",
-      image: "https://www.animaker.com/hub/wp-content/uploads/2023/03/Cartoon-Characters-Banner.png",
-    },
-    {
-      id: 5,
-      name:"Cartoon Pandas",
-      descripation: "this is cartoon product that serves in the market this is most popular for the child",
-      image: "https://www.animaker.com/hub/wp-content/uploads/2023/03/Cartoon-Characters-Banner.png",
-    }
+    // {
+    //   id: 5,
+    //   name:"Cartoon Pandas",
+    //   descripation: "this is cartoon product that serves in the market this is most popular for the child",
+    //   image: "https://www.animaker.com/hub/wp-content/uploads/2023/03/Cartoon-Characters-Banner.png",
+    // },
+    // {
+    //   id: 5,
+    //   name:"Cartoon Pandas",
+    //   descripation: "this is cartoon product that serves in the market this is most popular for the child",
+    //   image: "https://www.animaker.com/hub/wp-content/uploads/2023/03/Cartoon-Characters-Banner.png",
+    // },
+    // {
+    //   id: 5,
+    //   name:"Cartoon Pandas",
+    //   descripation: "this is cartoon product that serves in the market this is most popular for the child",
+    //   image: "https://www.animaker.com/hub/wp-content/uploads/2023/03/Cartoon-Characters-Banner.png",
+    // },
+    // {
+    //   id: 5,
+    //   name:"Cartoon Pandas",
+    //   descripation: "this is cartoon product that serves in the market this is most popular for the child",
+    //   image: "https://www.animaker.com/hub/wp-content/uploads/2023/03/Cartoon-Characters-Banner.png",
+    // },
+    // {
+    //   id: 5,
+    //   name:"Cartoon Pandas",
+    //   descripation: "this is cartoon product that serves in the market this is most popular for the child",
+    //   image: "https://www.animaker.com/hub/wp-content/uploads/2023/03/Cartoon-Characters-Banner.png",
+    // },
+    // {
+    //   id: 5,
+    //   name:"Cartoon Pandas",
+    //   descripation: "this is cartoon product that serves in the market this is most popular for the child",
+    //   image: "https://www.animaker.com/hub/wp-content/uploads/2023/03/Cartoon-Characters-Banner.png",
+    // },
+    // {
+    //   id: 5,
+    //   name:"Cartoon Pandas",
+    //   descripation: "this is cartoon product that serves in the market this is most popular for the child",
+    //   image: "https://www.animaker.com/hub/wp-content/uploads/2023/03/Cartoon-Characters-Banner.png",
+    // },
+    // {
+    //   id: 5,
+    //   name:"Cartoon Pandas",
+    //   descripation: "this is cartoon product that serves in the market this is most popular for the child",
+    //   image: "https://www.animaker.com/hub/wp-content/uploads/2023/03/Cartoon-Characters-Banner.png",
+    // },
+    // {
+    //   id: 5,
+    //   name:"Cartoon Pandas",
+    //   descripation: "this is cartoon product that serves in the market this is most popular for the child",
+    //   image: "https://www.animaker.com/hub/wp-content/uploads/2023/03/Cartoon-Characters-Banner.png",
+    // },
+    // {
+    //   id: 5,
+    //   name:"Cartoon Pandas",
+    //   descripation: "this is cartoon product that serves in the market this is most popular for the child",
+    //   image: "https://www.animaker.com/hub/wp-content/uploads/2023/03/Cartoon-Characters-Banner.png",
+    // },
+    // {
+    //   id: 5,
+    //   name:"Cartoon Pandas",
+    //   descripation: "this is cartoon product that serves in the market this is most popular for the child",
+    //   image: "https://www.animaker.com/hub/wp-content/uploads/2023/03/Cartoon-Characters-Banner.png",
+    // },
+    // {
+    //   id: 5,
+    //   name:"Cartoon Pandas",
+    //   descripation: "this is cartoon product that serves in the market this is most popular for the child",
+    //   image: "https://www.animaker.com/hub/wp-content/uploads/2023/03/Cartoon-Characters-Banner.png",
+    // },
+    // {
+    //   id: 5,
+    //   name:"Cartoon Pandas",
+    //   descripation: "this is cartoon product that serves in the market this is most popular for the child",
+    //   image: "https://www.animaker.com/hub/wp-content/uploads/2023/03/Cartoon-Characters-Banner.png",
+    // }
   ]
 
   return (
-    <Slider {...settings}>
+    <Slider {...settings} className='mt-74 gap-2 slick_slider'>
       {products.map((product) => (
         <div key={product.id}>
-          <h3>{product.name}</h3>
-          <p>{product.description}</p>
-          <img src={product.image} alt={product.name} />
+          {/* <h3>{product.name}</h3>
+          <p>{product.description}</p> */}
+          <img src={product.image} alt={product.name} style={{width:"100%", height: "100%"}} />
         </div>
       ))}
     </Slider>

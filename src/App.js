@@ -9,22 +9,24 @@ import Blogs from './component/Blogs'
 import Explore from './component/Explore'
 import Download from './component/Download';
 import Viewgallery from './component/Viewgallery';
-import BlogDetail from './component/BlogDetail';
+import {BlogDetail, BlogBack} from './component/BlogDetail';
 import Login from './component/Login';
 import Products from './component/Products';
 import Coursel from './component/Counsel'
 import { Analytics } from "@vercel/analytics/react"
 import Footer from './component/Footer'
-import {Routes, Route, useLocation} from 'react-router-dom'
+import {Routes, Route, useLocation, useMatch} from 'react-router-dom'
 import React, { useEffect } from 'react';
 import Hashtag from './component/Hashtag';
 import { CartProvider } from './component/CartContext';
-
-
+import { BlogAudioProvider } from './component/BlogAudioContext';
+import BlogAudioPlayer from "./component/BlogAudioPlayer";
 
 function App() {
   
-  let location = useLocation()
+  const location = useLocation()
+  const matchRoute  = useMatch("/blog-detail/:blogId/:blogTitle")
+    
 
 
   // Function to set a cookie
@@ -66,9 +68,11 @@ function App() {
   
   return (
     <>
+  <BlogAudioProvider>
   <CartProvider>
-  <Nav trackCart={false} />
- 
+  {(matchRoute) ? <BlogBack /> :<Nav trackCart={false} />}
+  
+  {/* <Nav trackCart={false} /> */}
   
  
  <Routes>
@@ -88,10 +92,11 @@ function App() {
   <Route exact path ='/Login' Component={Login}/>
   <Route exact path ='/blog-detail/:blogId/:blogTitle' Component={BlogDetail}/>
  </Routes>
-
+ {(!matchRoute) && <BlogAudioPlayer /> }
  <Footer />
  <Analytics/>
  </CartProvider>
+ </BlogAudioProvider>
 
     </>
   );

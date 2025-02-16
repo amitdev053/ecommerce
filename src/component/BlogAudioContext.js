@@ -1,53 +1,70 @@
 import React, { createContext, useState, useEffect, useRef } from "react";
-
+import { useSpeechSynthesis } from "react-speech-kit";
 // Create context
 export const BlogAudioContext = createContext();
 
 export function BlogAudioProvider({ children }) {
+  const { speak, cancel, speaking, voices, utterance } = useSpeechSynthesis();
   const [isPlaying, setIsPlaying] = useState(false);
   const [currentBlog, setCurrentBlog] = useState(null);
-  const utteranceRef = useRef(null);
+  const utteranceRef = useRef(utterance);
   const [isPaused, setIsPaused] = useState(false);
   const[blogTexts, setBlogTexts] = useState("")
 
   // Function to play blog
-  const playBlog = (blogTitle, blogText) => {
-    if (utteranceRef.current) {
-      window.speechSynthesis.cancel(); // Stop any existing speech
+//   const playBlog = (blogTitle, blogText) => {
+//     if (utteranceRef.current) {
+//       window.speechSynthesis.cancel(); // Stop any existing speech
       
-    }
-    setBlogTexts(blogText)
-    utteranceRef.current = new SpeechSynthesisUtterance(blogText.innerText);
-    // utteranceRef.current.voice = window.speechSynthesis.getVoices().find((v) => v.lang === "en-US") || window.speechSynthesis.getVoices()[6];
-    utteranceRef.current.voice = window.speechSynthesis.getVoices()[3];
-    let voices = window.speechSynthesis.getVoices();
-    console.log("vocies", voices, utteranceRef.current.voice)
-    if (!voices.length) {
-    window.speechSynthesis.onvoiceschanged = () => playBlog(blogTitle, blogText);
-    return;
-  }
+//     }
+//     setBlogTexts(blogText)
+//     utteranceRef.current = new SpeechSynthesisUtterance(blogText.innerText);
+//     // utteranceRef.current.voice = window.speechSynthesis.getVoices().find((v) => v.lang === "en-US") || window.speechSynthesis.getVoices()[6];
+//     utteranceRef.current.voice = window.speechSynthesis.getVoices()[3];
+//     let voices = window.speechSynthesis.getVoices();
+//     console.log("vocies", voices, utteranceRef.current.voice)
+//     if (!voices.length) {
+//     window.speechSynthesis.onvoiceschanged = () => playBlog(blogTitle, blogText);
+//     return;
+//   }
  
-    window.speechSynthesis.speak(utteranceRef.current);
+//     window.speechSynthesis.speak(utteranceRef.current);
     
-    setCurrentBlog({ title: blogTitle, text: blogText.innerText });
-    setIsPlaying(true);
-    setIsPaused(true)
-    highlightWords(utteranceRef.current, blogText)
-    document.body.addEventListener(
-    "click",
-    () => {
-      if (!isPlaying) {
-        setTimeout(() => {
-          window.speechSynthesis.speak(utteranceRef.current);
-        }, 0);
-      }
-    },
-    { once: true }
-  );
-    utteranceRef.current.onend = () => {
+//     setCurrentBlog({ title: blogTitle, text: blogText.innerText });
+//     setIsPlaying(true);
+//     setIsPaused(true)
+//     highlightWords(utteranceRef.current, blogText)
+//     document.body.addEventListener(
+//     "click",
+//     () => {
+//       if (!isPlaying) {
+//         setTimeout(() => {
+//           window.speechSynthesis.speak(utteranceRef.current);
+//         }, 0);
+//       }
+//     },
+//     { once: true }
+//   );
+//     utteranceRef.current.onend = () => {
+//       setIsPlaying(false);
+//       setCurrentBlog(null);
+//     };
+//   };
+  const playBlog = (blogTitle, blogText) => {
+    if (speaking) {
+      cancel(); // Stop any existing speech
       setIsPlaying(false);
-      setCurrentBlog(null);
-    };
+    } else {
+      const selectedVoice = voices.find((v) => v.lang === "en-US") || voices[3]; // Select preferred voice
+      speak({
+        text: blogText.innerText,
+        voice: selectedVoice,
+      });
+      setCurrentBlog({ title: blogTitle, text: blogText.innerText });
+      setIsPlaying(true);
+      setIsPaused(true)
+      highlightWords(utteranceRef.current, blogText)
+    }
   };
 
   function highlightWords(utterance, textElement) {

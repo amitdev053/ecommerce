@@ -107,15 +107,18 @@ export function BlogAudioProvider({ children }) {
 
 const removeWordsHighlightColors = ()=>{
     const wordSpans = document.getElementById("textToSpeak").children;
-    Array.from(wordSpans).forEach((highlightWords)=>{
-        highlightWords = highlightWords.querySelectorAll(".highlightable-word")
-        highlightWords.forEach((words)=>{
-            if(words.hasAttribute('style')){            // words that are highlighted comes inside this condition
-                // console.log("highlight words", words)                
-                words.removeAttribute("style")
-            }
-        })
-    })    
+    if(wordSpans){
+        Array.from(wordSpans).forEach((highlightWords)=>{
+            highlightWords = highlightWords.querySelectorAll(".highlightable-word")
+            highlightWords.forEach((words)=>{
+                if(words.hasAttribute('style')){            // words that are highlighted comes inside this condition
+                    // console.log("highlight words", words)                
+                    words.removeAttribute("style")
+                }
+            })
+        })    
+
+    }
 }
 // Function to stop playback
 const stopBlog = () => {

@@ -26,7 +26,12 @@ export function BlogAudioProvider({ children }) {
     window.speechSynthesis.onvoiceschanged = () => playBlog(blogTitle, blogText);
     return;
   }
-
+ // ✅ Require user interaction for mobile (Fix for iOS/Android)
+ document.body.addEventListener("click", () => {
+    if (!isPlaying) {
+      window.speechSynthesis.speak(utteranceRef.current);
+    }
+  });
     window.speechSynthesis.speak(utteranceRef.current);
     
     setCurrentBlog({ title: blogTitle, text: blogText.innerText });

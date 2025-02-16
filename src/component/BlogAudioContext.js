@@ -8,6 +8,7 @@ export function BlogAudioProvider({ children }) {
   const [currentBlog, setCurrentBlog] = useState(null);
   const utteranceRef = useRef(null);
   const [isPaused, setIsPaused] = useState(false);
+  const[blogTexts, setBlogTexts] = useState("")
 
   // Function to play blog
   const playBlog = (blogTitle, blogText) => {
@@ -15,7 +16,7 @@ export function BlogAudioProvider({ children }) {
       window.speechSynthesis.cancel(); // Stop any existing speech
       
     }
-
+    setBlogTexts(blogText)
     utteranceRef.current = new SpeechSynthesisUtterance(blogText.innerText);
     utteranceRef.current.voice = window.speechSynthesis
       .getVoices()
@@ -106,8 +107,9 @@ export function BlogAudioProvider({ children }) {
   }
 
 const removeWordsHighlightColors = ()=>{
-    const wordSpans = document.getElementById("textToSpeak").children;
-    if(wordSpans){
+    const wordSpans = blogTexts;
+    console.log("removeWordsHeight", wordSpans)
+    if(blogTexts !== "" && wordSpans){
         Array.from(wordSpans).forEach((highlightWords)=>{
             highlightWords = highlightWords.querySelectorAll(".highlightable-word")
             highlightWords.forEach((words)=>{

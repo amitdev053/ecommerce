@@ -18,7 +18,7 @@ function BlogBack() {
   
   function setHeaderHeading() {
     let blogTitle = document.querySelector(".blog_title").innerText;
-    if (blogTitle) {
+    if (blogTitle !== "" && blogTitle) {
       setHeading(blogTitle);
     }
   }

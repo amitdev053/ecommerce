@@ -26,7 +26,14 @@ export function BlogAudioProvider({ children }) {
     window.speechSynthesis.onvoiceschanged = () => playBlog(blogTitle, blogText);
     return;
   }
-  document.body.addEventListener(
+ 
+    window.speechSynthesis.speak(utteranceRef.current);
+    
+    setCurrentBlog({ title: blogTitle, text: blogText.innerText });
+    setIsPlaying(true);
+    setIsPaused(true)
+    highlightWords(utteranceRef.current, blogText)
+    document.body.addEventListener(
     "click",
     () => {
       if (!isPlaying) {
@@ -37,13 +44,6 @@ export function BlogAudioProvider({ children }) {
     },
     { once: true }
   );
-    window.speechSynthesis.speak(utteranceRef.current);
-    
-    setCurrentBlog({ title: blogTitle, text: blogText.innerText });
-    setIsPlaying(true);
-    setIsPaused(true)
-    highlightWords(utteranceRef.current, blogText)
-
     utteranceRef.current.onend = () => {
       setIsPlaying(false);
       setCurrentBlog(null);

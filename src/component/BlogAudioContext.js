@@ -26,6 +26,15 @@ export function BlogAudioProvider({ children }) {
     window.speechSynthesis.onvoiceschanged = () => playBlog(blogTitle, blogText);
     return;
   }
+  document.body.addEventListener(
+    "click",
+    () => {
+      if (!window.speechSynthesis.speaking) {
+        window.speechSynthesis.speak(utteranceRef.current);
+      }
+    },
+    { once: true }
+  );
  
     window.speechSynthesis.speak(utteranceRef.current);
     
@@ -33,17 +42,7 @@ export function BlogAudioProvider({ children }) {
     setIsPlaying(true);
     setIsPaused(true)
     highlightWords(utteranceRef.current, blogText)
-    document.body.addEventListener(
-    "click",
-    () => {
-      if (!isPlaying) {
-        setTimeout(() => {
-          window.speechSynthesis.speak(utteranceRef.current);
-        }, 0);
-      }
-    },
-    { once: true }
-  );
+   
     utteranceRef.current.onend = () => {
       setIsPlaying(false);
       setCurrentBlog(null);

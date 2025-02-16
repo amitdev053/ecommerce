@@ -19,19 +19,24 @@ export function BlogAudioProvider({ children }) {
     setBlogTexts(blogText)
     utteranceRef.current = new SpeechSynthesisUtterance(blogText.innerText);
     // utteranceRef.current.voice = window.speechSynthesis.getVoices().find((v) => v.lang === "en-US") || window.speechSynthesis.getVoices()[6];
-    utteranceRef.current.voice = window.speechSynthesis.getVoices()[2];
+    utteranceRef.current.voice = window.speechSynthesis.getVoices()[3];
     let voices = window.speechSynthesis.getVoices();
     console.log("vocies", voices, utteranceRef.current.voice)
     if (!voices.length) {
     window.speechSynthesis.onvoiceschanged = () => playBlog(blogTitle, blogText);
     return;
   }
- // ✅ Require user interaction for mobile (Fix for iOS/Android)
- document.body.addEventListener("click", () => {
-    if (!isPlaying) {
-      window.speechSynthesis.speak(utteranceRef.current);
-    }
-  });
+  document.body.addEventListener(
+    "click",
+    () => {
+      if (!isPlaying) {
+        setTimeout(() => {
+          window.speechSynthesis.speak(utteranceRef.current);
+        }, 0);
+      }
+    },
+    { once: true }
+  );
     window.speechSynthesis.speak(utteranceRef.current);
     
     setCurrentBlog({ title: blogTitle, text: blogText.innerText });

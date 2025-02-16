@@ -12,7 +12,7 @@ function BlogBack() {
   const [heading, setHeading] = useState("");
   const navigate = useNavigate();
   const utterance = useRef(null); 
-  const { isPlaying, isPaused, setIsPaused ,playBlog } = useContext(BlogAudioContext);
+  const { isPlaying, isPaused, setIsPaused ,playBlog, togglePlayPause } = useContext(BlogAudioContext);
   const [readBlogs, setReadBlogs] = useState(isPlaying);
   
   
@@ -116,11 +116,12 @@ function BlogBack() {
                   
                   setReadBlogs((prev) => {
                       if (prev) {
-                        window.speechSynthesis.pause();
+                        window.responsiveVoice.pause();
+                        
                         setIsPaused(false)
                       } else {
                         if (speechSynthesis.speaking && speechSynthesis.paused) {              
-                          window.speechSynthesis.resume();
+                          window.responsiveVoice.resume();
                           setIsPaused(true)
                         } else {
                           readBlog();

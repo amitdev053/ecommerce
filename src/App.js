@@ -70,9 +70,9 @@ function App() {
     <>
   <BlogAudioProvider>
   <CartProvider>
-  {(matchRoute) ? <BlogBack /> :<Nav trackCart={false} />}
+  {/* {(matchRoute) ? <BlogBack /> :<Nav trackCart={false} />} */}
   
-  {/* <Nav trackCart={false} /> */}
+  <Nav trackCart={false} />
   
  
  <Routes>
@@ -92,7 +92,7 @@ function App() {
   <Route exact path ='/Login' Component={Login}/>
   <Route exact path ='/blog-detail/:blogId/:blogTitle' Component={BlogDetail}/>
  </Routes>
- {(!matchRoute) && <BlogAudioPlayer /> }
+ {/* {(!matchRoute) && <BlogAudioPlayer /> } */}
  <Footer />
  <Analytics/>
  </CartProvider>

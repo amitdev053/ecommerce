@@ -18,8 +18,8 @@ export function BlogAudioProvider({ children }) {
     }
     setBlogTexts(blogText)
     utteranceRef.current = new SpeechSynthesisUtterance(blogText.innerText);
-    utteranceRef.current.voice = window.speechSynthesis.getVoices().find((v) => v.lang === "en-US") || window.speechSynthesis.getVoices()[6];
-    // utteranceRef.current.voice = window.speechSynthesis.getVoices();
+    // utteranceRef.current.voice = window.speechSynthesis.getVoices().find((v) => v.lang === "en-US") || window.speechSynthesis.getVoices()[6];
+    utteranceRef.current.voice = window.speechSynthesis.getVoices()[6];
     let voices = window.speechSynthesis.getVoices();
     console.log("vocies", voices, utteranceRef.current.voice)
     if (!voices.length) {

@@ -20,23 +20,24 @@ export function BlogAudioProvider({ children }) {
     utteranceRef.current = new SpeechSynthesisUtterance(blogText.innerText);
     // utteranceRef.current.voice = window.speechSynthesis.getVoices().find((v) => v.lang === "en-US") || window.speechSynthesis.getVoices()[6];
     utteranceRef.current.voice = window.speechSynthesis.getVoices()[3];
-    let voices = window.speechSynthesis.getVoices();
-    console.log("vocies", voices, utteranceRef.current.voice)
-    if (!voices.length) {
-    window.speechSynthesis.onvoiceschanged = () => playBlog(blogTitle, blogText);
-    return;
-  }
-  document.body.addEventListener(
-    "click",
-    () => {
-      if (!window.speechSynthesis.speaking) {
-        window.speechSynthesis.speak(utteranceRef.current);
-      }
-    },
-    { once: true }
-  );
+//     let voices = window.speechSynthesis.getVoices();
+//     console.log("vocies", voices, utteranceRef.current.voice)
+//     if (!voices.length) {
+//     window.speechSynthesis.onvoiceschanged = () => playBlog(blogTitle, blogText);
+//     return;
+//   }
+//   document.body.addEventListener(
+//     "click",
+//     () => {
+//       if (!window.speechSynthesis.speaking) {
+//         window.speechSynthesis.speak(utteranceRef.current);
+//       }
+//     },
+//     { once: true }
+//   );
  
-    window.speechSynthesis.speak(utteranceRef.current);
+//     window.speechSynthesis.speak(utteranceRef.current);
+window.responsiveVoice.speak(blogText.innerText, "US English Female", { rate: 1 });
     
     setCurrentBlog({ title: blogTitle, text: blogText.innerText });
     setIsPlaying(true);

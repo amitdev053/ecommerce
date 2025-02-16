@@ -22,8 +22,8 @@ import { CartProvider } from './component/CartContext';
 import { BlogAudioProvider } from './component/BlogAudioContext';
 import BlogAudioPlayer from "./component/BlogAudioPlayer";
 
+
 function App() {
-  
   const location = useLocation()
   const matchRoute  = useMatch("/blog-detail/:blogId/:blogTitle")
     

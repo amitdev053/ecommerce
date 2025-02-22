@@ -17,10 +17,14 @@ function BlogBack() {
   
   
   function setHeaderHeading() {
-    let blogTitle = document.querySelector(".blog_title").innerText;
-    if (blogTitle !== "" && blogTitle) {
-      setHeading(blogTitle);
+    // let blogTitle = document.querySelector(".blog_title");
+    // if (blogTitle !== "" && blogTitle) {
+    //   setHeading(blogTitle);
+    // }
+      if (blogTitile !== "") {
+      setHeading(blogTitile);
     }
+
   }
   function handleBack(event) {
     removeClickFeed(event)

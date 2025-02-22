@@ -110,14 +110,12 @@ const togglePlayPause = () => {
   if (!window.responsiveVoice.isPlaying()) return; // Ensure speech is running
 
   if (isPaused) {
-    console.log("Resuming speech...");
-    window.responsiveVoice.resume();
+    window.responsiveVoice.pause();
     setIsPaused(false);
     setIsPlaying(true);
   } else {
-    console.log("Pausing speech...");
-    window.responsiveVoice.pause();
-    setIsPaused(true);
+    window.responsiveVoice.resume();
+    setIsPaused(true);    
   }
 };
   return (

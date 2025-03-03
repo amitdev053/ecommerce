@@ -1,8 +1,10 @@
 import React, { useContext } from "react";
 import { BlogAudioContext } from "./BlogAudioContext";
+import { Link, useMatch } from "react-router-dom";
 
 export default function BlogAudioPlayer() {
-  const { isPlaying, currentBlog, isPaused, stopBlog, togglePlayPause } = useContext(BlogAudioContext);
+  const { isPlaying, currentBlog, isPaused, stopBlog, togglePlayPause, samePage } = useContext(BlogAudioContext);
+  const matchRoute  = useMatch("/blog-detail/:blogId/:blogTitle")
   const style = {
     playerContainer: {
     position: "fixed",
@@ -13,7 +15,8 @@ export default function BlogAudioPlayer() {
     borderRadius: "8px",
     boxShadow: "0 0 10px rgba(0,0,0,0.2)",
     width: "30%",
-    fontWeight: "Roboto"
+    fontWeight: "Roboto",
+    zIndex: "99",
   },
   playerStopButton: {
     padding: "5px 10px",
@@ -65,11 +68,13 @@ export default function BlogAudioPlayer() {
 
 
 
-    
+    console.log("checking same page", samePage)
+    if (!samePage || !matchRoute){
 
+    
   return (
     <div className="player_container" style={style.playerContainer}>
-      <p style={style.playerTitle}><span>Now Playing: <nbsp></nbsp> </span> <div style={style.playerPlayTitle}> {  currentBlog.title}</div>   <i class="fa-solid fa-xmark play_close" style={style.playerCloseButton} onClick={stopBlog} ></i> </p> 
+      <p style={style.playerTitle}><span>Now Playing: <nbsp></nbsp> </span> <div style={style.playerPlayTitle}> {  (currentBlog.title == "")? Object.keys(sessionStorage)[0] :currentBlog.title }</div>   <i class="fa-solid fa-xmark play_close" style={style.playerCloseButton} onClick={stopBlog} ></i> </p> 
       <div className="player_action_btns" style={style.playerActionButtons}>
       <button onClick={togglePlayPause} style={style.playerStopButton} className="player_button">
       <i className={`${
@@ -86,10 +91,23 @@ export default function BlogAudioPlayer() {
 
       </div>
     </div>
+    
 
  
   );
 }
+
+}
+
+
+
+
+
+
+
+
+
+
 <>
          {/* <div className="back_header fixed-bottom" style={style.playerContainer}>
          <div className="container  app_blog_back_header app_container  player_container">

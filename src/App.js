@@ -16,17 +16,19 @@ import Coursel from './component/Counsel'
 import { Analytics } from "@vercel/analytics/react"
 import Footer from './component/Footer'
 import {Routes, Route, useLocation, useMatch} from 'react-router-dom'
-import React, { useEffect } from 'react';
+import React, { useEffect, useContext } from 'react';
 import Hashtag from './component/Hashtag';
 import { CartProvider } from './component/CartContext';
 import { BlogAudioProvider } from './component/BlogAudioContext';
 import BlogAudioPlayer from "./component/BlogAudioPlayer";
+import { BlogAudioContext } from './component/BlogAudioContext';
+
 
 
 function App() {
   const location = useLocation()
   const matchRoute  = useMatch("/blog-detail/:blogId/:blogTitle")
-    
+     const context = useContext(BlogAudioContext);
 
 
   // Function to set a cookie
@@ -70,9 +72,9 @@ function App() {
     <>
   <BlogAudioProvider>
   <CartProvider>
-  {/* {(matchRoute) ? <BlogBack /> :<Nav trackCart={false} />} */}
+  {(matchRoute) ? <BlogBack /> :<Nav trackCart={false} />}
   
-  <Nav trackCart={false} />
+  {/* <Nav trackCart={false} /> */}
   
  
  <Routes>
@@ -92,7 +94,9 @@ function App() {
   <Route exact path ='/Login' Component={Login}/>
   <Route exact path ='/blog-detail/:blogId/:blogTitle' Component={BlogDetail}/>
  </Routes>
+ <BlogAudioPlayer />
  {/* {(!matchRoute) && <BlogAudioPlayer /> } */}
+ {/* {(document.querySelector(".blog_back_heading").innerText === Object.keys(sessionStorage)[0]) && <BlogAudioPlayer />  } */}
  <Footer />
  <Analytics/>
  </CartProvider>

@@ -6,6 +6,7 @@ import axios from "axios";
 import { json, useParams, useNavigate } from "react-router-dom";
 import { handleShare } from "./HandleShare";
 import { BlogAudioContext } from "./BlogAudioContext";
+import { toast } from "react-toastify";
 
 let blogTitile = "";
 function BlogBack() {
@@ -45,7 +46,14 @@ function BlogBack() {
 
   function readBlog() {
     const textElement = document.getElementById("textToSpeak");
-    playBlog(heading, textElement)
+    const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+if(isMobile){
+  toast.info("Switch on the desktop to enjoy this feature")
+
+}else{
+
+  playBlog(heading, textElement)
+}
 
   }
   function sendClickFeed(event){    

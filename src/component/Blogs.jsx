@@ -6,7 +6,6 @@ import { Link, useLocation, useParams } from "react-router-dom";
 import "react-toastify/dist/ReactToastify.css";
 import axios from "axios";
 import defaultBlogImage from "../defaultBlog.jpg";
-import unavailableImage from "../imageunavailable.png";
 import SearchBlogs from "./SearchBlogs";
 import desktopicon from '../appimages/desktopicon.png'
 import ScrollTag from "./ScrollTag";

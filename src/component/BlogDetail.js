@@ -7,6 +7,8 @@ import { json, useParams, useNavigate } from "react-router-dom";
 import { handleShare } from "./HandleShare";
 import { BlogAudioContext } from "./BlogAudioContext";
 import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import Alert from "./Alert";
 
 let blogTitile = "";
 function BlogBack() {
@@ -45,15 +47,11 @@ function BlogBack() {
   }
 
   function readBlog() {
+    console.log("set blogs")
     const textElement = document.getElementById("textToSpeak");
-    const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
-if(isMobile){
-  toast.info("Switch on the desktop to enjoy this feature")
-
-}else{
-
+    
   playBlog(heading, textElement)
-}
+
 
   }
   function sendClickFeed(event){    
@@ -108,6 +106,7 @@ if(isMobile){
   }, [isPlaying]);
   return (
     <>
+    <Alert position="bottom-center"> </Alert>
       <div className="back_header fixed-top">
         <div className="container  app_blog_back_header app_container">
           <div className="row d-flex align-items-center p-0 app_blog_detail_row ">
@@ -125,20 +124,34 @@ if(isMobile){
                  readBlogs ? "fa-solid fa-pause" : "fa-solid fa-play"
                 } app_blog_detail_icon`}
                 onClick={() => {
+                  const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+                  if(isMobile){
+                    setReadBlogs(false)
+                    toast.info("Switch on the desktop to enjoy this feature")
+                    console.log("mobile devices", readBlogs, isPlaying)
+                    return
+                  }
                   
-                  setReadBlogs((prev) => {
+                  setReadBlogs((prev) => {                
+
                       if (prev) {
+                        console.log("running first ")
                         window.responsiveVoice.pause();
                         
                         setIsPaused(false)
                       } else {
+                        console.log("running else first ", prev)
                         if (speechSynthesis.speaking && speechSynthesis.paused) {              
                           window.responsiveVoice.resume();
                           setIsPaused(true)
+                          console.log("running else inside if first ")
                         } else {
                           readBlog();
+                          console.log("running else inside else ")
                         }
+
                       }
+
                       return !prev;
                     });
                   

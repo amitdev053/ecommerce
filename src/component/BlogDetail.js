@@ -12,10 +12,12 @@ import Alert from "./Alert";
 
 let blogTitile = "";
 function BlogBack() {
+  const { isPlaying, isPaused, setIsPaused ,playBlog,  samePage } = useContext(BlogAudioContext);
   const [heading, setHeading] = useState("");
   const navigate = useNavigate();
-  const utterance = useRef(null); 
-  const { isPlaying, isPaused, setIsPaused ,playBlog, togglePlayPause } = useContext(BlogAudioContext);
+  // const utterance = useRef(null); 
+  const playIcon = useRef(null);
+  const shareIcon = useRef(null);
   const [readBlogs, setReadBlogs] = useState(isPlaying);
   
   
@@ -39,6 +41,7 @@ function BlogBack() {
   }
 
   function shareBlogs(event) {
+    // animateIcon(shareIcon.current)
     // (productTitle, productDesc, productImage , fromWhere)
     let blogTitle = document.querySelector("#blogDtailTitle").innerText    
     let imageUrl = document.getElementById('blogTopImage').src
@@ -98,12 +101,44 @@ function BlogBack() {
   }
   
   }, [isPaused]);
+  function animateIcon(navbarIcon){
+    navbarIcon.style.setProperty('font-size', "13px")
+    setTimeout(()=>{
+      navbarIcon.style.removeProperty('font-size', "14px") 
+
+    }, 100)
+  }
 
   useEffect(() => {
    if(!isPlaying){
     setReadBlogs(false)
   }  
   }, [isPlaying]);
+
+function buttonEnable(element, type){
+  const playButton = element
+if(playButton){
+  console.log("playButton", playButton)
+  playButton.disabled = type
+}
+}
+  useEffect(()=>{
+    if(isPlaying){  
+      // when user navigate the pages
+      if(samePage){
+        console.log("enable true", samePage)
+        buttonEnable(playIcon.current, false)
+      }else{
+       buttonEnable(playIcon.current, true)
+        console.log("enable false", samePage)
+        }
+    } 
+    // when user stop the blog playing
+    if(!isPlaying){
+      buttonEnable(playIcon.current, false)
+    }
+  }, [samePage, isPlaying])
+
   return (
     <>
     <Alert position="bottom-center"> </Alert>
@@ -112,23 +147,27 @@ function BlogBack() {
           <div className="row d-flex align-items-center p-0 app_blog_detail_row ">
             <div className="col-8 d-flex align-items-center app_blog_detail_action_first">
             {/* onClick={handleBack} */}
-              <i
+              <button
                 className="fa-solid fa-arrow-left app_blog_detail_icon app_blog_detail_back_icon"  onClick={(event)=>{handleBack(event)}}
                  onTouchStart={sendClickFeed} onTouchEnd={(event)=>{removeClickFeed(event)}} onMouseUp={(event)=>{removeClickFeed(event)}} onMouseDown={sendClickFeed} onMouseOut={orignalElement}
-              ></i>
+              ></button>
               <span className="blog_back_heading "> {heading} </span>
             </div>
-            <div className="col-4 d-flex align-items-center justify-content-end app_blog_detail_action_secound">
-               <i
+            <div className="col-4 d-flex align-items-center justify-content-end app_blog_detail_action_secound" >
+               <button
+               ref={playIcon}
                 className={`${
                  readBlogs ? "fa-solid fa-pause" : "fa-solid fa-play"
                 } app_blog_detail_icon`}
-                onClick={() => {
+                type="button"
+                id="AppPlayIcon"
+                onClick={(e) => {
                   const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
                   if(isMobile){
+                    animateIcon(playIcon.current)                  
                     setReadBlogs(false)
                     toast.info("Switch on the desktop to enjoy this feature")
-                    console.log("mobile devices", readBlogs, isPlaying)
+                    // console.log("mobile devices", readBlogs, isPlaying)
                     return
                   }
                   
@@ -156,12 +195,16 @@ function BlogBack() {
                     });
                   
                 }}
-              ></i>
+              ></button>
              {/* {(!readBlog) && <button className="app_blog_detail_icon border-none px-3"> <i class="fa-solid fa-stop "></i> </button> } */}
-              <i
+              <button
+              ref={shareIcon}
                 className="fa-solid fa-share-nodes app_blog_detail_icon"
-                onClick={(e) => shareBlogs(e)}
-              ></i>
+                onClick={(e) =>                 
+                shareBlogs(e)
+                }
+                
+              ></button>
             </div>
           </div>
         </div>

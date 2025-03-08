@@ -1735,6 +1735,7 @@ color: #000203;
   background: #eee;
   padding: 10px 12px;
   border-radius: 50%;
+  border: none;
 }
 .blog_back_heading{
   font-size: 19px;

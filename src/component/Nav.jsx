@@ -407,7 +407,7 @@ let navbarIcon = document.querySelector('.toggle_outline_elemenet')
 
 // console.log("navbarIcon", navbarIcon)
 navbarIcon.style.setProperty('background', '#eee');
-navbarIcon.firstElementChild.style.setProperty('font-size', "14px")
+navbarIcon.firstElementChild.style.setProperty('font-size', "13px")
 setTimeout(()=>{
   navbarIcon.style.removeProperty('background', '#eee');
   navbarIcon.firstElementChild.style.removeProperty('font-size', "14px")
@@ -415,7 +415,7 @@ setTimeout(()=>{
 
 }, 100)
 
-
+console.log("navbar hit", navbarIcon)
 
 navbarContent.addEventListener("click", (event)=>{
 

@@ -68,7 +68,7 @@ export default function BlogAudioPlayer() {
 
 
 
-    console.log("checking same page", samePage)
+    // console.log("checking same page", samePage)
     if (!samePage || !matchRoute){
 
     

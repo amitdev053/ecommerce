@@ -46,11 +46,11 @@ function BlogBack() {
     let blogTitle = document.querySelector("#blogDtailTitle").innerText    
     let imageUrl = document.getElementById('blogTopImage').src
     handleShare(blogTitle, "", imageUrl, "blogDetail")
-    console.log("event", event, imageUrl, blogTitle);
+    // console.log("event", event, imageUrl, blogTitle);
   }
 
   function readBlog() {
-    console.log("set blogs")
+    // console.log("set blogs")
     const textElement = document.getElementById("textToSpeak");
     
   playBlog(heading, textElement)
@@ -118,7 +118,7 @@ function BlogBack() {
 function buttonEnable(element, type){
   const playButton = element
 if(playButton){
-  console.log("playButton", playButton)
+  // console.log("playButton", playButton)
   playButton.disabled = type
 }
 }
@@ -126,11 +126,11 @@ if(playButton){
     if(isPlaying){  
       // when user navigate the pages
       if(samePage){
-        console.log("enable true", samePage)
+        // console.log("enable true", samePage)
         buttonEnable(playIcon.current, false)
       }else{
        buttonEnable(playIcon.current, true)
-        console.log("enable false", samePage)
+        // console.log("enable false", samePage)
         }
     } 
     // when user stop the blog playing
@@ -174,19 +174,19 @@ if(playButton){
                   setReadBlogs((prev) => {                
 
                       if (prev) {
-                        console.log("running first ")
+                        // console.log("running first ")
                         window.responsiveVoice.pause();
                         
                         setIsPaused(false)
                       } else {
-                        console.log("running else first ", prev)
+                        // console.log("running else first ", prev)
                         if (speechSynthesis.speaking && speechSynthesis.paused) {              
                           window.responsiveVoice.resume();
                           setIsPaused(true)
-                          console.log("running else inside if first ")
+                          // console.log("running else inside if first ")
                         } else {
                           readBlog();
-                          console.log("running else inside else ")
+                          // console.log("running else inside else ")
                         }
 
                       }

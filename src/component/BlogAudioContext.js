@@ -169,7 +169,7 @@ export function BlogAudioProvider({ children }) {
     // let savedProgress = sessionStorage.getItem(blogTitles);
     
     let startWordIndex = savedProgress ? JSON.parse(savedProgress).lastWordIndex : 0;
-    console.log("startWordIndex",startWordIndex)
+    // console.log("startWordIndex",startWordIndex)
     highlightWords(utteranceRef.current, blogText, true, startWordIndex, blogTitle); // Pass true to restore highlights
     window.speechSynthesis.speak(utteranceRef.current);
   
@@ -187,7 +187,7 @@ export function BlogAudioProvider({ children }) {
     }
   };
   function wrapTextNodes(node, callFroms) {
-    console.log("wrap text node", node, callFroms)
+    // console.log("wrap text node", node, callFroms)
     const fragment = document.createDocumentFragment();
 
     if (node.nodeType === Node.TEXT_NODE && node.textContent.trim() !== "") {
@@ -209,7 +209,7 @@ export function BlogAudioProvider({ children }) {
       Array.from(node.childNodes).forEach(wrapTextNodes);
     }
   
-    console.log("fragments", fragment, node, wrapTextNodes)
+    // console.log("fragments", fragment, node, wrapTextNodes)
   }
   function highlightWords(utterance, textElement, restore = false, startWordIndex = 0, currentPlayingTitle) {
     let currentWordIndex = restore ? startWordIndex : 0;
@@ -217,7 +217,7 @@ export function BlogAudioProvider({ children }) {
   
     // ✅ Ensure words are wrapped only once
     if (!textElement.querySelector(".highlightable-word")) {
-      console.log("yes words are also highlighting", textElement)    
+      // console.log("yes words are also highlighting", textElement)    
   
       wrapTextNodes(textElement, "notColored");
 
@@ -237,7 +237,7 @@ export function BlogAudioProvider({ children }) {
     // ✅ Restore previous highlights when the user returns
     if (restore && currentWordIndex > 0) {
       highlightReadWords(currentWordIndex);
-      console.log("inside restore condition")
+      // console.log("inside restore condition")
     }
   
     // Track word start positions
@@ -251,7 +251,7 @@ export function BlogAudioProvider({ children }) {
   
     // ✅ Speech API event to track spoken words
     utterance.onboundary = (event) => {
-      console.log("on boundary", event)
+      // console.log("on boundary", event)
       let charIndex = event.charIndex;
   
       for (let i = 0; i < wordStartIndexes.length; i++) {
@@ -268,7 +268,7 @@ export function BlogAudioProvider({ children }) {
       highlightReadWords(currentWordIndex);
 
       // wrapTextNodes(textElement);
-      console.log("highlighted running", currentWordIndex)
+      // console.log("highlighted running", currentWordIndex)
       
       // sessionStorage.setItem(`lastWordIndex` ,JSON.stringify({ lastWordIndex: currentWordIndex })
 
@@ -303,7 +303,7 @@ export function BlogAudioProvider({ children }) {
     });
     setSamePage(true)
   }else{
-    console.log("not matched")
+    // console.log("not matched")
     setSamePage(false)
   }
 }
@@ -338,16 +338,16 @@ setStopPlaying(true)
 
 // Function to pause or resume playback
 const togglePlayPause = () => {
-    console.log("inside else", speechSynthesis)
+    // console.log("inside else", speechSynthesis)
     if (!window.speechSynthesis.speaking) return; // Ensure speech is running
 
   if (window.speechSynthesis.paused) {
-    console.log("Resuming speech...");
+    // console.log("Resuming speech...");
     window.speechSynthesis.resume();
     setIsPaused(true);
     // setIsPlaying(true);
   } else {
-    console.log("Pausing speech...");
+    // console.log("Pausing speech...");
     window.speechSynthesis.pause();
     setIsPaused(false);
     // setIsPlaying(false);
@@ -357,7 +357,7 @@ const togglePlayPause = () => {
 
   };
   useEffect(() => {
-    console.log("logs...")
+    // console.log("logs...")
     // Stop speech synthesis when the page reloads
     window.speechSynthesis.cancel();
     return () => {

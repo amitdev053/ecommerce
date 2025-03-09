@@ -71,7 +71,18 @@ body{
 }
 .navul{
   width: 74vw;
+  display: flex;
+    gap: 0px 15px;
+    padding: 0px 20px;
 }
+.nav-link{
+  font-weight: 600;
+}
+.nav-link:not(.active):hover {
+ color: black;
+ font-weight: 600;
+}
+
 .navbtn{
   margin-left: 1rem;
 }

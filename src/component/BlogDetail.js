@@ -53,7 +53,7 @@ function BlogBack() {
     setTimeout(()=>{
       navigate(-1);
 
-    }, 500)
+    }, 200)
    
   }
 

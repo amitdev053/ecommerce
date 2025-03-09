@@ -73,14 +73,19 @@ body{
   width: 74vw;
   display: flex;
     gap: 0px 15px;
-    padding: 0px 20px;
+    /* padding: 0px 20px; */
 }
 .nav-link{
   font-weight: 600;
+  padding-bottom: 6px;
 }
-.nav-link:not(.active):hover {
- color: black;
- font-weight: 600;
+@media screen and (min-width: 999px) {  
+  .nav-link:not(.active):hover {
+   color: black;
+   font-weight: 600;
+   border-bottom: 2px solid black;
+   
+  }
 }
 
 .navbtn{

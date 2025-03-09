@@ -93,6 +93,8 @@ function App() {
   <Route exact path ='/download' Component={Download}/>
   <Route exact path ='/Login' Component={Login}/>
   <Route exact path ='/blog-detail/:blogId/:blogTitle' Component={BlogDetail}/>
+
+
  </Routes>
  <BlogAudioPlayer />
  {/* {(!matchRoute) && <BlogAudioPlayer /> } */}

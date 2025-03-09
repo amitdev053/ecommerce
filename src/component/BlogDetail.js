@@ -10,6 +10,7 @@ import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Alert from "./Alert";
 
+
 let blogTitile = "";
 function BlogBack() {
   const { isPlaying, isPaused, setIsPaused ,playBlog,  samePage } = useContext(BlogAudioContext);
@@ -19,6 +20,7 @@ function BlogBack() {
   const playIcon = useRef(null);
   const shareIcon = useRef(null);
   const [readBlogs, setReadBlogs] = useState(isPlaying);
+  const params = useParams()
   
   
   function setHeaderHeading() {
@@ -26,11 +28,26 @@ function BlogBack() {
     // if (blogTitle !== "" && blogTitle) {
     //   setHeading(blogTitle);
     // }
-      if (blogTitile !== "") {
-      setHeading(blogTitile);
-    }
-
+    //   if (blogTitile !== "") {
+    //   setHeading(blogTitile);
+    // }else{
+    //   console.log("window location", url)
+      
+    // }
+    const url = window.location.href.split("/")[5]
+    const titleHeading = decodeURIComponent(url.replace(/-/g, ' ')).replace(/\w\S*/g, (word) => word.charAt(0).toUpperCase() + word.substring(1).toLowerCase());
+    const title = titleHeading.charAt(0).toUpperCase() + titleHeading.slice(1).toLowerCase();
+    setHeading(title);
+    
   }
+
+  
+  useEffect(() => {
+    // setTimeout(() => {
+      setHeaderHeading();
+    // }, 200);
+    // console.log("setHeaderHeading", blogTitile)
+  }, []);
   function handleBack(event) {
     removeClickFeed(event)
     setTimeout(()=>{
@@ -86,11 +103,6 @@ function BlogBack() {
 
   
 
-  useEffect(() => {
-    setTimeout(() => {
-      setHeaderHeading();
-    }, 500);
-  });
 
   useEffect(() => {
   if(isPaused){
@@ -161,6 +173,7 @@ if(playButton){
                 } app_blog_detail_icon`}
                 type="button"
                 id="AppPlayIcon"
+                style={{ padding: readBlogs ? "10px 13px" : "10px 12px"  }}
                 onClick={(e) => {
                   const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
                   if(isMobile){
@@ -225,8 +238,9 @@ const BlogDetail = () => {
       setloader(false);
       // setBlogDetail(bDetails.data);
       blogDetail.push(bDetails.data);
-      blogTitile = blogDetail[0].title;
-      // console.log("blog Details response", bDetails.data);
+      // blogTitile = blogDetail[0].title;
+      blogTitile = bDetails.data.title;
+      console.log("blog Details response", bDetails.data.title);
       setTimeout(() => {
         setStyleCode();
       }, 1000);

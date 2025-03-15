@@ -11,7 +11,8 @@ import desktopicon from '../appimages/desktopicon.png'
 import ScrollTag from "./ScrollTag";
 import AppPagesHeading from "./AppPagesHeading";
 import { Helmet } from 'react-helmet';
-const topic = "react"
+// react
+const topic = "angular"
 const title = `Explore ${topic.split('')[0].toUpperCase() + topic.split('').slice(1, topic.length).join("")}: | Market Shops`;
 const description = `ngrok provides a secure and easy-to-use solution for exposing your local API to the world. Whether you're developing a web application, testing APIs, or integrating with third-party services, ngrok has got you covered.`;
 const keywords = 'ngrok | API Gateway, IoT Device Gateway, Secure Tunnels for Containers, Apps & APIs';

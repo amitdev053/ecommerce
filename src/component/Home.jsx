@@ -23,7 +23,7 @@ export default function Home() {
 
   useEffect(()=>{
     // topic= "Home"
-    document.title = "Home ! Market-Shops"
+    document.title = "Home | Market-Shops"
   })
 
   return (

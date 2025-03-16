@@ -12,8 +12,8 @@ import ScrollTag from "./ScrollTag";
 import AppPagesHeading from "./AppPagesHeading";
 import { Helmet } from 'react-helmet';
 // react
-const topic = "angular"
-const title = `Explore ${topic.split('')[0].toUpperCase() + topic.split('').slice(1, topic.length).join("")}: | Market Shops`;
+let topic = "angular"
+let title = `Explore ${topic.split('')[0].toUpperCase() + topic.split('').slice(1, topic.length).join("")}: | Market Shops`;
 const description = `ngrok provides a secure and easy-to-use solution for exposing your local API to the world. Whether you're developing a web application, testing APIs, or integrating with third-party services, ngrok has got you covered.`;
 const keywords = 'ngrok | API Gateway, IoT Device Gateway, Secure Tunnels for Containers, Apps & APIs';
 
@@ -33,7 +33,8 @@ const Blogs = (props) => {
     setloader(true);
     if(forSearch){
       setHeading(forSearchQuery)
-      // console.log("checking search text", forSearchQuery)
+      topic = forSearchQuery;
+      console.log("checking search text", topic)
       getBlogUrl = `https://dev.to/api/articles?tag=${forSearchQuery}`
       
       let tags = document.querySelectorAll(".app_blog_tag_text")
@@ -94,7 +95,8 @@ const Blogs = (props) => {
 
 
   useEffect(() => {
-    document.title = "Market-Shops Tech Blogs"
+      document.title = `Explore ${topic.split('')[0].toUpperCase() + topic.split('').slice(1, topic.length).join("")}: | Market Shops`
+    // document.title = "Market-Shops Tech Blogs"
     const urlParams = new URLSearchParams(window.location.search);
     const searchText = urlParams.get('query');
     
@@ -109,7 +111,12 @@ getBlogs(true, searchText)
 }
     // displayDynamicBlogs()
   }, []);
-  
+
+  useEffect(() => {
+    
+   document.title = `Explore ${topic.split('')[0].toUpperCase() + topic.split('').slice(1, topic.length).join("")}: | Market Shops`
+
+  }, [topic]);
   // it is for every page render operations 
   useEffect(() => {
     const urlParams = new URLSearchParams(window.location.search);
@@ -317,11 +324,15 @@ let tagList = [
   return (
     
     <>
-    <Helmet>
-    <title>{title}</title>
-    <meta name="description" content={description} />
-    <meta name="keywords" content={keywords} />
-  </Helmet>
+    {
+      (props.componentFrom !== "home") && 
+     <Helmet>
+          <title>{title}</title>
+          <meta name="description" content={description} />
+          <meta name="keywords" content={keywords} />
+    </Helmet>
+  }
+   
     <div className={props.componentFrom === "home"? `container text-left mt-10 app_container`:`container text-left mt-ps90 app_container`}>
       <Alert position="bottom-center"> </Alert>
       {props.componentFrom != "home" &&

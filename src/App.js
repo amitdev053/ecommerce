@@ -51,7 +51,7 @@ function App() {
 
 
   }, [location]);
-  
+
 
   function getCookie(name) {
     const value = `; ${document.cookie}`;

@@ -9,6 +9,7 @@ import { BlogAudioContext } from "./BlogAudioContext";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Alert from "./Alert";
+import {Helmet} from "react-helmet"
 
 
 let blogTitile = "";
@@ -37,6 +38,7 @@ function BlogBack() {
     const url = window.location.href.split("/")[5]
     const titleHeading = decodeURIComponent(url.replace(/-/g, ' ')).replace(/\w\S*/g, (word) => word.charAt(0).toUpperCase() + word.substring(1).toLowerCase());
     const title = titleHeading.charAt(0).toUpperCase() + titleHeading.slice(1).toLowerCase();
+    
     setHeading(title);
     
   }
@@ -279,6 +281,13 @@ const BlogDetail = () => {
   } else {
     return (
       <>
+         <Helmet>
+      <title>
+        {blogTitile}
+      </title>
+      <meta name="description" content="" />
+      <meta name="keywords" content="" />
+    </Helmet>
         <div className="app_detail_blog_container container mt-ps90 app_container ">
           <div className="row p-0 w-100 d-flex align-items-center overflow-hidden">
             {/* blog user action  end Here*/}

@@ -304,14 +304,15 @@ const SearchBlogs = (props) => {
                         info="search"
                         ref={searchIcon}
                       ></i>
-                      <div
-                        className="search_text_container outline-none"
+                      <input
+                        className="search_text_container outline-none app_search_input_style"
                         contentEditable="true" suppressContentEditableWarning={true} spellCheck="false" id="searchTagText"
                         ref={searchRef}
+                        placeholder={searchString}
 
-                      >
-                        {searchString}
-                      </div>
+                      />
+                        {/* {searchString} */}
+                      
                     </div>
 
                     <i

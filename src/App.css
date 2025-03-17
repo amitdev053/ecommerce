@@ -1818,3 +1818,10 @@ color: #000203;
   }
 
 }
+.app_search_input_style{
+  width: 91%;
+  border: none;
+  background: #f8f9fa;
+  font-size: 14px;
+  field-sizing: content;
+}

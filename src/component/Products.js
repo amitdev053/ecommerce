@@ -248,8 +248,7 @@ function ProductImageComponent({product}){
       <div
             style={{
               fontSize: "25px",
-              fontWeight: "700"
-             
+              fontWeight: "700"             
             }}
           >
             Flash Products

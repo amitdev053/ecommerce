@@ -130,7 +130,7 @@ export default function ProductListView({addToFavourite, isFavorite, componentFr
   } else {
     return (
       <>
-        <div className="container text-left mt-1" >
+        <div className="container text-left mt-1 list_view_container" >
       
   <div className="row flex-column" id="ProductListView">
             {/* Columns Started Here */}

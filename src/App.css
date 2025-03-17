@@ -1799,3 +1799,22 @@ color: #000203;
   position: relative;
   top: 3px;
 } */
+
+@media screen and (min-width : 993px) and (max-width : 1199px){ 
+  .gallerycol{
+    width: 23% !important;
+  }
+  .mobile_list_view {
+    width: 100% !important;
+    margin: 0px !important;
+    padding: 0px !important;
+  }
+
+}
+@media screen and (max-width : 992px){ 
+  .list_view_container{
+    margin: 0px !important;
+    max-width: 100%;
+  }
+
+}

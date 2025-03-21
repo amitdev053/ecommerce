@@ -13,7 +13,7 @@ const SearchBlogs = (props) => {
             const [secoundCat, setSecoundCat] = useState([]);
             const [searchBlogs, setSearchBlogs] = useState([]);
             const location = useLocation();
-            const [searchString, setSearchString] = useState("Search blog by tagnames...");
+            const [searchString, setSearchString] = useState("Search blogs by tagnames...");
             const [searchHandleEvent, setSearchHandleEvent] = useState(false);
         
 
@@ -21,7 +21,11 @@ const SearchBlogs = (props) => {
               const searchParams = new URLSearchParams(location.search);
       const userSearchQuery = searchParams.get("query");
       if(location.pathname === "/blogs/search"){
-        setSearchString(userSearchQuery)
+        // setSearchString(userSearchQuery)
+        searchRef.current.value = userSearchQuery
+        setTimeout(()=>{
+          highlightTopicAfterRefresh(userSearchQuery)
+        }, 400)
       }
       // setSearchString(props.searchQuery || "Search blog by tagnames...")
       // console.log("search terms",searchParams, searchString)
@@ -31,7 +35,19 @@ const SearchBlogs = (props) => {
       // console.log("now refresh")
      }, [location.search])
    
+     function highlightTopicAfterRefresh(searchText){
+      console.log("hightMobile text", searchText)
+      let mobileTopics = document.querySelector('.mobile_suggest_topics').children
+        Array.from(mobileTopics).forEach((topic)=>{
+          if(topic){
 
+            topic.classList.remove('active_search_pointer');
+              if(topic.innerText === searchText){
+                topic.classList.add('active_search_pointer');
+              }
+          }
+        })
+     }
             function setBlogsSearchCategory() {
               let manageBlogsCatJson = {
                 categories: [
@@ -58,8 +74,8 @@ const SearchBlogs = (props) => {
                       "CSS",
                       "React",
                       "Angular",
-                      "Vue.js",
-                      "Node.js",
+                      "Vuejs",
+                      "Nodejs",
                     ],
                   },
                   {
@@ -195,7 +211,7 @@ const SearchBlogs = (props) => {
               showSuggestedSearch.current?.classList?.remove("show_search");
               searchField.current?.classList?.remove("active_search");
               showSuggestedSearch.current.classList.add("blog_search_suggected_content");
-              searchRef.current.innerText =  (searchRef.current.innerText === "Search blog by tagnames..." || searchRef.current.innerText === "") ? searchRef.current.innerText = "Search blog by tagnames..." : searchRef.current.innerText;
+              searchRef.current.value =  (searchRef.current.value === "Search blogs by tagnames..." || searchRef.current.value === "") ? searchRef.current.value = "Search blog by tagnames..." : searchRef.current.value;
               searchIcon.current.className = "fa-solid fa-magnifying-glass mr-2 search_icon";
               searchIcon.current.setAttribute("info", "search");
               goSearchIcon.current.style.color = "#edf2fa";                     
@@ -224,8 +240,8 @@ const SearchBlogs = (props) => {
 
             function perfromSearch(event){
               
-               if(searchRef.current.innerText === "Search blog by tagnames..."){
-                 searchRef.current.innerText = "";             
+               if(searchRef.current.value === "Search blogs by tagnames..."){
+                 searchRef.current.value = "";             
                }
                searchIcon.current.className = "fa-solid fa-arrow-left mr-2 search_icon";
                searchIcon.current.setAttribute("info", "exitSearch");
@@ -246,7 +262,7 @@ const SearchBlogs = (props) => {
                 clickedElement?.classList?.add('active_search_pointer'); // Add active class to the clicked element
               }
 
-              searchRef.current.innerText = content;
+              searchRef.current.value = content;
               props.setloader(true);
               props.setHeading(content)
               // console.log("checking content", content);
@@ -258,7 +274,7 @@ const SearchBlogs = (props) => {
                 // searchRef.current.blur();
                 // searchRef.current.focus();
                 searchIcon.current.className = "fa-solid fa-arrow-left mr-2 search_icon";
-                searchRef.current.innerText = showSearch || content;
+                searchRef.current.value = showSearch || content;
                 // setBlogDetail(bDetails.data);
                 setSearchBlogs(searchDetails.data);
                 props.setBlogs(searchDetails.data);
@@ -280,12 +296,14 @@ const SearchBlogs = (props) => {
               });
             };
             const handleSearchRequest = () => {
-              let searchKey = searchRef.current.innerText;
+              let searchKey = searchRef.current.value;
               let getUrlKey = searchKey.trim();
               let searchText = encodeURIComponent(getUrlKey);
               // console.log("post seatch content", goSearchIcon);
-
+              if(searchText !== ""){
+              console.log("handleSearch request", searchText)
               postSearchRequest(searchText, getUrlKey);
+              }
             };
                      
  
@@ -306,7 +324,7 @@ const SearchBlogs = (props) => {
                       ></i>
                       <input
                         className="search_text_container outline-none app_search_input_style"
-                        contentEditable="true" suppressContentEditableWarning={true} spellCheck="false" id="searchTagText"
+                        spellCheck="false" id="searchTagText"
                         ref={searchRef}
                         placeholder={searchString}
 
@@ -323,7 +341,7 @@ const SearchBlogs = (props) => {
                   </div>
                 </div>
                 {/* Recommended Categoryies */}
-                <div className="blog_search_suggected_content " ref={showSuggestedSearch}>
+                <div className="blog_search_suggected_content mobile_suggest_topics" ref={showSuggestedSearch}>
                   {blogsCat[0]?.subcategories.map((content, index) => {
                     return (
                       <>

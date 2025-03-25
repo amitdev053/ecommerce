@@ -32,7 +32,7 @@ const SearchBlogs = (props) => {
             }
      useEffect(()=>{
       refreshSearchString()
-      // console.log("now refresh")
+      console.log("now refresh")
      }, [location.search])
    
      function highlightTopicAfterRefresh(searchText){
@@ -211,7 +211,7 @@ const SearchBlogs = (props) => {
               showSuggestedSearch.current?.classList?.remove("show_search");
               searchField.current?.classList?.remove("active_search");
               showSuggestedSearch.current.classList.add("blog_search_suggected_content");
-              searchRef.current.value =  (searchRef.current.value === "Search blogs by tagnames..." || searchRef.current.value === "") ? searchRef.current.value = "Search blog by tagnames..." : searchRef.current.value;
+              // searchRef.current.value =  (searchRef.current.value === "Search blogs by tagnames..." || searchRef.current.value === "") ? searchRef.current.value = "Search blog by tagnames..." : searchRef.current.value;
               searchIcon.current.className = "fa-solid fa-magnifying-glass mr-2 search_icon";
               searchIcon.current.setAttribute("info", "search");
               goSearchIcon.current.style.color = "#edf2fa";                     
@@ -306,6 +306,12 @@ const SearchBlogs = (props) => {
               }
             };
                      
+            // useEffect(()=>{
+            //   if(props.BackBlogHomes === "noSearch"){
+            //         // setSearchString("Search blogs by tagnames...")
+            //         searchRef.current.placeholder = "Search blogs by tagnames..."
+            //   }
+            // }, [])
  
 
             return (
@@ -327,6 +333,7 @@ const SearchBlogs = (props) => {
                         spellCheck="false" id="searchTagText"
                         ref={searchRef}
                         placeholder={searchString}
+                        autoComplete="off"
 
                       />
                         {/* {searchString} */}

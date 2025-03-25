@@ -13,6 +13,7 @@ import AppPagesHeading from "./AppPagesHeading";
 import { Helmet } from 'react-helmet';
 // react
 let topic = "angular"
+let originalTopic = "angular"
 let title = `Explore ${topic.split('')[0].toUpperCase() + topic.split('').slice(1, topic.length).join("")}: | Market Shops`;
 const description = `ngrok provides a secure and easy-to-use solution for exposing your local API to the world. Whether you're developing a web application, testing APIs, or integrating with third-party services, ngrok has got you covered.`;
 const keywords = 'ngrok | API Gateway, IoT Device Gateway, Secure Tunnels for Containers, Apps & APIs';
@@ -23,13 +24,14 @@ const Blogs = (props) => {
   const [searchText, setSearchText] = useState("")
   const [blogView, setBlogView] = useState(true);
   const location = useLocation();
-  const[destktopSearch, setDesktopSearch] = useState(undefined)
+  // const[destktopSearch, setDesktopSearch] = useState(undefined)
   const [searchPageString, setSearchPageString] = useState(undefined);
   const [heading, setHeading] = useState(null)
   
  
   const getBlogs = (forSearch = false, forSearchQuery = "") => {
     let getBlogUrl
+    console.log("blog page function", topic)
     setloader(true);
     if(forSearch){
       setHeading(forSearchQuery)
@@ -46,7 +48,6 @@ const Blogs = (props) => {
      
     }else{
       setHeading(topic)
-      //  getBlogUrl = "https://dev.to/api/articles";
        getBlogUrl = `https://dev.to/api/articles?tag=${topic}`;
     }
   
@@ -62,6 +63,16 @@ const Blogs = (props) => {
         }
     });
   };
+  function highlightTopicAfterRefresh(){
+    console.log("hightMobile text")
+    let mobileTopics = document.querySelector('.mobile_suggest_topics').children
+    
+      Array.from(mobileTopics).forEach((topic)=>{
+        if(topic){
+          topic.classList.remove('active_search_pointer');
+        }
+      })
+   }
   
 
   function displayDynamicBlogs() {
@@ -95,7 +106,11 @@ const Blogs = (props) => {
 
 
   useEffect(() => {
+    if(topic === ""){
+      document.title = `Explore Blogs: | Market Shops`
+    }else{
       document.title = `Explore ${topic.split('')[0].toUpperCase() + topic.split('').slice(1, topic.length).join("")}: | Market Shops`
+    }
     // document.title = "Market-Shops Tech Blogs"
     const urlParams = new URLSearchParams(window.location.search);
     const searchText = urlParams.get('query');
@@ -109,15 +124,21 @@ getBlogs(true, searchText)
 
   getBlogs();
 }
+console.log("on every time")
     // displayDynamicBlogs()
   }, []);
 
   useEffect(() => {
-    
-   document.title = `Explore ${topic.split('')[0].toUpperCase() + topic.split('').slice(1, topic.length).join("")}: | Market Shops`
+    if(topic === ""){
+      document.title = `Explore Blogs: | Market Shops`
+
+    }else{
+      document.title = `Explore ${topic.split('')[0].toUpperCase() + topic.split('').slice(1, topic.length).join("")}: | Market Shops`
+    }
 
   }, [topic]);
-  // it is for every page render operations 
+
+  // this usefffect for every page render operations 
   useEffect(() => {
     const urlParams = new URLSearchParams(window.location.search);
     const searchText = urlParams.get('query');
@@ -182,8 +203,17 @@ getBlogs(true, searchText)
         tag.classList.remove("highlight_tag")
       }
     })
-    setSearchPageString("Search blog by tagnames...")
+    setSearchPageString("noSearch")
+    // setHeading(originalTopic)
+    topic = "angular"
     getBlogs()
+    if(document.getElementById('searchTagText')){
+      console.log("input placeholder changed")
+      // setSearchFillText("Search blogs by tagnames...")
+    document.getElementById('searchTagText').value = "" 
+    highlightTopicAfterRefresh()
+
+    }
     
   }
   
@@ -337,7 +367,7 @@ let tagList = [
       <Alert position="bottom-center"> </Alert>
       {props.componentFrom != "home" &&
       <>
-       <SearchBlogs setBlogs={setBlogs} setHeading={setHeading} setloader={setloader}  searchText={searchText} />
+       <SearchBlogs setBlogs={setBlogs} setHeading={setHeading} setloader={setloader} BackBlogHomes={searchPageString}  searchText={searchText}  />
       <ScrollTag tagList={tagList} />
       
 <div

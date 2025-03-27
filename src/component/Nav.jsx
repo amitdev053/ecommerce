@@ -33,7 +33,14 @@ export default function Navbar({trackCart}) {
   const navigate = useNavigate()
 
   const { addToCart } = useContext(CartContext);
-  
+  function handleResize(){
+    document.querySelector('.cart_header').style.width = document.querySelector('.cart_container').offsetWidth +"px"
+  }
+
+  useEffect(()=>{
+    handleResize()
+window.addEventListener('resize', handleResize);
+  }, [])
   
 
   useEffect(() => {

@@ -378,6 +378,7 @@ overflow-y: scroll;
   /* right: 0; */
   width: calc(100% - 76.2%);
   z-index: 9;
+  right: 0;
 
 }
 

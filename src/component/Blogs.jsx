@@ -363,7 +363,7 @@ let tagList = [
     </Helmet>
   }
    
-    <div className={props.componentFrom === "home"? `container text-left mt-10 app_container`:`container text-left mt-ps90 app_container`}>
+    <div className={props.componentFrom === "home"? `container text-left mt-10 app_container p-0`:`container text-left mt-ps90 app_container`}>
       <Alert position="bottom-center"> </Alert>
       {props.componentFrom != "home" &&
       <>
@@ -472,7 +472,7 @@ let tagList = [
                   <div className="mediacontent d-inline-block app_blog_text_content_cover">
                     <p className="mb-1 totalgal">Public reactions :- {blog.public_reactions_count}</p>
                     <h4 className="gallerytitle productname" id="productname" style={{color: "black", fontWeight: 700, lineHeight: "20px"}} title={blog.title}>
-                      {(blog.title.length > 30) ? blog.title.slice(0, 30)+ '...' : blog.title}
+                      {(blog.title.length > 29) ? blog.title.slice(0, 29)+ '...' : blog.title}
                     </h4>
                     <div className="gallerytitle productname productdiscripation">
                       {blog.description.slice(0, 100)}...

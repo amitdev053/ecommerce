@@ -4,6 +4,7 @@
     display: flex;
     justify-content: center;
     flex-wrap: wrap;
+    /* max-width: 85%; */
   }
   
   .column {
@@ -13,7 +14,7 @@
     overflow: hidden;
     border-radius: 10px; 
     height: 250px;
-    width: 30%;    
+    width: 31.3%;    
     align-items: center;
     justify-content: center;
   }
@@ -62,7 +63,17 @@
   }
   .column:hover .explore_icons{
     transform: translate(0px , 0px);  
+    
   }
+  .column:hover .column>img{
+    transform: scale(1.5);
+    transform-origin: center;
+    
+  }
+  .column:hover {
+    border:3px solid black;    
+  }
+
   .explore_fonts{
     font-size: 12px;
     font-weight: 600;
@@ -92,15 +103,29 @@
     width: 31% !important;
   }
   /* Styles for app-container  in mobile devices*/
-@media screen and (max-width : 992px){
+  @media screen and (max-width: 999px) {
+    .pinterest-layout{
+    max-width: 100%;
+    }
+  }
+  @media screen and (min-width: 1000px) and (max-width: 1199px) {
+    .pinterest-layout{
+    max-width: 96%;
+    }
+    .column{
+      width: 27%;
+    }
+  }
+
+@media screen and (min-width: 751px) and (max-width : 992px){
   .column{
     width: 30% !important;
     height: 200px;
   }
 }
-@media screen and (max-width : 620px){
+@media screen and (min-width : 581px) and (max-width : 750px){
   .column{
-    width: 45% !important;
+    width: 30% !important;
     height: 240px;
   }
 }
@@ -115,5 +140,7 @@
   .column{
     width: 100% !important;
     height: 250px;
+    margin: 10px 0px;
   }
 }
+

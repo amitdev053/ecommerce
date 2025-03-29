@@ -1826,3 +1826,6 @@ color: #000203;
   font-size: 14px;
   /* field-sizing: content; */
 }
+.app_blog_main_container{
+  gap: 10px 0px;
+}

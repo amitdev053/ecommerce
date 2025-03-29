@@ -241,18 +241,19 @@ function ProductImageComponent({product}){
       <>
       {/* <span id="cartLength">{cartLength}</span> */}
       
-        <div  className={props.componentFrom === "home" ? 'container text-left app_container' : 'container text-left mt-74 app_container'}>
+        <div  className={props.componentFrom === "home" ? 'container text-left app_container p-0' : 'container text-left mt-74 app_container'}>
       <Alert position="bottom-center"> </Alert>
 
 <div style={{display:"flex", justifyContent:"space-between", alignItems:"center",  marginBottom: "20px"}} className="app_product_headline">
-      <div
+      <h1
             style={{
               fontSize: "25px",
-              fontWeight: "700"             
+              fontWeight: "700",
+              margin: "0px",             
             }}
           >
             Flash Products
-          </div>
+          </h1>
            <i className={`fa-solid fa-list-ul product_view_icon grid_view`} onClick={toggleView} id="listType"></i>
           
           </div>

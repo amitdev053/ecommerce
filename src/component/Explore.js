@@ -14,9 +14,7 @@ import { handleShare } from "./HandleShare";
 const Explore = (props) => {
   // let content = [ "couples", "Fashion", "Sports", "Music", "Gaming", "Technology", "Health", "Finance", "Education", "Lifestyle"]
   let content = [
-    "kiss", "Fashion", "Sports", "Music", "Gaming", "Technology", "Health", "Finance", "Education", "Lifestyle", "Travel and Adventure",  "Art and Creativity", "hugs", "Nature and Wildlife", "Food and Culinary", "History and Culture","Fitness and Wellness", "Architecture and Design","Space and Astronomy", "Books and Literature",
-    "Motivation and Productivity",  "Luxury and Lifestyle",  "Science and Innovation",   "Minimalism and Aesthetics", "Photography and Videography",  "New Year",
-    "DIY and Crafting",  "Valentine", "Hobbies and Skills",  "Rose", "couples"
+    "kiss", "Fashion", "Sports", "Music", "Gaming", "Technology", "Health", "Finance", "Education", "Lifestyle", "Travel and Adventure",  "Art and Creativity", "hugs", "Nature and Wildlife", "Food and Culinary", "History and Culture","Fitness and Wellness", "Architecture and Design","Space and Astronomy", "Books and Literature", "Motivation and Productivity",  "Luxury and Lifestyle",  "Science and Innovation",   "Minimalism and Aesthetics", "Photography and Videography",  "New Year", "DIY and Crafting",  "Valentine", "Hobbies and Skills",  "Rose", "couples"
   ];
 
 
@@ -129,7 +127,8 @@ function shareImage(image){
     if(shareButton){
       shareButton.firstElementChild.style.backgroundColor = "#05050524";
       shareButton.firstElementChild.style.color = "white";
-   
+      
+      // shareButton.firstElementChild.style.backgroundColor = "white";
     }
     
   }
@@ -161,7 +160,7 @@ function shareImage(image){
   } else {
     return (
       <>
- <div  className={props.componentFrom === "home" ? 'pinterest-layout' : 'pinterest-layout mt-ps90'}>
+ <div  className={props.componentFrom === "home" ? 'pinterest-layout' : 'container pinterest-layout mt-ps90'}>
       {images.map((image, index) => {
         if (!imageStates[index]) return null; // add this line
         const { loaded } = imageStates[index];

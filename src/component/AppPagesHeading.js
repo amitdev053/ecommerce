@@ -3,7 +3,7 @@ import React from 'react'
 const AppPagesHeading = (props) => {
   return (
    
-    <div className="container"
+    <h1 className="container"
       style={{
         fontSize: "25px",
         fontWeight: "700",
@@ -12,7 +12,7 @@ const AppPagesHeading = (props) => {
       }}
     >
       {props.heading}
-    </div>
+    </h1>
   
   )
 }

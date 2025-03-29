@@ -1,6 +1,6 @@
 import React, { useRef, useState, useEffect } from "react";
 
-const ScrollTag = ({tagList}) => {
+const ScrollTag = ({tagList, showBlog}) => {
   // Ref for the scrollable container
   const ScrollDivTags = useRef(null);
   const [isAtStart, setIsAtStart] = useState(true);
@@ -35,6 +35,38 @@ const ScrollTag = ({tagList}) => {
       }
     };
   }, []);
+  
+  function sendClickFeed(event){    
+    let shareButton = event.target;
+    if(shareButton){
+      shareButton.style.backgroundColor = "rgba(43, 52, 69, 0.1)";
+      // shareButton.firstElementChild.style.color = "white";
+      shareButton.style.transform = "scale(0.9)";
+      
+      // shareButton.firstElementChild.style.backgroundColor = "white";
+    }
+    
+  }
+  function removeClickFeed(event){    
+    let shareButton = event?.target;
+    if(shareButton){
+      shareButton.style.backgroundColor = "#ffffff";
+      shareButton.style.transform = "scale(1)";
+      // shareButton.firstElementChild.style.color = "";
+      // shareImage(imageUrl)
+          showBlog();
+      
+    }
+    
+  }
+  function orignalElement(event){
+    let shareButton = event?.target;
+    if(shareButton){
+      shareButton.style.backgroundColor = "#ffffff";
+      shareButton.style.transform = "scale(1)";
+      // shareButton.firstElementChild.style.color = "";         
+    }    
+  }
   return (
     <>
       <div
@@ -53,9 +85,10 @@ const ScrollTag = ({tagList}) => {
           ref={ScrollDivTags}
           style={{ scrollBehavior: "smooth" }}
         >
+        <span className="d-flex" ><i className="fa-solid fa-house blog_home" onMouseDown={sendClickFeed} onMouseUp={removeClickFeed} onMouseOut={orignalElement}></i></span>
           {tagList?.map((tag, index) => {
             return (
-              <span key={index} class="app_blog_tag_text">
+              <span key={index} className="app_blog_tag_text">
                 {tag}
               </span>
             );

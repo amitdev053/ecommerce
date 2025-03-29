@@ -312,6 +312,41 @@ const SearchBlogs = (props) => {
             //         searchRef.current.placeholder = "Search blogs by tagnames..."
             //   }
             // }, [])
+            function sendClickFeed(event){    
+              let shareButton = event.target;
+              if(shareButton){
+                shareButton.style.backgroundColor = "rgba(43, 52, 69, 0.1)";
+                // shareButton.firstElementChild.style.color = "white";
+                shareButton.style.transform = "scale(0.9)";
+                
+                // shareButton.firstElementChild.style.backgroundColor = "white";
+              }
+              
+            }
+            function removeClickFeed(event){    
+              let shareButton = event?.target;
+              if(shareButton){
+                shareButton.style.backgroundColor = "#ffffff";
+                shareButton.style.transform = "scale(1)";
+             
+                    props.showBlog();
+                    showSuggestedSearch.current.classList.remove("show_search");
+                    showSuggestedSearch.current.classList.add(
+                      "blog_search_suggected_content"
+                    );
+                    searchRef.current.blur();       // reset the focuse event from the search box
+                
+              }
+              
+            }
+            function orignalElement(event){
+              let shareButton = event?.target;
+              if(shareButton){
+                shareButton.style.backgroundColor = "#ffffff";
+                shareButton.style.transform = "scale(1)";
+                // shareButton.firstElementChild.style.color = "";         
+              }    
+            }
  
 
             return (
@@ -349,6 +384,7 @@ const SearchBlogs = (props) => {
                 </div>
                 {/* Recommended Categoryies */}
                 <div className="blog_search_suggected_content mobile_suggest_topics" ref={showSuggestedSearch}>
+                <span className="d-flex" ><i className="fa-solid fa-house blog_mobile_home blog_home" onTouchStart={sendClickFeed} onTouchEnd={removeClickFeed} ></i></span>
                   {blogsCat[0]?.subcategories.map((content, index) => {
                     return (
                       <>

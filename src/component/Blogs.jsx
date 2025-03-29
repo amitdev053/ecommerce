@@ -367,8 +367,8 @@ let tagList = [
       <Alert position="bottom-center"> </Alert>
       {props.componentFrom != "home" &&
       <>
-       <SearchBlogs setBlogs={setBlogs} setHeading={setHeading} setloader={setloader} BackBlogHomes={searchPageString}  searchText={searchText}  />
-      <ScrollTag tagList={tagList} />
+       <SearchBlogs setBlogs={setBlogs} setHeading={setHeading} setloader={setloader} BackBlogHomes={searchPageString}  searchText={searchText} showBlog={showBlog} />
+      <ScrollTag tagList={tagList} showBlog={showBlog} />
       
 <div
     style={{

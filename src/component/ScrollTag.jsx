@@ -50,7 +50,7 @@ const ScrollTag = ({tagList, showBlog}) => {
   function removeClickFeed(event){    
     let shareButton = event?.target;
     if(shareButton){
-      shareButton.style.backgroundColor = "#ffffff";
+      // shareButton.style.backgroundColor = "#ffffff";
       shareButton.style.transform = "scale(1)";
       // shareButton.firstElementChild.style.color = "";
       // shareImage(imageUrl)
@@ -62,7 +62,7 @@ const ScrollTag = ({tagList, showBlog}) => {
   function orignalElement(event){
     let shareButton = event?.target;
     if(shareButton){
-      shareButton.style.backgroundColor = "#ffffff";
+      // shareButton.style.backgroundColor = "#ffffff";
       shareButton.style.transform = "scale(1)";
       // shareButton.firstElementChild.style.color = "";         
     }    

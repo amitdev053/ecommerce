@@ -45,10 +45,17 @@ const Blogs = (props) => {
           tag.classList.add("highlight_tag")
         }
       })
-     
+      let blogHomeIcon = document.querySelectorAll('.blog_home')
+       Array.from(blogHomeIcon).forEach((icon)=>{
+        icon.style.backgroundColor = "#ffffff"
+       })
     }else{
       setHeading(topic)
        getBlogUrl = `https://dev.to/api/articles?tag=${topic}`;
+       let blogHomeIcon = document.querySelectorAll('.blog_home')
+       Array.from(blogHomeIcon).forEach((icon)=>{
+        icon.style.backgroundColor = "rgba(43, 52, 69, 0.1)"
+       })
     }
   
     // console.log("manageing blogs", getBlogUrl, forSearchQuery)

@@ -254,6 +254,10 @@ const SearchBlogs = (props) => {
             }
            
             const postSearchRequest = (content, clickedElement,  showSearch) => {
+              let blogHomeIcon = document.querySelectorAll('.blog_home')
+              Array.from(blogHomeIcon).forEach((icon)=>{
+               icon.style.backgroundColor = "#ffffff"
+              })
               document.querySelectorAll('.suggested_content_text').forEach(el => {
                 el.classList.remove('active_search_pointer'); // Remove active class from all elements
               });

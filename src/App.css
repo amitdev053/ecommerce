@@ -1369,7 +1369,7 @@ justify-content: space-between !important;
     font-size: 15px !important;
   }
   .blog_search_start .search_icon{
-    font-size: 16px;
+    font-size: 18px;
   }
   .search_text_container{
     font-size: 15px;
@@ -1459,7 +1459,7 @@ justify-content: space-between !important;
   background-color: #000000b8 !important; /* Active button color */
 }
 .f-16{
-  font-size: 16px !important;
+  font-size: 18px !important;
 }
 .no_blog_image_found_insearch{
   display: flex;

@@ -192,6 +192,9 @@
     /* height: 250px; */
     margin: 10px 0px;
   }
+  .pinterest-layout{
+    column-count: 2;
+  }
 }
 
 

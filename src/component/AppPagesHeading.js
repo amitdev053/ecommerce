@@ -8,6 +8,7 @@ const AppPagesHeading = (props) => {
         fontSize: "25px",
         fontWeight: "700",
         margin: "0px",
+        padding: "0px",
        
       }}
     >

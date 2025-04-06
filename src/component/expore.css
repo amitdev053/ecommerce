@@ -1,10 +1,15 @@
 
 
   .pinterest-layout {
-    display: flex;
+    /* display: flex;
     justify-content: center;
-    flex-wrap: wrap;
+    flex-wrap: wrap; */
+
     /* max-width: 85%; */
+    column-count: 3;       /* Number of Pinterest-like columns */
+  column-gap: 16px;
+  /* width: 100%; */
+  /* padding: 10px; */
   }
   
   .column {
@@ -13,22 +18,29 @@
     margin: 10px;
     overflow: hidden;
     border-radius: 10px; 
-    height: 250px;
-    width: 31.3%;    
+    /* height: 250px; */
+    /* width: 31.3%;     */
     align-items: center;
     justify-content: center;
   }
   
-  .column img {
+  /* .column img {
     width: 350px; 
     margin-bottom: 10px; 
     border-radius: 10px; 
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); 
     transition: all 0.1s ease-in-out;
+  }  */
+
+  .column img {
+    width: 100%;           /* Take full width of the column */
+    margin-bottom: 16px;
+    border-radius: 8px;
+    display: block;
   } 
 
 
-  .column img:hover{
+  .column:hover img{
     transform: scale(1.5);
     transform-origin: center;
     
@@ -65,11 +77,6 @@
     transform: translate(0px , 0px);  
     
   }
-  .column:hover .column>img{
-    transform: scale(1.5);
-    transform-origin: center;
-    
-  }
   .column:hover {
     border:3px solid black;    
   }
@@ -102,45 +109,89 @@
   .width_31{
     width: 31% !important;
   }
+
+
+  .upcomming_images{
+    display: flex;
+        /* gap: 0px 5px; */
+        /* background: #f8f9fa; */
+        padding: 10px 0px;
+        /* border-radius: 50px; */
+        width: 41%;
+        overflow-x: auto;
+        /* justify-content: space-between; */
+        border-radius: 20px;
+        gap: 42px;
+    
+  }
+  .upcomming_images span{
+    background: #f8f9fa;
+    padding: 8px 10px 10px 10px;
+    border-radius: 20px;
+    font-family: system-ui;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+  }
+  .app_product_headline h1{
+    font-family: "Roboto";
+  }
+  .image_suggestion_text{
+    font-size: 12px !important;
+    color: #5a3e3ebf;
+    text-align: left;
+    font-weight: 400;
+    font-family: "Roboto";
+  }
   /* Styles for app-container  in mobile devices*/
   @media screen and (max-width: 999px) {
     .pinterest-layout{
     max-width: 100%;
     }
+    .app_product_headline{
+      max-width: 100% !important;
+      /* font-family: system-ui;
+      font-size: 18px; */
+    }
+    .product_view_icon{
+      position: relative;
+      right: 10px;
+    }
   }
   @media screen and (min-width: 1000px) and (max-width: 1199px) {
     .pinterest-layout{
-    max-width: 96%;
+    /* max-width: 96%; */
     }
     .column{
-      width: 27%;
+      /* width: 27%; */
     }
   }
 
 @media screen and (min-width: 751px) and (max-width : 992px){
   .column{
-    width: 30% !important;
-    height: 200px;
+    /* width: 30% !important; */
+    /* height: 200px; */
   }
 }
 @media screen and (min-width : 581px) and (max-width : 750px){
   .column{
-    width: 30% !important;
-    height: 240px;
+    /* width: 29% !important; */
+    /* height: 240px; */
   }
 }
 @media screen and (max-width : 580px){
   .column{
-    width: 45% !important;
-    height: 200px;
+    /* width: 45% !important; */
+    /* height: 200px; */
   }
 
 }
 @media screen and (max-width : 480px){
   .column{
-    width: 100% !important;
-    height: 250px;
+    /* width: 100% !important; */
+    /* height: 250px; */
     margin: 10px 0px;
   }
 }
+
 

@@ -14,13 +14,14 @@ import { handleShare } from "./HandleShare";
 const Explore = (props) => {
   // let content = [ "couples", "Fashion", "Sports", "Music", "Gaming", "Technology", "Health", "Finance", "Education", "Lifestyle"]
   let content = [
-    "kiss", "Fashion", "Sports", "Music", "Gaming", "Technology", "Health", "Finance", "Education", "Lifestyle", "Travel and Adventure",  "Art and Creativity", "hugs", "Nature and Wildlife", "Food and Culinary", "History and Culture","Fitness and Wellness", "Architecture and Design","Space and Astronomy", "Books and Literature", "Motivation and Productivity",  "Luxury and Lifestyle",  "Science and Innovation",   "Minimalism and Aesthetics", "Photography and Videography",  "New Year", "DIY and Crafting",  "Valentine", "Hobbies and Skills",  "Rose", "couples"
+    "kiss", "Fashion", "Sports", "Music", "Gaming", "Technology", "Health", "Finance", "Education", "Lifestyle", "Travel and Adventure",  "Art and Creativity", "hugs", "Nature and Wildlife", "Food and Culinary", "History and Culture","Fitness and Wellness", "Architecture and Design","Space and Astronomy", "Books and Literature", "Motivation and Productivity",  "Luxury and Lifestyle",  "Science and Innovation",   "Minimalism and Aesthetics", "romantic",  "dark couples", "DIY and Crafting",  "Valentine", "Hobbies and Skills",  "Rose", "couples"
   ];
 
 
   
 
   const [index, setIndex] = useState(0);
+  const [blogView, setBlogView] = useState(true);
   const [loader, setloader] = useState(true);
   const [images, setImages] = useState([]); // assume this is where you get your images
   const [imageStates, setImageStates] = useState([]);
@@ -41,7 +42,8 @@ const Explore = (props) => {
         // // console.log("products product.js", result);
         if(props.componentFrom === "home"){
 // console.log("routes run in home c")
-setImages(result.hits.splice(0, 6));
+console.log("explore images", result.hits);
+setImages(result.hits.splice(0, 7));
 
 }else{
           // console.log("routes not run in home c")
@@ -88,9 +90,72 @@ function addImageTouch(){
     return () => clearInterval(interval);
   }, []);
 
-  // useEffect(() => {
-  //   setImageStates(images.map(() => ({ loaded: false })));
-  // }, [images, index]);
+  // useEffect(() => {  
+  //   const imageColumns = document.querySelectorAll(".explore_image");
+
+  //   imageColumns.forEach((imageColumn, index) => {
+  //     const currentState = imageStates[index];
+  
+  //     if (!currentState?.loaded) {
+  //       imageColumn.style.height = "300px"; // temp height until image loads
+  //     } else {
+  //       imageColumn.style.height = ""; // Remove the fixed height
+  //     }
+  //   });
+
+    
+     
+  // }, [imageStates]);
+
+  useEffect(() => {
+    const imageColumns = document.querySelectorAll(".explore_image");
+  
+    imageColumns.forEach((imageColumn, index) => {
+      const currentState = imageStates[index];
+      const imageData = images[index];
+      const img = imageColumn.querySelector("img"); // Get the image element
+  
+      if (!currentState?.loaded && imageData) {
+        const columnWidth = imageColumn.offsetWidth; // Get actual width
+        const aspectRatio = imageData.imageHeight / imageData.imageWidth;
+        const scaledHeight = columnWidth * aspectRatio;
+  
+        imageColumn.style.height = `${scaledHeight}px`; // Set calculated height
+      } else {
+        imageColumn.style.height = ""; // Reset height when image is loaded
+      }
+      // if (img && img.complete) {
+      //   imageColumn.style.height = img.offsetHeight + "px";
+      // } else {
+      //   img.onload = () => {
+      //     imageColumn.style.height = img.offsetHeight + "px";
+      //   };
+      // }
+    });
+  }, [imageStates, images]); // rerun whenever images or states change
+  useEffect(() => {
+   setTimeout(() => {
+    const container = document.querySelector('.pinterest-layout');
+    const items = container.querySelectorAll('.explore_image');
+  
+    if (items.length < 3) return;
+  
+    const secondItem = items[1];
+    const thirdItem = items[2];
+  
+    const secondBottom = secondItem.offsetTop + secondItem.offsetHeight;
+    const thirdBottom = thirdItem.offsetTop + thirdItem.offsetHeight;
+  
+    // Check if second item has a large gap below it
+    const gapThreshold = 100; // adjust based on your layout
+  
+    if (thirdBottom - secondBottom > gapThreshold) {
+      const lastItem = items[items.length - 1];
+      container.insertBefore(lastItem, secondItem);
+    }
+   }, 500)
+  }, [images]); // Run after images are rendered
+
   useEffect(() => {
     setImageStates((prevStates) =>
       images.map((_, i) => prevStates[i] || { loaded: false })
@@ -150,6 +215,35 @@ function shareImage(image){
     }    
   }
 
+  function toggleBlog() {
+    
+    if (blogView === true) {
+      // blogs.reverse()
+      setBlogView(false)
+      setloader(true);
+
+      setTimeout(() => {
+        images.reverse();
+
+        setBlogView(false);
+        setloader(false);
+      }, 500);
+      document.getElementById("blogFilterBtn").style.backgroundColor = "black";
+      document.getElementById("blogFilterBtn").style.color = "white";
+    } else {
+      setloader(true);
+
+      setTimeout(() => {
+        images.reverse();
+
+        setBlogView(true);
+        setloader(false);
+      }, 500);
+
+      document.getElementById("blogFilterBtn").style.backgroundColor = "#eee";
+      document.getElementById("blogFilterBtn").style.color = "black";
+    }
+  }
 
   if (loader === true) {
     return (
@@ -160,16 +254,49 @@ function shareImage(image){
   } else {
     return (
       <>
- <div  className={props.componentFrom === "home" ? 'pinterest-layout' : 'container pinterest-layout mt-ps90'}>
+        {props.componentFrom !== "home" &&
+        <>
+            {/* <div
+          style={{
+            display: "flex",
+            flexDirection: "column",
+            justifyContent: "left",
+            alignItems: "left",
+            marginBottom: "20px",
+            marginTop: "90px",
+            maxWidth: "89%",
+            gap: "10px 0px",
+            padding: "0px 20px",
+          }}
+          className="container app_product_headline"
+        >
+          <AppPagesHeading heading={"Explore Image for " +  document.title.split(' ')[3]}  />
+          <div>
+          <span className="image_suggestion_text">Next every hours Upcoming images </span>
+     
+          <div class="upcomming_images">
+            <span className="app_product_headline_text">Music</span>
+            <span className="app_product_headline_text">Music</span>
+            <span className="app_product_headline_text">Music</span>
+            <span className="app_product_headline_text">Music</span>
+          </div>
+          </div>
+          
+        </div> */}
+        </>
+    }
+ <div  className={props.componentFrom === "home" ? 'container p-0 pinterest-layout ' : 'container pinterest-layout mt-ps90'}>
+ 
       {images.map((image, index) => {
         if (!imageStates[index]) return null; // add this line
         const { loaded } = imageStates[index];
 
         return (
-          <div className={props.componentFrom === "home" ? 'column position-relative explore_image width_31':'column position-relative explore_image'} key={image.id}>      
+          <div className={props.componentFrom === "home" ? 'column position-relative explore_image':'column position-relative explore_image'} key={image.id}>      
           
 
             <img
+            className="explore-image"
               src={image.largeImageURL}
               // onLoad={() =>
               //   setImageStates((prevStates) =>

@@ -80,18 +80,18 @@ function App() {
  <Routes>
  
   <Route path ='/' Component={Home}/>
-  <Route exact path ='/Hastags' Component={Hashtag}/>
+  {/* <Route exact path ='/Hastags' Component={Hashtag}/> */}
   <Route exact path ='/explore' Component={Explore}/>
-  <Route exact path ='/contact' Component={Contact}/>
-  <Route exact path ='/services' Component={Home}/>
-  <Route exact path ='/media' Component={Media}/>
+  {/* <Route exact path ='/contact' Component={Contact}/> */}
+  {/* <Route exact path ='/services' Component={Home}/> */}
+  {/* <Route exact path ='/media' Component={Media}/> */}
   <Route exact path ='/blogs' Component={Blogs} />
   <Route path ='/blogs/search' Component={Blogs} />
   <Route path ='/blogs/suggest' Component={Blogs} />
   <Route exact path ='/products' Component={Products}/>
-  <Route exact path ='/productcoursel' Component={Coursel}/>
-  <Route exact path ='/download' Component={Download}/>
-  <Route exact path ='/Login' Component={Login}/>
+  {/* <Route exact path ='/productcoursel' Component={Coursel}/> */}
+  {/* <Route exact path ='/download' Component={Download}/> */}
+  {/* <Route exact path ='/Login' Component={Login}/> */}
   <Route exact path ='/blog-detail/:blogId/:blogTitle' Component={BlogDetail}/>
 
 

@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef  } from "react";
+import { useState, useEffect, useRef , useCallback } from "react";
 import React from "react";
 import Loader from "./Loader";
 import Alert from "./Alert";
@@ -27,9 +27,13 @@ const Blogs = (props) => {
   // const[destktopSearch, setDesktopSearch] = useState(undefined)
   const [searchPageString, setSearchPageString] = useState(undefined);
   const [heading, setHeading] = useState(null)
+  const blogRowRef = useRef(null);
+  const blogColRef  = useRef([])
+  const [pageState, setPageState] = useState(1)
   
  
-  const getBlogs = (forSearch = false, forSearchQuery = "") => {
+  const getBlogs = (forSearch = false, forSearchQuery = "", page = pageState) => {
+    console.log("getblogs run", pageState)
     let getBlogUrl
     console.log("blog page function", topic)
     setloader(true);
@@ -57,9 +61,11 @@ const Blogs = (props) => {
         icon.style.backgroundColor = "rgba(43, 52, 69, 0.1)"
        })
     }
+    let finalUrl = getBlogUrl + `&page=${page}`
+    console.log("checking getBlogUrl", getBlogUrl, finalUrl)
   
     // console.log("manageing blogs", getBlogUrl, forSearchQuery)
-    axios.get(getBlogUrl).then((blog) => {
+    axios.get(finalUrl).then((blog) => {
       setloader(false);    
       if(props.componentFrom === "home"){
         // console.log("routes run in home c")
@@ -67,6 +73,7 @@ const Blogs = (props) => {
         
         }else{  
       setBlogs(blog.data);
+      // setBlogs(prev => [...prev, ...blog.data]);
         }
     });
   };
@@ -83,6 +90,7 @@ const Blogs = (props) => {
   
 
   function displayDynamicBlogs() {
+    setPageState(1)
     let tagNames = document.querySelectorAll('.app_blog_tag_text');
   
     tagNames.forEach((tag) => {
@@ -351,6 +359,8 @@ let tagList = [
   "Firebase",
 ];
 
+
+
   // if (loader === true) {
   //   return (
   //     <>
@@ -410,7 +420,7 @@ let tagList = [
 
 
 
-      <div className="row app_blog_main_container px-2" id="app-blog-Container">
+      <div className="row app_blog_main_container px-2" id="app-blog-Container" ref={blogRowRef}>
         {/* Blog Columns Start Here */}
 
         {loader === true ? (
@@ -451,7 +461,7 @@ let tagList = [
            {/* // console.log("enter in blogs map function", blog); */}
             return (
               <>
-                <div className="col-md-4 col-sm-12 col-lg-3 blog_content_border app_blogs" key={blog.id + i}>
+                <div className="col-md-4 col-sm-12 col-lg-3 blog_content_border app_blogs" key={blog.id + i} ref={(el)=> (blogColRef.current[i] = el)}>
                 <Link to={"/blog-detail/"+ blog.id  + "/"  + convertTextIntoUrl(blog.title)}>
                 <div className="app_blog_cover_container ">
                 <div className="galleryimg position-relative">

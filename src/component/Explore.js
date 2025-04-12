@@ -1,5 +1,5 @@
 import "./expore.css";
-import React, { useEffect, useState, useContext } from "react";
+import React, { useEffect, useState, useContext, useRef } from "react";
 import Loader from "./Loader";
 import ScrollTag from "./ScrollTag"; // Add this line to import ScrollTag
 import AppPagesHeading from "./AppPagesHeading"; // Add this line to import AppPagesHeading
@@ -25,6 +25,8 @@ const Explore = (props) => {
   const [loader, setloader] = useState(true);
   const [images, setImages] = useState([]); // assume this is where you get your images
   const [imageStates, setImageStates] = useState([]);
+  const blogColRef = useRef([])
+  const [pageState, setPageState] = useState(1)
 
  
 
@@ -32,6 +34,7 @@ const Explore = (props) => {
 
 
   function getProducts(url) {
+    // let finalUrl = url + `&page=${page}`
     fetch(url)
       .then((response) => {
         setloader(false);
@@ -47,7 +50,8 @@ setImages(result.hits.splice(0, 7));
 
 }else{
           // console.log("routes not run in home c")
-          setImages(result.hits);
+          // setImages(result.hits);
+          setImages(prev => [...prev, ...result.hits]);
           // console.log("explore images", result.hits);
 
         }
@@ -245,6 +249,42 @@ function shareImage(image){
     }
   }
 
+  useEffect(() => {
+  
+    const observer = new IntersectionObserver(function(entries){
+        if(entries[0].isIntersecting){
+          // observer.unobserve(entries[0].target)
+          // pageState++
+          // setPageState(prevState => prevState + 1);        
+            setPageState((prevState) => {
+              let newPageState = prevState + 1;
+            //   // console.log("now intersecting", newPageState);
+            //   getProducts(false, "", newPageState);
+            let currentCalculatedIndex = updatedHours();
+            setIndex(updatedHours());
+            getProducts(`https://pixabay.com/api/?key=45283300-eddb6d21a3d3d06f2a2381d7d&q=${content[currentCalculatedIndex]}&image_type=photo&page=${newPageState}`);
+              return newPageState;
+            });     
+            console.log("now intersecting")  
+    // document.title = `Explore images for ${content[currentCalculatedIndex]}`;
+    // Fetch images for the initial index
+          
+        }
+  
+    })
+  
+    setTimeout(()=>{
+      let lastElement = blogColRef.current[blogColRef.current.length - 1]
+      observer.observe(lastElement)
+  
+    }, 100)
+    return ()=>{
+      
+      observer.disconnect()
+    }
+   
+  },[images.length])
+
   if (loader === true) {
     return (
       <>
@@ -292,7 +332,7 @@ function shareImage(image){
         const { loaded } = imageStates[index];
 
         return (
-          <div className={props.componentFrom === "home" ? 'column position-relative explore_image':'column position-relative explore_image'} key={image.id}>      
+          <div ref={(el)=> (blogColRef.current[index] = el)} className={props.componentFrom === "home" ? 'column position-relative explore_image':'column position-relative explore_image'} key={image.id}>      
           
 
             <img

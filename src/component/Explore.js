@@ -56,7 +56,7 @@ setImages(result.hits.splice(0, 7));
             ...img,
             _orderIndex: images.length + i, // preserve global sequence
           }));
-          setImages(prev => [  ...prev, ...result.hits]);
+          setImages(prev => [  ...prev, ...indexedHits]);
           // setImages(prev => [  ...prev, ...indexedHits]);
           // console.log("explore images", result.hits);
 
@@ -273,6 +273,9 @@ function shareImage(image){
             getProducts(`https://pixabay.com/api/?key=45283300-eddb6d21a3d3d06f2a2381d7d&q=${content[currentCalculatedIndex]}&image_type=photo&page=${newPageState}`);
               return newPageState;
             });     
+            
+    // document.title = `Explore images for ${content[currentCalculatedIndex]}`;
+    // Fetch images for the initial index
           
         }
   
@@ -281,11 +284,10 @@ function shareImage(image){
     setTimeout(()=>{
       let lastElement = blogColRef.current[blogColRef.current.length - 5]
     
-      // for get the element by Id after the Id in element id={`blogColId${index}`}
+      // for get the element by Id after the Id in id={`blogColId${index}`}
       // const elements = document.querySelectorAll(`[id^="blogColId"]`)
       // let lastElement = elements[elements.length - 15];
-
-      // console.log("lastElement", lastElement)
+      console.log("lastElement", lastElement)
       observer.observe(lastElement)
   
     }, 100)

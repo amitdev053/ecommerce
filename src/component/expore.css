@@ -158,34 +158,10 @@
       right: 10px;
     }
   }
-  @media screen and (min-width: 1000px) and (max-width: 1199px) {
-    .pinterest-layout{
-    /* max-width: 96%; */
-    }
-    .column{
-      /* width: 27%; */
-    }
-  }
+ 
 
-@media screen and (min-width: 751px) and (max-width : 992px){
-  .column{
-    /* width: 30% !important; */
-    /* height: 200px; */
-  }
-}
-@media screen and (min-width : 581px) and (max-width : 750px){
-  .column{
-    /* width: 29% !important; */
-    /* height: 240px; */
-  }
-}
-@media screen and (max-width : 580px){
-  .column{
-    /* width: 45% !important; */
-    /* height: 200px; */
-  }
 
-}
+
 @media screen and (max-width : 480px){
   .column{
     /* width: 100% !important; */

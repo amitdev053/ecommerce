@@ -27,6 +27,7 @@ const Explore = (props) => {
   const [imageStates, setImageStates] = useState([]);
   const blogColRef = useRef([])
   const [pageState, setPageState] = useState(1)
+  const exploreRef = useRef(null)
 
  
 
@@ -51,7 +52,12 @@ setImages(result.hits.splice(0, 7));
 }else{
           // console.log("routes not run in home c")
           // setImages(result.hits);
-          setImages(prev => [...prev, ...result.hits]);
+          const indexedHits = result.hits.map((img, i) => ({
+            ...img,
+            _orderIndex: images.length + i, // preserve global sequence
+          }));
+          setImages(prev => [  ...prev, ...result.hits]);
+          // setImages(prev => [  ...prev, ...indexedHits]);
           // console.log("explore images", result.hits);
 
         }
@@ -252,8 +258,10 @@ function shareImage(image){
   useEffect(() => {
   
     const observer = new IntersectionObserver(function(entries){
+      console.log("entry point of intersect", entries, entries[0].isIntersecting)
         if(entries[0].isIntersecting){
-          // observer.unobserve(entries[0].target)
+          console.log("now intersecting")  
+          observer.unobserve(entries[0].target)
           // pageState++
           // setPageState(prevState => prevState + 1);        
             setPageState((prevState) => {
@@ -261,20 +269,23 @@ function shareImage(image){
             //   // console.log("now intersecting", newPageState);
             //   getProducts(false, "", newPageState);
             let currentCalculatedIndex = updatedHours();
-            setIndex(updatedHours());
+            // setIndex(updatedHours());
             getProducts(`https://pixabay.com/api/?key=45283300-eddb6d21a3d3d06f2a2381d7d&q=${content[currentCalculatedIndex]}&image_type=photo&page=${newPageState}`);
               return newPageState;
             });     
-            console.log("now intersecting")  
-    // document.title = `Explore images for ${content[currentCalculatedIndex]}`;
-    // Fetch images for the initial index
           
         }
   
     })
   
     setTimeout(()=>{
-      let lastElement = blogColRef.current[blogColRef.current.length - 1]
+      let lastElement = blogColRef.current[blogColRef.current.length - 5]
+    
+      // for get the element by Id after the Id in element id={`blogColId${index}`}
+      // const elements = document.querySelectorAll(`[id^="blogColId"]`)
+      // let lastElement = elements[elements.length - 15];
+
+      // console.log("lastElement", lastElement)
       observer.observe(lastElement)
   
     }, 100)
@@ -325,7 +336,7 @@ function shareImage(image){
         </div> */}
         </>
     }
- <div  className={props.componentFrom === "home" ? 'container p-0 pinterest-layout ' : 'container pinterest-layout mt-ps90'}>
+ <div  className={props.componentFrom === "home" ? 'container p-0 pinterest-layout ' : 'container pinterest-layout mt-ps90'} ref={exploreRef}>
  
       {images.map((image, index) => {
         if (!imageStates[index]) return null; // add this line

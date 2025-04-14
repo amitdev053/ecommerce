@@ -88,7 +88,7 @@ function addImageTouch(){
     setIndex(updatedHours());
     document.title = `Explore images for ${content[currentCalculatedIndex]}`;
     // Fetch images for the initial index
-    getProducts(`https://pixabay.com/api/?key=45283300-eddb6d21a3d3d06f2a2381d7d&q=${content[currentCalculatedIndex]}&image_type=photo&page=1`);
+    getProducts(`https://pixabay.com/api/?key=45283300-eddb6d21a3d3d06f2a2381d7d&q=${content[currentCalculatedIndex]}&image_type=photo`);
     
     
     addImageTouch();

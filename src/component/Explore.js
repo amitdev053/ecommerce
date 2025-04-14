@@ -57,6 +57,7 @@ setImages(result.hits.splice(0, 7));
             _orderIndex: images.length + i, // preserve global sequence
           }));
           setImages(prev => [  ...prev, ...indexedHits]);
+          console.log("indexhits", indexedHits, images)
           // setImages(prev => [  ...prev, ...indexedHits]);
           // console.log("explore images", result.hits);
 
@@ -87,7 +88,7 @@ function addImageTouch(){
     setIndex(updatedHours());
     document.title = `Explore images for ${content[currentCalculatedIndex]}`;
     // Fetch images for the initial index
-    getProducts(`https://pixabay.com/api/?key=45283300-eddb6d21a3d3d06f2a2381d7d&q=${content[currentCalculatedIndex]}&image_type=photo`);
+    getProducts(`https://pixabay.com/api/?key=45283300-eddb6d21a3d3d06f2a2381d7d&q=${content[currentCalculatedIndex]}&image_type=photo&page=1`);
     
     
     addImageTouch();

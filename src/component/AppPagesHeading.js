@@ -9,10 +9,15 @@ const AppPagesHeading = (props) => {
         fontWeight: "700",
         margin: "0px",
         padding: "0px",
+        whiteSpace: "nowrap",
+    overflow: "hidden",
+    textOverflow: "ellipsis",
+    maxWidth: "238px"
        
       }}
     >
       {props.heading}
+      
     </h1>
   
   )

@@ -254,6 +254,7 @@ const SearchBlogs = (props) => {
             }
            
             const postSearchRequest = (content, clickedElement,  showSearch) => {
+              console.log("caught parameter", content, clickedElement, showSearch)
               let blogHomeIcon = document.querySelectorAll('.blog_home')
               Array.from(blogHomeIcon).forEach((icon)=>{
                icon.style.backgroundColor = "#ffffff"
@@ -269,9 +270,12 @@ const SearchBlogs = (props) => {
               searchRef.current.value = content;
               props.setloader(true);
               props.setHeading(content)
+              
+              const newSearchValue = content.replace(/\s+/g, '');
+              let searchText = encodeURIComponent(newSearchValue);
               // console.log("checking content", content);
               //   https://dev.to/api/articles?tag=javascript&top=1
-              let getBlogUrl = `https://dev.to/api/articles?tag=${content}`;
+              let getBlogUrl = `https://dev.to/api/articles?tag=${newSearchValue}`;
               // console.log("getBlogUrl", getBlogUrl);
               axios.get(getBlogUrl).then((searchDetails) => {
                 props.setloader(false);
@@ -306,7 +310,7 @@ const SearchBlogs = (props) => {
               // console.log("post seatch content", goSearchIcon);
               if(searchText !== ""){
               console.log("handleSearch request", searchText)
-              postSearchRequest(searchText, getUrlKey);
+              postSearchRequest(getUrlKey, getUrlKey);
               }
             };
                      

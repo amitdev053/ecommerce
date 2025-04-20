@@ -22,7 +22,13 @@
     /* width: 31.3%;     */
     align-items: center;
     justify-content: center;
+    border:3px solid white;   
+    
   }
+  .column:hover {
+    border:3px solid black;    
+  }
+
   
   /* .column img {
     width: 350px; 
@@ -41,8 +47,8 @@
 
 
   .column:hover img{
-    transform: scale(1.5);
-    transform-origin: center;
+    /* transform: scale(1.5); */
+    /* transform-origin: center; */
     
   } 
 
@@ -76,9 +82,6 @@
   .column:hover .explore_icons{
     transform: translate(0px , 0px);  
     
-  }
-  .column:hover {
-    border:3px solid black;    
   }
 
   .explore_fonts{

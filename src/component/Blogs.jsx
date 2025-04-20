@@ -136,6 +136,7 @@ if(urlParams.size > 0){
 getBlogs(true, searchText)
 
 }else{
+  topic="figma"
 
   getBlogs();
 }

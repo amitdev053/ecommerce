@@ -911,6 +911,12 @@ margin: 0px 0px 0px 10px !important;
   font-size: 14px;
   width: 80% !important;
 }
+
+.Toastify__close-button{
+  align-self: anchor-center !important;
+  position:  relative !important;
+  top: -2px;
+ }
 .app_product_headline{
   padding:0px 0px 10px 0px;
 }
@@ -1804,10 +1810,7 @@ color: #000203;
   
 }
 
-/* .Toastify__close-button{
-  position: relative;
-  top: 3px;
-} */
+
 
 @media screen and (min-width : 993px) and (max-width : 1199px){ 
   .gallerycol{

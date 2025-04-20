@@ -55,9 +55,15 @@ setImages(result.hits.splice(0, 7));
           const indexedHits = result.hits.map((img, i) => ({
             ...img,
             _orderIndex: images.length + i, // preserve global sequence
-          }));
-          setImages(prev => [  ...prev, ...indexedHits]);
-          console.log("indexhits", indexedHits, images)
+          }));    
+        
+          // setImages(prev => [  ...prev, ...indexedHits]);
+          setImages((prevImages) => {
+            const existingIds = new Set(prevImages.map((img) => img.id));
+            const uniqueNewImages = indexedHits.filter((img) => !existingIds.has(img.id));
+            return [...prevImages, ...uniqueNewImages];
+          });
+          // console.log("indexhits", indexedHits, images)
           // setImages(prev => [  ...prev, ...indexedHits]);
           // console.log("explore images", result.hits);
 

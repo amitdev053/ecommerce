@@ -220,7 +220,7 @@ console.log("on every time")
     })
     setSearchPageString("noSearch")
     // setHeading(originalTopic)
-    topic = "angular"
+    topic = "figma"
     getBlogs()
     if(document.getElementById('searchTagText')){
       console.log("input placeholder changed")

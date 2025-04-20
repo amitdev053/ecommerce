@@ -7,7 +7,7 @@ import ProductListView from "./ProductListView";
 import { json } from "react-router-dom";
 import Alert from "./Alert"
 import { useLocation, useParams} from 'react-router-dom'
-import ColorThief from 'color-thief-react';
+
 import 'react-toastify/dist/ReactToastify.css';
 import { changeProdiuctView } from './CustomHook'
 import { CartContext } from './CartContext';
@@ -33,8 +33,35 @@ export default function Products(props) {
   const [imageLoaded, setImageLoaded] = useState(false);
   const { addToCart } = useContext(CartContext);
   const [isFavorite, setIsFavorite] = useState(false);
+   const [dynamicStyle, setDynamicStyle] = useState(true)
+  
+  
  
-
+   useEffect(()=>{
+      
+    let productLikeElements = document.querySelectorAll(".product_like")  
+      if(dynamicStyle){
+        Array.from(productLikeElements).forEach((element) => {
+          console.log("element like", element)
+          element.style.background = '#f8f9fa'; // Change text color to blue
+          element.style.padding = '8px 8px 6px 8px'; // Change font size to 18px
+          element.style.borderRadius = '50%'; // Change font size to 18px
+        
+        });
+      }else{
+        Array.from(productLikeElements).forEach((element) => {
+          element.style.removeProperty("background")
+          element.style.removeProperty("padding")
+          element.style.removeProperty("border-radius")
+        
+        });
+      
+      }
+  
+  
+  
+    
+  })
  
 
  const handleImageLoad = () => {
@@ -201,7 +228,7 @@ const handleZoomImage = ()=>{
 
     // Handle pinch zooming
     hammer.on('pinch', (event) => {
-      // console.log("pinch event", event)
+      console.log("pinch event", event)
       const newScale = currentScale * event.scale;
       image.style.transform = `scale(${newScale})`; // Apply zoom
       image.style.transition = 'none'; // Disable smooth transitions during pinch
@@ -220,6 +247,7 @@ const handleZoomImage = ()=>{
 useEffect(()=>{
   handleZoomImage()
 }, [])
+
 
 function ProductImageComponent({product}){
   

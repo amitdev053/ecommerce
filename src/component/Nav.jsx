@@ -25,6 +25,9 @@ export default function Navbar({trackCart}) {
   const [cartitemsindex, setcartitemsindex] = useState()
   const [cartQuantity, setCartQuantity] = useState(1)
   const [cartProcess , setCartProcess] = useState(false)
+ 
+
+
   
 
 

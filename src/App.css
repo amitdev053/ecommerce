@@ -652,7 +652,7 @@ color:#5a3e3ebf;
   top: 5px;
   left: 1px;  
   color: white;
-  padding: 2px 10px 3px 10px;
+  padding: 3px 4px;
   border-radius: 8px;
   font-size: 14px;
   display: flex;
@@ -662,23 +662,31 @@ color:#5a3e3ebf;
   transition: all 0.2s ease-in-out;
 }
 .productprice strong{
-  background-color: black;
-  padding: 6px 12px;
-  border-radius: 5px;
+  background-color: #f8f9fa;
+  padding: 5px 12px;
+  border-radius: 50px;
+  color: black;
 }
 .productprice date{
-  background-color: black;
+  background-color: #f8f9fa;
   padding: 6px 12px;
-  border-radius: 5px;
+  border-radius: 50px;
+  color: black;
+  font-weight: bold;
 }
 .productprice .product_like{
   color: black;
   cursor: pointer;
   transition: all 0.3s ease-in-out;
   font-size: 18px;
+  position: relative;
+  right: 0;
+
+  
 }
 .productprice .product_like:hover{
-transform: scale(1.2);
+/* transform: scale(1.2); */
+/* color: white; */
 }
 .gallerycol:hover .productprice{
   opacity: 100% !important;

@@ -12,7 +12,7 @@ import ScrollTag from "./ScrollTag";
 import AppPagesHeading from "./AppPagesHeading";
 import { Helmet } from 'react-helmet';
 // react
-let topic = "figma"
+let topic = "angular"
 let originalTopic = "angular"
 let title = `Explore ${topic.split('')[0].toUpperCase() + topic.split('').slice(1, topic.length).join("")}: | Market Shops`;
 const description = `ngrok provides a secure and easy-to-use solution for exposing your local API to the world. Whether you're developing a web application, testing APIs, or integrating with third-party services, ngrok has got you covered.`;
@@ -136,7 +136,7 @@ if(urlParams.size > 0){
 getBlogs(true, searchText)
 
 }else{
-  topic="figma"
+  topic="angular"
 
   getBlogs();
 }
@@ -221,7 +221,7 @@ console.log("on every time")
     })
     setSearchPageString("noSearch")
     // setHeading(originalTopic)
-    topic = "figma"
+    topic = "angular"
     getBlogs()
     if(document.getElementById('searchTagText')){
       console.log("input placeholder changed")

@@ -13,6 +13,7 @@ import {Helmet} from "react-helmet"
 
 
 let blogTitile = "";
+
 function BlogBack() {
   const { isPlaying, isPaused, setIsPaused ,playBlog,  samePage } = useContext(BlogAudioContext);
   const [heading, setHeading] = useState("");
@@ -71,8 +72,9 @@ function BlogBack() {
   function readBlog() {
     // console.log("set blogs")
     const textElement = document.getElementById("textToSpeak");
-    
-  playBlog(heading, textElement)
+    let blogId = document.getElementById("blogIdDetails").innerText
+    console.log("textElement", blogId);
+  playBlog(blogId ,heading, textElement)
 
 
   }
@@ -242,6 +244,7 @@ const BlogDetail = () => {
       blogDetail.push(bDetails.data);
       // blogTitile = blogDetail[0].title;
       blogTitile = bDetails.data.title;
+      
       console.log("blog Details response", bDetails.data.title);
       setTimeout(() => {
         setStyleCode();
@@ -323,7 +326,7 @@ const BlogDetail = () => {
                 {" "}
                 {blogDetail[0].title}
               </h1>
-
+<span style={{display: "none"}} id="blogIdDetails"> {blogDetail[0].id}</span>
               <div id="textToSpeak">
                 <span
                   className="gallerytitle productname productdiscripation blog_detail_content_img"

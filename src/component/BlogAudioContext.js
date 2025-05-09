@@ -145,7 +145,7 @@ export function BlogAudioProvider({ children }) {
 
   
 
-  const playBlog = (blogTitle , blogText, restore) => {
+  const playBlog = (blogId, blogTitle , blogText, restore) => {
     if (utteranceRef.current) {
       window.speechSynthesis.cancel(); // Stop any existing speech
     }
@@ -156,7 +156,7 @@ export function BlogAudioProvider({ children }) {
       .getVoices()
       .find((v) => v.lang === "en-US") || window.speechSynthesis.getVoices()[0];
   // console.log("current voice", utteranceRef.current.voice, window.speechSynthesis.getVoices())
-    setCurrentBlog({ title: blogTitle, text: blogText.innerText });
+    setCurrentBlog({ blogId: blogId ,title: blogTitle, text: blogText.innerText });
     setIsPlaying(true);
     setIsPaused(true);
     setSamePage(false)

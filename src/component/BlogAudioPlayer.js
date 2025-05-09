@@ -1,10 +1,12 @@
 import React, { useContext } from "react";
 import { BlogAudioContext } from "./BlogAudioContext";
-import { Link, useMatch } from "react-router-dom";
+import { Link, useMatch, useNavigate } from "react-router-dom";
+import e from "cors";
 
 export default function BlogAudioPlayer() {
   const { isPlaying, currentBlog, isPaused, stopBlog, togglePlayPause, samePage } = useContext(BlogAudioContext);
   const matchRoute  = useMatch("/blog-detail/:blogId/:blogTitle")
+  const navigate = useNavigate();
   const style = {
     playerContainer: {
     position: "fixed",
@@ -66,6 +68,15 @@ export default function BlogAudioPlayer() {
     return null; // Hide if nothing is playing
     }   
 
+    function navigateBlogDetailPage(event){
+      event.stopPropagation();
+      // console.log("navigating to blog detail page", currentBlog)
+      const blogId = currentBlog.blogId.trim();
+      const blogTitle = currentBlog.title;
+      const url = `/blog-detail/${blogId}/${blogTitle}`;
+      // window.location.href = url;
+      navigate(url);
+    }
 
 
     // console.log("checking same page", samePage)
@@ -73,15 +84,17 @@ export default function BlogAudioPlayer() {
 
     
   return (
-    <div className="player_container" style={style.playerContainer}>
-      <p style={style.playerTitle}><span>Now Playing: <nbsp></nbsp> </span> <div style={style.playerPlayTitle}> {  (currentBlog.title == "")? Object.keys(sessionStorage)[0] :currentBlog.title }</div>   <i class="fa-solid fa-xmark play_close" style={style.playerCloseButton} onClick={stopBlog} ></i> </p> 
+    // <Link to={`/blog-detail/${currentBlog.id}/${currentBlog.title}`} className="player_container" style={style.playerContainer}>
+    <div className="player_container" style={style.playerContainer} onClick={(event)=>{navigateBlogDetailPage(event)}}>
+      <p style={style.playerTitle}><span>Now Playing: <nbsp></nbsp> </span> <div style={style.playerPlayTitle}> {  (currentBlog.title == "")? Object.keys(sessionStorage)[0] :currentBlog.title }</div>   <i class="fa-solid fa-xmark play_close" style={style.playerCloseButton} onClick={(event)=>{
+        event.stopPropagation(); stopBlog()}} ></i> </p> 
       <div className="player_action_btns" style={style.playerActionButtons}>
-      <button onClick={togglePlayPause} style={style.playerStopButton} className="player_button">
+      <button onClick={(e)=>{ e.stopPropagation() ;togglePlayPause()}} style={style.playerStopButton} className="player_button">
       <i className={`${
                  isPaused ? "fa-solid fa-pause" : "fa-solid fa-play"
                 }`}></i>
       </button>
-      <button onClick={stopBlog} style={style.playerStopButton} className="player_button">
+      <button onClick={(e)=>{e.stopPropagation();stopBlog()}} style={style.playerStopButton} className="player_button">
       <i class="fa-solid fa-stop"></i>
       </button>
       {/* <button onClick={stopBlog} style={style.playerStopButton}  disabled={isPlaying ? "true" : "false"}>
@@ -91,6 +104,7 @@ export default function BlogAudioPlayer() {
 
       </div>
     </div>
+    // </Link>
     
 
  

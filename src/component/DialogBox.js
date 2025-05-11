@@ -1,11 +1,12 @@
 import React, { useState } from 'react'
 
 const DialogBox = ({cartProcess}) => {
-    
+    // console.log("cartProcess", cartProcess)
  
   return (
   
     <>
+    
     <div className="container-fluid dialog_container_fluid" id="confirmDialogBox">
         <div className="row dialog_row">
             <div className="col-12 dilaog_col">

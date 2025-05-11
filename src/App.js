@@ -22,6 +22,7 @@ import { CartProvider } from './component/CartContext';
 import { BlogAudioProvider } from './component/BlogAudioContext';
 import BlogAudioPlayer from "./component/BlogAudioPlayer";
 import { BlogAudioContext } from './component/BlogAudioContext';
+import Tools from './component/Tools'; 
 
 
 
@@ -89,6 +90,7 @@ function App() {
   <Route path ='/blogs/search' Component={Blogs} />
   <Route path ='/blogs/suggest' Component={Blogs} />
   <Route exact path ='/products' Component={Products}/>
+  <Route exact path ='/tools' Component={Tools}/>
   {/* <Route exact path ='/productcoursel' Component={Coursel}/> */}
   {/* <Route exact path ='/download' Component={Download}/> */}
   {/* <Route exact path ='/Login' Component={Login}/> */}

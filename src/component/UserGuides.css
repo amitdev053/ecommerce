@@ -1,0 +1,150 @@
+/* Backdrop container (covers full screen, no scroll itself) */
+#UserGuides {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: 1000;
+    background: rgba(0, 0, 0, 0.6);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: 'Roboto';
+  }
+.user_guides_container_fluid{
+    background-color: rgba(43, 52, 69, 0.1) !important;
+    backdrop-filter: blur(2px) ;
+    
+    
+}
+.user_guide_app{
+   /* left: 45%; */
+    left: 45% !important;
+    top: 40% !important; 
+    border: 2px solid black;
+    border-top: 5px solid white;
+    width: 30px;
+    height: 30px;
+  
+}
+.user_guides_row{
+    width: 40%;
+    /* height: 50%; */
+
+}
+.user_guide_heading{
+    font-weight: 800;
+}
+.user_guides_row .productdiscripation{
+    color: #938f8f;
+    font-weight: 500;
+    font-family: 'Roboto';
+    font-size: 13px !important;
+    line-height: 30px;
+    height: 30dvh;
+    /* height: 67% ; */
+    overflow-y: auto; 
+    animation: fadeIn 0.3s ease-in-out backwards; 
+}
+
+.productdiscripation ul{
+    display: flex;
+        flex-direction: column;
+        text-align: left;
+        list-style: inside;
+        color: black;
+    padding: 0;
+}
+.productdiscripation ul li p{
+    color: #938f8f;
+    margin-bottom: 0;
+    display:contents !important;
+}
+.productdiscripation ul li p strong{
+    color: black;
+}
+.productdiscripation p strong{
+    color: black;
+}
+
+.usage_guide{
+    text-align: justify;
+    font-size: 14px;
+    /* color: black; */
+    font-weight: 700;
+    margin-bottom: 10px;
+    display: flex;
+        align-items: center;
+        gap: 5px;
+
+}
+.usage_guide i{
+    color: black;
+}
+
+/* Define the fadeIn animation */
+@keyframes fadeIn {
+    0% {
+        transform: translate(0, 100px);
+        opacity: 0;
+    }
+    100% {
+        transform: translate(0, 0px);
+        opacity: 1;
+    }
+}
+
+.guides_button{
+    width: 20% !important;
+    padding: 15px 15px 17px 15px !important;
+    /* font-family: 'Roboto'; */
+}
+
+
+/* apploader container */
+.app_loader_container{
+    height: 20dvh;
+    position: relative;
+}
+
+/* apploader container */
+@media screen and (max-width: 999px) {
+    .user_guides_row{
+        width: 60%;
+        transform: translate(0%, 37px);
+    }
+    .productdiscripation::-webkit-scrollbar {
+        width: 8px;
+        height: 8px;
+      }
+      
+      .productdiscripation::-webkit-scrollbar-thumb {
+        background-color: #fff; /* white scrollbar thumb */
+        border-radius: 10px;
+      }
+      
+      .productdiscripation::-webkit-scrollbar-track {
+        background-color: transparent; /* transparent track */
+      }
+    
+}
+
+@media screen and (max-width: 680px) {
+    .user_guides_row{
+        width: 80%;
+    }
+    .guides_button{
+        width: 36% !important;
+        
+    }
+    
+    
+}
+
+@media screen and (max-width: 520px) {
+    .user_guides_row{
+        width: 100%;
+    }
+    
+}

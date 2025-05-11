@@ -102,17 +102,20 @@ window.addEventListener('resize', handleResize);
       
   }
   function closeConfirmBox(CallingForOrder = false) {
-    document
-      .getElementById("confirmDialogBox")
+    console.log("closeConfirmBox")
+    document.getElementById("confirmDialogBox")
       .classList.remove("dialog_container_fluid_show");
+
+      // if(!document.getElementById("confirmOrderBox").hasAttribute("fromInfo")){
     document
       .getElementById("userCartContainer")
       .classList.add("show_cart_container");
-
+      // }
       if(CallingForOrder){
         document
         .getElementById("confirmOrderBox")
         .classList.remove("dialog_container_fluid_show");
+        // document.getElementById("confirmOrderBox").removeAttribute("fromInfo")
       }
   }
   function openCart(event) {
@@ -315,6 +318,7 @@ useEffect(() => {
 }, [userLike]); //userCart
 
   function clearCart() {
+    console.log("close cart")
     document.getElementById("confirmDialogBox").classList.add("dialog_container_fluid_show")
     document.getElementById("confirmDialogBox").addEventListener("click", (event) => {
       if (event.target === document.getElementById("confirmDialogBox")) {
@@ -429,7 +433,7 @@ console.log("navbar hit", navbarIcon)
 
 navbarContent.addEventListener("click", (event)=>{
 
-  if(event.target.id === "media" || event.target.id === "hastags" || event.target.id === "home" || event.target.id === "cartarea" || event.target.id === "cartText" || event.target.id === "carticon" || event.target.id === "cartcount" || event.target.id === "appBlogs" || event.target.id === "appexplore" || event.target.id === "navbarSupportedContent" ){
+  if(event.target.id === "media" || event.target.id === "hastags" || event.target.id === "home" || event.target.id === "cartarea" || event.target.id === "cartText" || event.target.id === "carticon" || event.target.id === "cartcount" || event.target.id === "appBlogs" || event.target.id === "appexplore" || event.target.id === "appToolBar" || event.target.id === "navbarSupportedContent" ){
     // console.log("condition inside closeNavbar")
     document.getElementById('navbarSupportedContent').classList.remove('active_navbar')    
   }
@@ -620,6 +624,18 @@ useEffect(()=>{
                     id="appexplore"
                   >
                     Explore
+                  </Link>
+                </li>
+
+                <li className="nav-item">
+                  <Link
+                    className={`${
+                      url === "/tools" ? "nav-link active" : "nav-link"
+                    }`}
+                    to="/tools"
+                    id="appToolBar"
+                  >
+                    Tools
                   </Link>
                 </li>
 

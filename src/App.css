@@ -421,11 +421,7 @@ z-index: 999;
 transform: translate(120%,0%);
 transition: all 0.1s ease-in-out;
 }
-.like_container_fluid{
-  transform: translate(0%,-150%);
-  padding: 70px 0px 0px 0px;
-  background-color: #ffffffcf;
-}
+
 .show_cart_container{
   transform: translate(0%,0%);
 transition: all 0.1s ease-in-out;
@@ -444,17 +440,25 @@ transition: all 0.1s ease-in-out;
     align-items: center;
     
 }
+.like_container_fluid{
+  transform: translate(0%,550%);
+  padding: 70px 0px 0px 0px;
+  background-color: #ffffffcf;
+  transition: all 0.5s ease-in-out;
+}
 .like_inside_container{
   padding: 5px 20px !important;
-  transform: translate(0%,-150%);
+  transform: translate(0%,550%);
   max-width: 80%;
-  transition: all 0.1s ease-in-out;
+  transition: all 0.5s ease-in-out;
+  opacity: 0;
 
 }
 
 .show_like_container{
   transform: translate(0%,0%);
-  transition: all 0.1s ease-in-out;
+  transition: all 0.5s ease-in-out;
+  opacity: 1 !important;
 }
 .blinking_aninmation{
   animation: blink 1s infinite;
@@ -802,16 +806,16 @@ padding: 10px 10px;
   z-index: 9999;
   display: flex !important;
   /* display: none; */
-  transform: translate(0%, -120%);
+  transform: translate(0%, 550%);
   justify-content: center;
-  transition: all 0.3s ease-in-out;
+  transition: all 0.5s ease-in-out;
   align-items: center;
   background-color: #ffffffcf;
 
 }
 .dialog_container_fluid_show{
   transform: translate(0%, 0%);
-  
+  transition: all 0.5s ease-in-out;
 }
 .slidercol{
   transition:all 3s ease-in-out;

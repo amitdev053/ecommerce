@@ -1,0 +1,96 @@
+.html_container {
+    max-width: 800px;
+    margin: 0 auto;
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  }
+
+  h1 {
+    text-align: center;
+  }
+
+  textarea {
+    width: 100%;
+    padding: 10px;
+    font-size: 14px;
+    background-color: #f8f9fa;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+  }
+
+  .html_tool_button{
+    padding: 10px 20px;
+    margin: 10px 5px;
+    border: none;
+    background-color: #f0f0f0;
+    color: black;
+    cursor: pointer;
+    border-radius: 4px;
+    border: 2px solid transparent;
+    transition: all 0.3s ease-in-out;
+  }
+
+  .html_tool_button:hover {
+    background-color: white;
+    border: 2px solid #f4f4f4;
+  }
+/* 
+  pre {
+    background-color: #f4f4f4;
+    padding: 15px;
+    border-radius: 4px;
+    white-space: pre-wrap;
+    word-wrap: break-word;
+  } */
+
+
+  /* HtmlToText.css — extend it */
+
+.markdown_output {
+    padding: 12px;
+    background: #f9f9f9;
+    border-radius: 8px;
+    min-height: 200px;
+    overflow-y: auto;
+  }
+  .tool_header_hmtl{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 20px;
+  }
+  .tool_center_heading{
+    margin-bottom: 10px !important;
+  }
+  
+  .text_to_html_container{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+ 
+  .output_html{
+    height: 700px !important;
+    user-select: text;
+    overflow: auto;
+    resize: horizontal;
+
+}
+
+.output_html.serif {
+    font-family: Georgia, serif;
+    font-weight: bold;
+  }
+  
+  /* Fix: exclude <code> blocks inside */
+  .output_html.serif {
+    font-family: Georgia, serif;
+    font-weight: bold;
+  }
+  
+  .output_html.serif code {
+    font-family: monospace !important;
+    font-weight: normal !important;
+  }

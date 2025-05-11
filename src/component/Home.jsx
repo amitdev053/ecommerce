@@ -1,5 +1,6 @@
 import React, {useEffect, useState} from 'react'
 import Products from './Products'
+import FeatureContext from './FeatureContext'
 import ProductSlider from './ProductSlider'
 import { useLocation, useParams, useNavigate} from 'react-router-dom'
 import { changeProdiuctView } from './CustomHook'
@@ -31,7 +32,7 @@ export default function Home() {
  
     <div id={productView} className='container app_container mt-ps90'>
    
-
+<FeatureContext />
 <Products componentFrom="home" />
 <ExploreLinkButton  buttonText="Checkout More Products" buttonType="product" />
 <div className="app_divider"/>

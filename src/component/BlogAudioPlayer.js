@@ -2,7 +2,7 @@ import React, { useContext } from "react";
 import { BlogAudioContext } from "./BlogAudioContext";
 import { Link, useMatch, useNavigate } from "react-router-dom";
 import e from "cors";
-
+import "./BlogAudioPlayer.css";
 export default function BlogAudioPlayer() {
   const { isPlaying, currentBlog, isPaused, stopBlog, togglePlayPause, samePage } = useContext(BlogAudioContext);
   const matchRoute  = useMatch("/blog-detail/:blogId/:blogTitle")
@@ -19,12 +19,14 @@ export default function BlogAudioPlayer() {
     width: "30%",
     fontWeight: "Roboto",
     zIndex: "99",
+    border: "2px solid transparent",
+    cursor:"pointer",
   },
   playerStopButton: {
     padding: "5px 10px",
     // background: "red",
     // color: "#fff",
-    border: "none",
+    border: "2px solid transparent",
     cursor: "pointer"
   }, 
   playerCloseButton:{

@@ -5,6 +5,20 @@ import DialogBox from './DialogBox';
 import UserGuides from './UserGuides';
 const features = [
   {
+    image: '/assets/listen-blogs.svg',
+    emoji: '🎧',
+    title: 'Listen Blogs for Free',
+    modelTitle: 'Listen Blogs for Free',
+    // title: 'Turn Blogs into Audio — Listen for Free!',
+    description: 'Turn blogs to audio and listen anytime, anywhere — hands-free!',
+    // fullDescription:"Say goodbye to screen fatigue and hello to hands-free learning! With our ‘Listen Blogs for Free’ feature, you can instantly turn your favorite blogs into audio — and listen anytime, anywhere. Whether you’re commuting, working out, relaxing at home, or multitasking, let the words come to life through clear, natural-sounding voice narration. No subscriptions, no limits — just hit play and enjoy blog content like a podcast. ",
+
+    fullDescription: `
+      <p>Say goodbye to screen fatigue and hello to hands-free learning! With our <strong>Listen Blogs feature </strong> for free, you can instantly turn your favorite <strong> blogs into audio </strong>— and listen anytime, anywhere. Whether you’re commuting, working out, relaxing at home, or multitasking, let the words come to life through clear, natural-sounding voice narration. No subscriptions, no limits — just hit play and enjoy blog content like a <strong>podcast</strong>.</p>
+    `,
+    buttonText: 'Start Listening',
+  },
+  {
     image: '/assets/find-images.svg',
     // emoji: '🖼️',
     emoji: '✨',
@@ -20,20 +34,6 @@ const features = [
     `,
     // buttonText: 'See Images',
     buttonText: 'Explore Now',
-  },
-  {
-    image: '/assets/listen-blogs.svg',
-    emoji: '🎧',
-    title: 'Listen Blogs for Free',
-    modelTitle: 'Listen Blogs for Free',
-    // title: 'Turn Blogs into Audio — Listen for Free!',
-    description: 'Turn blogs to audio and listen anytime, anywhere — hands-free!',
-    // fullDescription:"Say goodbye to screen fatigue and hello to hands-free learning! With our ‘Listen Blogs for Free’ feature, you can instantly turn your favorite blogs into audio — and listen anytime, anywhere. Whether you’re commuting, working out, relaxing at home, or multitasking, let the words come to life through clear, natural-sounding voice narration. No subscriptions, no limits — just hit play and enjoy blog content like a podcast. ",
-
-    fullDescription: `
-      <p>Say goodbye to screen fatigue and hello to hands-free learning! With our <strong>Listen Blogs feature </strong> for free, you can instantly turn your favorite <strong> blogs into audio </strong>— and listen anytime, anywhere. Whether you’re commuting, working out, relaxing at home, or multitasking, let the words come to life through clear, natural-sounding voice narration. No subscriptions, no limits — just hit play and enjoy blog content like a <strong>podcast</strong>.</p>
-    `,
-    buttonText: 'Start Listening',
   },
   {
     image: '/assets/format-captions.svg',
@@ -147,8 +147,8 @@ const FeatureContext = () => {
   function navigatePage(element) {
     if (element.innerText === "Start Listening") {
       usenavigate('/blogs');
-    } else if (element.innerText === "Try Now") {
-      usenavigate('/products');
+    } else if (element.innerText === "Explore Now") {
+      usenavigate('/explore');
     } else {
       usenavigate('/tools');
     }

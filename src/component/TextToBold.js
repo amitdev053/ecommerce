@@ -80,7 +80,7 @@ const TextToBold = () => {
 
   return (
     <>
-      <div className="container app_container text_to_bold_container">
+      <div className="container app_container text_to_bold_container ">
         <div className="tool_header">
           <div className="app_tool_heading tool_inside_header">
             Bold Text Generator

@@ -9,18 +9,33 @@ import defaultBlogImage from "../defaultBlog.jpg";
 import ExploreLinkButton from "./ExploreLinkButton";
 import { handleShare } from "./HandleShare";
 
+let content = [
+  "kiss", "Fashion", "Sports", "Music", "Gaming", "Technology", "Health", "Finance", "Education", "Lifestyle", "Travel and Adventure",  "Art and Creativity", "hugs", "Nature and Wildlife", "Food and Culinary", "History and Culture","Fitness and Wellness", "Architecture and Design","Space and Astronomy", "Books and Literature", "Motivation and Productivity",  "Luxury and Lifestyle",  "Science and Innovation",   "Minimalism and Aesthetics", "romantic",  "Sibling Love", "Date Night",  "Valentine", "Hobbies and Skills",  "Rose", "couples"
+];
+// 🔁 Get the current hour index to rotate categories
+const updatedHours = () => new Date().getHours() % content.length;
+
+// 📈 Function to update localStorage score
+function updateInteractionScore(category, weight = 1) {
+  const stored = localStorage.getItem("interactionScore");
+  const score = stored ? JSON.parse(stored) : {};
+  score[category] = (score[category] || 0) + weight;  // Increment by weight, where weight can be customized (e.g., 1 for a click, 5 for a like)
+  localStorage.setItem("interactionScore", JSON.stringify(score));
+}
+
+// 🧠 Function to get next best category based on scores
+function getPreferredCategory(defaultIndex) {
+  const scores = JSON.parse(localStorage.getItem("interactionScore")) || {};
+  const sorted = [...content].sort((a, b) => (scores[b] || 0) - (scores[a] || 0)); // Higher score = higher rank
+  return sorted[0] || content[defaultIndex];  // Default to category at defaultIndex if no scores
+}
 
 
 const Explore = (props) => {
   // let content = [ "couples", "Fashion", "Sports", "Music", "Gaming", "Technology", "Health", "Finance", "Education", "Lifestyle"]
-  let content = [
-    "kiss", "Fashion", "Sports", "Music", "Gaming", "Technology", "Health", "Finance", "Education", "Lifestyle", "Travel and Adventure",  "Art and Creativity", "hugs", "Nature and Wildlife", "Food and Culinary", "History and Culture","Fitness and Wellness", "Architecture and Design","Space and Astronomy", "Books and Literature", "Motivation and Productivity",  "Luxury and Lifestyle",  "Science and Innovation",   "Minimalism and Aesthetics", "romantic",  "Sibling Love", "Date Night",  "Valentine", "Hobbies and Skills",  "Rose", "couples"
-  ];
+    
 
-
-  
-
-  const [index, setIndex] = useState(0);
+  const [index, setIndex] = useState(updatedHours());
   const [blogView, setBlogView] = useState(true);
   const [loader, setloader] = useState(true);
   const [images, setImages] = useState([]); // assume this is where you get your images
@@ -54,15 +69,25 @@ setImages(result.hits.splice(0, 7));
           // setImages(result.hits);
           const indexedHits = result.hits.map((img, i) => ({
             ...img,
-            _orderIndex: images.length + i, // preserve global sequence
+            _orderIndex: images.length + i, 
+            _category: content[index], // 🔹 add this
           }));    
-        
-          // setImages(prev => [  ...prev, ...indexedHits]);
-          setImages((prevImages) => {
-            const existingIds = new Set(prevImages.map((img) => img.id));
-            const uniqueNewImages = indexedHits.filter((img) => !existingIds.has(img.id));
-            return [...prevImages, ...uniqueNewImages];
-          });
+        console.log("image index", indexedHits)
+        const storedScores = JSON.parse(localStorage.getItem("interactionScore") || "{}");
+
+        // Sort images by their interaction score
+        const sortedImages = indexedHits.sort((a, b) => {
+          const scoreA = storedScores[a._category] || 0;
+          const scoreB = storedScores[b._category] || 0;
+          return scoreB - scoreA; // higher score = higher rank
+        });
+
+        setImages((prevImages) => {
+          const existingIds = new Set(prevImages.map((img) => img.id));
+          const uniqueNewImages = sortedImages.filter((img) => !existingIds.has(img.id));
+          return [...prevImages, ...uniqueNewImages];
+        });
+        console.log("set images", setImages)
           // console.log("indexhits", indexedHits, images)
           // setImages(prev => [  ...prev, ...indexedHits]);
           // console.log("explore images", result.hits);
@@ -87,42 +112,50 @@ function addImageTouch(){
   })
 }
 
-  useEffect(() => { 
+  // useEffect(() => { 
    
-    // Set the initial index
-    let currentCalculatedIndex = updatedHours();
-    setIndex(updatedHours());
-    document.title = `Explore images for ${content[currentCalculatedIndex]}`;
-    // Fetch images for the initial index
-    getProducts(`https://pixabay.com/api/?key=45283300-eddb6d21a3d3d06f2a2381d7d&q=${content[currentCalculatedIndex]}&image_type=photo`);
+  //   // Set the initial index
+  //   let currentCalculatedIndex = updatedHours();
+  //   setIndex(updatedHours());
+  //   document.title = `Explore images for ${content[currentCalculatedIndex]}`;
+  //   // Fetch images for the initial index
+  //   getProducts(`https://pixabay.com/api/?key=45283300-eddb6d21a3d3d06f2a2381d7d&q=${content[currentCalculatedIndex]}&image_type=photo`);
     
     
-    addImageTouch();
-    // Update the index every hour
-    const interval = setInterval(() => {
-      setIndex(updatedHours());
-    }, 60 * 60 * 1000); // 1 hour in milliseconds
+  //   addImageTouch();
+  //   // Update the index every hour
+  //   const interval = setInterval(() => {
+  //     setIndex(updatedHours());
+  //   }, 60 * 60 * 1000); // 1 hour in milliseconds
 
-    // Cleanup the interval on component unmount
-    return () => clearInterval(interval);
-  }, []);
+  //   // Cleanup the interval on component unmount
+  //   return () => clearInterval(interval);
+  // }, []);
 
-  // useEffect(() => {  
-  //   const imageColumns = document.querySelectorAll(".explore_image");
-
-  //   imageColumns.forEach((imageColumn, index) => {
-  //     const currentState = imageStates[index];
+  useEffect(() => {
+    const currentCategory = getPreferredCategory(updatedHours());  // Get the best category based on scores and time
+    const currentIndex = content.indexOf(currentCategory);  // Find the index of the category in content
+    setIndex(currentIndex);
+    document.title = `Explore images for ${currentCategory}`;
+    
+    // Fetch images for the preferred category
+    getProducts(`https://pixabay.com/api/?key=45283300-eddb6d21a3d3d06f2a2381d7d&q=${currentCategory}&image_type=photo`);
   
-  //     if (!currentState?.loaded) {
-  //       imageColumn.style.height = "300px"; // temp height until image loads
-  //     } else {
-  //       imageColumn.style.height = ""; // Remove the fixed height
-  //     }
-  //   });
+    // Periodic category rotation (every hour)
+    const interval = setInterval(() => {
+      const nextCategory = getPreferredCategory(updatedHours());  // Get the next best category
+      const newIndex = content.indexOf(nextCategory);
+      setIndex(newIndex);
+    }, 60 * 60 * 1000);  // Rotate categories every hour
+  
+    return () => clearInterval(interval);  // Clean up the interval on unmount
+  }, []);
+  
+
+  
 
     
-     
-  // }, [imageStates]);
+    
 
   useEffect(() => {
     const imageColumns = document.querySelectorAll(".explore_image");
@@ -358,6 +391,7 @@ function shareImage(image){
             <img
             className="explore-image"
               src={image.largeImageURL}
+              onClick={() => updateInteractionScore(image._category, 2)}
               // onLoad={() =>
               //   setImageStates((prevStates) =>
               //     prevStates.map((state, i) =>

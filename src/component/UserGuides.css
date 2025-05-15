@@ -143,23 +143,25 @@
     
 }
 
-@media screen and (max-width: 520px) {
+/* @media screen and (max-width: 520px) {
     #UserGuides{
             padding: 0px;
             inset: 0 !important;
     }
     .user_guides_row{
         width: 100%;
-        padding: 20px 5px;
-        height: 80vh;
-        transform: translate(0%, 100px);
-    }
+        padding: 20px 5px; */
+        /* height: 80vh; */
+        /* position: relative;
+        height: none !important; */
+        /* transform: translate(0%, 0px) !important; */
+    /* }
     
-}
+} */
 
-/* @media screen and (max-width: 520px) {
+ @media screen and (max-width: 520px) {
     .user_guides_row{
         width: 100%;
     }
     
-} */
+}

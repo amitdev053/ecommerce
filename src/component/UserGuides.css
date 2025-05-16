@@ -143,25 +143,31 @@
     
 }
 
-/* @media screen and (max-width: 520px) {
+@media screen and (max-width: 520px) {
     #UserGuides{
-            padding: 0px;
-            inset: 0 !important;
+        align-items: end;
+        padding: 0px;
     }
     .user_guides_row{
-        width: 100%;
-        padding: 20px 5px; */
-        /* height: 80vh; */
-        /* position: relative;
-        height: none !important; */
-        /* transform: translate(0%, 0px) !important; */
-    /* }
-    
-} */
+     width: 100%;
+     padding: 20px 10px;
 
- @media screen and (max-width: 520px) {
-    .user_guides_row{
-        width: 100%;
-    }
+          /*  padding: 20px 5px; 
+        height: 80vh;
+        position: relative; 
+        height: none !important;
+         transform: translate(0%, 0px) !important; */
+     }
+     .dialog_action_btn {
+        padding: 20px 0px;
+        margin-top: 0px;
+     }
     
 }
+
+ /* @media screen and (max-width: 520px) {
+    .user_guides_row{
+        width: 100%;
+    }
+    
+} */

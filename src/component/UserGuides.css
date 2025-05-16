@@ -163,6 +163,9 @@
         /* padding: 20px 0px; */
         margin-top: 20px;
      }
+     .user_guides_row .productdiscripation{
+        height: 50dvh;
+     }
     
 }
 

@@ -9,9 +9,18 @@
   box-shadow: 0 6px 18px rgba(0, 0, 0, 0.1);
   transition: all 0.3s ease-in-out;
 }
-
+.contact_cards:hover{
+  background-color: rgba(0, 0, 0, 0.05) !important;
+}
 @media (max-width: 768px) {
   .container .card {
     flex: 1 1 100%;
   }
+}
+
+.h3{
+  margin-bottom: 10px;
+      font-size: 20px;
+    font-weight: 600;
+
 }

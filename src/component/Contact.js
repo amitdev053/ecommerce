@@ -10,6 +10,7 @@ const Contact = () => {
     boxShadow: '0 4px 12px rgba(0, 0, 0, 0.06)',
     margin: '1rem',
     textAlign: 'center',
+ 
   };
 
   return (
@@ -19,18 +20,23 @@ const Contact = () => {
         If you have any questions, feedback, or business inquiries, feel free to reach out to us.
       </p>
 
-      <div style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'center', marginTop: '2rem' }}>
+      <div style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'center', marginTop: '1rem' }}>
         {/* Email Card */}
-        <div style={cardStyle}>
-          <h3>Email</h3>
+        <div  className="contact_cards" style={cardStyle}>
+          <h3 className="h3">Email</h3>
+            <img
+              src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/7e/Gmail_icon_%282020%29.svg/330px-Gmail_icon_%282020%29.svg.png"
+              alt="Gmail"
+              style={{ width: '50px', height: '50px', objectFit: "contain" , marginBottom: '10px' }}
+            />
           <p>
-            <a href="mailto:your-email@example.com">your-email@example.com</a>
+            <a href="mailto:amitgarg0534@gmail.com">amitgarg@gmail.com</a>
           </p>
         </div>
 
         {/* WhatsApp Card */}
-        <div style={cardStyle}>
-          <h3>WhatsApp</h3>
+        <div className="contact_cards" style={cardStyle}>
+          <h3 className="h3">WhatsApp</h3>
           <a
             href="https://wa.me/1234567890" // Replace with your real number
             target="_blank"
@@ -39,24 +45,24 @@ const Contact = () => {
             <img
               src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg"
               alt="WhatsApp"
-              style={{ width: '50px', height: '50px', marginBottom: '0.5rem' }}
+              style={{ width: '50px', height: '50px', marginBottom: '10px' }}
             />
           </a>
           <p>Chat with us on WhatsApp</p>
         </div>
 
         {/* Location Card */}
-        <div style={cardStyle}>
-          <h3>Location</h3>
+        <div className="contact_cards" style={cardStyle}>
+          <h3 className="h3">Location</h3>
           <p>Market Shops Vercel, India</p>
           <p>(Online-based Platform)</p>
         </div>
 
         {/* Business Hours Card */}
-        <div style={cardStyle}>
-          <h3>Business Hours</h3>
-          <p>Mon – Fri: 9 AM – 6 PM IST</p>
-          <p>Sat: 10 AM – 2 PM IST</p>
+        <div className="contact_cards" style={cardStyle}>
+          <h3 className="h3">Business Hours</h3>
+          <p>Available On WhatsApp</p>
+          <p>at 24X7</p>
         </div>
       </div>
     </div>

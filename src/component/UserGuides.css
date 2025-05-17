@@ -142,28 +142,6 @@
     
     
 }
-/* 
-@media screen and (max-width: 520px) {
-    #UserGuides{
-        align-items: end;
-        padding: 0px;
-    }
-    .user_guides_row{
-     width: 100%;
-     padding: 20px 10px;
-     transform: translate(0px, 0px) !important;      
-     }
-     .dialog_action_btn {
-        
-        margin-top: 20px;
-     }
-     .user_guides_row .productdiscripation{
-        height: 40dvh;
-     }
-    
-} */
-
-
 @media screen and (max-width: 520px) {
     #UserGuides {
         align-items: end;

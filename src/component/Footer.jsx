@@ -9,6 +9,14 @@ export default function footer() {
   const productsUrl = "/products";
   // eslint-disable-next-line react-hooks/rules-of-hooks
   const [allproduct, setAllProduct] = useState([]);
+  // eslint-disable-next-line react-hooks/rules-of-hooks
+  const [url, seturl] = useState("");
+  // eslint-disable-next-line react-hooks/rules-of-hooks
+    const locations = useLocation();
+  // eslint-disable-next-line react-hooks/rules-of-hooks
+   useEffect(() => {
+     seturl(locations.pathname);
+   }, [locations]);
 
   function getProducts(baseUrl, productsUrl) {
     const getProductsUrl = baseUrl + productsUrl;
@@ -59,9 +67,14 @@ export default function footer() {
   
   // eslint-disable-next-line react-hooks/rules-of-hooks
   useEffect(() => {
-    getProducts(baseUrl, productsUrl);
+    getProducts(baseUrl, productsUrl);    
     highlightedFotter()
   }, []);
+  
+
+ 
+  
+
 
   return (
   <>
@@ -69,13 +82,13 @@ export default function footer() {
 
 <footer className="text-center text-lg-start bg-light text-muted">
 
-  <section className="d-flex justify-content-center justify-content-lg-between p-4 border-bottom">
+  <section className="d-flex p-4 border-bottom footer_top_header_menu">
    
     {/* <div className="me-5 d-none d-lg-block">
       <span>Get connected with us on social networks:</span>
     </div>
  
-    <div>
+    
       <a href="" className="me-4 text-reset">
         <i className="fab fa-facebook-f"></i>
       </a>
@@ -95,6 +108,15 @@ export default function footer() {
         <i className="fab fa-github"></i>
       </a>
     </div> */}
+
+<div className='footer_top_header_container'>
+            <Link to="/about-us"  className={(url === "/about-us") ? `hovered_menu text-reset` : `text-reset`}>About</Link>
+         
+            <Link to="/contact" className={(url === "/contact") ? `hovered_menu text-reset` : `text-reset`}>Contact</Link>
+      
+            <Link to="/privacy" className={(url === "/privacy") ? `hovered_menu text-reset` : `text-reset`}>Privacy</Link>
+       </div>           
+
 
   </section>
 

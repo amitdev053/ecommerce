@@ -142,7 +142,7 @@
     
     
 }
-
+/* 
 @media screen and (max-width: 520px) {
     #UserGuides{
         align-items: end;
@@ -151,23 +151,53 @@
     .user_guides_row{
      width: 100%;
      padding: 20px 10px;
-     transform: translate(0px, 0px) !important;
-
-          /*  padding: 20px 5px; 
-        height: 80vh;
-        position: relative; 
-        height: none !important;
-         transform: translate(0%, 0px) !important; */
+     transform: translate(0px, 0px) !important;      
      }
      .dialog_action_btn {
-        /* padding: 20px 0px; */
+        
         margin-top: 20px;
      }
      .user_guides_row .productdiscripation{
         height: 40dvh;
      }
     
+} */
+
+
+@media screen and (max-width: 520px) {
+    #UserGuides {
+        align-items: end;
+        padding: 0px;
+          height: calc(var(--vh, 1vh) * 100); /* replaces 100vh */
+        /* height: 100dvh;  */
+        /* display: flex; */
+        /* flex-direction: column; */
+    }
+
+    .user_guides_row {
+        width: 100%;
+        padding: 20px 10px;
+        transform: translate(0px, 0px) !important;
+        /* flex: 1;  */
+        /* overflow-y: auto; */
+    }
+
+    .dialog_action_btn {
+        margin-top: auto; /* Push to bottom within flex layout */
+        padding-bottom: env(safe-area-inset-bottom); /* Support iOS/Android insets */
+        background: #fff; /* Optional: To ensure button area is not transparent */
+        position: sticky;
+        bottom: 0;
+        z-index: 999;
+        margin-top: 20px;
+    }
+
+    .user_guides_row .productdiscripation {
+        height: 40dvh; /* Already good - using dynamic height */
+        overflow-y: auto;
+    }
 }
+
 
  /* @media screen and (max-width: 520px) {
     .user_guides_row{

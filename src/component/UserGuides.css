@@ -196,6 +196,9 @@
         height: 40dvh; /* Already good - using dynamic height */
         overflow-y: auto;
     }
+    .user_guides_row .productdiscripation p {
+     margin-bottom: 0px !important;
+    }
 }
 
 

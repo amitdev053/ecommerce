@@ -193,7 +193,7 @@
     }
 
     .user_guides_row .productdiscripation {
-        height: 40dvh; /* Already good - using dynamic height */
+        /* height: 40dvh;  */
         overflow-y: auto;
     }
     .user_guides_row .productdiscripation p {

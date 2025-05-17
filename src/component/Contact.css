@@ -1,0 +1,17 @@
+.contact_container{
+    display: flex;
+    flex-direction: column;
+    justify-content: center ;
+    align-items: center;
+}
+.container .card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease-in-out;
+}
+
+@media (max-width: 768px) {
+  .container .card {
+    flex: 1 1 100%;
+  }
+}

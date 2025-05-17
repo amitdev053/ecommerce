@@ -35,7 +35,8 @@ const Explore = (props) => {
   // let content = [ "couples", "Fashion", "Sports", "Music", "Gaming", "Technology", "Health", "Finance", "Education", "Lifestyle"]
     
 
-  const [index, setIndex] = useState(updatedHours());
+  // const [index, setIndex] = useState(updatedHours());
+  const [index, setIndex] = useState(0);
   const [blogView, setBlogView] = useState(true);
   const [loader, setloader] = useState(true);
   const [images, setImages] = useState([]); // assume this is where you get your images
@@ -112,44 +113,44 @@ function addImageTouch(){
   })
 }
 
-  // useEffect(() => { 
+  useEffect(() => { 
    
-  //   // Set the initial index
-  //   let currentCalculatedIndex = updatedHours();
-  //   setIndex(updatedHours());
-  //   document.title = `Explore images for ${content[currentCalculatedIndex]}`;
-  //   // Fetch images for the initial index
-  //   getProducts(`https://pixabay.com/api/?key=45283300-eddb6d21a3d3d06f2a2381d7d&q=${content[currentCalculatedIndex]}&image_type=photo`);
+    // Set the initial index
+    let currentCalculatedIndex = updatedHours();
+    setIndex(updatedHours());
+    document.title = `Explore images for ${content[currentCalculatedIndex]}`;
+    // Fetch images for the initial index
+    getProducts(`https://pixabay.com/api/?key=45283300-eddb6d21a3d3d06f2a2381d7d&q=${content[currentCalculatedIndex]}&image_type=photo`);
     
     
-  //   addImageTouch();
-  //   // Update the index every hour
-  //   const interval = setInterval(() => {
-  //     setIndex(updatedHours());
-  //   }, 60 * 60 * 1000); // 1 hour in milliseconds
-
-  //   // Cleanup the interval on component unmount
-  //   return () => clearInterval(interval);
-  // }, []);
-
-  useEffect(() => {
-    const currentCategory = getPreferredCategory(updatedHours());  // Get the best category based on scores and time
-    const currentIndex = content.indexOf(currentCategory);  // Find the index of the category in content
-    setIndex(currentIndex);
-    document.title = `Explore images for ${currentCategory}`;
-    
-    // Fetch images for the preferred category
-    getProducts(`https://pixabay.com/api/?key=45283300-eddb6d21a3d3d06f2a2381d7d&q=${currentCategory}&image_type=photo`);
-  
-    // Periodic category rotation (every hour)
+    addImageTouch();
+    // Update the index every hour
     const interval = setInterval(() => {
-      const nextCategory = getPreferredCategory(updatedHours());  // Get the next best category
-      const newIndex = content.indexOf(nextCategory);
-      setIndex(newIndex);
-    }, 60 * 60 * 1000);  // Rotate categories every hour
-  
-    return () => clearInterval(interval);  // Clean up the interval on unmount
+      setIndex(updatedHours());
+    }, 60 * 60 * 1000); // 1 hour in milliseconds
+
+    // Cleanup the interval on component unmount
+    return () => clearInterval(interval);
   }, []);
+
+  // useEffect(() => {
+  //   const currentCategory = getPreferredCategory(updatedHours());  // Get the best category based on scores and time
+  //   const currentIndex = content.indexOf(currentCategory);  // Find the index of the category in content
+  //   setIndex(currentIndex);
+  //   document.title = `Explore images for ${currentCategory}`;
+    
+  //   // Fetch images for the preferred category
+  //   getProducts(`https://pixabay.com/api/?key=45283300-eddb6d21a3d3d06f2a2381d7d&q=${currentCategory}&image_type=photo`);
+  
+  //   // Periodic category rotation (every hour)
+  //   const interval = setInterval(() => {
+  //     const nextCategory = getPreferredCategory(updatedHours());  // Get the next best category
+  //     const newIndex = content.indexOf(nextCategory);
+  //     setIndex(newIndex);
+  //   }, 60 * 60 * 1000);  // Rotate categories every hour
+  
+  //   return () => clearInterval(interval);  // Clean up the interval on unmount
+  // }, []);
   
 
   

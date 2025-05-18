@@ -52,6 +52,27 @@ window.addEventListener('resize', handleResize);
   }, [locations]);
 
   // const [getuserCart, setgetuserCart] = useState([]);
+  function restoreScrollPosition(appBody){
+        const scrollY = document.body.dataset.scrollY || 0;
+          appBody.style.position = '';
+            appBody.style.top = ``;
+            appBody.style.left = '';
+            appBody.style.right = '';
+               appBody.style.bottom = '';
+            appBody.style.removeProperty('position', 'fixed', 'important');  
+        
+          // Disable scroll-behavior temporarily to avoid visual scroll
+          const html = document.documentElement;
+          const originalScrollBehavior = html.style.scrollBehavior;
+          html.style.scrollBehavior = 'auto';
+
+        // Instantly restore scroll position without animation
+        window.scrollTo(0, parseInt(scrollY));
+
+        // Restore scroll-behavior after restoring position
+        html.style.scrollBehavior = originalScrollBehavior || '';
+
+  }
 
   function closeCart(action = undefined) {
     if(action === undefined || action === "userCart"){
@@ -59,12 +80,15 @@ window.addEventListener('resize', handleResize);
       let cartCounter = document.getElementById('cartmobileicon').firstElementChild
       document.getElementById("userCartContainer").classList.remove("show_cart_container");    
       let appBody = document.getElementById("appbody")
+  
       if(appBody && mobileCartIcon && mobileCartIcon.classList.contains("active_cart_bg") && cartCounter){            
-        appBody.style.removeProperty('position', 'fixed', 'important');   
+          restoreScrollPosition(appBody)
+
         mobileCartIcon.classList.remove('active_cart_bg')
         cartCounter.style.color = "black"
         
       }
+        // window.scrollTo(0, parseInt(scrollY));
 
     }
     // else if(action === "userCart"){
@@ -83,7 +107,8 @@ window.addEventListener('resize', handleResize);
       document.getElementById("containUserLikes").classList.remove("show_like_container");    
       let appBody = document.getElementById("appbody")
       if(appBody){            
-        appBody.style.removeProperty('position', 'fixed', 'important');   
+        // appBody.style.removeProperty('position', 'fixed', 'important');   
+        restoreScrollPosition(appBody)
       }
       let appHeaderContainsLikeIcon = document.querySelectorAll('.app_navbar_like_containericon')
       if(document.getElementById("userLikeContainer").classList.contains("show_like_container")){
@@ -118,6 +143,21 @@ window.addEventListener('resize', handleResize);
         // document.getElementById("confirmOrderBox").removeAttribute("fromInfo")
       }
   }
+  function disableScroll(appBody){
+    
+        const scrollY = window.scrollY;
+      document.body.dataset.scrollY = scrollY;
+
+    // Lock scroll
+    appBody.style.position = 'fixed';
+    appBody.style.top = `-${scrollY}px`;
+    appBody.style.left = '0';
+    appBody.style.right = '0';
+    appBody.style.bottom = '0';
+    appBody.style.setProperty('position', 'fixed', 'important');
+    appBody.style.overflowY = 'scroll !important';
+  
+  }
   function openCart(event) {
 if(document.getElementById('navbarSupportedContent') && document.getElementById('navbarSupportedContent').classList.contains('active_navbar')){
   document.getElementById('navbarSupportedContent').classList.remove('active_navbar')    
@@ -127,7 +167,7 @@ if(document.getElementById('navbarSupportedContent') && document.getElementById(
 let appBody = document.getElementById("appbody")
 if(appBody){      
   // console.log("appbody", appBody, event.currentTarget)
-  appBody.style.setProperty('position', 'fixed', 'important');
+  disableScroll(appBody)
   
   const cartSeter = document.querySelector('.cart_container');
   const setCartStyleElement = document.querySelector('.cart_total');
@@ -218,31 +258,32 @@ if(window.location.pathname === "/saved"){
     }
     animateLikeHeaderIcon(false)
        
-    window.history.pushState({ path: "/saved" }, '', "/saved");
+    if (window.location.pathname !== "/saved") {
+  window.history.pushState({ path: "/saved" }, '', "/saved");
+}
+    // window.history.pushState({ path: "/saved" }, '', "/saved");
     document.getElementById("userLikeContainer").classList.toggle("show_like_container");
     document.getElementById("containUserLikes").classList.toggle("show_like_container");
+
+    
     let appBody = document.getElementById("appbody")
     let appHeaderContainsLikeIcon = document.querySelectorAll('.app_navbar_like_containericon')
     let navbarHLikeIcon = document.getElementById('appLikeDIcon')
     if(document.getElementById("userLikeContainer").classList.contains("show_like_container") && appBody){
+      console.log("opening cart ")
       navbarHLikeIcon.classList.replace("fa-regular", "fa-solid")
       Array.from(appHeaderContainsLikeIcon).forEach((likeicon)=>{
         
         likeicon.style.background = "black"
         likeicon.style.color = "white"
-        appBody.style.setProperty('position', 'fixed', 'important');
-        
+        // appBody.style.setProperty('position', 'fixed', 'important');        
       })
-    }else{
-      navbarHLikeIcon.classList.replace("fa-solid", "fa-regular")
-    
-      Array.from(appHeaderContainsLikeIcon).forEach((likeicon)=>{
 
-        likeicon.style.background = "white"
-        likeicon.style.color = "black"
-        appBody.style.removeProperty('position', 'fixed', 'important');  
-        window.history.back()
-      })
+      disableScroll(appBody)
+    }
+    else{   
+      closeCart("userLike")
+
     }
     
     document.getElementById("userLikeContainer").addEventListener("click", (event) => {

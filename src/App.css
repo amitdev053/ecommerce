@@ -1900,4 +1900,6 @@ position:static;
 margin-right: 0px;
 
 }
-
+.text_left{
+  text-align: left !important;
+}

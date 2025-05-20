@@ -3,7 +3,7 @@ import React from 'react'
 const AppPagesHeading = (props) => {
   return (
    
-    <h1 className="container"
+    <h1 className="container text_left"
       style={{
         fontSize: "25px",
         fontWeight: "700",

@@ -320,7 +320,7 @@ const BlogDetail = () => {
 
                   lineHeight: "30px",
                 }}
-                className="blog_title"
+                className="blog_title text_left"
                 id="blogDtailTitle"
               >
                 {" "}

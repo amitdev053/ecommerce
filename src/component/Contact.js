@@ -38,7 +38,7 @@ const Contact = () => {
         <div className="contact_cards" style={cardStyle}>
           <h3 className="h3">WhatsApp</h3>
           <a
-            href="https://wa.me/1234567890" // Replace with your real number
+            href="https://wa.me/+918826483821?text=Hyy, i have some enquiry" // Replace with your real number
             target="_blank"
             rel="noopener noreferrer"
           >

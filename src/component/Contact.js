@@ -30,7 +30,7 @@ const Contact = () => {
               style={{ width: '50px', height: '50px', objectFit: "contain" , marginBottom: '10px' }}
             />
           <p>
-            <a href="mailto:amitgarg0534@gmail.com">amitgarg@gmail.com</a>
+            <a href="mailto:amitgarg0534@gmail.com">vercelteam@gmail.com</a>
           </p>
         </div>
 

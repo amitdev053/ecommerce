@@ -52,14 +52,14 @@ const Privancy = () => {
         <li>Withdraw consent for data processing</li>
         <li>Request data portability where applicable</li>
       </ul>
-      <p>To exercise your rights, contact us at <a href="mailto:amitgarg0534.com">amitgarg@gmail.com</a>.</p>
+      <p>To exercise your rights, contact us at <a href="mailto:amitgarg0534.com">vercelteam@gmail.com</a>.</p>
 
       <h2>7. Changes to This Policy</h2>
       <p>We may update this Privacy Policy from time to time. Any changes will be posted on this page with an updated "Effective Date."</p>
 
       <h2>8. Contact Us</h2>
       <p>If you have any questions about this Privacy Policy, please contact us:</p>
-      <p>Email: <a href="mailto:amitgarg0534@gmail.com">amitgarg@gmail.com</a></p>
+      <p>Email: <a href="mailto:amitgarg0534@gmail.com">vercelteam@gmail.com</a></p>
       <p>Website: <a href="https://market-shops.vercel.app" target="_blank" rel="noopener noreferrer">https://market-shops.vercel.app</a></p>
     </div>
    </>

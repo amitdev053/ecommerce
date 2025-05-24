@@ -25,6 +25,8 @@ export default function Navbar({trackCart}) {
   const [cartitemsindex, setcartitemsindex] = useState()
   const [cartQuantity, setCartQuantity] = useState(1)
   const [cartProcess , setCartProcess] = useState(false)
+  const [modelDetector, setModelDetector] = useState(false)       // detect the mobilebar menu
+  const [detectCartModel, setCartModel] = useState(false)
  
 
 
@@ -74,8 +76,17 @@ window.addEventListener('resize', handleResize);
 
   }
 
+  function removeNavabrIcon(){
+  if(document.getElementById("navbarSupportedContent").classList.contains("active_navbar")){
+   document.querySelector('.toggle_outline_elemenet').style.removeProperty("background")  
+    document.querySelector('.toggle_outline_elemenet').firstElementChild.style.removeProperty("color")  
+  }
+}
+
   function closeCart(action = undefined) {
+    
     if(action === undefined || action === "userCart"){
+   
       let mobileCartIcon = document.getElementById('cartmobileicon')
       let cartCounter = document.getElementById('cartmobileicon').firstElementChild
       document.getElementById("userCartContainer").classList.remove("show_cart_container");    
@@ -89,16 +100,8 @@ window.addEventListener('resize', handleResize);
         
       }
         // window.scrollTo(0, parseInt(scrollY));
-
+      setCartModel(false)
     }
-    // else if(action === "userCart"){
-      
-    //   document.getElementById("userCartContainer").classList.remove("show_cart_container");    
-    //   let appBody = document.getElementById("appbody")
-    //   if(appBody){            
-    //     appBody.style.removeProperty('position', 'fixed', 'important');   
-    //   }
-    // }
     else if (action === "userLike"){
       
       window.history.back()
@@ -123,6 +126,14 @@ window.addEventListener('resize', handleResize);
           hlikeicon.style.color = "black"
         })
       }
+       if(detectCartModel){
+          openCart()
+          // setCartModel(true)
+        }
+    }
+    // to open or close mobileNavbarMenu
+      if(modelDetector){
+      OpenMobileNavbar()
     }
       
   }
@@ -160,6 +171,7 @@ window.addEventListener('resize', handleResize);
   }
   function openCart(event) {
     removeNavabrIcon()
+    setCartModel(true)
 if(document.getElementById('navbarSupportedContent') && document.getElementById('navbarSupportedContent').classList.contains('active_navbar')){
   document.getElementById('navbarSupportedContent').classList.remove('active_navbar')    
 }
@@ -246,6 +258,11 @@ if(window.location.pathname === "/saved"){
 
   function openLikes() {
     removeNavabrIcon()
+    // to close the UserCart First
+    if(detectCartModel){
+      closeCart("userCart")
+      setCartModel(true)
+    }
     if(document.getElementById('navbarSupportedContent') && document.getElementById('navbarSupportedContent').classList.contains('active_navbar')){
       document.getElementById('navbarSupportedContent').classList.remove('active_navbar')    
     }
@@ -285,6 +302,10 @@ if(window.location.pathname === "/saved"){
     }
     else{   
       closeCart("userLike")
+    if(detectCartModel){
+      openCart()
+      // setCartModel(true)
+    }
 
     }
     
@@ -359,16 +380,11 @@ useEffect(() => {
    getUserLikes();    
   
 }, [userLike]); //userCart
-function removeNavabrIcon(){
-  if(document.getElementById("navbarSupportedContent").classList.contains("active_navbar")){
-   document.querySelector('.toggle_outline_elemenet').style.removeProperty("background")  
-    document.querySelector('.toggle_outline_elemenet').firstElementChild.style.removeProperty("color")  
-}
-}
+
 
   function clearCart() {
     console.log("close cart")
-    removeNavabrIcon()
+   
     document.getElementById("confirmDialogBox").classList.add("dialog_container_fluid_show")
     document.getElementById("confirmDialogBox").addEventListener("click", (event) => {
       if (event.target === document.getElementById("confirmDialogBox")) {
@@ -465,6 +481,11 @@ function quantityIncrement(event, cartitem){
 }
 
 function OpenMobileNavbar(event){
+  //  // to close the UserCart First
+  //   if(detectCartModel){
+  //     closeCart("userCart")
+  //     setCartModel(true)
+  //   }
   let navbarContent = document.getElementById('navbarSupportedContent')
   navbarContent.classList.toggle('active_navbar')
 let navbarIcon = document.querySelector('.toggle_outline_elemenet')
@@ -479,7 +500,7 @@ setTimeout(()=>{
   
 
 }, 100)
-
+setModelDetector(true)
 console.log("navbar hit", navbarIcon)
 
 navbarContent.addEventListener("click", (event)=>{
@@ -489,6 +510,7 @@ navbarContent.addEventListener("click", (event)=>{
     document.getElementById('navbarSupportedContent').classList.remove('active_navbar')  
     navbarIcon.style.removeProperty("background")  
     navbarIcon.firstElementChild.style.removeProperty("color")  
+    setModelDetector(false)
   }
  
 
@@ -496,6 +518,7 @@ navbarContent.addEventListener("click", (event)=>{
 if(!document.getElementById("navbarSupportedContent").classList.contains("active_navbar")){
    document.querySelector('.toggle_outline_elemenet').style.removeProperty("background")  
     document.querySelector('.toggle_outline_elemenet').firstElementChild.style.removeProperty("color")  
+    setModelDetector(false)
 }
 
 

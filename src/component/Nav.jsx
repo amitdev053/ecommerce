@@ -159,6 +159,7 @@ window.addEventListener('resize', handleResize);
   
   }
   function openCart(event) {
+    removeNavabrIcon()
 if(document.getElementById('navbarSupportedContent') && document.getElementById('navbarSupportedContent').classList.contains('active_navbar')){
   document.getElementById('navbarSupportedContent').classList.remove('active_navbar')    
 }
@@ -244,6 +245,7 @@ if(window.location.pathname === "/saved"){
   }, [])
 
   function openLikes() {
+    removeNavabrIcon()
     if(document.getElementById('navbarSupportedContent') && document.getElementById('navbarSupportedContent').classList.contains('active_navbar')){
       document.getElementById('navbarSupportedContent').classList.remove('active_navbar')    
     }
@@ -357,9 +359,16 @@ useEffect(() => {
    getUserLikes();    
   
 }, [userLike]); //userCart
+function removeNavabrIcon(){
+  if(document.getElementById("navbarSupportedContent").classList.contains("active_navbar")){
+   document.querySelector('.toggle_outline_elemenet').style.removeProperty("background")  
+    document.querySelector('.toggle_outline_elemenet').firstElementChild.style.removeProperty("color")  
+}
+}
 
   function clearCart() {
     console.log("close cart")
+    removeNavabrIcon()
     document.getElementById("confirmDialogBox").classList.add("dialog_container_fluid_show")
     document.getElementById("confirmDialogBox").addEventListener("click", (event) => {
       if (event.target === document.getElementById("confirmDialogBox")) {
@@ -461,10 +470,11 @@ function OpenMobileNavbar(event){
 let navbarIcon = document.querySelector('.toggle_outline_elemenet')
 
 // console.log("navbarIcon", navbarIcon)
-navbarIcon.style.setProperty('background', '#eee');
+navbarIcon.firstElementChild.style.setProperty('color', 'white');
+navbarIcon.style.setProperty('background', 'black');
 navbarIcon.firstElementChild.style.setProperty('font-size', "13px")
 setTimeout(()=>{
-  navbarIcon.style.removeProperty('background', '#eee');
+  // navbarIcon.style.removeProperty('background', '#eee');
   navbarIcon.firstElementChild.style.removeProperty('font-size', "14px")
   
 
@@ -476,11 +486,17 @@ navbarContent.addEventListener("click", (event)=>{
 
   if(event.target.id === "media" || event.target.id === "hastags" || event.target.id === "home" || event.target.id === "cartarea" || event.target.id === "cartText" || event.target.id === "carticon" || event.target.id === "cartcount" || event.target.id === "appBlogs" || event.target.id === "appexplore" || event.target.id === "appToolBar" || event.target.id === "navbarSupportedContent" ){
     // console.log("condition inside closeNavbar")
-    document.getElementById('navbarSupportedContent').classList.remove('active_navbar')    
+    document.getElementById('navbarSupportedContent').classList.remove('active_navbar')  
+    navbarIcon.style.removeProperty("background")  
+    navbarIcon.firstElementChild.style.removeProperty("color")  
   }
  
 
 })
+if(!document.getElementById("navbarSupportedContent").classList.contains("active_navbar")){
+   document.querySelector('.toggle_outline_elemenet').style.removeProperty("background")  
+    document.querySelector('.toggle_outline_elemenet').firstElementChild.style.removeProperty("color")  
+}
 
 
 

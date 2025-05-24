@@ -327,7 +327,7 @@ const BlogDetail = () => {
                 {blogDetail[0].title}
               </h1>
 <span style={{display: "none"}} id="blogIdDetails"> {blogDetail[0].id}</span>
-              <div id="textToSpeak">
+              <div id="textToSpeak" style={{marginTop: "-10px"}}>
                 <span
                   className="gallerytitle productname productdiscripation blog_detail_content_img"
                   dangerouslySetInnerHTML={{

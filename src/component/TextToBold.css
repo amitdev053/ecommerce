@@ -106,4 +106,7 @@ input{
       .tool_inside_header{
         width: 100%;
       }
+      .user_textarea_input{
+        min-height: 130px;
+      }
   }

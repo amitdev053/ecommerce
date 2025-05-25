@@ -26,11 +26,17 @@ export default function Navbar({trackCart}) {
   const [cartQuantity, setCartQuantity] = useState(1)
   const [cartProcess , setCartProcess] = useState(false)
   const [modelDetector, setModelDetector] = useState(false)       // detect the mobilebar menu
-  const [detectCartModel, setCartModel] = useState(false)
+  const [detectCartModel, setCartModel] = useState(false)         // detect the cart model 
+  const [detectLikeModel, setLikeModel] = useState(false)
  
 
 
-  
+  function setRowItemCenter(){
+    let productRow = document.getElementById('ProductContainer')
+    if(productRow){
+      productRow.style.justifyContent = "center"
+    }
+  }
 
 
   const [url, seturl] = useState("");
@@ -55,6 +61,10 @@ window.addEventListener('resize', handleResize);
 
   // const [getuserCart, setgetuserCart] = useState([]);
   function restoreScrollPosition(appBody){
+    let userLikeContainer = document.getElementById('userLikeContainer')
+    if(!userLikeContainer.classList.contains('show_like_container')){
+
+    
         const scrollY = document.body.dataset.scrollY || 0;
           appBody.style.position = '';
             appBody.style.top = ``;
@@ -67,13 +77,13 @@ window.addEventListener('resize', handleResize);
           const html = document.documentElement;
           const originalScrollBehavior = html.style.scrollBehavior;
           html.style.scrollBehavior = 'auto';
-
+console.log("scroll behaviour", originalScrollBehavior)
         // Instantly restore scroll position without animation
         window.scrollTo(0, parseInt(scrollY));
 
         // Restore scroll-behavior after restoring position
-        html.style.scrollBehavior = originalScrollBehavior || '';
-
+        html.style.scrollBehavior = originalScrollBehavior || 'auto';
+    }
   }
 
   function removeNavabrIcon(){
@@ -111,6 +121,7 @@ window.addEventListener('resize', handleResize);
       let appBody = document.getElementById("appbody")
       if(appBody){            
         // appBody.style.removeProperty('position', 'fixed', 'important');   
+        setRowItemCenter()
         restoreScrollPosition(appBody)
       }
       let appHeaderContainsLikeIcon = document.querySelectorAll('.app_navbar_like_containericon')
@@ -135,6 +146,7 @@ window.addEventListener('resize', handleResize);
       if(modelDetector){
       OpenMobileNavbar()
     }
+    
       
   }
   function closeConfirmBox(CallingForOrder = false) {
@@ -171,6 +183,9 @@ window.addEventListener('resize', handleResize);
   }
   function openCart(event) {
     removeNavabrIcon()
+    if(detectLikeModel){
+         document.getElementById("userLikeContainer").style.zIndex = "1 "
+    }
     setCartModel(true)
 if(document.getElementById('navbarSupportedContent') && document.getElementById('navbarSupportedContent').classList.contains('active_navbar')){
   document.getElementById('navbarSupportedContent').classList.remove('active_navbar')    
@@ -258,6 +273,7 @@ if(window.location.pathname === "/saved"){
 
   function openLikes() {
     removeNavabrIcon()
+    setLikeModel(true)
     // to close the UserCart First
     if(detectCartModel){
       closeCart("userCart")
@@ -323,9 +339,7 @@ if(window.location.pathname === "/saved"){
           }, 300)
 
 
-        } else {
-
-        }
+        } 
       });
 
     
@@ -342,19 +356,7 @@ if(window.location.pathname === "/saved"){
 
     }))
   }
-  function loginAuth(event) {
-    setloader(true);
-
-    event.preventDefault();
-    let login = {
-      username: userName,
-      password: password,
-    };
-
-    axios
-      .post("https://backend.babusiya.com/account/verify_user", login)
-      .then((response) => setloader(false));
-  }
+ 
 
 
 const getUserCart = () => {

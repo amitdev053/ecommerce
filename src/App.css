@@ -1908,5 +1908,5 @@ canvas{
     margin-top: 3vh !important;
     margin-bottom: 18px !important;
     margin-left: 0 !important;
-    max-width: 100% !important;
+    width: 100% !important;
 }

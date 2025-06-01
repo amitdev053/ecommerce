@@ -256,13 +256,38 @@ const BlogDetail = () => {
       .querySelector(".blog_detail_full_content")
       .querySelector("#textToSpeak")
       .querySelectorAll(".gallerytitle");
+
+  
+
     Array.from(blogDetails).forEach((item) => {
+         const codeElements = item.querySelectorAll("code");
+         console.log("code element", codeElements)
+      // console.log("code item", item)
       Array.from(item.children).forEach((itemChildren) => {
         if (itemChildren.classList.contains("highlight")) {
           itemChildren.classList.add("custom-code-style");
+      const fullscreenAction = itemChildren.querySelector('.js-fullscreen-code-action')
+      console.log("fullscreenAction ", fullscreenAction)
+      if(fullscreenAction){
+        fullscreenAction.remove()
+      }
+       let PreCreate = document.createElement("pre");
+       let codeCreate = document.createElement("code");        
+
+          const PrinsmHTMl = window.Prism.highlight(itemChildren.textContent.trim(), window.Prism.languages.javascript, 'javascript');
+          codeCreate.innerHTML = PrinsmHTMl;
+          PreCreate.appendChild(codeCreate);
+          itemChildren.innerHTML = "";          
+          itemChildren.appendChild(PreCreate);
+       
         }
         Array.from(itemChildren.children).forEach((items) => {
+            if(item.getElementsByTagName("code")){
+            console.log("code item", items)
+            }
+    
           Array.from(items.children).forEach((itemsItems) => {
+                
             if (itemsItems.classList.contains("highlight")) {
               itemsItems.classList.add("custom-code-style");
             }
@@ -270,6 +295,16 @@ const BlogDetail = () => {
         });
       });
     });
+
+    // let codeElements =  document.querySelectorAll(".custom-code-style");
+    // console.log("codeElements", codeElements)
+    // Array.from(codeElements).forEach((item) => {
+    //     const fullscreenAction = item.querySelector('.js-fullscreen-code-action')
+    //       if (fullscreenAction) {
+    //         console.log("Found fullscreen action:", fullscreenAction);
+    //       }
+     
+    // });
   }
   useEffect(() => {
     getBlogDetails();
@@ -292,7 +327,7 @@ const BlogDetail = () => {
       <meta name="keywords" content="" />
     </Helmet>
         <div className="app_detail_blog_container container mt-ps90 app_container ">
-          <div className="row p-0 w-100 d-flex align-items-center overflow-hidden">
+          <div className="row p-0 w-100 d-flex align-items-center overflow-hidden flex-row-reverse position-relative">
             {/* blog user action  end Here*/}
             {/* blog details appear starts Here*/}
             <div className="col-10 blog_user_action w-100 blog_detail_full_content">
@@ -349,8 +384,14 @@ const BlogDetail = () => {
             {/* blog details appear starts Here*/}
 
             {/* blog details appear starts Here*/}
-            <div className="col-1 app_advertise_content"></div>
-            {/* blog details appear starts Here*/}
+            {/* <div className="col-2 app_advertise_content">
+            here the blog heading keys
+
+            </div> */}
+            
+            
+
+            
           </div>
         </div>
       </>

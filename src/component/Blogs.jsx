@@ -16,7 +16,7 @@ let topic = "threejs"
 let originalTopic = "angular"
 let title = `Explore ${topic.split('')[0].toUpperCase() + topic.split('').slice(1, topic.length).join("")}: | Market Shops`;
 const description = `Three.js is a powerful JavaScript 3D library that enables developers to create stunning, interactive 3D graphics directly in the web browser using WebGL. With an easy-to-use API and a wide range of features, Three.js simplifies the complex process of building 3D scenes, animations, visual effects, and VR/AR experiences.`;
-const keywords = 'ngrok | API Gateway, IoT Device Gateway, Secure Tunnels for Containers, Apps & APIs';
+const keywords = 'three.js, WebGL, 3D graphics, JavaScript 3D library, 3D animation, 3D rendering, interactive 3D, browser 3D engine, three js models, three js examples, three js scenes, 3D visualizations, 3D web development';
 
 const Blogs = (props) => {
   const [loader, setloader] = useState(true);

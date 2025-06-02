@@ -391,7 +391,9 @@ function shareImage(image){
 
             <img
             className="explore-image"
+            srcSet={image.largeImageURL}
               src={image.largeImageURL}
+              
               onClick={() => updateInteractionScore(image._category, 2)}
               // onLoad={() =>
               //   setImageStates((prevStates) =>
@@ -402,12 +404,12 @@ function shareImage(image){
               // }
 
               onLoad={() => {
-  setImageStates((prevStates) => {
-    const newState = [...prevStates]; // Clone state to avoid mutation
-    newState[index] = { loaded: true }; // Update only the specific image
-    return newState;
-  });
-}}
+              setImageStates((prevStates) => {
+                const newState = [...prevStates]; 
+                newState[index] = { loaded: true }; 
+                return newState;
+                });
+        }}
               onError={(e) =>{
                         e.target.src = defaultBlogImage;
                         e.target.alt = "Default image";

@@ -70,14 +70,14 @@ window.addEventListener('resize', handleResize);
             appBody.style.top = ``;
             appBody.style.left = '';
             appBody.style.right = '';
-               appBody.style.bottom = '';
+            appBody.style.bottom = '';
             appBody.style.removeProperty('position', 'fixed', 'important');  
         
           // Disable scroll-behavior temporarily to avoid visual scroll
           const html = document.documentElement;
           const originalScrollBehavior = html.style.scrollBehavior;
           html.style.scrollBehavior = 'auto';
-console.log("scroll behaviour", originalScrollBehavior)
+          console.log("scroll behaviour", originalScrollBehavior)
         // Instantly restore scroll position without animation
         window.scrollTo(0, parseInt(scrollY));
 

@@ -15,7 +15,7 @@ import { Helmet } from 'react-helmet';
 let topic = "threejs"
 let originalTopic = "angular"
 let title = `Explore ${topic.split('')[0].toUpperCase() + topic.split('').slice(1, topic.length).join("")}: | Market Shops`;
-const description = `ngrok provides a secure and easy-to-use solution for exposing your local API to the world. Whether you're developing a web application, testing APIs, or integrating with third-party services, ngrok has got you covered.`;
+const description = `Three.js is a powerful JavaScript 3D library that enables developers to create stunning, interactive 3D graphics directly in the web browser using WebGL. With an easy-to-use API and a wide range of features, Three.js simplifies the complex process of building 3D scenes, animations, visual effects, and VR/AR experiences.`;
 const keywords = 'ngrok | API Gateway, IoT Device Gateway, Secure Tunnels for Containers, Apps & APIs';
 
 const Blogs = (props) => {

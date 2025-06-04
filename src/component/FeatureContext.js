@@ -159,13 +159,13 @@ const FeatureContext = () => {
     Array.from(bodyChildren).forEach((element)=>{
       if(!element.getAttribute("guides") && !element.classList.contains("navbar")){
         if(type){
-          element.setAttribute("aria-hidden", true)
-          element.setAttribute("inert", true)
+          // element.setAttribute("aria-hidden", true)
+          // element.setAttribute("inert", true)
           // body.style.overflow = 'hidden';
 
         }else{
-          element.removeAttribute("aria-hidden")
-          element.removeAttribute("inert")
+          // element.removeAttribute("aria-hidden")
+          // element.removeAttribute("inert")
           // body.style.overflow = '';
         }
       }
@@ -191,6 +191,7 @@ const FeatureContext = () => {
     setLoadingGuides(true)
     
 document.getElementById("UserGuides").classList.add("dialog_container_fluid_show")
+document.getElementById("UserGuides").style.transform = `translateY(0)`;
 document.getElementById("UserGuides").setAttribute("fromInfo", true)
 document.getElementById("UserGuides").addEventListener("click", (event) => {
   if(event.target === document.getElementById("okGuides")){

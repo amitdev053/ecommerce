@@ -201,6 +201,7 @@ document.getElementById("UserGuides").addEventListener("click", (event) => {
     setTimeout(() => {
       setGuides(false)
       blockOutSideElement(false)
+      document.getElementById("UserGuides").style.transform = `translateY(100%)`;
       document.getElementById("UserGuides").classList.remove("dialog_container_fluid_show")
     }, 1500)
   }

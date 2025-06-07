@@ -175,7 +175,7 @@ const FeatureContext = () => {
     body.style.overflow = 'hidden';
     body.style.position = 'fixed';
   } else {
-    body.style.overflow = '';
+    body.style.overflow = 'auto';
     body.style.position = '';
   }
   }

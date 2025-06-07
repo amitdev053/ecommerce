@@ -166,7 +166,8 @@ const FeatureContext = () => {
         }else{
           // element.removeAttribute("aria-hidden")
           // element.removeAttribute("inert")
-          // body.style.overflow = '';
+          body.style.overflow = 'auto';
+          body.style.position = '';
         }
       }
     })
@@ -175,7 +176,7 @@ const FeatureContext = () => {
     body.style.overflow = 'hidden';
     body.style.position = 'fixed';
   } else {
-    body.style.overflow = 'auto';
+    body.style.overflow = '';
     body.style.position = '';
   }
   }

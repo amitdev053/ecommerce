@@ -46,6 +46,7 @@ const UserGuides = (props) => {
   }
 
   function handleTouchEnd() {
+    let body = document.getElementById("appbody");
     if (!startY || !currentY) return;
 
     const diffY = currentY - startY;
@@ -54,7 +55,8 @@ const UserGuides = (props) => {
       // Slide out and close
       modalRef.current.style.transition = 'transform 0.3s ease-out';
       modalRef.current.style.transform = 'translateY(100%)';
-
+      body.style.overflowY = 'auto'; 
+      body.style.position = ''; 
       // After animation, remove modal
       setTimeout(() => {
         props.loadingF(false); // or a dedicated close method
@@ -63,6 +65,8 @@ const UserGuides = (props) => {
       // Restore position
       modalRef.current.style.transition = 'transform 0.3s ease-out';
       modalRef.current.style.transform = 'translateY(0)';
+   
+      
     }
 
     setStartY(null);

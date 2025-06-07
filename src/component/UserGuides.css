@@ -1,7 +1,6 @@
 /* Backdrop container (covers full screen, no scroll itself) */
 #UserGuides {
-    position: fixed;
-    /* top: 0; */
+    /* position: fixed;
     bottom: -100%;
     left: 0;
     width: 100vw;
@@ -11,7 +10,23 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    font-family: 'Roboto';
+    font-family: 'Roboto'; */
+
+     position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 1000;
+  background: rgba(0, 0, 0, 0.6);
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+  font-family: 'Roboto';
+  transform: translateY(100%);
+  transition: transform 0.35s ease-in-out;
+  will-change: transform;
+  overflow: hidden;
   }
 .user_guides_container_fluid{
     background-color: rgba(43, 52, 69, 0.1) !important;

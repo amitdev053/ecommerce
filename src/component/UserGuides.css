@@ -27,6 +27,8 @@
   transition: transform 0.35s ease-in-out;
   will-change: transform;
   /* overflow: hidden; */
+    overscroll-behavior: contain; /* Prevent scroll bleed */
+  touch-action: none; /* Prevent gestures from bubbling */
   }
 .user_guides_container_fluid{
     background-color: rgba(43, 52, 69, 0.1) !important;

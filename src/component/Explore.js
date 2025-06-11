@@ -47,6 +47,7 @@ const Explore = (props) => {
   const exploreRef = useRef(null)
   const posImage = useRef(null);
   const [trakImages, setTrakImage] = useState(true);
+  const [bottomLoader, setBottomLoader] = useState(false);
 
  
 
@@ -102,9 +103,13 @@ const Explore = (props) => {
       });
           setloader(false);
           setTrakImage(false)
+          if(bottomLoader){
+            setBottomLoader(false);
+          }
     }
   } catch (error) {
-    setloader(false);
+    setloader(false);    
+    setBottomLoader(false);
     console.error("Error in getImages:", error);
   }
 }
@@ -279,35 +284,7 @@ function shareImage(image){
     }    
   }
 
-  function toggleBlog() {
-    
-    if (blogView === true) {
-      // blogs.reverse()
-      setBlogView(false)
-      setloader(true);
-
-      setTimeout(() => {
-        images.reverse();
-
-        setBlogView(false);
-        setloader(false);
-      }, 500);
-      document.getElementById("blogFilterBtn").style.backgroundColor = "black";
-      document.getElementById("blogFilterBtn").style.color = "white";
-    } else {
-      setloader(true);
-
-      setTimeout(() => {
-        images.reverse();
-
-        setBlogView(true);
-        setloader(false);
-      }, 500);
-
-      document.getElementById("blogFilterBtn").style.backgroundColor = "#eee";
-      document.getElementById("blogFilterBtn").style.color = "black";
-    }
-  }
+ 
 
   useEffect(() => {
   
@@ -315,6 +292,7 @@ function shareImage(image){
       console.log("entry point of intersect", entries, entries[0].isIntersecting)
         if(entries[0].isIntersecting){
           console.log("now intersecting")  
+           setBottomLoader(true);
           observer.unobserve(entries[0].target)
           // pageState++
           // setPageState(prevState => prevState + 1);        
@@ -324,7 +302,8 @@ function shareImage(image){
             //   getImages(false, "", newPageState);
             let currentCalculatedIndex = updatedHours();
             // setIndex(updatedHours());
-            getImages(`https://pixabay.com/api/?key=45283300-eddb6d21a3d3d06f2a2381d7d&q=${content[currentCalculatedIndex]}&image_type=photo&page=${newPageState}`);
+           
+        getImages(`https://pixabay.com/api/?key=45283300-eddb6d21a3d3d06f2a2381d7d&q=${content[currentCalculatedIndex]}&image_type=photo&page=${newPageState}`);
               return newPageState;
             });     
             
@@ -455,10 +434,19 @@ function shareImage(image){
             <i class="fa-solid fa-share explore_image_share_icon"></i>
             </div>    
           </div>
+
         );
       })}
     {/* {props.componentFrom === "home" ? <ExploreLinkButton /> : null} */}
     </div>
+    {(bottomLoader) && 
+    (
+    <div class="bottom_loader">
+       <div className="app_loader explore_bottom_loader" />
+       {/* <span className="explore_bottom_loader_text">Loading more images...</span> */}
+    </div>)
+
+    }
       </>
     );
   }

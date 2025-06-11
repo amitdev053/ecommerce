@@ -187,7 +187,8 @@ function addImageTouch(){
       if (!currentState?.loaded && imageData) {
         const columnWidth = imageColumn.offsetWidth; // Get actual width
         const aspectRatio = imageData.imageHeight / imageData.imageWidth;
-        const scaledHeight = columnWidth * aspectRatio;
+        // const scaledHeight = columnWidth * aspectRatio ;
+        const scaledHeight = columnWidth * aspectRatio - imageData.imageHeight * 0.1;
   
         imageColumn.style.height = `${scaledHeight}px`; // Set calculated height
       } else {

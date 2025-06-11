@@ -241,19 +241,22 @@
 @media (max-width: 550px) {
   .feature-section{
     overflow-x: auto;
+     scroll-snap-type: x mandatory;
     padding: 50px 10px;
   }
  
   .feature-cards-wrapper{
       display: inline-flex;
       flex-wrap: nowrap;
+     
       /* overflow-x: auto; */
 
   }
   .feature-card {
-    width: 500px;
+    width: 350px;
     margin-bottom: 0px;
     max-width: 330px;
+     scroll-snap-align: center;
     height: fit-content;
     flex: 0 0 auto;
   }

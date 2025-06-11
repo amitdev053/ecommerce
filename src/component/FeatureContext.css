@@ -168,14 +168,32 @@
 
 
 
+
 @media (max-width: 750px) {
   .feature-card {
-    width: 500px;
+    width: 100% ;
     margin-bottom: 20px;
   }
 }
 
+@media (max-width: 550px) {
+  .feature-section{
+    overflow-x: auto;
+  }
+  .feature-cards-wrapper{
+      display: inline-flex;
+      flex-wrap: nowrap;
+      overflow-x: auto;
 
+  }
+  .feature-card {
+    width: 500px;
+    margin-bottom: 20px;
+    max-width: 330px;
+    height: fit-content;
+    flex: 0 0 auto;
+  }
+}
 
 /* .feature-card:nth-child(2) {
   background-color: #f8f9fa;

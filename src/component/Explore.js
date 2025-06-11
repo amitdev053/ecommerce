@@ -8,6 +8,7 @@ import EmptyCartImage from "../appimages/empty_cart.webp";
 import defaultBlogImage from "../defaultBlog.jpg";
 import ExploreLinkButton from "./ExploreLinkButton";
 import { handleShare } from "./HandleShare";
+import { getImageColors } from "./GetImageColors";
 
 let content = [
   "kiss", "Fashion", "Sports", "Music", "Gaming", "Technology", "Health", "Finance", "Education", "Lifestyle", "Travel and Adventure",  "Art and Creativity", "hugs", "Nature and Wildlife", "Food and Culinary", "History and Culture","Fitness and Wellness", "Architecture and Design","Space and Astronomy", "Books and Literature", "Motivation and Productivity",  "Luxury and Lifestyle",  "Science and Innovation",   "Minimalism and Aesthetics", "romantic",  "Sibling Love", "Date Night",  "Valentine", "Hobbies and Skills",  "Rose", "couples"
@@ -44,58 +45,62 @@ const Explore = (props) => {
   const blogColRef = useRef([])
   const [pageState, setPageState] = useState(1)
   const exploreRef = useRef(null)
+  const posImage = useRef(null);
 
  
 
   const baseUrl = `https://pixabay.com/api/?key=45283300-eddb6d21a3d3d06f2a2381d7d&q=${content[index]}&image_type=photo`
 
 
-  function getProducts(url) {
-    // let finalUrl = url + `&page=${page}`
-    fetch(url)
-      .then((response) => {
-        setloader(false);
-        // console.log("response", response);
-        return response.json();
-      })
-      .then((result) => {
-        // // console.log("products product.js", result);
-        if(props.componentFrom === "home"){
-// console.log("routes run in home c")
-console.log("explore images", result.hits);
-setImages(result.hits.splice(0, 7));
+   async function getProducts(url) {
+  try {
+    const response = await fetch(url);
+    setloader(false);
 
-}else{
-          // console.log("routes not run in home c")
-          // setImages(result.hits);
-          const indexedHits = result.hits.map((img, i) => ({
-            ...img,
-            _orderIndex: images.length + i, 
-            _category: content[index], // 🔹 add this
-          }));    
-        console.log("image index", indexedHits)
-        const storedScores = JSON.parse(localStorage.getItem("interactionScore") || "{}");
+    const result = await response.json();
 
-        // Sort images by their interaction score
-        const sortedImages = indexedHits.sort((a, b) => {
-          const scoreA = storedScores[a._category] || 0;
-          const scoreB = storedScores[b._category] || 0;
-          return scoreB - scoreA; // higher score = higher rank
-        });
-
-        setImages((prevImages) => {
-          const existingIds = new Set(prevImages.map((img) => img.id));
-          const uniqueNewImages = sortedImages.filter((img) => !existingIds.has(img.id));
-          return [...prevImages, ...uniqueNewImages];
-        });
-        console.log("set images", setImages)
-          // console.log("indexhits", indexedHits, images)
-          // setImages(prev => [  ...prev, ...indexedHits]);
-          // console.log("explore images", result.hits);
-
+    if (props.componentFrom === "home") {
+      console.log("explore images", result.hits);
+      setImages(result.hits.splice(0, 7));
+    } else {
+      const indexedHits = await Promise.all(result.hits.map(async (img, i) => {
+        let defaultColor = "#ffffff";
+        try {
+          const getColors = await getImageColors(img.largeImageURL, 1);
+          console.log("getColors", getColors);
+          defaultColor = getColors[0]; // grab first color
+        } catch (e) {
+          console.error("Error fetching image colors:", e);
         }
+
+        return {
+          ...img,
+          _orderIndex: images.length + i,
+          _category: content[index],
+          imageColor: defaultColor,
+        };
+      }));
+
+      const storedScores = JSON.parse(localStorage.getItem("interactionScore") || "{}");
+
+      const sortedImages = indexedHits.sort((a, b) => {
+        const scoreA = storedScores[a._category] || 0;
+        const scoreB = storedScores[b._category] || 0;
+        return scoreB - scoreA;
       });
+
+      setImages((prevImages) => {
+        const existingIds = new Set(prevImages.map((img) => img.id));
+        const uniqueNewImages = sortedImages.filter((img) => !existingIds.has(img.id));
+        return [...prevImages, ...uniqueNewImages];
+      });
+    }
+  } catch (error) {
+    setloader(false);
+    console.error("Error in getProducts:", error);
   }
+}
+
  
 function addImageTouch(){
   // transform: scale(1.5);
@@ -386,7 +391,7 @@ function shareImage(image){
         const { loaded } = imageStates[index];
 
         return (
-          <div ref={(el)=> (blogColRef.current[index] = el)} className={props.componentFrom === "home" ? 'column position-relative explore_image':'column position-relative explore_image'} key={image.id}>      
+          <div ref={(el)=> (blogColRef.current[index] = el)} className={props.componentFrom === "home" ? 'column position-relative explore_image':'column position-relative explore_image'} key={image.id} style={{backgroundColor: image.imageColor}}>      
           
 
             <img
@@ -421,7 +426,7 @@ function shareImage(image){
             />
             
           
-            {!loaded && <div className="app_loader" />}
+            {/* {!loaded && <div className="app_loader" />} */}
 
             <div className="explore_icons position-absolute ">
             <div className="explore_like_content d-flex align-items-center">

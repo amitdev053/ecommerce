@@ -46,16 +46,22 @@ const Explore = (props) => {
   const [pageState, setPageState] = useState(1)
   const exploreRef = useRef(null)
   const posImage = useRef(null);
+  const [trakImages, setTrakImage] = useState(true);
 
  
 
   const baseUrl = `https://pixabay.com/api/?key=45283300-eddb6d21a3d3d06f2a2381d7d&q=${content[index]}&image_type=photo`
 
 
-   async function getProducts(url) {
-  try {
+  async function getImages(url) {
+    if(trakImages && props.componentFrom !== "home"){
+      setloader(true);
+
+    }
+     try {
     const response = await fetch(url);
-    setloader(false);
+  
+    
 
     const result = await response.json();
 
@@ -94,10 +100,12 @@ const Explore = (props) => {
         const uniqueNewImages = sortedImages.filter((img) => !existingIds.has(img.id));
         return [...prevImages, ...uniqueNewImages];
       });
+          setloader(false);
+          setTrakImage(false)
     }
   } catch (error) {
     setloader(false);
-    console.error("Error in getProducts:", error);
+    console.error("Error in getImages:", error);
   }
 }
 
@@ -125,7 +133,7 @@ function addImageTouch(){
     setIndex(updatedHours());
     document.title = `Explore images for ${content[currentCalculatedIndex]}`;
     // Fetch images for the initial index
-    getProducts(`https://pixabay.com/api/?key=45283300-eddb6d21a3d3d06f2a2381d7d&q=${content[currentCalculatedIndex]}&image_type=photo`);
+    getImages(`https://pixabay.com/api/?key=45283300-eddb6d21a3d3d06f2a2381d7d&q=${content[currentCalculatedIndex]}&image_type=photo`);
     
     
     addImageTouch();
@@ -145,7 +153,7 @@ function addImageTouch(){
   //   document.title = `Explore images for ${currentCategory}`;
     
   //   // Fetch images for the preferred category
-  //   getProducts(`https://pixabay.com/api/?key=45283300-eddb6d21a3d3d06f2a2381d7d&q=${currentCategory}&image_type=photo`);
+  //   getImages(`https://pixabay.com/api/?key=45283300-eddb6d21a3d3d06f2a2381d7d&q=${currentCategory}&image_type=photo`);
   
   //   // Periodic category rotation (every hour)
   //   const interval = setInterval(() => {
@@ -239,7 +247,7 @@ function shareImage(image){
   // Fetch images whenever the index changes
   useEffect(() => {
    let currentCalculatedIndex = updatedHours();
-    getProducts(`https://pixabay.com/api/?key=45283300-eddb6d21a3d3d06f2a2381d7d&q=${content[currentCalculatedIndex]}&image_type=photo`);
+    getImages(`https://pixabay.com/api/?key=45283300-eddb6d21a3d3d06f2a2381d7d&q=${content[currentCalculatedIndex]}&image_type=photo`);
     setImageStates(images.map(() => ({ loaded: false })));
   }, [index]);
 
@@ -313,10 +321,10 @@ function shareImage(image){
             setPageState((prevState) => {
               let newPageState = prevState + 1;
             //   // console.log("now intersecting", newPageState);
-            //   getProducts(false, "", newPageState);
+            //   getImages(false, "", newPageState);
             let currentCalculatedIndex = updatedHours();
             // setIndex(updatedHours());
-            getProducts(`https://pixabay.com/api/?key=45283300-eddb6d21a3d3d06f2a2381d7d&q=${content[currentCalculatedIndex]}&image_type=photo&page=${newPageState}`);
+            getImages(`https://pixabay.com/api/?key=45283300-eddb6d21a3d3d06f2a2381d7d&q=${content[currentCalculatedIndex]}&image_type=photo&page=${newPageState}`);
               return newPageState;
             });     
             

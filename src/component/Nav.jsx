@@ -685,19 +685,7 @@ useEffect(()=>{
                   </Link>
                 </li>
 
-                <li className="nav-item">
-                  <Link
-                    className={`${
-                      url === "/blogs" || url === "/blogs/suggest" || url === "/blogs/search" ? "nav-link active" : "nav-link"
-                    }`}
-                    to="/blogs"
-                    id="appBlogs"
-                  >
-                    Blogs
-                  </Link>
-                </li>
-
-                <li className="nav-item">
+                 <li className="nav-item">
                   <Link
                     className={`${
                       url === "/explore" ? "nav-link active" : "nav-link"
@@ -708,6 +696,18 @@ useEffect(()=>{
                     Explore
                   </Link>
                 </li>
+
+                <li className="nav-item">
+                  <Link
+                    className={`${
+                      url === "/blogs" || url === "/blogs/suggest" || url === "/blogs/search" ? "nav-link active" : "nav-link"
+                    }`}
+                    to="/blogs"
+                    id="appBlogs"
+                  >
+                    Blogs
+                  </Link>
+                </li>               
 
                 <li className="nav-item">
                   <Link

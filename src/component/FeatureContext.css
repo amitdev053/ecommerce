@@ -169,31 +169,6 @@
 
 
 
-@media (max-width: 750px) {
-  .feature-card {
-    width: 100% ;
-    margin-bottom: 20px;
-  }
-}
-
-@media (max-width: 550px) {
-  .feature-section{
-    overflow-x: auto;
-  }
-  .feature-cards-wrapper{
-      display: inline-flex;
-      flex-wrap: nowrap;
-      overflow-x: auto;
-
-  }
-  .feature-card {
-    width: 500px;
-    margin-bottom: 20px;
-    max-width: 330px;
-    height: fit-content;
-    flex: 0 0 auto;
-  }
-}
 
 /* .feature-card:nth-child(2) {
   background-color: #f8f9fa;
@@ -252,3 +227,53 @@
 .feature-card.hovered::after {
   left: 200%;
 }
+
+
+/* Media Queries for Responsive Design Start Here */
+
+@media (max-width: 750px) {
+  .feature-card {
+    width: 100% ;
+    margin-bottom: 20px;
+  }
+}
+
+@media (max-width: 550px) {
+  .feature-section{
+    overflow-x: auto;
+    padding: 50px 10px;
+  }
+ 
+  .feature-cards-wrapper{
+      display: inline-flex;
+      flex-wrap: nowrap;
+      /* overflow-x: auto; */
+
+  }
+  .feature-card {
+    width: 500px;
+    margin-bottom: 0px;
+    max-width: 330px;
+    height: fit-content;
+    flex: 0 0 auto;
+  }
+}
+/* Media Queries for Responsive Design End here*/
+
+/* customise scrollbar from start here*/
+.feature-section::-webkit-scrollbar {
+  height: 0px; 
+}
+ .feature-section::-webkit-scrollbar-track {
+  background: #f8f9fa !important;
+  }
+
+.feature-section::-webkit-scrollbar-thumb {
+  background: #f8f9fa !important; 
+  border-radius: 5px;
+}
+
+.feature-section::-webkit-scrollbar-thumb:hover {
+  background: #f8f9fa !important; 
+}
+/* customise scrollbar from End here*/

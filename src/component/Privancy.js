@@ -8,7 +8,7 @@ const Privancy = () => {
    <>
     <div className="container privacy-policy mt-74 about_container app_container" >
       <h1>Privacy Policy</h1>
-      <p><strong className="strong">Effective Date:</strong> [17/05/1025]</p>
+      <p><strong className="strong">Effective Date:</strong> [17/05/2025]</p>
       <p><strong className="strong">Website:</strong> <Link href="https://market-shops.vercel.app" target="_blank" rel="noopener noreferrer">https://market-shops.vercel.app</Link></p>
 
       <p>At <strong className="strong">Market Shops</strong>, we respect your privacy and are committed to protecting your personal information. This Privacy Policy outlines how we collect, use, and protect your data when you use our website and services.</p>

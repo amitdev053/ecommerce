@@ -81,11 +81,13 @@ const UserGuides = (props) => {
       id="UserGuides"
        ref={modalRef}
       guides="true"
-      onTouchStart={handleTouchStart}
+    
+    >
+      <div className="row dialog_row user_guides_row"
+        onTouchStart={handleTouchStart}
       onTouchMove={handleTouchMove}
       onTouchEnd={handleTouchEnd}
-    >
-      <div className="row dialog_row user_guides_row">
+      >
         <div className="col-12 dilaog_col text-center p-0">
           <div className="dialog_heading user_guide_heading" 
        

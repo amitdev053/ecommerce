@@ -33,14 +33,14 @@ const Blogs = (props) => {
   
  
   const getBlogs = (forSearch = false, forSearchQuery = "", page = pageState) => {
-    console.log("getblogs run", pageState)
+    // console.log("getblogs run", pageState)
     let getBlogUrl
-    console.log("blog page function", topic)
+    // console.log("blog page function", topic)
     setloader(true);
     if(forSearch){
       setHeading(forSearchQuery)
       topic = forSearchQuery;
-      console.log("checking search text", topic)
+      // console.log("checking search text", topic)
       getBlogUrl = `https://dev.to/api/articles?tag=${forSearchQuery}`
       
       let tags = document.querySelectorAll(".app_blog_tag_text")
@@ -62,13 +62,13 @@ const Blogs = (props) => {
        })
     }
     let finalUrl = getBlogUrl + `&page=${page}`
-    console.log("checking getBlogUrl", getBlogUrl, finalUrl)
+    // console.log("checking getBlogUrl", getBlogUrl, finalUrl)
   
-    // console.log("manageing blogs", getBlogUrl, forSearchQuery)
+    // // console.log("manageing blogs", getBlogUrl, forSearchQuery)
     axios.get(finalUrl).then((blog) => {
       setloader(false);    
       if(props.componentFrom === "home"){
-        // console.log("routes run in home c")
+        // // console.log("routes run in home c")
         setBlogs(blog.data.splice(0, 8));
         
         }else{  
@@ -78,7 +78,7 @@ const Blogs = (props) => {
     });
   };
   function highlightTopicAfterRefresh(){
-    console.log("hightMobile text")
+    // console.log("hightMobile text")
     let mobileTopics = document.querySelector('.mobile_suggest_topics').children
     
       Array.from(mobileTopics).forEach((topic)=>{
@@ -130,7 +130,7 @@ const Blogs = (props) => {
     const urlParams = new URLSearchParams(window.location.search);
     const searchText = urlParams.get('query');
     
-    // console.log("initalload data", urlParams,searchText)
+    // // console.log("initalload data", urlParams,searchText)
 if(urlParams.size > 0){
 
 getBlogs(true, searchText)
@@ -140,7 +140,7 @@ getBlogs(true, searchText)
 
   getBlogs();
 }
-console.log("on every time")
+// console.log("on every time")
     // displayDynamicBlogs()
   }, []);
 
@@ -158,7 +158,7 @@ console.log("on every time")
   useEffect(() => {
     const urlParams = new URLSearchParams(window.location.search);
     const searchText = urlParams.get('query');
-    // console.log("checking search", searchText)
+    // // console.log("checking search", searchText)
     if(searchText){
       setSearchText(searchText)
     }
@@ -188,9 +188,9 @@ console.log("on every time")
 
   useEffect(() => {
     const searchParams = new URLSearchParams(location.search);
-   // console.log("first..")
+   // // console.log("first..")
    
-    // // console.log("Populate blogs", location.pathname, userSearchQuery, searchParams, location.search)   
+    // // // console.log("Populate blogs", location.pathname, userSearchQuery, searchParams, location.search)   
     if(location.pathname === "/blogs/search"){
       const userSearchQuery = searchParams.get("query");
       
@@ -224,7 +224,7 @@ console.log("on every time")
     topic = "threejs"
     getBlogs()
     if(document.getElementById('searchTagText')){
-      console.log("input placeholder changed")
+      // console.log("input placeholder changed")
       // setSearchFillText("Search blogs by tagnames...")
     document.getElementById('searchTagText').value = "" 
     highlightTopicAfterRefresh()
@@ -459,7 +459,7 @@ let tagList = [
               </> 
           ) :
           blogs.map((blog, i) => {
-           {/* // console.log("enter in blogs map function", blog); */}
+           {/* // // console.log("enter in blogs map function", blog); */}
             return (
               <>
                 <div className="col-md-4 col-sm-12 col-lg-3 blog_content_border app_blogs" key={blog.id + i} ref={(el)=> (blogColRef.current[i] = el)}>

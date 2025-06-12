@@ -67,14 +67,14 @@ const Explore = (props) => {
     const result = await response.json();
 
     if (props.componentFrom === "home") {
-      console.log("explore images", result.hits);
+      // console.log("explore images", result.hits);
       setImages(result.hits.splice(0, 7));
     } else {
       const indexedHits = await Promise.all(result.hits.map(async (img, i) => {
         let defaultColor = "#ffffff";
         try {
           const getColors = await getImageColors(img.largeImageURL, 1);
-          console.log("getColors", getColors);
+          // console.log("getColors", getColors);
           defaultColor = getColors[0]; // grab first color
         } catch (e) {
           console.error("Error fetching image colors:", e);
@@ -237,10 +237,10 @@ function addImageTouch(){
     // Function to calculate the current index based on elapsed hours 
       const currentTime = Date.now();
       const hoursElapsed = Math.floor((currentTime - referenceTime) / (60 * 60 * 1000));
-      // console.log("calc index", hoursElapsed % content.length);
+      // // console.log("calc index", hoursElapsed % content.length);
       content.forEach((element, index) => {
         if(index === hoursElapsed % content.length){
-          // console.log("element", element)
+          // // console.log("element", element)
         }
       })
       return hoursElapsed % content.length;
@@ -290,16 +290,16 @@ function shareImage(image){
   useEffect(() => {
   
     const observer = new IntersectionObserver(function(entries){
-      console.log("entry point of intersect", entries, entries[0].isIntersecting)
+      // console.log("entry point of intersect", entries, entries[0].isIntersecting)
         if(entries[0].isIntersecting){
-          console.log("now intersecting")  
+          // console.log("now intersecting")  
            setBottomLoader(true);
           observer.unobserve(entries[0].target)
           // pageState++
           // setPageState(prevState => prevState + 1);        
             setPageState((prevState) => {
               let newPageState = prevState + 1;
-            //   // console.log("now intersecting", newPageState);
+            //   // // console.log("now intersecting", newPageState);
             //   getImages(false, "", newPageState);
             let currentCalculatedIndex = updatedHours();
             // setIndex(updatedHours());
@@ -321,7 +321,7 @@ function shareImage(image){
       // for get the element by Id after the Id in id={`blogColId${index}`}
       // const elements = document.querySelectorAll(`[id^="blogColId"]`)
       // let lastElement = elements[elements.length - 15];
-      console.log("lastElement", lastElement)
+      // console.log("lastElement", lastElement)
       observer.observe(lastElement)
   
     }, 100)

@@ -182,7 +182,7 @@ const FeatureContext = () => {
   }
   }
   function openGuides(feature) {
-    console.log("open guides", feature)
+    // console.log("open guides", feature)
       // Save feature data into state
   setGuideContent({
     title: feature.modelTitle,
@@ -197,7 +197,7 @@ document.getElementById("UserGuides").style.transform = `translateY(0)`;
 document.getElementById("UserGuides").setAttribute("fromInfo", true)
 document.getElementById("UserGuides").addEventListener("click", (event) => {
   if(event.target === document.getElementById("okGuides")){
-    console.log("ok order")
+    // console.log("ok order")
     setLoadingGuides(false)
     setGuides(true)
     setTimeout(() => {

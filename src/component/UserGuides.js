@@ -3,7 +3,7 @@ import { createPortal } from "react-dom";
 import "./UserGuides.css";
 
 const UserGuides = (props) => {
-  console.log("UserGuides", props);
+  // console.log("UserGuides", props);
   // for the initial loading
   const [touchStart, setTouchStart] = useState(0);
   useEffect(() => {

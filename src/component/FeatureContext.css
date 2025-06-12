@@ -40,6 +40,7 @@
   transform-style: preserve-3d;
   /* animation: fadeInUp 0.6s ease forwards; */
   font-family: 'Roboto';
+  align-items: center;
 }
 
 @keyframes fadeInUp {
@@ -248,7 +249,7 @@
   .feature-cards-wrapper{
       display: inline-flex;
       flex-wrap: nowrap;
-     
+     align-items: center;
       /* overflow-x: auto; */
 
   }

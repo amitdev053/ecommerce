@@ -119,6 +119,7 @@ const UserGuides = (props) => {
                 props.buttonText
               )
               }
+              {/* {props.buttonText} */}
             </button>
           </div>
         </div>

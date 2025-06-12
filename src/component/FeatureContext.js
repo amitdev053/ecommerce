@@ -206,7 +206,7 @@ document.getElementById("UserGuides").addEventListener("click", (event) => {
       document.getElementById("UserGuides").style.transform = `translateY(100%)`;
       document.getElementById("UserGuides").style.overflowY = `auto`;
       document.getElementById("UserGuides").classList.remove("dialog_container_fluid_show")
-    }, 1500)
+    }, 1000)
   }
 
 })

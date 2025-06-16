@@ -25,10 +25,12 @@ import { BlogAudioContext } from "./component/BlogAudioContext";
 import Tools from "./component/Tools";
 import About from "./component/About";
 import Privancy from "./component/Privancy";
+import ExploreNext from "./component/ExploreNext";
 
 function App() {
   const location = useLocation();
   const matchRoute = useMatch("/blog-detail/:blogId/:blogTitle");
+  // const exploreNext = useMatch("/explore-next/:type/:imageTag");
   const context = useContext(BlogAudioContext);
 
   // Function to set a cookie
@@ -98,6 +100,10 @@ function App() {
               exact
               path="/blog-detail/:blogId/:blogTitle"
               Component={BlogDetail}
+            />
+            <Route
+              path="/explore-next/:type/:imageTag"
+              Component={ExploreNext}
             />
           </Routes>
           <BlogAudioPlayer />

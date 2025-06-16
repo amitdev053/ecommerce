@@ -9,6 +9,8 @@ import defaultBlogImage from "../defaultBlog.jpg";
 import ExploreLinkButton from "./ExploreLinkButton";
 import { handleShare } from "./HandleShare";
 import { getImageColors } from "./GetImageColors";
+import { Link } from "react-router-dom";
+
 
 let content = [
   "kiss", "Fashion", "Sports", "Music", "Gaming", "Technology", "Health", "Finance", "Education", "Lifestyle", "Travel and Adventure",  "Art and Creativity", "hugs", "Nature and Wildlife", "Food and Culinary", "History and Culture","Fitness and Wellness", "Architecture and Design","Space and Astronomy", "Books and Literature", "Motivation and Productivity",  "Luxury and Lifestyle",  "Science and Innovation",   "Minimalism and Aesthetics", "romantic",  "Sibling Love", "Date Night",  "Valentine", "Hobbies and Skills",  "Rose", "couples"
@@ -50,27 +52,110 @@ const Explore = (props) => {
   const [bottomLoader, setBottomLoader] = useState(false);
 
  
+  useEffect(()=>{
+    if(props.componentFrom === "exploreNext"){
+      setTrakImage(false)
+      // setImages([])
+    }
+  }, [])
+
+
 
   const baseUrl = `https://pixabay.com/api/?key=45283300-eddb6d21a3d3d06f2a2381d7d&q=${content[index]}&image_type=photo`
 
 
-  async function getImages(url) {
+  async function getImages(url, exploreNextInfiniteScroll = false) {
     if(trakImages && props.componentFrom !== "home"){
       setloader(true);
 
     }
      try {
-    const response = await fetch(url);
-  
-    
+    const response = await fetch(url);   
 
     const result = await response.json();
 
     if (props.componentFrom === "home") {
       // console.log("explore images", result.hits);
-      setImages(result.hits.splice(0, 7));
-    } else {
-      const indexedHits = await Promise.all(result.hits.map(async (img, i) => {
+      console.log("yes home props")
+      // setImages(result.hits.splice(0, 7));
+      setupImageOnPage(result.hits.splice(0, 7))
+    } else if(props.componentFrom === "exploreNext"){
+      // let isTracking = trakImages;
+      console.log("explorenext page", props.displayImage, url, trakImages)
+      let exploreNextPhotos;
+
+      let exploreNextUrl
+      if(exploreNextInfiniteScroll){
+        exploreNextUrl = url
+        // setTrakImage(true)
+      //  isTracking = trakImages 
+        console.log("inifinite scroll", pageState, exploreNextUrl, trakImages)
+
+      }else{
+        
+        exploreNextUrl = `https://pixabay.com/api/?key=45283300-eddb6d21a3d3d06f2a2381d7d&q=${props.displayImage}&image_type=photo`
+
+      }
+        // if(isTracking){
+        try{
+          const response = await fetch(exploreNextUrl);  
+          exploreNextPhotos = await response.json();
+          console.log("return", exploreNextPhotos)
+          setupImageOnPage(exploreNextPhotos)
+
+        }catch(error){
+        console.log("catch eroor in rxplore next page", pageState, error)
+        }
+    
+              // return 
+              
+            // }
+
+        
+    }
+    
+    else {
+      console.log("explore loading results")
+     setupImageOnPage(result)
+    }
+  } catch (error) {
+    setloader(false);    
+    setBottomLoader(false);
+    console.log("catch eroor in app images", pageState, error)
+  }
+}
+
+async function setupImageOnPage(result){
+  if(props.componentFrom === "home"){
+  
+    // console.log("home result and images", result, images)
+
+     const indexedHits = await Promise.all(result.map(async (img, i) => {
+        let defaultColor = "#ffffff";
+        try {
+          const getColors = await getImageColors(img.largeImageURL, 1);
+          // console.log("getColors", getColors);
+          defaultColor = getColors[0]; // grab first color
+        } catch (e) {
+          console.error("Error fetching image colors:", e);
+        }
+
+        return {
+          ...img,
+          _orderIndex: images.length + i,
+          _category: content[index],
+          imageColor: defaultColor,
+        };
+      }));
+
+         setloader(false);
+        setImages(indexedHits)
+      console.log("index hits", result, indexedHits)
+
+  }else{
+
+  
+   const indexedHits = await Promise.all(result.hits.map(async (img, i) => {
         let defaultColor = "#ffffff";
         try {
           const getColors = await getImageColors(img.largeImageURL, 1);
@@ -95,22 +180,22 @@ const Explore = (props) => {
         const scoreB = storedScores[b._category] || 0;
         return scoreB - scoreA;
       });
+   
 
       setImages((prevImages) => {
         const existingIds = new Set(prevImages.map((img) => img.id));
         const uniqueNewImages = sortedImages.filter((img) => !existingIds.has(img.id));
         return [...prevImages, ...uniqueNewImages];
       });
-          setloader(false);
-          setTrakImage(false)
-          if(bottomLoader){
-            setBottomLoader(false);
-          }
-    }
-  } catch (error) {
-    setloader(false);    
-    setBottomLoader(false);
-    console.error("Error in getImages:", error);
+      console.log("images", images)
+      setloader(false);
+      // if(props.componentFrom !== "exploreNext"){
+        setTrakImage(false)
+      // }
+      if(bottomLoader){
+        setBottomLoader(false);
+      }
+         
   }
 }
 
@@ -203,28 +288,29 @@ function addImageTouch(){
       // }
     });
   }, [imageStates, images]); // rerun whenever images or states change
-  useEffect(() => {
-   setTimeout(() => {
-    const container = document.querySelector('.pinterest-layout');
-    const items = container.querySelectorAll('.explore_image');
+  // useEffect(() => {
+  //  setTimeout(() => {
+    
+  //   const container = document.querySelector('.pinterest-layout');
+  //   const items = container.querySelectorAll('.explore_image');
   
-    if (items.length < 3) return;
+  //   if (items.length < 3) return;
   
-    const secondItem = items[1];
-    const thirdItem = items[2];
+  //   const secondItem = items[1];
+  //   const thirdItem = items[2];
   
-    const secondBottom = secondItem.offsetTop + secondItem.offsetHeight;
-    const thirdBottom = thirdItem.offsetTop + thirdItem.offsetHeight;
+  //   const secondBottom = secondItem.offsetTop + secondItem.offsetHeight;
+  //   const thirdBottom = thirdItem.offsetTop + thirdItem.offsetHeight;
   
-    // Check if second item has a large gap below it
-    const gapThreshold = 100; // adjust based on your layout
+  //   // Check if second item has a large gap below it
+  //   const gapThreshold = 100; // adjust based on your layout
   
-    if (thirdBottom - secondBottom > gapThreshold) {
-      const lastItem = items[items.length - 1];
-      container.insertBefore(lastItem, secondItem);
-    }
-   }, 500)
-  }, [images]); // Run after images are rendered
+  //   if (thirdBottom - secondBottom > gapThreshold) {
+  //     const lastItem = items[items.length - 1];
+  //     container.insertBefore(lastItem, secondItem);
+  //   }
+  //  }, 500)
+  // }, [images]); // Run after images are rendered
 
   useEffect(() => {
     setImageStates((prevStates) =>
@@ -287,50 +373,125 @@ function shareImage(image){
 
  
 
-  useEffect(() => {
+  // useEffect(() => {
+  // if(props.componentFrom !== "home"){
+
   
-    const observer = new IntersectionObserver(function(entries){
-      // console.log("entry point of intersect", entries, entries[0].isIntersecting)
-        if(entries[0].isIntersecting){
-          // console.log("now intersecting")  
-           setBottomLoader(true);
-          observer.unobserve(entries[0].target)
-          // pageState++
-          // setPageState(prevState => prevState + 1);        
-            setPageState((prevState) => {
-              let newPageState = prevState + 1;
-            //   // // console.log("now intersecting", newPageState);
-            //   getImages(false, "", newPageState);
-            let currentCalculatedIndex = updatedHours();
-            // setIndex(updatedHours());
-           
-        getImages(`https://pixabay.com/api/?key=45283300-eddb6d21a3d3d06f2a2381d7d&q=${content[currentCalculatedIndex]}&image_type=photo&page=${newPageState}`);
-              return newPageState;
-            });     
-            
-    // document.title = `Explore images for ${content[currentCalculatedIndex]}`;
-    // Fetch images for the initial index
+  //   const observer = new IntersectionObserver(function(entries){
+  //     // console.log("entry point of intersect", entries, entries[0].isIntersecting)
+  //       if(entries[0].isIntersecting){
+  //         // console.log("now intersecting")  
+  //         if(props.componentFrom === "exploreNext"){
+
+  //            setBottomLoader(true);
+  //         observer.unobserve(entries[0].target)
+  //         // pageState++
+  //         // setPageState(prevState => prevState + 1);        
+  //           setPageState(async (prevState) => {
+  //             let newPageState = prevState + 1;
+              
+  //           //   // // console.log("now intersecting", newPageState);
+        
+  //         //   let url = `https://pixabay.com/api/?key=45283300-eddb6d21a3d3d06f2a2381d7d&q=${props.displayImage}&image_type=photo&page=${newPageState}`
+
+  //         // const response = await fetch(url);  
+  //         // let  nextPhotos = await response.json();
           
-        }
-  
-    })
-  
-    setTimeout(()=>{
-      let lastElement = blogColRef.current[blogColRef.current.length - 5]
+  //         //   setupImageOnPage(nextPhotos)
+  //          setTrakImage(true)
+  //       getImages(`https://pixabay.com/api/?key=45283300-eddb6d21a3d3d06f2a2381d7d&q=${props.displayImage}&image_type=photo&page=${newPageState}`, true);
+  //             return newPageState;
+  //           });    
+
     
-      // for get the element by Id after the Id in id={`blogColId${index}`}
-      // const elements = document.querySelectorAll(`[id^="blogColId"]`)
-      // let lastElement = elements[elements.length - 15];
-      // console.log("lastElement", lastElement)
-      observer.observe(lastElement)
-  
-    }, 100)
-    return ()=>{
+            
+  //         }else{
+  //           // setTrakImage(false)
+          
+
+  //          setBottomLoader(true);
+  //         observer.unobserve(entries[0].target)
+  //         // pageState++
+  //         // setPageState(prevState => prevState + 1);        
+  //           setPageState((prevState) => {
+  //             let newPageState = prevState + 1;
+  //           //   // // console.log("now intersecting", newPageState);
+  //           //   getImages(false, "", newPageState);
+  //           let currentCalculatedIndex = updatedHours();
+  //           // setIndex(updatedHours());
+           
+  //       getImages(`https://pixabay.com/api/?key=45283300-eddb6d21a3d3d06f2a2381d7d&q=${content[currentCalculatedIndex]}&image_type=photo&page=${newPageState}`);
+  //             return newPageState;
+  //           });     
+            
+  //         }
+          
+  //       }
+        
       
-      observer.disconnect()
-    }
+  //   })
+  
+  //   setTimeout(()=>{
+  //     let lastElement = blogColRef.current[blogColRef.current.length - 5]
+  //   console.log("last element", lastElement, blogColRef.current)
+  //     if(lastElement){
+  //       observer.observe(lastElement)
+
+  //     }
+  
+  //   }, 100)
+  //   return ()=>{
+      
+  //     observer.disconnect()
+  //   }
+  // }
    
-  },[images.length])
+  // },[images.length])
+
+
+  useEffect(() => {
+  if (props.componentFrom !== "home") {
+    const observer = new IntersectionObserver(function (entries) {
+      if (entries[0].isIntersecting) {
+        observer.unobserve(entries[0].target);
+        setBottomLoader(true);
+
+        if (props.componentFrom === "exploreNext") {
+          const nextPage = pageState + 1;
+          setPageState(nextPage);
+          setTrakImage(true);
+
+          getImages(
+            `https://pixabay.com/api/?key=45283300-eddb6d21a3d3d06f2a2381d7d&q=${props.displayImage}&image_type=photo&page=${nextPage}`,
+            true
+          );
+        } else {
+          const nextPage = pageState + 1;
+          setPageState(nextPage);
+
+          const currentCalculatedIndex = updatedHours();
+          const query = content[currentCalculatedIndex];
+
+          getImages(
+            `https://pixabay.com/api/?key=45283300-eddb6d21a3d3d06f2a2381d7d&q=${query}&image_type=photo&page=${nextPage}`
+          );
+        }
+      }
+    });
+
+    setTimeout(() => {
+      let lastElement = blogColRef.current[blogColRef.current.length - 5];
+      if (lastElement) {
+        observer.observe(lastElement);
+      }
+    }, 100);
+
+    return () => {
+      observer.disconnect();
+    };
+  }
+}, [images.length]);
+
 
   if (loader === true) {
     return (
@@ -375,10 +536,12 @@ function shareImage(image){
  <div  className={props.componentFrom === "home" ? 'container p-0 pinterest-layout ' : 'container pinterest-layout mt-ps90'} ref={exploreRef}>
  
       {images.map((image, index) => {
-        if (!imageStates[index]) return null; // add this line
+        if (!imageStates[index]) return null; 
         const { loaded } = imageStates[index];
-
+{/* console.log("image colors", image.imageColor) */}
+           {/* onClick={() => updateInteractionScore(image._category, 2)} key={image.id} */}
         return (
+          <Link class="explore_image_link" to={`/explore-next/${image.type}/${image.tags.split(',')[0]?.trim().toLowerCase().replace(/\s+/g, '-')}`}>
           <div ref={(el)=> (blogColRef.current[index] = el)} className={props.componentFrom === "home" ? 'column position-relative explore_image':'column position-relative explore_image'} key={image.id} style={{backgroundColor: image.imageColor}}>      
           
 
@@ -404,12 +567,12 @@ function shareImage(image){
                 });
         }}
               onError={(e) =>{
-                        e.target.src = defaultBlogImage;
-                        e.target.alt = "Default image";
-                      
+              //           e.target.src = defaultBlogImage;
+              //           e.target.alt = "Default image";
+                       e.target.style.display = "none";
                         }}
            
-                      alt="Could'nt load"
+                      alt={image.tags}
            
             />
             
@@ -435,12 +598,13 @@ function shareImage(image){
             <i class="fa-solid fa-share explore_image_share_icon"></i>
             </div>    
           </div>
+          </Link>
 
         );
       })}
     {/* {props.componentFrom === "home" ? <ExploreLinkButton /> : null} */}
     </div>
-    {(bottomLoader) && 
+    {(bottomLoader && props.componentFrom !== "home") && 
     (
     <div class="bottom_loader">
        <div className="app_loader explore_bottom_loader" />

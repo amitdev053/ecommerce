@@ -84,6 +84,7 @@ body{
 .nav-link{
   font-weight: 600;
   padding-bottom: 6px;
+  border-bottom: 2px solid #f8f9fa;
 }
 @media screen and (min-width: 999px) {  
   .nav-link:not(.active):hover {

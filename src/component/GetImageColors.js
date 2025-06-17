@@ -1,3 +1,4 @@
+// this is s function of to get image colors in Explore.js
 function getImageColors(imageUrl, colorCount = 6) {
   return new Promise((resolve, reject) => {
     const img = new Image();
@@ -85,11 +86,6 @@ function averageColor(colors) {
 
 // Convert RGB to Hex
 function rgbToHex(color) {
-    // // console.log("rgbToHexa Color", color)
-    // let rgb = `rgb + ${color}`
-    // const values = rgb.match(/\d+/g);
-
-
     return `#${color.map(c => c.toString(16).padStart(2, "0")).join("")}`;
 }
 
@@ -98,4 +94,92 @@ function rgbToHex(color) {
 function brightness(color) {
     return (color[0] * 0.299 + color[1] * 0.587 + color[2] * 0.114);
 }
-export {getImageColors}
+// this is s function of to get image colors in Explore.js end here
+
+// this is a function for genrates the the images captions for explorejs page 
+function getUseCase(tagsString) {
+  const tags = tagsString.toLowerCase().split(',').map(t => t.trim());
+
+  if (tags.some(tag => ["kiss", "hugs", "romantic", "date night", "valentine", "rose", "couples", "sibling love"].includes(tag)))
+    return "romantic blogs, Valentine's Day content, or love-themed projects";
+
+  if (tags.some(tag => ["fashion"].includes(tag)))
+    return "style blogs, fashion campaigns, or clothing store promotions";
+
+  if (tags.some(tag => ["sports", "fitness", "wellness"].includes(tag)))
+    return "sports articles, workout apps, or healthy lifestyle content";
+
+  if (tags.some(tag => ["music", "gaming"].includes(tag)))
+    return "music playlists, gaming channels, or digital content creation";
+
+  if (tags.some(tag => ["technology", "innovation", "science"].includes(tag)))
+    return "tech reviews, science magazines, or startup pitch decks";
+
+  if (tags.some(tag => ["health", "meditation"].includes(tag)))
+    return "healthcare blogs, wellness products, or mindfulness content";
+
+  if (tags.some(tag => ["finance"].includes(tag)))
+    return "financial blogs, investment platforms, or fintech branding";
+
+  if (tags.some(tag => ["education", "books", "literature"].includes(tag)))
+    return "online courses, study materials, or academic blogs";
+
+  if (tags.some(tag => ["lifestyle", "luxury and lifestyle", "minimalism", "motivation and productivity"].includes(tag)))
+    return "lifestyle branding, productivity tips, or luxury blog content";
+
+  if (tags.some(tag => ["travel and adventure", "nature", "wildlife"].includes(tag)))
+    return "travel websites, adventure blogs, or nature-themed campaigns";
+
+  if (tags.some(tag => ["art and creativity", "hobbies and skills"].includes(tag)))
+    return "creative portfolios, art blogs, or DIY project inspiration";
+
+  if (tags.some(tag => ["food", "culinary"].includes(tag)))
+    return "recipe blogs, restaurant branding, or food delivery ads";
+
+  if (tags.some(tag => ["history", "culture"].includes(tag)))
+    return "educational blogs, museum sites, or cultural documentaries";
+
+  if (tags.some(tag => ["architecture", "design"].includes(tag)))
+    return "architecture showcases, design portfolios, or real estate brochures";
+
+  if (tags.some(tag => ["space", "astronomy"].includes(tag)))
+    return "space blogs, astronomy education, or sci-fi project covers";
+
+  return "blogs, ads, or creative design projects";
+}
+
+
+const templates = [
+  (tags, use) => `This photo highlights ${tags}, perfect for ${use}.`,
+  (tags, use) => `A beautiful depiction of ${tags}, ideal for ${use}.`,
+  (tags, use) => `Featuring ${tags}, this image fits well in ${use}.`,
+  (tags, use) => `Use this high-quality image of ${tags} in ${use}.`,
+  (tags, use) => `With its focus on ${tags}, this image suits ${use}.`,
+  (tags, use) => `Great for ${use}, this image captures ${tags} perfectly.`,
+];
+// Global in-memory caption cache
+const captionCache = {};
+
+// Caption generator
+function generateCaption(imageData) {
+  // ✅ Step 1: Return from cache if already exists
+  if (captionCache[imageData.id]) return captionCache[imageData.id];
+
+  // ✅ Step 2: Generate unique tags
+  const tagList = [...new Set(imageData.tags.split(',').map(tag => tag.trim()))];
+  const topTags = tagList.slice(0, 3).join(', ');
+
+  // ✅ Step 3: Determine use case like "ideal for ads, blogs..."
+  const useCase = getUseCase(imageData.tags);
+
+  // ✅ Step 4: Pick a random caption template
+  const template = templates[Math.floor(Math.random() * templates.length)];
+  const caption = template(topTags, useCase);
+
+  // ✅ Step 5: Cache it
+  captionCache[imageData.id] = caption;
+
+  return caption;
+}
+
+export {getImageColors, generateCaption}

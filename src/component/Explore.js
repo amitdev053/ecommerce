@@ -1,5 +1,5 @@
 import "./expore.css";
-import React, { useEffect, useState, useContext, useRef } from "react";
+import React, { useEffect, useState, useContext, useRef, lazy } from "react";
 import Loader from "./Loader";
 import ScrollTag from "./ScrollTag"; // Add this line to import ScrollTag
 import AppPagesHeading from "./AppPagesHeading"; // Add this line to import AppPagesHeading
@@ -8,7 +8,7 @@ import EmptyCartImage from "../appimages/empty_cart.webp";
 import defaultBlogImage from "../defaultBlog.jpg";
 import ExploreLinkButton from "./ExploreLinkButton";
 import { handleShare } from "./HandleShare";
-import { getImageColors } from "./GetImageColors";
+import { getImageColors, generateCaption } from "./GetImageColors";
 import { Link } from "react-router-dom";
 
 
@@ -236,30 +236,6 @@ function addImageTouch(){
     return () => clearInterval(interval);
   }, []);
 
-  // useEffect(() => {
-  //   const currentCategory = getPreferredCategory(updatedHours());  // Get the best category based on scores and time
-  //   const currentIndex = content.indexOf(currentCategory);  // Find the index of the category in content
-  //   setIndex(currentIndex);
-  //   document.title = `Explore images for ${currentCategory}`;
-    
-  //   // Fetch images for the preferred category
-  //   getImages(`https://pixabay.com/api/?key=45283300-eddb6d21a3d3d06f2a2381d7d&q=${currentCategory}&image_type=photo`);
-  
-  //   // Periodic category rotation (every hour)
-  //   const interval = setInterval(() => {
-  //     const nextCategory = getPreferredCategory(updatedHours());  // Get the next best category
-  //     const newIndex = content.indexOf(nextCategory);
-  //     setIndex(newIndex);
-  //   }, 60 * 60 * 1000);  // Rotate categories every hour
-  
-  //   return () => clearInterval(interval);  // Clean up the interval on unmount
-  // }, []);
-  
-
-  
-
-    
-    
 
   useEffect(() => {
     const imageColumns = document.querySelectorAll(".explore_image");
@@ -288,29 +264,7 @@ function addImageTouch(){
       // }
     });
   }, [imageStates, images]); // rerun whenever images or states change
-  // useEffect(() => {
-  //  setTimeout(() => {
-    
-  //   const container = document.querySelector('.pinterest-layout');
-  //   const items = container.querySelectorAll('.explore_image');
   
-  //   if (items.length < 3) return;
-  
-  //   const secondItem = items[1];
-  //   const thirdItem = items[2];
-  
-  //   const secondBottom = secondItem.offsetTop + secondItem.offsetHeight;
-  //   const thirdBottom = thirdItem.offsetTop + thirdItem.offsetHeight;
-  
-  //   // Check if second item has a large gap below it
-  //   const gapThreshold = 100; // adjust based on your layout
-  
-  //   if (thirdBottom - secondBottom > gapThreshold) {
-  //     const lastItem = items[items.length - 1];
-  //     container.insertBefore(lastItem, secondItem);
-  //   }
-  //  }, 500)
-  // }, [images]); // Run after images are rendered
 
   useEffect(() => {
     setImageStates((prevStates) =>
@@ -370,83 +324,6 @@ function shareImage(image){
       shareButton.firstElementChild.style.color = "";         
     }    
   }
-
- 
-
-  // useEffect(() => {
-  // if(props.componentFrom !== "home"){
-
-  
-  //   const observer = new IntersectionObserver(function(entries){
-  //     // console.log("entry point of intersect", entries, entries[0].isIntersecting)
-  //       if(entries[0].isIntersecting){
-  //         // console.log("now intersecting")  
-  //         if(props.componentFrom === "exploreNext"){
-
-  //            setBottomLoader(true);
-  //         observer.unobserve(entries[0].target)
-  //         // pageState++
-  //         // setPageState(prevState => prevState + 1);        
-  //           setPageState(async (prevState) => {
-  //             let newPageState = prevState + 1;
-              
-  //           //   // // console.log("now intersecting", newPageState);
-        
-  //         //   let url = `https://pixabay.com/api/?key=45283300-eddb6d21a3d3d06f2a2381d7d&q=${props.displayImage}&image_type=photo&page=${newPageState}`
-
-  //         // const response = await fetch(url);  
-  //         // let  nextPhotos = await response.json();
-          
-  //         //   setupImageOnPage(nextPhotos)
-  //          setTrakImage(true)
-  //       getImages(`https://pixabay.com/api/?key=45283300-eddb6d21a3d3d06f2a2381d7d&q=${props.displayImage}&image_type=photo&page=${newPageState}`, true);
-  //             return newPageState;
-  //           });    
-
-    
-            
-  //         }else{
-  //           // setTrakImage(false)
-          
-
-  //          setBottomLoader(true);
-  //         observer.unobserve(entries[0].target)
-  //         // pageState++
-  //         // setPageState(prevState => prevState + 1);        
-  //           setPageState((prevState) => {
-  //             let newPageState = prevState + 1;
-  //           //   // // console.log("now intersecting", newPageState);
-  //           //   getImages(false, "", newPageState);
-  //           let currentCalculatedIndex = updatedHours();
-  //           // setIndex(updatedHours());
-           
-  //       getImages(`https://pixabay.com/api/?key=45283300-eddb6d21a3d3d06f2a2381d7d&q=${content[currentCalculatedIndex]}&image_type=photo&page=${newPageState}`);
-  //             return newPageState;
-  //           });     
-            
-  //         }
-          
-  //       }
-        
-      
-  //   })
-  
-  //   setTimeout(()=>{
-  //     let lastElement = blogColRef.current[blogColRef.current.length - 5]
-  //   console.log("last element", lastElement, blogColRef.current)
-  //     if(lastElement){
-  //       observer.observe(lastElement)
-
-  //     }
-  
-  //   }, 100)
-  //   return ()=>{
-      
-  //     observer.disconnect()
-  //   }
-  // }
-   
-  // },[images.length])
 
 
   useEffect(() => {
@@ -549,6 +426,7 @@ function shareImage(image){
             className="explore-image"
             srcSet={image.largeImageURL}
               src={image.largeImageURL}
+              loading="lazy"
               
               onClick={() => updateInteractionScore(image._category, 2)}
               // onLoad={() =>
@@ -572,7 +450,7 @@ function shareImage(image){
                        e.target.style.display = "none";
                         }}
            
-                      alt={image.tags}
+                      alt={generateCaption(image)}
            
             />
             

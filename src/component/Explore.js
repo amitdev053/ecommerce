@@ -301,6 +301,7 @@ function shareImage(image){
   }, [index]);
 
   function sendClickFeed(event){    
+    event.stopPropagation()
     let shareButton = event?.currentTarget;
     if(shareButton){
       shareButton.firstElementChild.style.backgroundColor = "#05050524";
@@ -311,6 +312,7 @@ function shareImage(image){
     
   }
   function removeClickFeed(event, imageUrl){    
+    event.stopPropagation()
     let shareButton = event?.currentTarget;
     if(shareButton){
       shareButton.firstElementChild.style.backgroundColor = "white";
@@ -432,8 +434,8 @@ function shareImage(image){
           <div ref={(el)=> (blogColRef.current[index] = el)} className={props.componentFrom === "home" ? 'column position-relative explore_image':'column position-relative explore_image'} key={image.id} style={{backgroundColor: image.imageColor}}  onClick={(event)=> exploreSimilarImages(event, image)} >      
           
 <Link class="explore_image_link" to={`/explore-next/${image.type}/${image.tags.split(',')[0]?.trim().toLowerCase().replace(/\s+/g, '-')}`}
-state={{ imageData: image }} // ✅ pass image object here
-
+state={{ imageData: image }} 
+ onClick={(e) => e.stopPropagation()} 
 >
             <img
             className="explore-image"
@@ -470,7 +472,7 @@ state={{ imageData: image }} // ✅ pass image object here
       </Link>
             {/* {!loaded && <div className="app_loader" />} */}
 
-            <div className="explore_icons position-absolute ">
+            <div className="explore_icons position-absolute " onClick={(e) => e.stopPropagation()} >
             <div className="explore_like_content d-flex align-items-center">
               <i className="fa-solid fa-heart"></i>
               <span className="explore_fonts mx-1">{image.likes}</span>
@@ -485,7 +487,33 @@ state={{ imageData: image }} // ✅ pass image object here
             </div>                  
             </div>
 
-            <div className="explore_like_content d-flex align-items-center position-absolute explore_images_share" onTouchStart={sendClickFeed} onTouchEnd={(event)=>{removeClickFeed(event, image.webformatURL)}} onMouseUp={(event)=>{removeClickFeed(event, image.webformatURL)}} onMouseDown={sendClickFeed} onMouseOut={orignalElement} >
+            <div className="explore_like_content d-flex align-items-center position-absolute explore_images_share"
+            //  onTouchStart={sendClickFeed} onTouchEnd={(event)=>{removeClickFeed(event, image.webformatURL)}}onMouseUp={(event)=> {removeClickFeed(event, image.webformatURL)} } onMouseDown={sendClickFeed} onMouseOut={orignalElement} 
+
+             onClick={(event) => {
+      event.stopPropagation();
+      event.preventDefault();
+      removeClickFeed(event, image.webformatURL);
+    }}
+    onMouseDown={(event) => {
+      event.stopPropagation();
+      event.preventDefault();
+      sendClickFeed(event);
+    }}
+    onTouchStart={(event) => {
+      event.stopPropagation();
+      event.preventDefault();
+      sendClickFeed(event);
+    }}
+    onTouchEnd={(event) => {
+      event.stopPropagation();
+      event.preventDefault();
+      removeClickFeed(event, image.webformatURL);
+    }}
+    onMouseOut={orignalElement}
+
+          
+                >
             <i class="fa-solid fa-share explore_image_share_icon"></i>
             </div>    
           </div>

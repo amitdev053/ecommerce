@@ -439,8 +439,8 @@ state={{ imageData: image }}
 >
             <img
             className="explore-image"
-            srcSet={image.largeImageURL}
-              src={image.largeImageURL}
+            srcSet={image.webformatURL}
+              src={image.webformatURL}
               loading="lazy"
               
               onClick={() => updateInteractionScore(image._category, 2)}

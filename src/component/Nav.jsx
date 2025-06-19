@@ -45,12 +45,15 @@ export default function Navbar({trackCart}) {
 
   const { addToCart } = useContext(CartContext);
   function handleResize(){
-    document.querySelector('.cart_header').style.width = document.querySelector('.cart_container').offsetWidth +"px"
+    if(document.querySelector('.cart_header')){
+      document.querySelector('.cart_header').style.width = document.querySelector('.cart_container').offsetWidth +"px"
+
+    }
   }
 
   useEffect(()=>{
     handleResize()
-window.addEventListener('resize', handleResize);
+    window.addEventListener('resize', handleResize);
   }, [])
   
 

@@ -14,7 +14,7 @@ import {Helmet} from "react-helmet"
 
 let blogTitile = "";
 
-function BlogBack() {
+function BlogBack(props) {
   const { isPlaying, isPaused, setIsPaused ,playBlog,  samePage } = useContext(BlogAudioContext);
   const [heading, setHeading] = useState("");
   const navigate = useNavigate();
@@ -23,7 +23,9 @@ function BlogBack() {
   const shareIcon = useRef(null);
   const [readBlogs, setReadBlogs] = useState(isPlaying);
   const params = useParams()
+  const [imageHeader, setImagesHeader] = useState(0)         // to track the image header type like image/blogdetail
   
+
   
   function setHeaderHeading() {
     // let blogTitle = document.querySelector(".blog_title");
@@ -48,9 +50,24 @@ function BlogBack() {
   useEffect(() => {
     // setTimeout(() => {
       setHeaderHeading();
+      console.log("props ", props)
+      const exploreNextPage = props?.componentFrom?.params?.hasOwnProperty("type")
+      const blogDetailPage  = props.componentFrom.params.hasOwnProperty("blogId")
+      
+      if(exploreNextPage){
+        console.log("explore next page header", exploreNextPage)
+        setImagesHeader(1)
+         const tag = props?.componentFrom?.params?.imageTag || "Explore";
+      setHeading(tag.charAt(0).toUpperCase() + tag.slice(1));
+      }else{
+        setImagesHeader(0)
+
+      }
+  
     // }, 200);
     // console.log("setHeaderHeading", blogTitile)
-  }, []);
+  }, [props.componentFrom?.params]);
+  
   function handleBack(event) {
     removeClickFeed(event)
     setTimeout(()=>{
@@ -61,11 +78,20 @@ function BlogBack() {
   }
 
   function shareBlogs(event) {
+    let pageTitle , pageUrl;
     // animateIcon(shareIcon.current)
     // (productTitle, productDesc, productImage , fromWhere)
-    let blogTitle = document.querySelector("#blogDtailTitle").innerText    
-    let imageUrl = document.getElementById('blogTopImage').src
-    handleShare(blogTitle, "", imageUrl, "blogDetail")
+    if(imageHeader){
+
+      pageTitle = document.querySelector("#exploreTagImage").innerText    
+       pageUrl = "https://market-shops.vercel.app/"
+    }else{
+
+       pageTitle = document.querySelector("#blogDtailTitle").innerText    
+       pageUrl = document.getElementById('blogTopImage').src
+    }
+    console.log("share on explore next page", pageTitle, pageUrl)
+    handleShare(pageTitle, "", pageUrl, "blogDetail")
     // console.log("event", event, imageUrl, blogTitle);
   }
 
@@ -167,9 +193,12 @@ if(playButton){
                 className="fa-solid fa-arrow-left app_blog_detail_icon app_blog_detail_back_icon"  onClick={(event)=>{handleBack(event)}}
                  onTouchStart={sendClickFeed} onTouchEnd={(event)=>{removeClickFeed(event)}} onMouseUp={(event)=>{removeClickFeed(event)}} onMouseDown={sendClickFeed} onMouseOut={orignalElement}
               ></button>
-              <span className="blog_back_heading "> {heading} </span>
+              <span className="blog_back_heading " id="exploreTagImage"> {heading} </span>
             </div>
             <div className="col-4 d-flex align-items-center justify-content-end app_blog_detail_action_secound" >
+            {/* blog speak button */}
+            {(!imageHeader) &&                 
+            
                <button
                ref={playIcon}
                 className={`${
@@ -213,7 +242,8 @@ if(playButton){
                   
                 }}
               ></button>
-             {/* {(!readBlog) && <button className="app_blog_detail_icon border-none px-3"> <i class="fa-solid fa-stop "></i> </button> } */}
+            }
+            {/* blog speak button End here */}
               <button
               ref={shareIcon}
                 className="fa-solid fa-share-nodes app_blog_detail_icon"

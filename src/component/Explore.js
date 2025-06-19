@@ -9,7 +9,7 @@ import defaultBlogImage from "../defaultBlog.jpg";
 import ExploreLinkButton from "./ExploreLinkButton";
 import { handleShare } from "./HandleShare";
 import { getImageColors, generateCaption } from "./GetImageColors";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 
 let content = [
@@ -50,6 +50,7 @@ const Explore = (props) => {
   const posImage = useRef(null);
   const [trakImages, setTrakImage] = useState(true);
   const [bottomLoader, setBottomLoader] = useState(false);
+  const navigate = useNavigate()
 
  
   useEffect(()=>{
@@ -104,6 +105,8 @@ const Explore = (props) => {
           setupImageOnPage(exploreNextPhotos)
 
         }catch(error){
+             setloader(false);    
+            setBottomLoader(false);
         console.log("catch eroor in rxplore next page", pageState, error)
         }
     
@@ -325,6 +328,13 @@ function shareImage(image){
     }    
   }
 
+    function exploreSimilarImages(event, image){
+      if(!image) return
+      // console.log("similar image", image)
+      event.stopPropagation();       
+      const url = `/explore-next/${image.type}/${image.tags.split(',')[0]?.trim().toLowerCase().replace(/\s+/g, '-')}`;      
+      navigate(url, { state: { imageData: image } });
+    }
 
   useEffect(() => {
   if (props.componentFrom !== "home") {
@@ -417,11 +427,14 @@ function shareImage(image){
         const { loaded } = imageStates[index];
 {/* console.log("image colors", image.imageColor) */}
            {/* onClick={() => updateInteractionScore(image._category, 2)} key={image.id} */}
-        return (
-          <Link class="explore_image_link" to={`/explore-next/${image.type}/${image.tags.split(',')[0]?.trim().toLowerCase().replace(/\s+/g, '-')}`}>
-          <div ref={(el)=> (blogColRef.current[index] = el)} className={props.componentFrom === "home" ? 'column position-relative explore_image':'column position-relative explore_image'} key={image.id} style={{backgroundColor: image.imageColor}}>      
           
+        return (
+          <div ref={(el)=> (blogColRef.current[index] = el)} className={props.componentFrom === "home" ? 'column position-relative explore_image':'column position-relative explore_image'} key={image.id} style={{backgroundColor: image.imageColor}}  onClick={(event)=> exploreSimilarImages(event, image)} >      
+          
+<Link class="explore_image_link" to={`/explore-next/${image.type}/${image.tags.split(',')[0]?.trim().toLowerCase().replace(/\s+/g, '-')}`}
+state={{ imageData: image }} // ✅ pass image object here
 
+>
             <img
             className="explore-image"
             srcSet={image.largeImageURL}
@@ -454,7 +467,7 @@ function shareImage(image){
            
             />
             
-          
+      </Link>
             {/* {!loaded && <div className="app_loader" />} */}
 
             <div className="explore_icons position-absolute ">
@@ -476,9 +489,9 @@ function shareImage(image){
             <i class="fa-solid fa-share explore_image_share_icon"></i>
             </div>    
           </div>
-          </Link>
 
         );
+          {/* </Link> */}
       })}
     {/* {props.componentFrom === "home" ? <ExploreLinkButton /> : null} */}
     </div>

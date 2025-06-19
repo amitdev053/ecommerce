@@ -3,7 +3,7 @@ import React from "react";
 import Loader from "./Loader";
 import defaultBlogImage from "../defaultBlog.jpg";
 import axios from "axios";
-import { json, useParams, useNavigate } from "react-router-dom";
+import { json, useParams, useNavigate, useLocation } from "react-router-dom";
 import { handleShare } from "./HandleShare";
 import { BlogAudioContext } from "./BlogAudioContext";
 import { toast } from "react-toastify";
@@ -24,6 +24,7 @@ function BlogBack(props) {
   const [readBlogs, setReadBlogs] = useState(isPlaying);
   const params = useParams()
   const [imageHeader, setImagesHeader] = useState(0)         // to track the image header type like image/blogdetail
+  const location = useLocation()
   
 
   
@@ -82,9 +83,10 @@ function BlogBack(props) {
     // animateIcon(shareIcon.current)
     // (productTitle, productDesc, productImage , fromWhere)
     if(imageHeader){
-
+ const imageData = location.state?.imageData
       pageTitle = document.querySelector("#exploreTagImage").innerText    
-       pageUrl = "https://market-shops.vercel.app/"
+       pageUrl = imageData.webformatURL
+
     }else{
 
        pageTitle = document.querySelector("#blogDtailTitle").innerText    

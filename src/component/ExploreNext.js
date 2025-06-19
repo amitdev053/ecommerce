@@ -22,7 +22,7 @@ const ExploreNext = () => {
         <meta property="og:description" content={description} />
         <meta property="og:type" content="website" />
         <meta property="og:url" content={`https://www.market-shops.vercel.app/explore-next/${displayImage.type}/${displayImage.imageTag}`} />
-        <meta property="og:image" content={`${image.webformatURL}`} />
+        {(image) && <meta property="og:image" content={`${image.webformatURL}`} />}    
         
       </Helmet>
 

@@ -30,7 +30,7 @@ import ExploreNext from "./component/ExploreNext";
 function App() {
   const location = useLocation();
   const matchRoute = useMatch("/blog-detail/:blogId/:blogTitle");
-  // const exploreNext = useMatch("/explore-next/:type/:imageTag");
+  const exploreNext = useMatch("/explore-next/:type/:imageTag");
   const context = useContext(BlogAudioContext);
 
   // Function to set a cookie
@@ -74,7 +74,7 @@ function App() {
     <>
       <BlogAudioProvider>
         <CartProvider>
-          {matchRoute ? <BlogBack /> : <Nav trackCart={false} />}
+          {matchRoute || exploreNext ? <BlogBack componentFrom={exploreNext || matchRoute} /> : <Nav trackCart={false} />}
 
           {/* <Nav trackCart={false} /> */}
 

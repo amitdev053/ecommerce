@@ -71,7 +71,6 @@ function BlogBack(props) {
   
   function handleBack(event) {
     removeClickFeed(event)
-    orignalElement(event)
     setTimeout(()=>{
       navigate(-1);
 
@@ -122,7 +121,7 @@ function BlogBack(props) {
     if(shareButton){
       shareButton.style.backgroundColor = "white";
       shareButton.style.color = "";     
-      
+      orignalElement(event)
     }
     
   }

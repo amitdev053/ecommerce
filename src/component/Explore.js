@@ -290,9 +290,13 @@ function addImageTouch(){
    
   }
 function shareImage(image){
-  let currentCalculatedIndex = updatedHours();
-  let caption = generateCaption(image)
-  handleShare(caption,"", image, "explore");
+  if(image){
+    let currentCalculatedIndex = updatedHours();
+    let caption = document.title
+    
+    handleShare(caption,"", image, "explore");
+
+  }
 }
   // Fetch images whenever the index changes
   useEffect(() => {

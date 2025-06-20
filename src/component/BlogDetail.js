@@ -71,10 +71,11 @@ function BlogBack(props) {
   
   function handleBack(event) {
     removeClickFeed(event)
+    orignalElement(event)
     setTimeout(()=>{
       navigate(-1);
 
-    }, 200)
+    }, 100)
    
   }
 

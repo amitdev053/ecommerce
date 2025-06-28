@@ -196,8 +196,7 @@ if(playButton){
                  onTouchStart={sendClickFeed}
                   
                    onTouchEnd={(event)=>{
-                      event.stopPropagation();
-                    event.preventDefault();
+                   
                   removeClickFeed(event)}} onMouseUp={(event)=>{removeClickFeed(event)}} onMouseDown={sendClickFeed} onMouseOut={orignalElement}
               ></button>
               <span className="blog_back_heading " id="exploreTagImage"> {heading} </span>

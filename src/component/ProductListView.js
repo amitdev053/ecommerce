@@ -170,8 +170,9 @@ export default function ProductListView({addToFavourite, isFavorite, componentFr
                       {product.title}
                     </h4>
                     
-                    <div className="gallerytitle productname productdiscripation" id="productname" dangerouslySetInnerHTML={{ __html: product.body_html }}>
-                      {/* {product.body_html} */}
+                    <div className="gallerytitle productname productdiscripation" id="productname">
+                      {product.body_html}
+                      {/* dangerouslySetInnerHTML={{ __html: product.body_html }} */}
                     </div>
                     <p className="mt-1 totalgal">
                       Rating: {product?.rating?.rate || "4.0"}

@@ -1,0 +1,7 @@
+.app_nav_logo{
+        background: black;
+    color: white;
+    padding: 10px 13px 10px 10px;
+    border-radius: 50px;
+    transform: rotate(9deg);
+}

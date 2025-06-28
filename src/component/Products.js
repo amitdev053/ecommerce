@@ -17,9 +17,11 @@ import { handleShare, ShareButton } from "./HandleShare";
 
 
 export default function Products(props) {
-  const baseUrl = "https://fakestoreapi.com"; 
-  // const baseUrl = "https://dummyjson.com"
-  const productsUrl = "/products";
+  // const baseUrl = "https://fakestoreapi.com"; 
+  const baseUrl = "https://mysticmoda.in/"; 
+  
+  // const productsUrl = "/products";
+  const productsUrl = "/products.json";
   const cartUrl = "/carts";
   const [loader, setloader] = useState(true);
   const [refreshCart, setRefreshCart] = useState(1)
@@ -96,10 +98,12 @@ export default function Products(props) {
         // // console.log("products product.js", result);
         if(props.componentFrom === "home"){
           // // console.log("routes run in home c")
-          setAllProduct(result.splice(0, 8));
+          console.log("yes product fetch for home component", result)
+          // setAllProduct(result.splice(0, 8));
           
           }else{
-        setAllProduct(result);
+            console.log("yes product fetch for products component", result)
+        setAllProduct(result.products);
           }
       });
   }    
@@ -269,10 +273,10 @@ function ProductImageComponent({product}){
       <>
       {/* <span id="cartLength">{cartLength}</span> */}
       
-        <div  className={props.componentFrom === "home" ? 'container text-left app_container p-0' : 'container text-left mt-74 app_container'}>
+        <div  className={props.componentFrom === "home" ? 'container text-left app_container p-0' : 'container text-left mt-ps90 app_container padding_left_20'}>
       <Alert position="bottom-center"> </Alert>
 
-<div style={{display:"flex", justifyContent:"space-between", alignItems:"center",  marginBottom: "20px"}} className="app_product_headline">
+<div  className="app_product_headline app_new_productsetup">
       <h1
             style={{
               fontSize: "25px",
@@ -282,7 +286,7 @@ function ProductImageComponent({product}){
           >
             Flash Products
           </h1>
-           <i className={`fa-solid fa-list-ul product_view_icon grid_view`} onClick={toggleView} id="listType"></i>
+           <i className={`fa-solid fa-list-ul product_view_icon grid_view new_p_icon `} onClick={toggleView} id="listType"></i>
           
           </div>
          {
@@ -305,17 +309,17 @@ function ProductImageComponent({product}){
                 <div className="col-md-3 col-sm-12 gallerycol" key={product.id} >
                   <div className="galleryimg position-relative">
                    {/* <ProductImageComponent product={product} /> */}
-                   <img src={product.image} id="productimg" className="productImages" alt="" onLoad={handleImageLoad} />
+                   <img src={product.images[0].src} id="productimg" className="productImages" alt="" onLoad={handleImageLoad} />
                     <div id="productprice" className="productprice w-100" style={{opacity: isFavorite ? "100%" : "0"}}>
-                 <strong>  {formatter.format(product.price)} </strong>
+                 <strong>  {formatter.format(product.variants[0].price)} </strong>
                      
                       <i
                        className={`fa-${isFavorite ? 'solid' : 'regular'} fa-heart product_like`}
                         onClick={() => {
                           addToFavourite(
                             product.title,
-                            product.price,
-                            product.image,
+                            product.variants[0].price,
+                            product.images[0],
                             product.id
                           );
                         }}
@@ -325,13 +329,14 @@ function ProductImageComponent({product}){
                   </div>
                   <div className="mediacontent d-inline-block">
                     <p className="mb-1 totalgal">
-                      Rating: {product.rating.rate}
+                      Rating: {product?.rating?.rate || "4.0"}
                     </p>
                     <h4 className="gallerytitle productname" id="productname">
                       {product.title.slice(0, 37)}...
                     </h4>
                     <div className="gallerytitle productname productdiscripation" id="productname">
-                      {product.description.slice(0, 100)}...
+                      {/* {product.description.slice(0, 100)}... */}
+                      {product.body_html.slice(0, 100)}...
                     </div>
                     
                     <div class="p_btns mt-3">
@@ -341,7 +346,7 @@ function ProductImageComponent({product}){
                           clickToCart(
                             product.title,
                             product.price,
-                            product.image,
+                            product.images[0],
                             product.id,
                             baseUrl,
                             cartUrl, 

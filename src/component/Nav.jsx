@@ -9,6 +9,9 @@ import Toast from "./Toast"
 import { ToastContainer, toast } from "react-toastify";
 import { CartContext } from './CartContext';
 import { handleShare, ShareButton } from "./HandleShare";
+// import browseNextLogo from "./image/newbrowsenext.png"
+import browseNextLogo from "./image/browsenextDirectv2.png"
+import "./Nav.css"
 
 
 
@@ -617,9 +620,11 @@ useEffect(()=>{
       <>
   
         <nav className="navbar navbar-expand-lg navbar-light bg-light fixed-top">
-          <div className="container navbar_container app_container">
+          <div className="container navbar_container app_container p-0">
             <Link className="navbar-brand" to="/">
-            <i className="fa-solid fa-shop app_nav_logo"></i>
+            {/* <i className="fa-solid fa-shop app_nav_logo"></i> */}
+            <i class="fa-solid fa-location-arrow app_nav_logo"></i>
+            {/* <img src={browseNextLogo} className="img-fluid"/> */}
             </Link>
             <div className="mobile_header_action_icon">
             <div className="app_navbar_like_containericon" id="AppHeaderLike"  onClick={(event) => {openLikes(event)}}>
@@ -721,6 +726,18 @@ useEffect(()=>{
                     id="appToolBar"
                   >
                     Tools
+                  </Link>
+                </li>
+
+                <li className="nav-item">
+                  <Link
+                    className={`${
+                      url === "/services" ? "nav-link active" : "nav-link"
+                    }`}
+                    to="/services"
+                    id="appToolBar"
+                  >
+                    Services
                   </Link>
                 </li>
 

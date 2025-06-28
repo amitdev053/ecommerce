@@ -6,7 +6,7 @@ const Privancy = () => {
   
   return (
    <>
-    <div className="container privacy-policy mt-74 about_container app_container" >
+    <div className="container privacy-policy mt-ps90 about_container app_container" >
       <h1>Privacy Policy</h1>
       <p><strong className="strong">Effective Date:</strong> [17/05/2025]</p>
       <p><strong className="strong">Website:</strong> <Link href="https://market-shops.vercel.app" target="_blank" rel="noopener noreferrer">https://market-shops.vercel.app</Link></p>

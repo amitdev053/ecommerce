@@ -14,7 +14,7 @@ const Contact = () => {
   };
 
   return (
-    <div className="container mt-74 about_container app_container">
+    <div className="container mt-ps90 about_container app_container">
       <h1 style={{ textAlign: 'center' }}>Contact Us</h1>
       <p style={{ textAlign: 'center' }}>
         If you have any questions, feedback, or business inquiries, feel free to reach out to us.

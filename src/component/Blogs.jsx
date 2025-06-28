@@ -410,7 +410,7 @@ let tagList = [
 
     <AppPagesHeading heading={(heading) && "Explore "+heading.split('')[0].toUpperCase() + heading.split('').slice(1, heading.length).join("")}   />
     <i
-      className={`fa-solid fa-arrow-up-short-wide  grid_view`}
+      className={`fa-solid fa-arrow-up-short-wide product_view_icon_mmda grid_view`}
       id="blogFilterBtn"
       onClick={toggleBlog}
     ></i>

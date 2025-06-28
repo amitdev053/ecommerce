@@ -958,7 +958,7 @@ margin: 0px 0px 0px 10px !important;
     margin-right: 30px;
     justify-content: center;
     border-radius: 50px;
-    padding: 4px 6px 7px 6px !important;
+    padding: 4px 6px 7px 5px !important;
     
 }
 
@@ -967,6 +967,13 @@ margin: 0px 0px 0px 10px !important;
   /* background: #000000b8; */
   background: #000000ad;
   border: 2px solid #ffffff;
+}
+@media screen and (max-width: 480px){
+  .navbar-brand{
+  
+    padding: 6px 7px 6px 6px !important;
+    
+  }
 }
 .navbar-brand img{
   width: 60% !important;

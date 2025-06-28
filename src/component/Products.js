@@ -275,8 +275,8 @@ function ProductImageComponent({product}){
       
         <div  className={props.componentFrom === "home" ? 'container text-left app_container p-0' : 'container text-left mt-ps90 app_container padding_left_20'}>
       <Alert position="bottom-center"> </Alert>
-
-<div  className="app_product_headline app_new_productsetup">
+{/* "app_product_headline app_new_productsetup" */}
+<div  className={props.componentFrom === "home" ? 'app_product_headline' : 'app_product_headline app_new_productsetup'}>
       <h1
             style={{
               fontSize: "25px",

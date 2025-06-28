@@ -1978,3 +1978,8 @@ canvas{
   position: relative;
   right: -20px;
 }
+.app_product_headline{
+    display: flex;
+  align-items: center;
+  justify-content: space-between;
+}

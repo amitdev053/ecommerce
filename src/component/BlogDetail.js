@@ -193,7 +193,16 @@ if(playButton){
             {/* onClick={handleBack} */}
               <button
                 className="fa-solid fa-arrow-left app_blog_detail_icon app_blog_detail_back_icon"  onClick={(event)=>{handleBack(event)}}
-                 onTouchStart={sendClickFeed} onTouchEnd={(event)=>{removeClickFeed(event)}} onMouseUp={(event)=>{removeClickFeed(event)}} onMouseDown={sendClickFeed} onMouseOut={orignalElement}
+                 onTouchStart={(e)=>{
+                      e.stopPropagation();
+      e.preventDefault();
+      sendClickFeed()
+                 }
+                  
+                  } onTouchEnd={(event)=>{
+                      event.stopPropagation();
+                    event.preventDefault();
+                  removeClickFeed(event)}} onMouseUp={(event)=>{removeClickFeed(event)}} onMouseDown={sendClickFeed} onMouseOut={orignalElement}
               ></button>
               <span className="blog_back_heading " id="exploreTagImage"> {heading} </span>
             </div>

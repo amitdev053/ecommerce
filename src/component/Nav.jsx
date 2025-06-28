@@ -619,7 +619,7 @@ useEffect(()=>{
     return (
       <>
   
-        <nav className="navbar navbar-expand-lg navbar-light bg-light fixed-top">
+        <nav className="navbar navbar-expand-lg navbar-light bg-light fixed-top p-0">
           <div className="container navbar_container app_container p-0">
             <Link className="navbar-brand" to="/">
             {/* <i className="fa-solid fa-shop app_nav_logo"></i> */}

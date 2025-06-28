@@ -99,7 +99,7 @@ export default function Products(props) {
         if(props.componentFrom === "home"){
           // // console.log("routes run in home c")
           console.log("yes product fetch for home component", result)
-          // setAllProduct(result.splice(0, 8));
+          setAllProduct(result.products.splice(0, 8));
           
           }else{
             console.log("yes product fetch for products component", result)
@@ -319,7 +319,7 @@ function ProductImageComponent({product}){
                           addToFavourite(
                             product.title,
                             product.variants[0].price,
-                            product.images[0],
+                            product.images[0].src,
                             product.id
                           );
                         }}
@@ -345,8 +345,8 @@ function ProductImageComponent({product}){
                         onClick={() => {
                           clickToCart(
                             product.title,
-                            product.price,
-                            product.images[0],
+                              product.variants[0].price,
+                            product.images[0].src,
                             product.id,
                             baseUrl,
                             cartUrl, 

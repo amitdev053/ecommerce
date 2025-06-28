@@ -6,8 +6,12 @@ import ProductSlider from "./ProductSlider";
 
 
 export default function ProductListView({addToFavourite, isFavorite, componentFrom}) {
-  const baseUrl = "https://fakestoreapi.com";
-  const productsUrl = "/products";
+  // const baseUrl = "https://fakestoreapi.com";
+  // const productsUrl = "/products";
+  const baseUrl = "https://mysticmoda.in/";   
+  // const productsUrl = "/products";
+  const productsUrl = "/products.json";
+
   const cartUrl = "/carts";
   const [loader, setloader] = useState(true);
   const [allproduct, setAllProduct] = useState([]); 
@@ -31,7 +35,7 @@ export default function ProductListView({addToFavourite, isFavorite, componentFr
           setAllProduct(result.splice(0, 8));
           
           }else{
-        setAllProduct(result);
+        setAllProduct(result.products);
           }
       });
   }
@@ -143,17 +147,17 @@ export default function ProductListView({addToFavourite, isFavorite, componentFr
               return (
                 <div className="col-12  gallerycol list_view_cols mobile_list_view " key={product.id+ i}>
                   <div className="galleryimg position-relative list_view_product_image">
-                    <img src={product.image} id="productimg" alt="" />
+                    <img src={product.images[0].src} id="productimg" alt="" />
                     <span id="productprice" className="productprice w-100" style={{opacity: isFavorite ? "100%" : "0"}}>
-                    <strong>  {formatter.format(product.price)} </strong>
+                    <strong>  {formatter.format(product.variants[0].price)} </strong>
 
                       <i 
                       className={`fa-${isFavorite ? 'solid' : 'regular'} fa-heart product_like`}
                       onClick={() => {
                           addToFavourite(
-                            product.title,
-                            product.price,
-                            product.image,
+                             product.title,
+                            product.variants[0].price,
+                            product.images[0].src,
                             product.id
                           );
                         }}
@@ -166,11 +170,11 @@ export default function ProductListView({addToFavourite, isFavorite, componentFr
                       {product.title}
                     </h4>
                     
-                    <div className="gallerytitle productname productdiscripation" id="productname">
-                      {product.description}
+                    <div className="gallerytitle productname productdiscripation" id="productname" dangerouslySetInnerHTML={{ __html: product.body_html }}>
+                      {/* {product.body_html} */}
                     </div>
                     <p className="mt-1 totalgal">
-                      Rating: {product.rating.rate}
+                      Rating: {product?.rating?.rate || "4.0"}
                     </p>
                     
                     <div class="p_btns mt-3 list_view_action_button">
@@ -179,8 +183,8 @@ export default function ProductListView({addToFavourite, isFavorite, componentFr
                         onClick={() => {
                           addToCart(
                             product.title,
-                            product.price,
-                            product.image,
+                            product.variants[0].price,
+                            product.images[0].src,
                             product.id,
                             baseUrl,
                             cartUrl
@@ -191,7 +195,7 @@ export default function ProductListView({addToFavourite, isFavorite, componentFr
 
                         <i class="fa-solid fa-cart-plus icon_margin"></i>
                       </button>
-                      <button className="btn btn-sm btn-primary p_s_btn brand_button " onClick={()=>{handleShare(product.title, product.description.slice(0, 100),  product.image )}}>
+                      <button className="btn btn-sm btn-primary p_s_btn brand_button " onClick={()=>{handleShare(product.title, product.body_html.slice(0, 100),  product.images[0].src)}}>
                       Share <i class="fa-solid fa-share-nodes icon_margin"></i>
                       </button>
                     </div>

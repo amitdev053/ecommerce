@@ -193,7 +193,7 @@ if(playButton){
             {/* onClick={handleBack} */}
               <button
                 className="fa-solid fa-arrow-left app_blog_detail_icon app_blog_detail_back_icon"  onClick={(event)=>{handleBack(event)}}
-                 onTouchStart={sendClickFeed() }
+                 onTouchStart={sendClickFeed}
                   
                    onTouchEnd={(event)=>{
                       event.stopPropagation();

@@ -290,6 +290,8 @@ const BlogDetail = () => {
       .querySelectorAll(".gallerytitle");
 
   
+if(blogDetails){
+
 
     Array.from(blogDetails).forEach((item) => {
          const codeElements = item.querySelectorAll("code");
@@ -327,7 +329,7 @@ const BlogDetail = () => {
         });
       });
     });
-
+  }
     // let codeElements =  document.querySelectorAll(".custom-code-style");
     // console.log("codeElements", codeElements)
     // Array.from(codeElements).forEach((item) => {

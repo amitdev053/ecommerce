@@ -176,22 +176,26 @@ transition: all 0.2s ease-in-out;
   max-width: 45%;
   
 }
+#ProductContainer{
+  gap: 10px 0px;
+  width: 100%;
+}
 .gallerycol{
   display: flex;
     flex-direction: column;
-    border: 1px solid #eee;
+    /* border: 1px solid #eee; */
     /* justify-content: center; */
     align-items: center;
     border-radius: 10px;
-    margin: 5px 5px;
-    padding: 0px;
-    width: 24%;
+    /* margin: 5px 5px; */
+    padding: 0px 5px;
+    width: 25%;
     border-radius: 10px;
 }
 .mediacontent{
   width: 95%;
   margin: 5px auto;
-  padding: 10px 0px;
+  padding: 10px 10px;
 }
 .viewgallerybtn{
   width: 100%  !important;
@@ -203,7 +207,7 @@ transition: all 0.2s ease-in-out;
     display: flex !important;
     justify-content: center !important;
     align-items: normal !important;
-    border-radius: 10px;
+    border-radius: 10px 10px 0px 0px !important;
     margin: 0px auto;
     background-color: #f8f9fa;
     overflow: hidden;
@@ -219,7 +223,7 @@ transition: all 0.2s ease-in-out;
   height: 250px !important;
   object-fit: cover !important;
   width: 100% !important;
-  object-position: center center;
+  object-position: top;
 }
 .user_favourite_items{
   width: 23%;
@@ -238,7 +242,7 @@ transition: all 0.2s ease-in-out;
   .gallerycol{
     display: flex;
     flex-direction: column;
-    border: 1px solid #eee;
+    /* border: 1px solid #eee; */
     /* justify-content: center; */
     align-items: center;
     border-radius: 10px;
@@ -907,7 +911,7 @@ padding: 10px 10px;
 .dialog_action_btn button{
   width: 45%;
 }
-.product_view_icon{
+.product_view_icon_mmda{
       /* background: #f4f4f4; */
       background: #f8f9fa;
     padding: 10px;
@@ -920,9 +924,12 @@ padding: 10px 10px;
   flex-direction: row !important; 
   align-items: flex-start;
   gap: 10px;
+  border: 1px solid #eee;
+  padding: 0px !important;
 }
 .list_view_product_image{
   width: 30% !important;
+  padding: 0px !important;
 
 }
 .list_view_action_button{
@@ -1011,6 +1018,7 @@ margin: 0px 0px 0px 10px !important;
  }
 .app_product_headline{
   padding:0px 0px 10px 0px;
+
 }
 @media screen and (max-width : 480px){
   .app_product_headline{
@@ -1167,7 +1175,7 @@ margin: 0px 0px 0px 10px !important;
     gap: 20px;
   }
   .gallerycol{
-    width: 48% !important;
+    width: 50% !important;
   }
   .navbar-toggler{
     padding: 4px 6px !important;
@@ -1203,10 +1211,10 @@ margin: 0px 0px 0px 10px !important;
 
 @media screen and (min-width : 993px) and (max-width : 1199px){ 
   .gallerycol{
-    width: 23% !important;
+    /* width: 23% !important; */
   }
   #ProductContainer{
-    gap: 6px;
+    /* gap: 11px; */
   }
   .user_favourite_items{
     width: 30% !important;
@@ -1387,7 +1395,7 @@ justify-content: space-between !important;
 }
 @media screen and (max-width : 480px){
    #ProductContainer{
-    padding: 0px 10px;
+    /* padding: 0px 10px; */
 
   }
   #ProductContainer .gallerycol{
@@ -1913,7 +1921,7 @@ color: #000203;
 
 @media screen and (min-width : 993px) and (max-width : 1199px){ 
   .gallerycol{
-    width: 23% !important;
+    /* width: 23% !important; */
   }
   .mobile_list_view {
     width: 100% !important;
@@ -1970,7 +1978,13 @@ canvas{
 }
 
 .padding_left_20{
-  padding: 0px 20px !important;
+  padding: 0px 0px 0px 20px !important;
+}
+@media screen and (max-width : 750px){
+  .padding_left_20{
+    /* padding: 0px 15px 0px 15px !important; */
+  }
+  
 }
 .app_new_productsetup{
   display: flex;
@@ -1981,12 +1995,31 @@ canvas{
   position: relative;
   left: -8px;
 }
+@media screen and (max-width : 999px){
 .new_p_icon{
   position: relative;
-  right: -20px;
+  /* right: -10px; */
+}
 }
 .app_product_headline{
     display: flex;
   align-items: center;
   justify-content: space-between;
+  width: 99%;
 }
+ @media screen and (max-width: 999px) {
+  
+    .app_product_headline{
+      max-width: 100% ;
+      min-width: 90%;
+    }
+  }
+  #ProductListView{
+    gap: 10px !important;
+  }
+  #ProductListView .list_view_product_image{
+    height: 300px !important;
+  }
+  #ProductListView .list_view_product_image img{
+    height: 100% !important;
+  }

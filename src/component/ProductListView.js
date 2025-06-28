@@ -91,6 +91,16 @@ export default function ProductListView({addToFavourite, isFavorite, componentFr
 
   useEffect(() => {
     getProducts(baseUrl, productsUrl);
+    // let ProductListView = document.getElementsByClassName("mobile_list_view");
+    // // if(Array.from(ProductListView).length > 0) {
+    //   Array.from(ProductListView).forEach((element) => {
+    //     if (element) {
+    //       element.firstElementChild.style.height = element.offsetWidth + "px";
+
+    //     }
+    //   })
+
+    // }
   }, []);
   
  

@@ -14,6 +14,7 @@ import { CartContext } from './CartContext';
 import Hammer from 'hammerjs';
 import LazyLoad from 'react-lazy-load';
 import { handleShare, ShareButton } from "./HandleShare";
+import "./Products.css"
 
 
 export default function Products(props) {
@@ -286,7 +287,7 @@ function ProductImageComponent({product}){
           >
             Flash Products
           </h1>
-           <i className={`fa-solid fa-list-ul product_view_icon grid_view new_p_icon `} onClick={toggleView} id="listType"></i>
+           <i className={`fa-solid fa-list-ul product_view_icon_mmda grid_view new_p_icon `} onClick={toggleView} id="listType"></i>
           
           </div>
          {
@@ -307,6 +308,7 @@ function ProductImageComponent({product}){
 
               return (
                 <div className="col-md-3 col-sm-12 gallerycol" key={product.id} >
+                <div className="products_mmd_container">
                   <div className="galleryimg position-relative">
                    {/* <ProductImageComponent product={product} /> */}
                    <img src={product.images[0].src} id="productimg" className="productImages" alt="" onLoad={handleImageLoad} />
@@ -377,6 +379,7 @@ function ProductImageComponent({product}){
                       </button> */}
                       <ShareButton  productTitle={product.title} productDesc={product.description} productImage={product.image}/>
                     </div>
+                  </div>
                   </div>
                 </div>
               );

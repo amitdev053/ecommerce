@@ -193,13 +193,9 @@ if(playButton){
             {/* onClick={handleBack} */}
               <button
                 className="fa-solid fa-arrow-left app_blog_detail_icon app_blog_detail_back_icon"  onClick={(event)=>{handleBack(event)}}
-                 onTouchStart={(e)=>{
-                      e.stopPropagation();
-      e.preventDefault();
-      sendClickFeed()
-                 }
+                 onTouchStart={sendClickFeed() }
                   
-                  } onTouchEnd={(event)=>{
+                   onTouchEnd={(event)=>{
                       event.stopPropagation();
                     event.preventDefault();
                   removeClickFeed(event)}} onMouseUp={(event)=>{removeClickFeed(event)}} onMouseDown={sendClickFeed} onMouseOut={orignalElement}

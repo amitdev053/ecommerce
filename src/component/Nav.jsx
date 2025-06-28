@@ -729,7 +729,7 @@ useEffect(()=>{
                   </Link>
                 </li>
 
-                <li className="nav-item">
+                {/* <li className="nav-item">
                   <Link
                     className={`${
                       url === "/services" ? "nav-link active" : "nav-link"
@@ -739,7 +739,7 @@ useEffect(()=>{
                   >
                     Services
                   </Link>
-                </li>
+                </li> */}
 
                 {/* <li className="nav-item">
                   <Link className="nav-link " to="/contact" id="contact">

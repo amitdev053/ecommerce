@@ -621,7 +621,7 @@ useEffect(()=>{
   
         <nav className="navbar navbar-expand-lg navbar-light bg-light fixed-top p-0">
           <div className="container navbar_container app_container p-0">
-            <Link className="navbar-brand" to="/">
+            <Link className={url !== "/blogs" && url !== "/explore" ? `navbar-brand navbar-brand-conditionally` : "navbar-brand"} to="/" >
             {/* <i className="fa-solid fa-shop app_nav_logo"></i> */}
             <i class="fa-solid fa-location-arrow app_nav_logo"></i>
             {/* <img src={browseNextLogo} className="img-fluid"/> */}

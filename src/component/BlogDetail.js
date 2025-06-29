@@ -364,7 +364,7 @@ if(blogDetails){
       <meta name="description" content="" />
       <meta name="keywords" content="" />
     </Helmet>
-        <div className="app_detail_blog_container container mt-ps90 app_container ">
+        <div className="app_detail_blog_container container mt-74 app_container ">
           <div className="row p-0 w-100 d-flex align-items-center overflow-hidden flex-row-reverse position-relative">
             {/* blog user action  end Here*/}
             {/* blog details appear starts Here*/}

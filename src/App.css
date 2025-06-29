@@ -2023,3 +2023,12 @@ canvas{
   #ProductListView .list_view_product_image img{
     height: 100% !important;
   }
+  .blog_content_border{
+    padding: 0px 5px !important;
+  }
+  @media screen and (max-width: 999px){   
+    .blog_content_border{
+    padding: 0px 8px !important;
+  }
+    
+  }

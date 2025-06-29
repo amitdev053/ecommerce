@@ -307,9 +307,12 @@ function ProductImageComponent({product}){
               <div className="row" id="ProductContainer" style={props.componentFrom === "home" ? {margin: "0px auto"} : {margin: ""}}>
             {/* Columns Started Here */}
             {allproduct.map((product) => {
-              const formatter = new Intl.NumberFormat("en-US", {
+              const formatter = new Intl.NumberFormat("en-IN", {
                 style: "currency",
-                currency: "USD",
+                currency: "INR",
+                minimumFractionDigits: 0,
+                maximumFractionDigits: 0,
+
               });
               // // console.log("product map json", product.images)
               const favoriteProducts =  JSON.parse(localStorage.getItem("userLike") || "[]")

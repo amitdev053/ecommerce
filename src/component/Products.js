@@ -277,7 +277,7 @@ function ProductImageComponent({product}){
         <div  className={props.componentFrom === "home" ? 'container text-left app_container p-0' : 'container text-left mt-ps90 app_container padding_left_20'}>
       <Alert position="bottom-center"> </Alert>
 {/* "app_product_headline app_new_productsetup" */}
-<div  className={props.componentFrom === "home" ? 'app_product_headline' : 'app_product_headline app_new_productsetup'}>
+<div  className={props.componentFrom === "home" ? 'app_product_headline' : 'app_product_headline app_new_productsetup'} style={props.componentFrom === "home" ? {margin: "0px auto"} : {margin: ""}}>
       <h1
             style={{
               fontSize: "25px",
@@ -294,7 +294,7 @@ function ProductImageComponent({product}){
           (productView === true) ?           
           
               <>
-              <div className="row" id="ProductContainer">
+              <div className="row" id="ProductContainer" style={props.componentFrom === "home" ? {margin: "0px auto"} : {margin: ""}}>
             {/* Columns Started Here */}
             {allproduct.map((product) => {
               const formatter = new Intl.NumberFormat("en-US", {
@@ -377,7 +377,7 @@ function ProductImageComponent({product}){
                         <i class="fa-regular fa-share-from-square icon_margin"></i>
                         
                       </button> */}
-                      <ShareButton  productTitle={product.title} productDesc={product.description} productImage={product.image}/>
+                      <ShareButton  productTitle={product.title} productDesc={product.body_html} productImage={product.images[0].src}/>
                     </div>
                   </div>
                   </div>

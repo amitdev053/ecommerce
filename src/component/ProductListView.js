@@ -32,7 +32,7 @@ export default function ProductListView({addToFavourite, isFavorite, componentFr
         // console.log("products Result", result);
         if(componentFrom === "home"){
           // console.log("routes run in home c")
-          setAllProduct(result.splice(0, 8));
+          setAllProduct(result.products.splice(0, 8));
           
           }else{
         setAllProduct(result.products);

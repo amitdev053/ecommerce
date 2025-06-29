@@ -88,13 +88,18 @@ export default function Products(props) {
   function getProducts(baseUrl, productsUrl) {
     const getProductsUrl = baseUrl + productsUrl;
     // // console.log("Product url",getProductsUrl)
+    
     fetch(getProductsUrl)
       .then((response) => {
-        setloader(false);
+        
+      if (!response.ok) {
+        throw new Error(`HTTP error! Status: ${response.status}`);
+      }
         // // console.log("response", response);
         return response.json();
       })
       .then((result) => {
+        setloader(false);
         // // // console.log("products product.js", result);
         // // console.log("products product.js", result);
         if(props.componentFrom === "home"){
@@ -106,12 +111,17 @@ export default function Products(props) {
             console.log("yes product fetch for products component", result)
         setAllProduct(result.products);
           }
-      });
+      }).catch((error) => {
+    setloader(true);
+    console.error("Product fetching error:", error.message || error);
+  });
+   
   }    
   useEffect(() => {
     document.title = "Market-Shops Best Product Market"
     getProducts(baseUrl, productsUrl);
   }, []);
+  
   function clickToCart(productName,productPrice,ProductImage,productid){
     addToCart(productName, productPrice, ProductImage, productid)
      
@@ -277,7 +287,7 @@ function ProductImageComponent({product}){
         <div  className={props.componentFrom === "home" ? 'container text-left app_container p-0' : 'container text-left mt-ps90 app_container padding_left_20'}>
       <Alert position="bottom-center"> </Alert>
 {/* "app_product_headline app_new_productsetup" */}
-<div  className={props.componentFrom === "home" ? 'app_product_headline' : 'app_product_headline app_new_productsetup'} style={props.componentFrom === "home" ? {margin: "0px auto"} : {margin: ""}}>
+<div  className={props.componentFrom === "home" ? 'app_product_headline' : 'app_product_headline app_new_productsetup'} style={props.componentFrom === "home" ? {margin: "0px auto 20px auto"} : {margin: ""}}>
       <h1
             style={{
               fontSize: "25px",

@@ -969,7 +969,7 @@ margin: 0px 0px 0px 10px !important;
     
 }
 
-.navbar-brand:hover{
+.navbar-brand-conditionally:hover{
   /* padding: 10px !important; */
   /* background: #000000b8; */
   background: #000000ad;

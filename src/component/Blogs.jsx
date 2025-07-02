@@ -121,21 +121,16 @@ const Blogs = (props) => {
 
 
   useEffect(() => {
-    // if(topic === ""){
-    //   document.title = `Explore Blogs: | Market Shops`
-    // }else{
-    //   console.log("explore", topic)
-    //   document.title = `Explore ${topic.split('')[0].toUpperCase() + topic.split('').slice(1, topic.length).join("")}: | Market Shops`
-    // }
+    if(props.componentFrom !== "home"){
+        if(topic === ""){
+          document.title = `Explore Blogs: | Market Shops`
+        }else{
+          console.log("explore", topic)
+          document.title = `Explore ${topic.split('')[0].toUpperCase() + topic.split('').slice(1, topic.length).join("")}: | Market Shops`
+        }
+    }
+ 
 
-      if (!topic || typeof topic !== 'string') {
-    document.title = `Explore Blogs: | Market Shops`;
-  } else {
-    const capitalized =
-      topic.charAt(0).toUpperCase() + topic.slice(1);
-    document.title = `Explore ${capitalized}: | Market Shops`;
-  }
-  
     // document.title = "Market-Shops Tech Blogs"
     const urlParams = new URLSearchParams(window.location.search);
     const searchText = urlParams.get('query');

@@ -121,14 +121,14 @@ const Blogs = (props) => {
 
 
   useEffect(() => {
-    if(props.componentFrom !== "home"){
+    
         if(topic === ""){
           document.title = `Explore Blogs: | Market Shops`
         }else{
           console.log("explore", topic)
           document.title = `Explore ${topic.split('')[0].toUpperCase() + topic.split('').slice(1, topic.length).join("")}: | Market Shops`
         }
-    }
+    
  
 
     // document.title = "Market-Shops Tech Blogs"
@@ -150,13 +150,14 @@ getBlogs(true, searchText)
   }, []);
 
   useEffect(() => {
+    if(props.componentFrom !== "home"){
     if(topic === ""){
       document.title = `Explore Blogs: | Market Shops`
 
     }else{
       document.title = `Explore ${topic.split('')[0].toUpperCase() + topic.split('').slice(1, topic.length).join("")}: | Market Shops`
     }
-
+  }
   }, [topic]);
 
   // this usefffect for every page render operations 

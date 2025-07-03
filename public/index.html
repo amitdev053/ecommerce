@@ -79,15 +79,43 @@
     <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
    <script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/prism.min.js"></script>
 
+
+<div id="instagram-warning" style="display: none; position: fixed; inset: 0; background: #fff; z-index: 9999; text-align: center; padding: 2rem;">
+  <h2 style="margin-bottom: 1rem;">Open in Browser for Full Experience</h2>
+  <img src="./favicon.png" alt="Logo" style="width: 80px; margin-bottom: 1rem;" />
+  <p style="max-width: 400px; margin: 1rem auto; font-size: 16px;">
+    For the best experience, please open this site in your browser. Instagram's in-app browser may block some features.
+  </p>
+  <div style="margin-top: 2rem;">
+    <a href="googlechrome://market-shops.vercel.app" 
+       style="display: inline-block; margin: 0.5rem; padding: 0.75rem 1.5rem; background-color: #4285F4; color: white; border-radius: 5px; text-decoration: none;">
+       Open in Chrome
+    </a>
+    <a href="https://market-shops.vercel.app" 
+       style="display: inline-block; margin: 0.5rem; padding: 0.75rem 1.5rem; background-color: #000; color: white; border-radius: 5px; text-decoration: none;">
+       Open in Safari
+    </a>
+  </div>
+</div>
+
 <script>
-
   const ua = navigator.userAgent || navigator.vendor || window.opera;
-   if (ua.includes("Instagram")) {
-     // Try to force open in external browser (Android only)
-     window.location.href =
-       "intent://market-shops.vercel.app#Intent;scheme=https;package=com.android.chrome;end;";
-   }
+  const isInstagram = ua.includes("Instagram");
+  const isAndroid = /android/i.test(ua);
+  const isiOS = /iPhone|iPad|iPod/i.test(ua);
 
+  if (isInstagram) {
+    if (isAndroid) {
+      // Try to open in Chrome on Android
+      window.location.href = "intent://market-shops.vercel.app#Intent;scheme=https;package=com.android.chrome;end;";
+    } else if (isiOS) {
+      // Show branded banner with buttons for iOS
+      document.getElementById("instagram-warning").style.display = "block";
+    }
+  }
 </script>
+
+
+
   </body>
 </html>

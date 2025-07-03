@@ -80,6 +80,11 @@
    <script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/prism.min.js"></script>
 
 
-    
+     const ua = navigator.userAgent || navigator.vendor || window.opera;
+      if (ua.includes("Instagram")) {
+        // Try to force open in external browser (Android only)
+        window.location.href =
+          "intent://market-shops.vercel.app#Intent;scheme=https;package=com.android.chrome;end;";
+      }
   </body>
 </html>

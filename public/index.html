@@ -107,7 +107,9 @@
   if (isInstagram) {
     if (isAndroid) {
       // Try to open in Chrome on Android
-      window.location.href = "intent://market-shops.vercel.app#Intent;scheme=https;package=com.android.chrome;end;";
+      document.getElementById("instagram-warning").style.display = "block";
+      
+      // window.location.href = "intent://market-shops.vercel.app#Intent;scheme=https;package=com.android.chrome;end;";
     } else if (isiOS) {
       // Show branded banner with buttons for iOS
       document.getElementById("instagram-warning").style.display = "block";

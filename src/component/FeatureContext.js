@@ -66,10 +66,18 @@ const features = [
   },
 ];
 
+// "What Would You Like to Explore Today?",
+// Scroll Less, Find More,
+// New Finds, Just for You,
+// Explore What’s Trending Now,
+// Explore. Discover. Create.
+
 const headings = [
-  "What Would You Like to Create Today?",
-  "What Would You Like to Explore Today?",
-  "Build, Explore & Create — All in One Place"
+  "Discover Something You’ll Love Today",
+  "Make Your Captions Stand Out on Social Media",
+  "Build, Explore & Create — All in One Place",
+  "Explore What’s Trending Now",
+  
 ];
 
 const FeatureContext = () => {

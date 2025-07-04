@@ -259,6 +259,7 @@
 }
   .feature-section{
     overflow-x: auto;
+    scroll-snap-type: x mandatory;
     margin-bottom: 40px;
     padding: 30px 10px 40px 10px;
   }
@@ -269,7 +270,7 @@
      align-items: center;
      justify-content: center;
       /* overflow-x: auto; */
-       /* scroll-snap-type: x mandatory;
+       /* 
               max-width: 100%;
         overflow-x: scroll; */
 

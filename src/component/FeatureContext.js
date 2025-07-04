@@ -66,7 +66,11 @@ const features = [
   },
 ];
 
-
+const headings = [
+  "What Would You Like to Create Today?",
+  "What Would You Like to Explore Today?",
+  "Build, Explore & Create — All in One Place"
+];
 
 const FeatureContext = () => {
   const usenavigate = useNavigate();
@@ -83,6 +87,15 @@ const FeatureContext = () => {
   description: '',
   buttonText: ''
 });
+  const [currentHeading, setCurrentHeading] = useState(0);
+
+   useEffect(() => {
+    const intervalId = setInterval(() => {
+      setCurrentHeading((prevHeading) => (prevHeading + 1) % headings.length);
+    },  1 * 60 * 60 * 1000); // 3 hours in milliseconds
+
+    return () => clearInterval(intervalId);
+  }, []);
 
   function startAutoHover(startFrom = 0) {
     let index = startFrom;
@@ -217,6 +230,7 @@ document.getElementById("UserGuides").addEventListener("click", (event) => {
   return (
     <>
     <section className="feature-section">
+    <h1 class="app_section_heading">{headings[currentHeading]}</h1>
       <div className="feature-cards-wrapper">
         {features.map((feature, idx) => (
           <div

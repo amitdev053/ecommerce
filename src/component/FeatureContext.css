@@ -251,7 +251,7 @@
 @media (max-width: 550px) {
 .app_section_heading{
   font-size: 22px;
-  margin-bottom: 0px !important;
+  margin-bottom: 20px !important;
           position: sticky;
         left: 0%;
         top: 0;

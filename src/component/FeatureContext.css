@@ -251,13 +251,16 @@
 @media (max-width: 550px) {
 .app_section_heading{
   font-size: 22px;
-  margin-bottom: 30px;
+  margin-bottom: 0px !important;
+          position: sticky;
+        left: 0%;
+        top: 0;
 
 }
   .feature-section{
-    /* overflow-x: auto; */
-    
-    padding: 30px 10px 50px 10px;
+    overflow-x: auto;
+    margin-bottom: 30px;
+    padding: 30px 10px 30px 10px;
   }
  
   .feature-cards-wrapper{
@@ -266,9 +269,9 @@
      align-items: center;
      justify-content: center;
       /* overflow-x: auto; */
-       scroll-snap-type: x mandatory;
+       /* scroll-snap-type: x mandatory;
               max-width: 100%;
-        overflow-x: scroll;
+        overflow-x: scroll; */
 
   }
   .feature-card {
@@ -278,12 +281,17 @@
      scroll-snap-align: center;
     height: fit-content;
     flex: 0 0 auto;
+    box-shadow: none;
+  }
+    /* Hide scrollbars */
+  .feature-section::-webkit-scrollbar {
+    display: none;
   }
 }
 /* Media Queries for Responsive Design End here*/
 
 /* customise scrollbar from start here*/
-.feature-cards-wrapper::-webkit-scrollbar {
+/* .feature-cards-wrapper::-webkit-scrollbar {
   height: 0px; 
 }
  .feature-cards-wrapper::-webkit-scrollbar-track {
@@ -297,5 +305,5 @@
 
 .feature-cards-wrapper::-webkit-scrollbar-thumb:hover {
   background: #f8f9fa !important; 
-}
+} */
 /* customise scrollbar from End here*/

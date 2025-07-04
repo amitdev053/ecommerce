@@ -255,8 +255,8 @@
 
 }
   .feature-section{
-    overflow-x: auto;
-     scroll-snap-type: x mandatory;
+    /* overflow-x: auto; */
+    
     padding: 30px 10px 50px 10px;
   }
  
@@ -266,6 +266,9 @@
      align-items: center;
      justify-content: center;
       /* overflow-x: auto; */
+       scroll-snap-type: x mandatory;
+              max-width: 100%;
+        overflow-x: scroll;
 
   }
   .feature-card {
@@ -280,19 +283,19 @@
 /* Media Queries for Responsive Design End here*/
 
 /* customise scrollbar from start here*/
-.feature-section::-webkit-scrollbar {
+.feature-cards-wrapper::-webkit-scrollbar {
   height: 0px; 
 }
- .feature-section::-webkit-scrollbar-track {
+ .feature-cards-wrapper::-webkit-scrollbar-track {
   background: #f8f9fa !important;
   }
 
-.feature-section::-webkit-scrollbar-thumb {
+.feature-cards-wrapper::-webkit-scrollbar-thumb {
   background: #f8f9fa !important; 
   border-radius: 5px;
 }
 
-.feature-section::-webkit-scrollbar-thumb:hover {
+.feature-cards-wrapper::-webkit-scrollbar-thumb:hover {
   background: #f8f9fa !important; 
 }
 /* customise scrollbar from End here*/

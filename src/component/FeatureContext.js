@@ -95,7 +95,7 @@ const FeatureContext = () => {
     },  1 * 60 * 60 * 1000); // 3 hours in milliseconds
 
     return () => clearInterval(intervalId);
-  }, []);
+  }, [headings.length]);
 
   function startAutoHover(startFrom = 0) {
     let index = startFrom;

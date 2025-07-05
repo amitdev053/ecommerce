@@ -23,7 +23,7 @@ const CustomFontSelector = ({ selected, onSelect }) => {
     if(document.querySelector('.active-f')) {
       document.querySelector('.active-f').innerHTML += `<i class="fa-solid fa-check selected_correct_icon"></i>`;
     }
-  },[selected])
+  })
   return (
     <div className="custom-select-box">
       <div className="selected-option" onClick={() => setOpen(!open)}>

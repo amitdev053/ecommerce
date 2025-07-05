@@ -116,7 +116,7 @@
     cursor: pointer;
     color: #808080;
     font-weight: 500;
-    border: 2px solid transparent;
+    border: 2px solid #f8f9fa;
         display: flex;
     gap: 0px 8px;
     align-items: center;
@@ -130,8 +130,10 @@
     top: 1px;
 }
 .font_family_set_container .ff_family:hover{
-      border: 2px solid black;
-      color: black
+      /* border: 2px solid black; */
+      color: black;
+      background: #ffffffff;    
+      border: 2px solid #f0f0f0;
 }
 .active-f{
   background-color: white !important;

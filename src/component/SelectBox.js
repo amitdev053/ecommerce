@@ -19,14 +19,15 @@ const styleList = [
 const CustomFontSelector = ({ selected, onSelect }) => {
   const [open, setOpen] = useState(false);
 
-  useEffect(() => {
-    if(document.querySelector('.active-f')) {
-      document.querySelector('.active-f').innerHTML += `<i class="fa-solid fa-check selected_correct_icon"></i>`;
-    }
-  })
+//   useEffect(() => {
+//     if(document.querySelector('.active-f')) {
+//         document.querySelector('.selected_correct_icon')?.remove()
+//       document.querySelector('.active-f').innerHTML += `<i class="fa-solid fa-check selected_correct_icon"></i>`;
+//     }
+//   })
   return (
     <div className="custom-select-box">
-      <div className="selected-option" onClick={() => setOpen(!open)}>
+      {/* <div className="selected-option" onClick={() => setOpen(!open)}>
         <span className="icon">{selected.icon|| styleList[0].icon}</span>
         <span>{selected.label}</span>
         <span className="arrow">{open ? <i class="fa-solid fa-angle-up"></i> : <i class="fa-solid fa-angle-down"></i> }</span>
@@ -49,7 +50,22 @@ const CustomFontSelector = ({ selected, onSelect }) => {
             </div>
           ))}
         </div>
-      )}
+      )} */}
+
+    <p className="apply-fonts-title">Apply Fonts</p>
+
+      <div className="font_family_set_container">
+        {styleList.map((style, idx) => (
+          <span
+            key={idx}
+            className={`ff_family position-relative ${selected?.value === style.value ? "active-f" : ""}`}
+            onClick={() => onSelect(style)}
+          >
+            <span className="ff_icon">{style.icon}</span>
+            <span className="family_text">{style.label.split(" ")[0]}</span>
+          </span>
+        ))}
+      </div>
     </div>
   );
 };

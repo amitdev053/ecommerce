@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import "./TextToBold.css";
 import Alert from "./Alert";
-import "react-toastify/dist/ReactToastify.css";
+// import "react-toastify/dist/ReactToastify.css";
 import { ToastContainer, toast } from "react-toastify";
 import {CustomFontSelector} from "./SelectBox";
 
@@ -258,7 +258,7 @@ const TextToBold = () => {
         </div>
       </div>
       <Alert position="bottom-center" />
-      <ToastContainer />
+      
     </>
   );
 };

@@ -64,3 +64,9 @@
  .dropdown-list::-webkit-scrollbar {
     display: none;
   }
+  @media (max-width: 580px){
+    .custom-select-box {
+        width: 100%;
+    }
+    .selected-option{}
+  }

@@ -78,7 +78,7 @@
   /* width: 260px; */
   position: relative;
   font-family: "Roboto";
-  width: 49%;
+  width: 60%;
   display: flex;
   padding: 10px;
   border-radius: 50px;
@@ -110,7 +110,7 @@
 .font_family_set_container .ff_family{
        background-color: #f8f9fa;
     /* padding: 10px 20px; */
-    padding: 5px 15px 8px 13px;
+    padding: 5px 12px 6px 13px;
     border-radius: 82px;
     font-size: 14px;
     cursor: pointer;
@@ -141,9 +141,15 @@
     border: 2px solid black !important; 
     color: black !important;
     background-color: black;
-    color: white
+    color: white;
+    /* margin-right: 30px; */
 }
-
+.selected_correct_icon{
+    position: relative;
+    right: 0px;
+    color: black;
+    margin-left: 3px;
+}
  @media (max-width: 580px){
     .custom-select-box {
         width: 100% !important;

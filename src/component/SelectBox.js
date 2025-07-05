@@ -19,12 +19,12 @@ const styleList = [
 const CustomFontSelector = ({ selected, onSelect }) => {
   const [open, setOpen] = useState(false);
 
-//   useEffect(() => {
-//     if(document.querySelector('.active-f')) {
-//         document.querySelector('.selected_correct_icon')?.remove()
-//       document.querySelector('.active-f').innerHTML += `<i class="fa-solid fa-check selected_correct_icon"></i>`;
-//     }
-//   })
+  useEffect(() => {
+    if(document.querySelector('.active-f')) {
+        document.querySelector('.selected_correct_icon')?.remove()
+      document.querySelector('.active-f').innerHTML += `<i class="fa-solid fa-check selected_correct_icon"></i>`;
+    }
+  })
   return (
     <div className="custom-select-box">
       {/* <div className="selected-option" onClick={() => setOpen(!open)}>

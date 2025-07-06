@@ -212,6 +212,11 @@ const TextToBold = () => {
       toast.success("Text copied to clipboard!");
     });
   };
+  useEffect(() => {
+  if (document.getElementById('inputText')) {
+    document.getElementById('inputText').focus();
+  }
+}, []);
 
   return (
     <>
@@ -234,6 +239,7 @@ const TextToBold = () => {
             <textarea
               className="user_textarea_input"
               id="inputText"
+              
               placeholder="Enter text that you want to bold..."
               value={inputText}
               onChange={(e) => setInputText(e.target.value)}

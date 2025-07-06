@@ -59,7 +59,15 @@ const CustomFontSelector = ({ selected, onSelect }) => {
           <span
             key={idx}
             className={`ff_family position-relative ${selected?.value === style.value ? "active-f" : ""}`}
-            onClick={() => onSelect(style)}
+             onClick={() => onSelect(style)}
+      role="button"
+      tabIndex={0}
+      aria-label={`Apply ${style.label} font style`}
+      onKeyDown={(e) => {
+        if (e.key === 'Enter' || e.key === ' ') {
+          onSelect(style);
+        }
+      }}
           >
             <span className="ff_icon">{style.icon}</span>
             <span className="family_text">{style.label.split(" ")[0]}</span>

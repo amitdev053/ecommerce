@@ -770,7 +770,7 @@ useEffect(()=>{
               <div className="icon_area hide_in_mobile_devices" onClick={(event) => {openCart(event)}} id="cartarea">
                 <i className="fa-solid fa-cart-shopping mr-1" id="carticon"></i>
                 <span id="cartText">Cart</span>
-                <sup id="cartcount">{totalCart}</sup>
+               {(userCart.length !== 0 ) && (<sup id="cartcount">{totalCart}</sup>)} 
               </div>
 
               </div>

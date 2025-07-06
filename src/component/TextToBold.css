@@ -82,6 +82,12 @@ input{
    border-radius: 50%;
    border: 1px solid black !important;
   }
+  .copy_bold_texticon:focus {
+     background-color: white;
+   cursor: pointer;
+   border-radius: 50%;
+   border: 1px solid black !important;
+}
  
   .select_font_family:focus {
     outline: none;

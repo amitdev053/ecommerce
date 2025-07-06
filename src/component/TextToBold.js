@@ -243,8 +243,16 @@ const TextToBold = () => {
           <div className="bold_text_ouput input_div position-relative">
             {inputText.trim() && (
               <i
-                className="fa-solid fa-copy copy_bold_texticon"
+               role="button"
+              tabIndex={0}
+              aria-label={`Copy bold Text`}
+                className="fa-solid fa-copy copy_bold_texticon outline-none"
                 onClick={copyOutput}
+                 onKeyDown={(e) => {
+        if (e.key === 'Enter' || e.key === ' ') {
+          copyOutput();
+        }
+      }}
               ></i>
             )}
             <textarea

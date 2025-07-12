@@ -37,6 +37,7 @@ export default function Products(props) {
   const { addToCart } = useContext(CartContext);
   const [isFavorite, setIsFavorite] = useState(false);
    const [dynamicStyle, setDynamicStyle] = useState(true)
+   const [changedPhoto, setChangedPhoto] = useState(false)
   
   
  
@@ -259,8 +260,32 @@ const handleZoomImage = ()=>{
   })
 
 }
+function hoverOnImage(){
+  let productRow = document.getElementById('ProductContainer')
+  if(productRow){
+   productRow.addEventListener('mouseover', (e) => {
+    // console.log("mouse over ", e.target)
+    const product = e.target.closest(".gallerycol")
+    if (product) {
+      setChangedPhoto(true)
+      console.log('mouse over product');
+    }
+  });
+
+   productRow.addEventListener('mouseout', (e) => {
+    // console.log("mouse out ", e.target.closest(".gallerycol"))
+    const product = e.target.closest(".gallerycol")
+    if (product) {
+setChangedPhoto(false)
+      console.log('mouse out product');
+
+    }
+  });
+  }
+}
 useEffect(()=>{
   handleZoomImage()
+  hoverOnImage()
 }, [])
 
 
@@ -272,6 +297,7 @@ function ProductImageComponent({product}){
     </LazyLoad>
   )
 }
+
 
   if (loader === true) {
     return (
@@ -288,7 +314,18 @@ function ProductImageComponent({product}){
       <Alert position="bottom-center"> </Alert>
 {/* "app_product_headline app_new_productsetup" */}
 <div  className={props.componentFrom === "home" ? 'app_product_headline' : 'app_product_headline app_new_productsetup'} style={props.componentFrom === "home" ? {margin: "0px auto 20px auto"} : {margin: ""}}>
-      <h1
+          {(props.componentFrom === "home")  ?  (
+ <div
+            style={{
+              fontSize: "25px",
+              fontWeight: "700",
+              margin: "0px",             
+            }}
+          >
+            Flash Products
+          </div>
+          ): (
+ <h1
             style={{
               fontSize: "25px",
               fontWeight: "700",
@@ -297,6 +334,8 @@ function ProductImageComponent({product}){
           >
             Flash Products
           </h1>
+          )
+          }
            <i className={`fa-solid fa-list-ul product_view_icon_mmda grid_view new_p_icon `} onClick={toggleView} id="listType"></i>
           
           </div>
@@ -324,7 +363,7 @@ function ProductImageComponent({product}){
                 <div className="products_mmd_container">
                   <div className="galleryimg position-relative">
                    {/* <ProductImageComponent product={product} /> */}
-                   <img src={product.images[0].src} id="productimg" className="productImages" alt="" onLoad={handleImageLoad} />
+                   <img src={!changedPhoto ? product.images[0].src : product.images[1].src} id="productimg" className="productImages" alt="" onLoad={handleImageLoad} />
                     <div id="productprice" className="productprice w-100" style={{opacity: isFavorite ? "100%" : "0"}}>
                  <strong>  {formatter.format(product.variants[0].price)} </strong>
                      

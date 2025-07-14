@@ -131,7 +131,8 @@ export default function footer() {
           <i class="fa-solid fa-shop mx-2"></i>Market Shops
           </h6>
           <p>
-          Explore market-shop.vercel.app for a diverse selection of products. Stay updated with our engaging blog content.
+    Use bold text generators, explore tech blogs, download premium images & discover creative tools on Market-Shops. All free, all in one place.
+          
           </p>
         </div>
     
@@ -177,11 +178,13 @@ export default function footer() {
           <p>
             <Link to="/blogs" className="text-reset" target='_blank'>Blogs</Link>
           </p>
-          <p>
-            <a href="#!" className="text-reset">Help</a>
-          </p>
+                   
           <p>
           <Link to="/explore" className="text-reset" target='_blank'>Explore</Link>
+          </p>
+
+           <p>
+            <Link to="/services" className="text-reset">Services</Link>
           </p>
         </div>
 

@@ -1,0 +1,107 @@
+/* .explore-skeleton-wrapper {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  gap: 16px;
+  padding: 20px;
+}
+
+.skeleton-card {
+  width: 100%;
+  height: 250px;
+  border-radius: 12px;
+  background: linear-gradient(
+    100deg,
+    #e0e0e0 30%,
+    #f0f0f0 50%,
+    #e0e0e0 70%
+  );
+  background-size: 200% 100%;
+  animation: shimmer 1.5s infinite;
+}
+
+@keyframes shimmer {
+  0% {
+    background-position: -200% 0;
+  }
+  100% {
+    background-position: 200% 0;
+  }
+} */
+
+.skeleton-container {
+  /* column-count: 3;
+  column-gap: 0px;
+  padding: 10px 70px; */
+
+    display: flex;
+  flex-wrap: wrap;
+  /* gap: 16px; */
+  justify-content: center;
+   padding: 10px 30px;
+}
+
+.skeleton-card {
+  /* width: 100%; */
+    flex: 0 0 30%; /* or calc(33.33% - 16px) */
+  aspect-ratio: 2 / 2.5; /* Maintain image proportion, you can tweak this */
+  margin: 10px;
+   min-height: 300px; /* ensures minimum height for visual balance */
+  border-radius: 12px;
+  background: linear-gradient(100deg, #e0e0e0 30%, #f0f0f0 50%, #e0e0e0 70%);
+  background-size: 200% 100%;
+  animation: shimmer 1.5s infinite;
+}
+
+@keyframes shimmer {
+  0% {
+    background-position: -200% 0;
+  }
+  100% {
+    background-position: 200% 0;
+  }
+}
+
+@media screen and (max-width: 999px) {
+  .skeleton-container {
+    column-count: 2;
+    padding: 10px 10px;
+       gap: 0px 7px;
+  }
+
+}
+@media screen and (max-width: 799px) {
+
+  .skeleton-card{
+    flex: 0 0 30%;
+    aspect-ratio: 2.3 / 2;
+    margin: 5px 0px;
+    min-height: 200px;
+  }
+}
+@media screen and (min-width: 480px) and (max-width: 720px)  {
+
+  .skeleton-card{
+    flex: 0 0 30%;
+    aspect-ratio: 2.3 / 2.7;
+    margin: 5px 0px;
+    min-height: 200px;
+  }
+}
+@media screen and (max-width: 480px)  {
+
+  .skeleton-card{
+    flex: 0 0 30%;
+    aspect-ratio: 2 / 2;
+    margin: 5px 0px;
+    min-height: 200px;
+  }
+}
+/* @media screen and (max-width: 400px)  {
+
+  .skeleton-card{
+    flex: 0 0 30%;
+    aspect-ratio: 1.9 / 2;
+    margin: 5px 0px;
+    min-height: 200px;
+  }
+} */

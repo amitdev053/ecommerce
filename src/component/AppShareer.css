@@ -1,0 +1,84 @@
+.app_sharer_container{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: absolute;
+    gap: 0px 15px;
+    padding: 20px;
+    /* background: #f8f9fa; */
+    background: white;
+    opacity: 0;
+    /* top: 90px; */
+    width: 0%;
+    border-radius: 16px;
+    transition: all 0.3s ease-in-out;
+    overflow: scroll;
+    border-radius: 16px;
+}
+.app_sharer_container i{
+  background-color: #eee;
+  padding: 18px;
+  border-radius: 50%;
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+  color: white;
+  font-size: 20px !important;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+
+}
+/* .app_sharer_container i:hover{
+ background-color: white;
+ 
+
+
+} */
+.app_sharer_container i:hover {
+  filter: brightness(1.1);
+}
+
+/* Brand-specific backgrounds */
+.whatsapp_icon {
+  background-color: #25D366 !important;
+}
+
+.facebook_icon {
+  background-color: #1877F2 !important;
+}
+
+.twitter_icon {
+  background-color: #1DA1F2 !important;
+}
+
+.instgram_icon {
+  background: radial-gradient(circle at 30% 107%, #fdf497 0%, #fd5949 45%, #d6249f 60%, #285AEB 90%) !important;
+}
+
+.linkedin_icon {
+  background-color: #0077B5 !important;
+}
+
+.sms_icon {
+  background-color: #6c63ff !important; /* Custom color for SMS */
+}
+
+.copy_icon {
+  background-color: #9CA3AF !important; /* Grayish color for copy */
+}
+
+/* customise scrollbar from start here*/
+.app_sharer_container::-webkit-scrollbar {
+  height: 0px; 
+}
+ .app_sharer_container::-webkit-scrollbar-track {
+  background: #f8f9fa !important;
+  }
+
+.app_sharer_container::-webkit-scrollbar-thumb {
+  background: #f8f9fa !important; 
+  border-radius: 5px;
+}
+
+.app_sharer_container::-webkit-scrollbar-thumb:hover {
+  background: #f8f9fa !important; 
+}
+/* customise scrollbar from End here*/

@@ -7,6 +7,7 @@ import axios from "axios";
 import EmptyCartImage from "../appimages/empty_cart.webp";
 import defaultBlogImage from "../defaultBlog.jpg";
 import ExploreLinkButton from "./ExploreLinkButton";
+import SkeltonLoading from "./SkeltonLoading";
 import { handleShare } from "./HandleShare";
 import { getImageColors, generateCaption } from "./GetImageColors";
 import { Link, useNavigate } from "react-router-dom";
@@ -51,6 +52,9 @@ const Explore = (props) => {
   const [trakImages, setTrakImage] = useState(true);
   const [bottomLoader, setBottomLoader] = useState(false);
   const navigate = useNavigate()
+  // Prevents reloading of already loaded images
+const loadedImageIds = new Set(JSON.parse(localStorage.getItem("loadedImageIds") || "[]"));
+
 
  
   useEffect(()=>{
@@ -128,6 +132,8 @@ const Explore = (props) => {
   }
 }
 
+
+
 async function setupImageOnPage(result){
   if(props.componentFrom === "home"){
   
@@ -190,8 +196,8 @@ async function setupImageOnPage(result){
         const uniqueNewImages = sortedImages.filter((img) => !existingIds.has(img.id));
         return [...prevImages, ...uniqueNewImages];
       });
-      console.log("images", images)
       setloader(false);
+      console.log("images & loader", images, loader)
       // if(props.componentFrom !== "exploreNext"){
         setTrakImage(false)
       // }
@@ -390,7 +396,8 @@ function shareImage(image){
   if (loader === true) {
     return (
       <>
-        <Loader></Loader>
+        {/* <Loader></Loader> */}
+        <SkeltonLoading count={9}/>
       </>
     );
   } else {

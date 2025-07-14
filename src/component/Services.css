@@ -1,0 +1,195 @@
+  .hero {
+      text-align: center;
+      margin-bottom: 40px;
+    }
+
+    .hero h1 {
+      font-size: 2.8rem;
+      font-weight: 800;
+      color: #0f172a;
+    }
+
+    .hero p {
+      font-size: 1.1rem;
+      color: #64748b;
+    }
+
+    .services-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 40px;
+      max-width: 1200px;
+      margin: auto;
+      scroll-snap-type: mandatory;
+    }
+
+    .service-card {
+      position: relative;
+      scroll-snap-align: center;
+      padding: 30px;
+      cursor: pointer;
+      border-radius: 20px;
+      /* background: rgba(255, 255, 255, 0.65); */
+      background: #f8f9fa;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
+      backdrop-filter: blur(10px);
+      overflow: hidden;
+      border: 2px solid transparent;
+      background-clip: padding-box;
+      transition: all 0.4s ease;
+        /* background: linear-gradient(90deg, #4f46e5, #9333ea, #6366f1, #4f46e5);
+       animation: border-walk 8s linear infinite; */
+    }
+
+  /* Glowing walking border */
+.service-card::before {
+  content: '';
+  position: absolute;
+  inset: -2px;
+  border-radius: 22px;
+  /* background: linear-gradient(90deg, #4f46e5, #9333ea, #6366f1, #4f46e5); */
+  background-size: 300% 300%;
+  animation: border-walk 6s linear infinite;
+  z-index: -1;
+}
+
+@keyframes border-walk {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+    /* .service-card::before {
+      content: '';
+      position: absolute;
+      top: -50%;
+      left: -50%;
+      width: 200%;
+      height: 200%;
+      background: radial-gradient(circle, rgba(99,102,241,0.2), transparent);
+      transform: rotate(25deg);
+      transition: all 0.5s ease;
+    } */
+
+    .service-card:hover::before {
+      /* background: radial-gradient(circle, rgba(99,102,241,0.4), transparent); */
+    }
+
+    .service-card:hover {
+      /* border-color: #6366f1; */
+      border-color: black;
+      background-color: #ffffff;
+      transform: translateY(-6px);
+    }
+
+    .icon-badge {
+      width: 50px;
+      height: 50px;
+      /* background: linear-gradient(135deg, #6366f1, #60a5fa); */
+      background: #000;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.4rem;
+      color: white;
+      margin-bottom: 20px;
+    }
+
+    .service-card h3 {
+      font-size: 1.4rem;
+      margin-bottom: 10px;
+      font-weight: 700;
+      color: #0f172a;
+    }
+
+    .service-card p {
+      color: #475569;
+      font-size: 0.95rem;
+      margin-bottom: 16px;
+    }
+
+    .service-card ul {
+      list-style: none;
+      padding-left: 0;
+      margin: 0 0 16px 0;
+    }
+
+    .service-card ul li::before {
+      content: '✔';
+      color: #10b981;
+      margin-right: 8px;
+    }
+
+    .service-card ul li {
+      font-size: 0.9rem;
+      color: #374151;
+      margin-bottom: 6px;
+    }
+
+    .price {
+      font-weight: 700;
+      font-size: 1rem;
+      color: #111827;
+    }
+
+    .app_services_cta_button{
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-top: 15px;
+        font-size: 14px;
+    }
+    .cta-button {
+      display: flex;
+      align-items: center;
+      padding: 8px 18px;
+      /* background: linear-gradient(135deg, #4f46e5, #3b82f6); */
+      background: #0f172a;
+      color: white !important;
+      text-decoration: none;
+      font-weight: 600;
+      border-radius: 8px;
+      /* margin-top: 10px; */
+      transition: all 0.3s;
+      border: 2px solid transparent;
+    }
+
+    .cta-button:hover {
+      /* background: linear-gradient(135deg, #4338ca, #2563eb); */
+      /* background-color: white; */
+      background-color: #000000b8 ;
+      /* color: black !important; */
+      color: white !important;
+      
+    }
+    .share_cta_icon{
+        margin-right: 5px;
+    }
+    .buy_cta_icon{
+        margin-left: 5px;
+    }
+        .trust {
+      text-align: center;
+      /* padding-bottom: 13px; */
+      /* margin-top: 50px; */
+      font-size: 0.95rem;
+      cursor: pointer;
+      color: #475569;
+      background: #f8f9fa;
+      width: fit-content;
+      margin: 50px auto;
+      padding: 20px;
+      border-radius: 8px;
+      
+      border: 2px solid transparent;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
+    }
+    .trust:hover{
+        border: 2px solid black;
+    }

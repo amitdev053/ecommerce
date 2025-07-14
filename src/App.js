@@ -26,6 +26,7 @@ import Tools from "./component/Tools";
 import About from "./component/About";
 import Privancy from "./component/Privancy";
 import ExploreNext from "./component/ExploreNext";
+import Services from "./component/Services";
 
 function App() {
   const location = useLocation();
@@ -83,7 +84,7 @@ function App() {
             {/* <Route exact path ='/Hastags' Component={Hashtag}/> */}
             <Route exact path="/explore" Component={Explore} />
             {/* <Route exact path ='/contact' Component={Contact}/> */}
-            {/* <Route exact path ='/services' Component={Home}/> */}
+            <Route exact path ='/services' Component={Services}/>
             {/* <Route exact path ='/media' Component={Media}/> */}
             <Route exact path="/blogs" Component={Blogs} />
             <Route path="/blogs/search" Component={Blogs} />

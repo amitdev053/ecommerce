@@ -139,7 +139,6 @@ const FeatureContext = () => {
       steps++
       if (steps > cardsRef.current.length) {
         stopAutoHover(); // ✅ stop after one full loop
-       
         removeAnimation(index)
     }
     }, 1000);

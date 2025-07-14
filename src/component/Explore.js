@@ -396,8 +396,8 @@ function shareImage(image){
   if (loader === true) {
     return (
       <>
-        {/* <Loader></Loader> */}
-        <SkeltonLoading count={9}/>
+        <Loader></Loader>
+        {/* <SkeltonLoading count={9}/> */}
       </>
     );
   } else {

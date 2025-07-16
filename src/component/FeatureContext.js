@@ -52,7 +52,7 @@ const features = [
       <li><strong>Documentation :-</strong> <p> Convert snippets for clean, readable <i class="fa-brands fa-github"></i> GitHub READMEs  </p></li>
       <li><strong>Social Sharing :-</strong> <p> Reuse content in Slack, Notion, or Discord with clean formatting.</p></li>
       <li><strong>Editing Ease :-</strong> <p> Edit content faster in simple Markdown editors.</p></li>
-      <li><strong>Captions Ease :-</strong> <p>    You can also try different bold styles, fonts, or emojis to make it more fun. It’s free, fast, and super easy. 💡</p></li>
+      <li><strong>Captions Ease :-</strong> <p> You can also try different bold styles, fonts, or emojis to make it more fun. It’s free, fast, and super easy. 💡</p></li>
       </ul>
     `,
     // fullDescription: `

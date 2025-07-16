@@ -48,10 +48,11 @@ const features = [
     <div class="usage_guide"><i class="fa-solid fa-message"></i> Usage Of Markdown Tool</div>
       <ul>
       <li><strong>Blog Migration :-</strong> <p>Move HTML posts to Markdown platforms for faster, easier sites.</p></li>
-      <li><strong>Social Media Captions :-</strong> <p> Create beautiful captions and descriptions for </nbsp> <i class="fa-brands fa-instagram"></i> Instagram, <i class="fa-brands fa-linkedin"></i> LinkedIn, <i class="fa-brands fa-threads"></i> Threads, or <i class="fa-brands fa-twitter"></i> Twitter — then copy and post easily.</p></li>
+      <li><strong>Social Media Captions :-</strong> <p> Create <strong> beautiful captions and descriptions </strong> for </nbsp> <i class="fa-brands fa-instagram"></i> Instagram, <i class="fa-brands fa-linkedin"></i> LinkedIn, <i class="fa-brands fa-threads"></i> Threads, or <i class="fa-brands fa-twitter"></i> Twitter — then just <strong> copy and paste </strong>  easily.</p></li>
       <li><strong>Documentation :-</strong> <p> Convert snippets for clean, readable <i class="fa-brands fa-github"></i> GitHub READMEs  </p></li>
       <li><strong>Social Sharing :-</strong> <p> Reuse content in Slack, Notion, or Discord with clean formatting.</p></li>
       <li><strong>Editing Ease :-</strong> <p> Edit content faster in simple Markdown editors.</p></li>
+      <li><strong>Captions Ease :-</strong> <p>    You can also try different bold styles, fonts, or emojis to make it more fun. It’s free, fast, and super easy. 💡</p></li>
       </ul>
     `,
     // fullDescription: `

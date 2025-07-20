@@ -436,7 +436,7 @@ let tagList = [
           blogs.length <= 0 ? 
           (
             <>
-            <div className="col-md-4 col-sm-12 col-lg-3 blog_content_border app_blogs no_blog_search">
+            <div className="col-md-4 col-sm-12 col-lg-3 app_blogs no_blog_search">
                 {/* <Link to={"/blog-detail/"+ blog.id  + "/"  + convertTextIntoUrl(blog.title)}> */}
                 <span className="gallerytitle productname productdiscripation text-center">
                     Search for the <strong style={{color: "black"}}>"{searchText}"</strong> 

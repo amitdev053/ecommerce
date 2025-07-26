@@ -392,7 +392,7 @@ let tagList = [
       {props.componentFrom != "home" &&
       <>
        <SearchBlogs setBlogs={setBlogs} setHeading={setHeading} setloader={setloader} BackBlogHomes={searchPageString}  searchText={searchText} showBlog={showBlog} />
-      <ScrollTag tagList={tagList} showBlog={showBlog} />
+      <ScrollTag whereFrom="blogs" tagList={tagList} showBlog={showBlog} />
       
 <div
     style={{

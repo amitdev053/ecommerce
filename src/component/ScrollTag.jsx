@@ -1,6 +1,6 @@
 import React, { useRef, useState, useEffect } from "react";
 
-const ScrollTag = ({tagList, showBlog}) => {
+const ScrollTag = ({whereFrom,  tagList, showBlog}) => {
   // Ref for the scrollable container
   const ScrollDivTags = useRef(null);
   const [isAtStart, setIsAtStart] = useState(true);
@@ -75,7 +75,7 @@ const ScrollTag = ({tagList, showBlog}) => {
       >
         {!isAtStart && (
           <i
-            class="fa-solid fa-angle-left position-absolute app_blog_tag_left"
+            class="fa-solid fa-angle-left position-absolute app_blog_tag_left app_explore_tag_left"
             onClick={prevTag}
           ></i>
         )}
@@ -85,17 +85,17 @@ const ScrollTag = ({tagList, showBlog}) => {
           ref={ScrollDivTags}
           style={{ scrollBehavior: "smooth" }}
         >
-        <span className="d-flex" ><i className="fa-solid fa-house blog_home" onMouseDown={sendClickFeed} onMouseUp={removeClickFeed} onMouseOut={orignalElement}></i></span>
+       {whereFrom === "blogs" &&  <span className="d-flex" ><i className="fa-solid fa-house blog_home" onMouseDown={sendClickFeed} onMouseUp={removeClickFeed} onMouseOut={orignalElement}></i></span>}
           {tagList?.map((tag, index) => {
             return (
-              <span key={index} className="app_blog_tag_text">
-                {tag}
+              <span key={index} className="app_blog_tag_text app_explores_tag_text">
+                {tag.charAt(0).toUpperCase() + tag.slice(1)}
               </span>
             );
           })}
         </div>
         <i
-          class="fa-solid fa-angle-right position-absolute app_blog_tag_right"
+          class="fa-solid fa-angle-right position-absolute app_blog_tag_right app_explore_tag_right"
           onClick={nextTag}
         ></i>
       </div>

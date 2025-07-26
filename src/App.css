@@ -299,7 +299,7 @@ width:60%;
   margin-top: 70px ;
 }
 .mt-ps90{  
-  margin-top: 90px;
+  margin-top: 90px !important;
 }
 .loader {
   
@@ -1646,7 +1646,7 @@ justify-content: space-between !important;
   background: #f8f9fa;
   overflow-y: hidden;
   overflow: auto;
-  gap: 0px 10px;
+  gap: 0px 1px;
   margin: 20px 0px;
   border-radius: 50px;
 }
@@ -1659,13 +1659,17 @@ justify-content: space-between !important;
   margin: 5px;
   cursor: pointer;
   padding: 5px 10px 5px 10px;
-  font-size: 12px !important;
+  font-size: 12px ;
   color: #5a3e3ebf;
   text-align: center;
   font-weight: 600;
   font-family: "Roboto";
   transition: all 0.3s ease-in-out;
   border: 2px solid #f8f9fa;
+}
+.app_explores_tag_text{
+  font-weight: 500 ;
+  /* font-size: 13px ; */
 }
 .app_blog_tag_text:hover{
 background-color: #f8f9fa;
@@ -1760,6 +1764,9 @@ color: #000203;
 }
 .app_blog_tag_left:hover{
   background-color: white;
+}
+.app_explore_tag_right, .app_explore_tag_left{
+  font-size: 20px !important;
 }
 @media screen and (min-width : 999px){
   .app_nav_logo{

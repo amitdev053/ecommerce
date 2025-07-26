@@ -11,6 +11,7 @@ import SkeltonLoading from "./SkeltonLoading";
 import { handleShare } from "./HandleShare";
 import { getImageColors, generateCaption } from "./GetImageColors";
 import { Link, useNavigate } from "react-router-dom";
+import { Helmet } from "react-helmet";
 
 
 let content = [
@@ -52,6 +53,7 @@ const Explore = (props) => {
   const [trakImages, setTrakImage] = useState(true);
   const [bottomLoader, setBottomLoader] = useState(false);
   const navigate = useNavigate()
+  const [clickedTag, setClickedTag] = useState(sessionStorage.getItem('userFav') ||  "")
   // Prevents reloading of already loaded images
 const loadedImageIds = new Set(JSON.parse(localStorage.getItem("loadedImageIds") || "[]"));
 
@@ -70,7 +72,8 @@ const loadedImageIds = new Set(JSON.parse(localStorage.getItem("loadedImageIds")
 
 
   async function getImages(url, exploreNextInfiniteScroll = false) {
-    if(trakImages && props.componentFrom !== "home"){
+    console.log("yes getImages runs")
+    if((trakImages && props.componentFrom !== "home")){
       setloader(true);
 
     }
@@ -83,7 +86,15 @@ const loadedImageIds = new Set(JSON.parse(localStorage.getItem("loadedImageIds")
       // console.log("explore images", result.hits);
       console.log("yes home props")
       // setImages(result.hits.splice(0, 7));
-      setupImageOnPage(result.hits.splice(0, 7))
+      const maxImages = 7;
+const hits = result.hits.slice(0, maxImages);
+
+// Trim to multiple of 3 (e.g., 6 instead of 7)
+const cleanCount = hits.length - (hits.length % 3);
+const cleanHits = hits.slice(0, cleanCount);
+
+      // setupImageOnPage(result.hits.splice(0, 7))
+      setupImageOnPage(cleanHits)
     } else if(props.componentFrom === "exploreNext"){
       // let isTracking = trakImages;
       console.log("explorenext page", props.displayImage, url, trakImages)
@@ -141,19 +152,28 @@ async function setupImageOnPage(result){
 
      const indexedHits = await Promise.all(result.map(async (img, i) => {
         let defaultColor = "#ffffff";
-        try {
-          const getColors = await getImageColors(img.largeImageURL, 1);
-          // console.log("getColors", getColors);
-          defaultColor = getColors[0]; // grab first color
-        } catch (e) {
-          console.error("Error fetching image colors:", e);
-        }
+        // try {
+        //   const getColors = await getImageColors(img.largeImageURL, 1);
+          
+        //   defaultColor = getColors[0]; // grab first color
+        // } catch (e) {
+        //   console.error("Error fetching image colors:", e);
+        // }
 
+        // after Improbved code version one starts here
+try {
+  const getColors = await getImageColors(img.largeImageURL, 1);
+  defaultColor = getColors[0];
+} catch (e) {
+  console.error("Error fetching image colors:", e);
+}
+// after Improbved code version one  End here
         return {
           ...img,
           _orderIndex: images.length + i,
           _category: content[index],
-          imageColor: defaultColor,
+          imageColor: defaultColor ||  "#ffffff",
+          // imageColor: "#ffffff",
         };
       }));
 
@@ -168,8 +188,8 @@ async function setupImageOnPage(result){
         let defaultColor = "#ffffff";
         try {
           const getColors = await getImageColors(img.largeImageURL, 1);
-          // console.log("getColors", getColors);
-          defaultColor = getColors[0]; // grab first color
+          
+          defaultColor = getColors[0]; 
         } catch (e) {
           console.error("Error fetching image colors:", e);
         }
@@ -190,12 +210,28 @@ async function setupImageOnPage(result){
         return scoreB - scoreA;
       });
    
-
+      // blogColRef.current.length  = 0
+        blogColRef.current = [];
       setImages((prevImages) => {
         const existingIds = new Set(prevImages.map((img) => img.id));
         const uniqueNewImages = sortedImages.filter((img) => !existingIds.has(img.id));
         return [...prevImages, ...uniqueNewImages];
       });
+
+      
+
+//       const newHits = result.hits.map((img, i) => ({
+//   ...img,
+//   _orderIndex: images.length + i,
+//   _category: content[index],
+//   imageColor: '#e0e0e0',
+// }));
+//       setImages((prevImages) => [...prevImages, ...newHits]);
+
+      
+
+
+     
       setloader(false);
       console.log("images & loader", images, loader)
       // if(props.componentFrom !== "exploreNext"){
@@ -244,6 +280,32 @@ function addImageTouch(){
     // Cleanup the interval on component unmount
     return () => clearInterval(interval);
   }, []);
+
+  useEffect(() => {
+  images.forEach((img, i) => {
+    // If color is default, fetch actual color
+    if (img.imageColor === "#ffffff") {
+      const imageObj = new Image();
+      imageObj.src = img.largeImageURL;
+
+      imageObj.onload = async () => {
+        try {
+          const colors = await getImageColors(img.largeImageURL, 1);
+          setImages((prevImages) => {
+            const newImages = [...prevImages];
+            newImages[i] = {
+              ...newImages[i],
+              imageColor: colors[0],
+            };
+            return newImages;
+          });
+        } catch (e) {
+          console.error("Color extraction failed:", e);
+        }
+      };
+    }
+  });
+}, [images]);
 
 
   useEffect(() => {
@@ -350,7 +412,9 @@ function shareImage(image){
     }
 
   useEffect(() => {
+    
   if (props.componentFrom !== "home") {
+    
     const observer = new IntersectionObserver(function (entries) {
       if (entries[0].isIntersecting) {
         observer.unobserve(entries[0].target);
@@ -370,19 +434,24 @@ function shareImage(image){
           setPageState(nextPage);
 
           const currentCalculatedIndex = updatedHours();
-          const query = content[currentCalculatedIndex];
+          const query = clickedTag || content[currentCalculatedIndex];
 
           getImages(
             `https://pixabay.com/api/?key=45283300-eddb6d21a3d3d06f2a2381d7d&q=${query}&image_type=photo&page=${nextPage}`
           );
         }
       }
+    }, {
+      rootMargin: '0px 0px 400px 0px',
     });
 
     setTimeout(() => {
+      highlightTag()
       let lastElement = blogColRef.current[blogColRef.current.length - 5];
+      // console.log("yes image targeteted", images, blogColRef.current)
       if (lastElement) {
         observer.observe(lastElement);
+        console.log("observe element", lastElement)
       }
     }, 100);
 
@@ -390,19 +459,107 @@ function shareImage(image){
       observer.disconnect();
     };
   }
+
+  
+  
 }, [images.length]);
+
+function highlightTag(){
+
+  let scrollTopElement = document.querySelector('.blog_tag_suggestion')
+    if(scrollTopElement && scrollTopElement.children.length > 0){
+      Array.from(scrollTopElement.children).forEach((tag)=>{
+        console.log("highlight tag", clickedTag)
+        if(clickedTag !== "" && tag.innerText === clickedTag){
+          tag.classList.add("highlight_tag")
+        }
+      })
+    }
+
+}
+
+//Now Written below code is for the scrollTag functionality--------------------------
+function fetchTopTagImages(){
+  let scrollTopElement = document.querySelector('.blog_tag_suggestion')
+  if(scrollTopElement && scrollTopElement.children.length > 0){
+      // to Remove the all listner first
+       Array.from(scrollTopElement.children).forEach((tag) => {
+      if (tag.classList.contains('app_blog_tag_text')) {
+        // Clean up existing listener
+        tag.replaceWith(tag.cloneNode(true)); // Removes all listeners
+      }
+    });
+
+
+    Array.from(scrollTopElement.children).forEach((tag)=>{
+      if(tag.classList.contains('app_blog_tag_text')){
+        tag.addEventListener('click', async (e)=>{
+       
+      // e.preventDefault()
+      // setImages([])
+      // setloader(true)
+setClickedTag(e.target.innerText)
+sessionStorage.setItem("userFav", e.target.innerText)
+        setImages([]);
+        setPageState(1);
+        setloader(true);
+        setTrakImage(true); 
+        setBottomLoader(false); 
+        console.log("blogcolRef", blogColRef.current)
+        // e.target.classList.add("highlight_tag")
+        
+       
+        // Call the getBlogs function
+        
+
+    await  getImages(`https://pixabay.com/api/?key=45283300-eddb6d21a3d3d06f2a2381d7d&q=${e.target.innerText}&image_type=photo`, true)
+      console.log("yes tag clicked", e.target.innerText,  blogColRef.current)
+     
+
+      
+     })
+      }
+      
+  
+    })
+
+  }
+}
+
+useEffect(()=>{
+  setTimeout(()=>{
+
+    fetchTopTagImages()
+  }, 300)
+})
 
 
   if (loader === true) {
     return (
       <>
-        <Loader></Loader>
-        {/* <SkeltonLoading count={9}/> */}
+      
+        {/* <Loader></Loader> */}
+
+{/* <ScrollTag  tagList={content} showBlog={getImages} /> */}
+{(props.componentFrom !== "exploreNext") &&
+           <div className="container mt-ps90 app_container">
+
+<ScrollTag whereFrom="explore"  tagList={content} showBlog={getImages} />
+        </div>
+}
+        <SkeltonLoading count={9}/>
       </>
     );
   } else {
     return (
       <>
+
+        {
+      (props.componentFrom !== "home") && 
+     <Helmet>
+          <link rel="preload" as="image" href={images[0]?.webformatURL} />
+    </Helmet>
+  }
         {props.componentFrom !== "home" &&
         <>
             {/* <div
@@ -432,9 +589,17 @@ function shareImage(image){
           </div>
           
         </div> */}
+
+{(props.componentFrom !== "exploreNext") &&
+        <div className="container mt-ps90 app_container">
+
+<ScrollTag  whereFrom="explore" tagList={content} showBlog={getImages} />
+        </div>
+}
+
         </>
     }
- <div  className={props.componentFrom === "home" ? 'container p-0 pinterest-layout ' : 'container pinterest-layout mt-ps90'} ref={exploreRef}>
+ <div  className={`${props.componentFrom === "home" ? 'container p-0 pinterest-layout' : 'container pinterest-layout'} ${props.componentFrom === "exploreNext" ? 'mt-ps90' : 'mt-5'}`} ref={exploreRef}>
  
       {images.map((image, index) => {
         if (!imageStates[index]) return null; 
@@ -443,26 +608,33 @@ function shareImage(image){
            {/* onClick={() => updateInteractionScore(image._category, 2)} key={image.id} */}
           
         return (
-          <div ref={(el)=> (blogColRef.current[index] = el)} className={props.componentFrom === "home" ? 'column position-relative explore_image':'column position-relative explore_image'} key={image.id} style={{backgroundColor: image.imageColor}}  onClick={(event)=> exploreSimilarImages(event, image)} >      
+          <div ref={(el)=> {
+            (blogColRef.current[index] = el)            
+             
+             }} className={props.componentFrom === "home" ? 'column position-relative explore_image':'column position-relative explore_image'} key={image.id} 
+             style={{
+    backgroundColor: image.imageColor,  // ✅ Correct location
+    // width: image.webformatWidth,
+      '--image-color': image.imageColor,
+    // height: image.webformatHeight
+  }} 
+              onClick={(event)=> exploreSimilarImages(event, image)} >      
           
 <Link class="explore_image_link" to={`/explore-next/${image.type}/${image.tags.split(',')[0]?.trim().toLowerCase().replace(/\s+/g, '-')}`}
 state={{ imageData: image }} 
  onClick={(e) => e.stopPropagation()} 
 >
+  <div className="image-wrapper" >
+   
             <img
             className="explore-image"
+           
             srcSet={image.webformatURL}
               src={image.webformatURL}
-              loading="lazy"
+              loading="lazy"            
               
               onClick={() => updateInteractionScore(image._category, 2)}
-              // onLoad={() =>
-              //   setImageStates((prevStates) =>
-              //     prevStates.map((state, i) =>
-              //       i === index ? { loaded: true } : state
-              //     )
-              //   )
-              // }
+          
 
               onLoad={() => {
               setImageStates((prevStates) => {
@@ -472,17 +644,26 @@ state={{ imageData: image }}
                 });
         }}
               onError={(e) =>{
-              //           e.target.src = defaultBlogImage;
-              //           e.target.alt = "Default image";
+            
                        e.target.style.display = "none";
                         }}
            
                       alt={generateCaption(image)}
            
             />
+
+
+
+
+ 
             
+      </div>
       </Link>
             {/* {!loaded && <div className="app_loader" />} */}
+
+
+
+
 
             <div className="explore_icons position-absolute " onClick={(e) => e.stopPropagation()} >
             <div className="explore_like_content d-flex align-items-center">
@@ -539,6 +720,7 @@ state={{ imageData: image }}
     (
     <div class="bottom_loader">
        <div className="app_loader explore_bottom_loader" />
+       {/* <SkeltonLoading count={5}/> */}
        {/* <span className="explore_bottom_loader_text">Loading more images...</span> */}
     </div>)
 

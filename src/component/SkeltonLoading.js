@@ -143,7 +143,7 @@ const generateRandomHeights = () => {
     );
   });
  
-  return <div  className={`masonry-skeleton-wrapper container  ${isExploreNextPage ? 'mt-74' : 'my-5'}`}   >{skeletonColumns}</div>;
+  return <div  className={`masonry-skeleton-wrapper container app_skelton_wrapper  ${isExploreNextPage ? 'mt-74' : 'my-5'}`}   >{skeletonColumns}</div>;
 };
 
 export default SkeltonLoading;

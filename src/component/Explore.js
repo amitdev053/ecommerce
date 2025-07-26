@@ -60,6 +60,7 @@ const loadedImageIds = new Set(JSON.parse(localStorage.getItem("loadedImageIds")
 
 
 
+
  
   useEffect(()=>{
     if(props.componentFrom === "exploreNext"){
@@ -454,11 +455,20 @@ function shareImage(image){
       if (lastElement) {
         observer.observe(lastElement);
         console.log("observe element", lastElement)
-      }
-      // if(bottomObserverRef.current instanceof Element){
-      //   observer.observe(bottomObserverRef.current);
+      }else{
+         // ✅ Fallback: check if page is too short (no scroll)
+   let SkeltonLayout = document.querySelector('.app_skelton_wrapper')
+   if(SkeltonLayout){
+    let lastSkeltonELement = SkeltonLayout.children[SkeltonLayout.children.length - 1]
+    observer.observe(lastSkeltonELement);
 
-      // }
+   }
+
+    
+     console.log("yes observe")
+    
+      }
+    
     }, 100);
 
     return () => {
@@ -610,6 +620,8 @@ useEffect(()=>{
       {images.map((image, index) => {
         if (!imageStates[index]) return null; 
         const { loaded } = imageStates[index];
+     
+        
 {/* console.log("image colors", image.imageColor) */}
            {/* onClick={() => updateInteractionScore(image._category, 2)} key={image.id} */}
           

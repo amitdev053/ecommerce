@@ -637,6 +637,7 @@ state={{ imageData: image }}
     ${image.largeImageURL} 1280w
   `}
   // sizes="(max-width: 768px) 100vw, 33vw"
+  sizes="(max-width: 600px) 100vw, (max-width: 1200px) 50vw, 33vw"
               loading="lazy"            
               
               onClick={() => updateInteractionScore(image._category, 2)}

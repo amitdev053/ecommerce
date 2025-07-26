@@ -227,7 +227,7 @@ a{
   display: block;
 } */
 
-
+/* New css after improvements----------------------------------- */
 .skeleton {
   position: absolute;
   inset: 0;
@@ -238,3 +238,14 @@ a{
   0% { background-position: -200px 0; }
   100% { background-position: 200px 0; }
 }
+
+.explore_image_link{
+
+  width: 100%;
+   height: 100%;
+   object-fit: cover;
+   border-radius: 12px; /* Optional, to match skeleton */
+   display: block;
+}
+
+/* New css after improvements----------------------------------- */

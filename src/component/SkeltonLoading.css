@@ -155,6 +155,7 @@ justify-content: space-between;
   .skeleton-grid {
     max-width: 100%;
   }
+  
 
 }
 @media (max-width: 768px) {
@@ -172,7 +173,7 @@ justify-content: space-between;
   .skeleton-card.small,
   .skeleton-card.tall {
     flex: 1 1 calc(50% - 10px);
-    height: 200px;
+  height: 200px;
   }
 
 
@@ -185,5 +186,80 @@ justify-content: space-between;
 @media (max-width: 550px) {
   .second_col{
     display: none;
+  }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+.masonry-skeleton-wrapper {
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+  /* padding: 20px 70px; */
+  
+}
+
+.masonry-column {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  
+}
+
+.masonry-skeleton-card {
+  width: 100%;
+  border-radius: 12px;
+  background: linear-gradient(
+    100deg,
+    #d8d8d8 30%,
+    #f0f0f0 50%,
+    #d8d8d8 70%
+  );
+  background-size: 200% 100%;
+  animation: shimmer 1.4s infinite;
+}
+
+@keyframes shimmer {
+  0% {
+    background-position: -200% 0;
+  }
+  100% {
+    background-position: 200% 0;
+  }
+}
+
+@media screen and (max-width: 999px) {
+  .masonry-skeleton-wrapper {
+    /* padding: 20px; */
+  }
+}
+
+/* Mobile responsive */
+@media screen and (max-width: 768px) {
+  .masonry-skeleton-wrapper {
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  .masonry-column {
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+
+  .masonry-skeleton-card {
+    flex: 1 1 calc(50% - 10px);
+    height: 180px;
   }
 }

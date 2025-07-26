@@ -451,14 +451,14 @@ function shareImage(image){
       highlightTag()
       let lastElement = blogColRef.current[blogColRef.current.length - 5];
       // console.log("yes image targeteted", images, blogColRef.current)
-      // if (lastElement) {
-      //   observer.observe(lastElement);
-      //   console.log("observe element", lastElement)
-      // }
-      if(bottomObserverRef.current instanceof Element){
-        observer.observe(bottomObserverRef.current);
-
+      if (lastElement) {
+        observer.observe(lastElement);
+        console.log("observe element", lastElement)
       }
+      // if(bottomObserverRef.current instanceof Element){
+      //   observer.observe(bottomObserverRef.current);
+
+      // }
     }, 100);
 
     return () => {

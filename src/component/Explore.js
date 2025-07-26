@@ -547,7 +547,7 @@ useEffect(()=>{
 <ScrollTag whereFrom="explore"  tagList={content} showBlog={getImages} />
         </div>
 }
-        <SkeltonLoading count={9}/>
+        <SkeltonLoading count={30}/>
       </>
     );
   } else {
@@ -636,7 +636,7 @@ state={{ imageData: image }}
     ${image.webformatURL} 640w,
     ${image.largeImageURL} 1280w
   `}
-  sizes="(max-width: 768px) 100vw, 33vw"
+  // sizes="(max-width: 768px) 100vw, 33vw"
               loading="lazy"            
               
               onClick={() => updateInteractionScore(image._category, 2)}

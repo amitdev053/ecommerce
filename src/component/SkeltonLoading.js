@@ -114,11 +114,18 @@ import './SkeltonLoading.css';
 const SkeltonLoading = ({ columns = 3, itemsPerColumn = 6 }) => {
     const location = useLocation();
   const isExploreNextPage = location.pathname.startsWith('/explore-next/photo/');
-  const generateRandomHeights = () => {
-    return Array.from({ length: itemsPerColumn }, () =>
-      Math.floor(Math.random() * 100) + 180 // 180px to 280px
-    );
-  };
+  // const generateRandomHeights = () => {
+  //   return Array.from({ length: itemsPerColumn }, () =>
+  //     Math.floor(Math.random() * 100) + 180 // 180px to 280px
+  //   );
+  // }; 
+  const heightOptions = [200, 220, 240, 260];
+
+const generateRandomHeights = () => {
+  return Array.from({ length: itemsPerColumn }, () =>
+    heightOptions[Math.floor(Math.random() * heightOptions.length)]
+  );
+};
 
   const skeletonColumns = Array.from({ length: columns }).map((_, colIndex) => {
     const heights = generateRandomHeights();

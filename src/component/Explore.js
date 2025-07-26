@@ -47,6 +47,7 @@ const Explore = (props) => {
   const [images, setImages] = useState([]); // assume this is where you get your images
   const [imageStates, setImageStates] = useState([]);
   const blogColRef = useRef([])
+  const bottomObserverRef = useRef([])        // target as last element for infintnite loop
   const [pageState, setPageState] = useState(1)
   const exploreRef = useRef(null)
   const posImage = useRef(null);
@@ -56,6 +57,7 @@ const Explore = (props) => {
   const [clickedTag, setClickedTag] = useState(sessionStorage.getItem('userFav') ||  "")
   // Prevents reloading of already loaded images
 const loadedImageIds = new Set(JSON.parse(localStorage.getItem("loadedImageIds") || "[]"));
+
 
 
  
@@ -413,7 +415,7 @@ function shareImage(image){
 
   useEffect(() => {
     
-  if (props.componentFrom !== "home") {
+  if (props.componentFrom !== "home" && bottomObserverRef.current) {
     
     const observer = new IntersectionObserver(function (entries) {
       if (entries[0].isIntersecting) {
@@ -449,9 +451,13 @@ function shareImage(image){
       highlightTag()
       let lastElement = blogColRef.current[blogColRef.current.length - 5];
       // console.log("yes image targeteted", images, blogColRef.current)
-      if (lastElement) {
-        observer.observe(lastElement);
-        console.log("observe element", lastElement)
+      // if (lastElement) {
+      //   observer.observe(lastElement);
+      //   console.log("observe element", lastElement)
+      // }
+      if(bottomObserverRef.current instanceof Element){
+        observer.observe(bottomObserverRef.current);
+
       }
     }, 100);
 
@@ -723,6 +729,7 @@ state={{ imageData: image }}
       })}
     {/* {props.componentFrom === "home" ? <ExploreLinkButton /> : null} */}
     </div>
+    <div ref={bottomObserverRef} style={{ height: '1px' }} />
     {(bottomLoader && props.componentFrom !== "home") && 
     (
     <div class="bottom_loader">

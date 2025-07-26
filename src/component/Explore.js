@@ -629,8 +629,14 @@ state={{ imageData: image }}
             <img
             className="explore-image"
            
-            srcSet={image.webformatURL}
+            // srcSet={image.webformatURL}
               src={image.webformatURL}
+               srcSet={`
+    ${image.previewURL} 150w,
+    ${image.webformatURL} 640w,
+    ${image.largeImageURL} 1280w
+  `}
+  sizes="(max-width: 768px) 100vw, 33vw"
               loading="lazy"            
               
               onClick={() => updateInteractionScore(image._category, 2)}

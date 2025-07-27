@@ -75,10 +75,7 @@
     
   }
 
-  .explore_fonts{
-    font-size: 12px;
-    font-weight: 600;
-  }
+
   .explore_images_share{
     top: 1px;
     right: 1px;
@@ -86,6 +83,9 @@
     transform: translate(0px , -50px);
     cursor: pointer;
 
+  }
+  .column:hover .explore_images_share{
+    transform: translate(0px , 0px);  
   }
   .explore_image_share_icon{
     background: white;
@@ -97,8 +97,11 @@
     color: white;
   
   } */
-  .column:hover .explore_images_share{
-    transform: translate(0px , 0px);  
+
+
+    .explore_fonts{
+    font-size: 12px;
+    font-weight: 600;
   }
   .width_31{
     width: 31% !important;
@@ -155,7 +158,6 @@
  
 
 
-
 @media screen and (max-width : 480px){
   .column{
     /* width: 100% !important; */
@@ -165,8 +167,14 @@
   .pinterest-layout{
     column-count: 2;
   }
-}
 
+}
+  /* .explore_icons{
+transform: translate(0px , 0px);
+}
+.explore_images_share{
+transform: translate(0px , 0px);
+} */
 
 
 .bottom_loader{

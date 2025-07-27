@@ -50,15 +50,15 @@ const Explore = (props) => {
   const bottomObserverRef = useRef([])        // target as last element for infintnite loop
   const [pageState, setPageState] = useState(1)
   const exploreRef = useRef(null)
-  const posImage = useRef(null);
-  const columnRef = useRef(null);
+  
+  
   const [trakImages, setTrakImage] = useState(true);
   const [bottomLoader, setBottomLoader] = useState(false);
   const navigate = useNavigate()
-  const [clickedTag, setClickedTag] = useState("")
+  const [clickedTag, setClickedTag] = useState("")      // for tags
+  const [showLike, setShowLike] = useState(sessionStorage.getItem("showLikes") ?? true)      // show like on mobile only
   // Prevents reloading of already loaded images
 const loadedImageIds = new Set(JSON.parse(localStorage.getItem("loadedImageIds") || "[]"));
-
 
 
 
@@ -68,6 +68,9 @@ const loadedImageIds = new Set(JSON.parse(localStorage.getItem("loadedImageIds")
       setTrakImage(false)
       // setImages([])
     }
+  
+  
+
   }, [])
 
 
@@ -313,8 +316,54 @@ function addImageTouch(){
       };
     }
   });
+  
+  showMobileIcon()
 }, [images]);
 
+
+function showMobileIcon(){
+  
+    setTimeout(()=>{
+  if(images.length > 0 && props.componentFrom !== "exploreNext" && showLike && window.innerWidth < 580){
+     
+      sessionStorage.setItem("showLikes", false)
+      setShowLike(false)
+      let allLikesELements = document.querySelectorAll('.explore_icons')
+      let allSharesELements = document.querySelectorAll('.explore_images_share')
+      Array.from(allLikesELements).forEach((likeEl)=>{
+// likeEl.style.transform = `transform: translate(0px , 0px) !important`
+
+  likeEl.style.setProperty("transform", "translate(0px, 0px)", "important");
+      })
+      Array.from(allSharesELements).forEach((shareEl)=>{
+// shareEl.style.transform = `transform: translate(0px , 0px) !important`
+  shareEl.style.setProperty("transform", "translate(0px, 0px)", "important");
+
+      })
+    }
+
+     setTimeout(()=>{
+ 
+      let allLikesELements = document.querySelectorAll('.explore_icons')
+      let allSharesELements = document.querySelectorAll('.explore_images_share')
+      Array.from(allLikesELements).forEach((likeEl)=>{
+
+
+  // likeEl.style.setProperty("transform", "translate(0px, 50px)", "important");
+  likeEl.style.removeProperty("transform")
+      })
+      Array.from(allSharesELements).forEach((shareEl)=>{
+
+  shareEl.style.removeProperty("transform")
+
+      })
+    // }
+    }, 3000)
+
+    }, 3000)
+
+    
+}
 
   useEffect(() => {
     const imageColumns = document.querySelectorAll(".explore_image");

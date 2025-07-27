@@ -453,28 +453,73 @@ function shareImage(image){
       rootMargin: '0px 0px 400px 0px',
     });
 
-    setTimeout(() => {
-      highlightTag()
-      let lastElement = blogColRef.current[blogColRef.current.length - 5];
-      // console.log("yes image targeteted", images, blogColRef.current)
-      if (lastElement) {
-        observer.observe(lastElement);
-        console.log("observe element", lastElement)
-      }else{
-         // ✅ Fallback: check if page is too short (no scroll)
-   let SkeltonLayout = document.querySelector('.app_skelton_wrapper')
-   if(SkeltonLayout){
-    let lastSkeltonELement = SkeltonLayout.children[SkeltonLayout.children.length - 1]
-    observer.observe(lastSkeltonELement);
+    // setTimeout(() => {
+      // highlightTag()
+      // let lastElement = blogColRef.current[blogColRef.current.length - 5];
+      
+    //   if (lastElement) {
+    //     observer.observe(lastElement);
+    //     console.log("observe element", lastElement)
+    //   }else{
+    //      // ✅ Fallback: check if page is too short (no scroll)
+    //       let SkeltonLayout = document.querySelector('.app_skelton_wrapper')
+    //       if(SkeltonLayout){
+    //         let lastSkeltonELement = SkeltonLayout.children[SkeltonLayout.children.length - 1]
+    //         observer.observe(lastSkeltonELement);
 
-   }
+    //       }
 
     
-     console.log("yes observe")
+    //  console.log("yes observe")
     
+    //   }   
+    
+    // }, 100);
+
+     setTimeout(() => {
+      highlightTag();
+
+      let lastImageElement = blogColRef.current[blogColRef.current.length - 5];
+      let fallbackAttached = false;
+
+      if (lastImageElement) {
+        observer.observe(lastImageElement);
+        console.log("✅ Observing last image", lastImageElement);
+
+        // Smart Fallback: Manually check if already in viewport
+        const rect = lastImageElement.getBoundingClientRect();
+        if (rect.top < window.innerHeight) {
+          console.log("👀 Manually triggering due to auto-visible image");
+          observer.unobserve(lastImageElement);
+          setBottomLoader(true);
+
+          const nextPage = pageState + 1;
+          setPageState(nextPage);
+
+          const query = clickedTag || content[updatedHours()];
+          getImages(
+            `https://pixabay.com/api/?key=45283300-eddb6d21a3d3d06f2a2381d7d&q=${query}&image_type=photo&page=${nextPage}`
+          );
+        }
+      } else {
+        // Fallback: Observe loading skeleton or bottom ref
+        const skeleton = document.querySelector('.app_skelton_wrapper');
+        if (skeleton && skeleton.children.length > 0) {
+          const lastSkeleton = skeleton.children[skeleton.children.length - 1];
+          observer.observe(lastSkeleton);
+          fallbackAttached = true;
+          console.log("🟨 Observing skeleton fallback");
+        } else if (bottomObserverRef.current) {
+          observer.observe(bottomObserverRef.current);
+          fallbackAttached = true;
+          console.log("🟧 Observing bottomObserverRef fallback");
+        }
+
+        if (!fallbackAttached) {
+          console.warn("⚠️ No fallback observer target found");
+        }
       }
-    
-    }, 100);
+    }, 100); // Ensure refs are populated
 
     return () => {
       observer.disconnect();
@@ -659,19 +704,19 @@ state={{ imageData: image }}
             className="explore-image"
            
             
-              src={image.webformatURL}
-               srcSet={`
-    ${image.previewURL} 150w,
-    ${image.webformatURL} 640w,
-    ${image.largeImageURL} 1280w
-  `}
-
-  //   src={toImageKitURL(image.webformatURL)}
-  // srcSet={`
-  //   ${toImageKitURL(image.previewURL)} 150w,
-  //   ${toImageKitURL(image.webformatURL)} 640w,
-  //   ${toImageKitURL(image.largeImageURL)} 1280w
+  //             src={image.webformatURL}
+  //              srcSet={`
+  //   ${image.previewURL} 150w,
+  //   ${image.webformatURL} 640w,
+  //   ${image.largeImageURL} 1280w
   // `}
+
+    src={toImageKitURL(image.webformatURL)}
+  srcSet={`
+    ${toImageKitURL(image.previewURL)} 150w,
+    ${toImageKitURL(image.webformatURL)} 640w,
+    ${toImageKitURL(image.largeImageURL)} 1280w
+  `}
   
   
   sizes="(max-width: 600px) 100vw, (max-width: 1200px) 50vw, 33vw"

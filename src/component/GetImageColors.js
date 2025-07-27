@@ -182,4 +182,14 @@ function generateCaption(imageData) {
   return caption;
 }
 
-export {getImageColors, generateCaption}
+const colorCache = {};
+
+async function getCachedColor(imageUrl) {
+  if (colorCache[imageUrl]) return colorCache[imageUrl];
+  const colors = await getImageColors(imageUrl, 1);
+  colorCache[imageUrl] = colors[0];
+  return colors[0];
+}
+
+
+export {getImageColors, generateCaption, getCachedColor}

@@ -9,7 +9,7 @@ import defaultBlogImage from "../defaultBlog.jpg";
 import ExploreLinkButton from "./ExploreLinkButton";
 import SkeltonLoading from "./SkeltonLoading";
 import { handleShare } from "./HandleShare";
-import { getImageColors, generateCaption } from "./GetImageColors";
+import { getImageColors, generateCaption, getCachedColor } from "./GetImageColors";
 import { Link, useNavigate } from "react-router-dom";
 import { Helmet } from "react-helmet";
 
@@ -165,8 +165,10 @@ async function setupImageOnPage(result){
 
         // after Improbved code version one starts here
 try {
-  const getColors = await getImageColors(img.largeImageURL, 1);
-  defaultColor = getColors[0];
+  // const getColors = await getImageColors(img.largeImageURL, 1);
+  const getColors = await getCachedColor(img.largeImageURL);
+
+  defaultColor = getColors;
 } catch (e) {
   console.error("Error fetching image colors:", e);
 }
@@ -190,9 +192,11 @@ try {
    const indexedHits = await Promise.all(result.hits.map(async (img, i) => {
         let defaultColor = "#ffffff";
         try {
-          const getColors = await getImageColors(img.largeImageURL, 1);
+          // const getColors = await getImageColors(img.largeImageURL, 1);
+          const getColors = await getCachedColor(img.largeImageURL);
           
-          defaultColor = getColors[0]; 
+          // defaultColor = getColors[0]; 
+          defaultColor = getColors; 
         } catch (e) {
           console.error("Error fetching image colors:", e);
         }

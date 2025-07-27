@@ -658,27 +658,28 @@ state={{ imageData: image }}
             <img
             className="explore-image"
            
-            // srcSet={image.webformatURL}
-  //             src={image.webformatURL}
-  //              srcSet={`
-  //   ${image.previewURL} 150w,
-  //   ${image.webformatURL} 640w,
-  //   ${image.largeImageURL} 1280w
-  // `}
-
-    src={toImageKitURL(image.webformatURL)}
-  srcSet={`
-    ${toImageKitURL(image.previewURL)} 150w,
-    ${toImageKitURL(image.webformatURL)} 640w,
-    ${toImageKitURL(image.largeImageURL)} 1280w
+            
+              src={image.webformatURL}
+               srcSet={`
+    ${image.previewURL} 150w,
+    ${image.webformatURL} 640w,
+    ${image.largeImageURL} 1280w
   `}
+
+  //   src={toImageKitURL(image.webformatURL)}
+  // srcSet={`
+  //   ${toImageKitURL(image.previewURL)} 150w,
+  //   ${toImageKitURL(image.webformatURL)} 640w,
+  //   ${toImageKitURL(image.largeImageURL)} 1280w
+  // `}
   
-  // sizes="(max-width: 768px) 100vw, 33vw"
+  
   sizes="(max-width: 600px) 100vw, (max-width: 1200px) 50vw, 33vw"
               loading="lazy"            
               
               onClick={() => updateInteractionScore(image._category, 2)}
-          
+  //           width={blogColRef.current[index]?.offsetWidth}
+  // height={blogColRef.current[index]?.offsetHeight}
 
               onLoad={() => {
               setImageStates((prevStates) => {

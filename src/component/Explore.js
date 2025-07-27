@@ -54,7 +54,7 @@ const Explore = (props) => {
   const [trakImages, setTrakImage] = useState(true);
   const [bottomLoader, setBottomLoader] = useState(false);
   const navigate = useNavigate()
-  const [clickedTag, setClickedTag] = useState(sessionStorage.getItem('userFav') ||  "")
+  const [clickedTag, setClickedTag] = useState("")
   // Prevents reloading of already loaded images
 const loadedImageIds = new Set(JSON.parse(localStorage.getItem("loadedImageIds") || "[]"));
 

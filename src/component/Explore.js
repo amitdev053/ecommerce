@@ -51,6 +51,7 @@ const Explore = (props) => {
   const [pageState, setPageState] = useState(1)
   const exploreRef = useRef(null)
   const posImage = useRef(null);
+  const columnRef = useRef(null);
   const [trakImages, setTrakImage] = useState(true);
   const [bottomLoader, setBottomLoader] = useState(false);
   const navigate = useNavigate()
@@ -677,8 +678,7 @@ state={{ imageData: image }}
               loading="lazy"            
               
               onClick={() => updateInteractionScore(image._category, 2)}
-            width={image.webformatWidth}
-  height={image.webformatHeight}
+          
 
               onLoad={() => {
               setImageStates((prevStates) => {

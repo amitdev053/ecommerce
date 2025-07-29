@@ -654,13 +654,58 @@ useEffect(()=>{
 //   return `https://ik.imagekit.io/k4vr4hitu/${relativePath}`;
 // }
 
+// function toImageKitURL(originalUrl, width = 640, quality = 80) {
+//   if (!originalUrl) return "";
+
+//   const relativePath = originalUrl.replace("https://pixabay.com/get/", "");
+
+//   return `https://ik.imagekit.io/k4vr4hitu/tr:w-${width},q-${quality},f-auto/${relativePath}`;
+// }
+
+// function toImageKitURL(originalUrl, width = 640, quality = 80) {
+//   if (!originalUrl) return "";
+
+//   const basePixabayUrl = "https://pixabay.com/get/";
+//   const cdnPixabayUrl = "https://cdn.pixabay.com/";
+
+//   const relativePath = originalUrl.startsWith(basePixabayUrl)
+//     ? originalUrl.replace(basePixabayUrl, "")
+//     : originalUrl.startsWith(cdnPixabayUrl)
+//     ? originalUrl.replace(cdnPixabayUrl, "")
+//     : originalUrl;
+
+//   return `https://ik.imagekit.io/k4vr4hitu/tr:w-${width},q-${quality},f-auto/${relativePath}`;
+// }
+
 function toImageKitURL(originalUrl, width = 640, quality = 80) {
   if (!originalUrl) return "";
 
-  const relativePath = originalUrl.replace("https://pixabay.com/get/", "");
+  const basePixabayUrl = "https://pixabay.com/get/";
+  const cdnPixabayUrl = "https://cdn.pixabay.com/";
 
+  let relativePath = "";
+
+  // Extract relative path based on known Pixabay sources
+  if (originalUrl.startsWith(basePixabayUrl)) {
+    relativePath = originalUrl.replace(basePixabayUrl, "");
+  } else if (originalUrl.startsWith(cdnPixabayUrl)) {
+    relativePath = originalUrl.replace(cdnPixabayUrl, "");
+  } else {
+    try {
+      // Handle cases where full URL is passed but doesn't match known bases
+      const url = new URL(originalUrl);
+      relativePath = url.pathname.startsWith("/") ? url.pathname.slice(1) : url.pathname;
+    } catch (err) {
+      // Fallback to the original (if it's already relative or malformed)
+      relativePath = originalUrl;
+    }
+  }
+
+  // Return the ImageKit CDN URL with transformations
   return `https://ik.imagekit.io/k4vr4hitu/tr:w-${width},q-${quality},f-auto/${relativePath}`;
 }
+
+
 
 
   if (loader === true) {

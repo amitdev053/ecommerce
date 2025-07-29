@@ -648,10 +648,18 @@ useEffect(()=>{
   }, 300)
 })
 
-function toImageKitURL(originalUrl) {
+// function toImageKitURL(originalUrl) {
+//   if (!originalUrl) return "";
+//   const relativePath = originalUrl.replace("https://pixabay.com/get/", "");
+//   return `https://ik.imagekit.io/k4vr4hitu/${relativePath}`;
+// }
+
+function toImageKitURL(originalUrl, width = 640, quality = 80) {
   if (!originalUrl) return "";
+
   const relativePath = originalUrl.replace("https://pixabay.com/get/", "");
-  return `https://ik.imagekit.io/k4vr4hitu/${relativePath}`;
+
+  return `https://ik.imagekit.io/k4vr4hitu/tr:w-${width},q-${quality},f-auto/${relativePath}`;
 }
 
 
@@ -760,11 +768,17 @@ state={{ imageData: image }}
   //   ${image.largeImageURL} 1280w
   // `}
 
-    src={toImageKitURL(image.webformatURL)}
+    //src={toImageKitURL(image.webformatURL)}
+  // srcSet={`
+  //   ${toImageKitURL(image.previewURL)} 150w,
+  //   ${toImageKitURL(image.webformatURL)} 640w,
+  //   ${toImageKitURL(image.largeImageURL)} 1280w
+  // `}
+    src={toImageKitURL(image.webformatURL, image.webformatWidth)}
   srcSet={`
-    ${toImageKitURL(image.previewURL)} 150w,
-    ${toImageKitURL(image.webformatURL)} 640w,
-    ${toImageKitURL(image.largeImageURL)} 1280w
+    ${toImageKitURL(image.previewURL, image.previewWidth)} ${image.previewWidth}w,
+    ${toImageKitURL(image.webformatURL, image.webformatWidth)} ${image.webformatWidth}w,
+    ${toImageKitURL(image.largeImageURL, image.imageWidth)} ${image.imageWidth}w
   `}
   
   

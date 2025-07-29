@@ -27,12 +27,20 @@ import About from "./component/About";
 import Privancy from "./component/Privancy";
 import ExploreNext from "./component/ExploreNext";
 import Services from "./component/Services";
-
+import OneSignal from 'react-onesignal';
 function App() {
   const location = useLocation();
   const matchRoute = useMatch("/blog-detail/:blogId/:blogTitle");
   const exploreNext = useMatch("/explore-next/:type/:imageTag");
   const context = useContext(BlogAudioContext);
+
+    useEffect(() => {
+    OneSignal.init({
+      appId: "c8dc6273-e62b-414b-bcfe-85f07291954e",
+      autoRegister: true,
+    });
+  }, []);
+
 
   // Function to set a cookie
   function setCookie(name, value, days) {

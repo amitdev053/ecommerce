@@ -78,7 +78,11 @@ const headings = [
   "Make Your Captions Stand Out on Social Media",
   "Build, Explore & Create — All in One Place",
   "Explore What’s Trending Now",
-  "Listen to Our Blogs Into Audio"
+  "Listen to Our Blogs Into Audio",
+  "Turn Blogs into Audio — Free & Easy",
+  "Build. Explore. Create — All in One Platform",
+  "Bold Your Captions — Impress with Every Post",
+   "Read Less, Listen More — Audio Blogs for You"
   
 ];
 

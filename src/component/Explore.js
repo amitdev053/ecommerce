@@ -871,7 +871,7 @@ state={{ imageData: image }}
   
   sizes="(max-width: 600px) 100vw, (max-width: 1200px) 50vw, 33vw"
               // loading="lazy"     
-              loading={window.innerWidth > 999 ? "eager" : "lazy"}       
+              loading={window.innerWidth > 999 ? "lazy" : "eager"}       
               
               onClick={() => updateInteractionScore(image._category, 2)}
   //           width={blogColRef.current[index]?.offsetWidth}

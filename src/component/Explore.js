@@ -158,7 +158,8 @@ async function setupImageOnPage(result){
     // console.log("home result and images", result, images)
 
      const indexedHits = await Promise.all(result.map(async (img, i) => {
-        let defaultColor = "#ffffff";
+        // let defaultColor = "#ffffff";
+        let defaultColor = "#f8f9fa";
         // try {
         //   const getColors = await getImageColors(img.largeImageURL, 1);
           
@@ -170,9 +171,9 @@ async function setupImageOnPage(result){
         // after Improbved code version one starts here
 try {
   // const getColors = await getImageColors(img.largeImageURL, 1);
-  const getColors = await getCachedColor(img.largeImageURL);
+  // const getColors = await getCachedColor(img.largeImageURL);
 
-  defaultColor = getColors;
+  // defaultColor = getColors;
 } catch (e) {
   console.error("Error fetching image colors:", e);
 }
@@ -181,7 +182,7 @@ try {
           ...img,
           _orderIndex: images.length + i,
           _category: content[index],
-          imageColor: defaultColor ||  "#ffffff",
+          imageColor: defaultColor,
           // imageColor: "#ffffff",
         };
       }));
@@ -194,13 +195,13 @@ try {
 
   
    const indexedHits = await Promise.all(result.hits.map(async (img, i) => {
-        let defaultColor = "#ffffff";
+        // let defaultColor = "#ffffff";
+        let defaultColor = "#f8f9fa";
         try {
-          // const getColors = await getImageColors(img.largeImageURL, 1);
-          const getColors = await getCachedColor(img.largeImageURL);
           
-          // defaultColor = getColors[0]; 
-          defaultColor = getColors; 
+          // const getColors = await getCachedColor(img.largeImageURL);         
+          
+          // defaultColor = getColors; 
         } catch (e) {
           console.error("Error fetching image colors:", e);
         }

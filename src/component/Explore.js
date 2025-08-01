@@ -802,7 +802,7 @@ state={{ imageData: image }}
  onClick={(e) => e.stopPropagation()} 
 >
   <div className="image-wrapper" >
-   
+     {!imageStates[index]?.loaded && <div className="skeleton" />}
             <img
             className="explore-image"
            

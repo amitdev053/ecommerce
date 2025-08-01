@@ -239,7 +239,8 @@ a{
 .skeleton {
   position: absolute;
   inset: 0;
-  background: linear-gradient(90deg, #eee 25%, #ddd 50%, #eee 75%);
+  /* background: linear-gradient(90deg, #eee 25%, #ddd 50%, #eee 75%); */
+  background: linear-gradient(90deg, #f0f0f0 0%, #fafafa 50%, #f0f0f0 100%);
   animation: shimmer 1.5s infinite;
 }
 @keyframes shimmer {

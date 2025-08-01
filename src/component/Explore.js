@@ -828,11 +828,25 @@ function toImageKitURL(originalUrl, width = 640, quality = 80) {
 state={{ imageData: image }} 
  onClick={(e) => e.stopPropagation()} 
 >
-  <div className="image-wrapper" >
+  <div className="image-wrapper" 
+  style={{
+      width: '100%',
+      aspectRatio: `${image.webformatWidth} / ${image.webformatHeight}`,
+      overflow: 'hidden',
+      position: 'relative',
+    }}
+  
+  >
      {!imageStates[index]?.loaded && <div className="skeleton" />}
             <img
             className="explore-image"
-           
+                 style={{
+        width: '100%',
+        height: '100%',
+        objectFit: 'cover',
+        display: 'block',
+      }}
+
             
   //             src={image.webformatURL}
   //              srcSet={`

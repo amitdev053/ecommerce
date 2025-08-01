@@ -278,7 +278,7 @@ function addImageTouch(){
     // Set the initial index
     let currentCalculatedIndex = updatedHours();
     setIndex(updatedHours());
-    document.title = `Explore images for ${content[currentCalculatedIndex]}`;
+    // document.title = `Explore images for ${content[currentCalculatedIndex]}`;
     // Fetch images for the initial index
     getImages(`https://pixabay.com/api/?key=45283300-eddb6d21a3d3d06f2a2381d7d&q=${content[currentCalculatedIndex]}&image_type=photo`);
     
@@ -730,10 +730,37 @@ function toImageKitURL(originalUrl, width = 640, quality = 80) {
       <>
 
         {
-      (props.componentFrom !== "home") && 
-     <Helmet>
-          <link rel="preload" as="image" href={images[0]?.webformatURL} />
-    </Helmet>
+      (props.componentFrom !== "home" && props.componentFrom !== "exploreNext" ) && 
+  <Helmet>
+  <title>Explore Images for {content[updatedHours()]} | Market Shops</title>
+  <meta
+    name="description"
+    content="Browse high-resolution images updated hourly in categories like fashion, tech, couples, nature, fitness, romantic, food, and more — all free to use."
+  />
+  <meta
+    name="keywords"
+    content="Free stock images, trending images, hourly updated photos, romantic pictures, nature wallpapers, fashion gallery, tech stock images, couples, lifestyle, hugs, aesthetic images"
+  />
+  <meta property="og:title" content="Explore Trending Images | Market Shops" />
+  <meta
+    property="og:description"
+    content="Market Shops Explore page updates every hour with high-quality images across 30+ popular categories. Free and easy to download!"
+  />
+  <meta
+    property="og:image"
+    content={images[0]?.webformatURL || "https://market-shops.vercel.app/favicon.png"}
+  />
+  <meta property="og:url" content="https://market-shops.vercel.app/explore" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <link rel="canonical" href="https://market-shops.vercel.app/explore" />
+  <link rel="preload" as="image" href={images[0]?.webformatURL} />
+  <link rel="preload" as="image" href={images[1]?.webformatURL} />
+  <link rel="preload" as="image" href={images[2]?.webformatURL} />
+  <link rel="preload" as="image" href={images[3]?.webformatURL} />
+</Helmet>
+
+
+    
   }
         {props.componentFrom !== "home" &&
         <>

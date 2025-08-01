@@ -294,29 +294,29 @@ function addImageTouch(){
   }, []);
 
   useEffect(() => {
-  images.forEach((img, i) => {
-    // If color is default, fetch actual color
-    if (img.imageColor === "#ffffff") {
-      const imageObj = new Image();
-      imageObj.src = img.largeImageURL;
+  // images.forEach((img, i) => {
+  //   // If color is default, fetch actual color
+  //   if (img.imageColor === "#ffffff") {
+  //     const imageObj = new Image();
+  //     imageObj.src = img.largeImageURL;
 
-      imageObj.onload = async () => {
-        try {
-          const colors = await getImageColors(img.largeImageURL, 1);
-          setImages((prevImages) => {
-            const newImages = [...prevImages];
-            newImages[i] = {
-              ...newImages[i],
-              imageColor: colors[0],
-            };
-            return newImages;
-          });
-        } catch (e) {
-          console.error("Color extraction failed:", e);
-        }
-      };
-    }
-  });
+  //     imageObj.onload = async () => {
+  //       try {
+  //         const colors = await getImageColors(img.largeImageURL, 1);
+  //         setImages((prevImages) => {
+  //           const newImages = [...prevImages];
+  //           newImages[i] = {
+  //             ...newImages[i],
+  //             imageColor: colors[0],
+  //           };
+  //           return newImages;
+  //         });
+  //       } catch (e) {
+  //         console.error("Color extraction failed:", e);
+  //       }
+  //     };
+  //   }
+  // });
   
   showMobileIcon()
 }, [images]);
@@ -719,7 +719,7 @@ function toImageKitURL(originalUrl, width = 640, quality = 80) {
 {(props.componentFrom !== "exploreNext") &&
            <div className="container mt-ps90 app_container">
 
-<ScrollTag whereFrom="explore"  tagList={content} showBlog={getImages} />
+{/* <ScrollTag whereFrom="explore"  tagList={content} showBlog={getImages} /> */}
         </div>
 }
         <SkeltonLoading count={30}/>
@@ -765,16 +765,16 @@ function toImageKitURL(originalUrl, width = 640, quality = 80) {
           
         </div> */}
 
-{(props.componentFrom !== "exploreNext") &&
+{/* {(props.componentFrom !== "exploreNext") &&
         <div className="container mt-ps90 app_container">
 
 <ScrollTag  whereFrom="explore" tagList={content} showBlog={getImages} />
         </div>
-}
+} */}
 
         </>
     }
- <div  className={`${props.componentFrom === "home" ? 'container p-0 pinterest-layout' : 'container pinterest-layout'} ${props.componentFrom === "exploreNext" ? 'mt-ps90' : 'mt-5'}`} ref={exploreRef}>
+ <div  className={`${props.componentFrom === "home" ? 'container p-0 pinterest-layout' : 'container pinterest-layout'} ${props.componentFrom === "exploreNext" ? 'mt-ps90' : 'mt-ps90'}`} ref={exploreRef}>
  
       {images.map((image, index) => {
         if (!imageStates[index]) return null; 
@@ -913,6 +913,7 @@ state={{ imageData: image }}
           
                 >
             <i class="fa-solid fa-share explore_image_share_icon"></i>
+            {/* <i class="fa-solid fa-share "></i> */}
             </div>    
           </div>
 

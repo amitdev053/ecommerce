@@ -1,3 +1,4 @@
+import { useCallback  } from 'react';
 // this is s function of to get image colors in Explore.js
 function getImageColors(imageUrl, colorCount = 6) {
   return new Promise((resolve, reject) => {
@@ -191,5 +192,30 @@ async function getCachedColor(imageUrl) {
   return colors[0];
 }
 
+// custom hook for the imageCache
 
-export {getImageColors, generateCaption, getCachedColor}
+ function useSessionCache(keyPrefix) {
+  const getCache = useCallback((key) => {
+    const fullKey = `${keyPrefix}:${key}`;
+    const cached = sessionStorage.getItem(fullKey);
+    return cached ? JSON.parse(cached) : null;
+  }, [keyPrefix]);
+
+  const setCache = useCallback((key, data) => {
+    const fullKey = `${keyPrefix}:${key}`;
+    sessionStorage.setItem(fullKey, JSON.stringify(data));
+  }, [keyPrefix]);
+
+  const clearCache = useCallback((key) => {
+    if (key) {
+      sessionStorage.removeItem(`${keyPrefix}:${key}`);
+    } else {
+      Object.keys(sessionStorage)
+        .filter(k => k.startsWith(`${keyPrefix}:`))
+        .forEach(k => sessionStorage.removeItem(k));
+    }
+  }, [keyPrefix]);
+
+  return { getCache, setCache, clearCache };
+}
+export {getImageColors, generateCaption, getCachedColor, useSessionCache}

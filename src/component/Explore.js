@@ -9,13 +9,13 @@ import defaultBlogImage from "../defaultBlog.jpg";
 import ExploreLinkButton from "./ExploreLinkButton";
 import SkeltonLoading from "./SkeltonLoading";
 import { handleShare } from "./HandleShare";
-import { getImageColors, generateCaption, getCachedColor } from "./GetImageColors";
+import { getImageColors, generateCaption, getCachedColor, useSessionCache } from "./GetImageColors";
 import { Link, useNavigate } from "react-router-dom";
 import { Helmet } from "react-helmet";
 
 
 let content = [
-  "kiss", "Fashion", "Sports", "Music", "Gaming", "Technology", "Health", "Finance", "Education", "Lifestyle", "Travel and Adventure",  "Art and Creativity", "hugs", "Nature and Wildlife", "Food and Culinary", "History and Culture","Fitness and Wellness", "Architecture and Design","Space and Astronomy", "Books and Literature", "Motivation and Productivity",  "Luxury and Lifestyle",  "Science and Innovation",   "Minimalism and Aesthetics", "romantic",  "Sibling Love", "Date Night",  "Valentine", "Hobbies and Skills",  "Rose", "couples"
+  "kiss", "Fashion", "Sports", "Music", "Gaming", "Technology", "Health", "Finance", "Education", "Lifestyle", "Travel and Adventure",  "Art and Creativity", "hugs", "Nature and Wildlife", "Food and Culinary", "History and Culture","Fitness and Wellness", "Architecture and Design","Space and Astronomy", "Books and Literature", "Motivation and Productivity",  "Luxury and Lifestyle",  "Science and Innovation",   "Minimalism and Aesthetics", "romantic",  "Sibling Love", "Date Night",  "Valentine", "Hobbies and Skills",  "happy pattern", "couples"
 ];
 // 🔁 Get the current hour index to rotate categories
 const updatedHours = () => new Date().getHours() % content.length;
@@ -60,7 +60,8 @@ const Explore = (props) => {
   // Prevents reloading of already loaded images
 const loadedImageIds = new Set(JSON.parse(localStorage.getItem("loadedImageIds") || "[]"));
 
-
+// const { getCache, setCache, clearCache } = useSessionCache(props.componentFrom === "exploreNext" ? "exploreNext": "exploreImages");
+const { getCache, setCache, clearCache } = useSessionCache("exploreImages");
 
  
   useEffect(()=>{
@@ -84,11 +85,57 @@ const loadedImageIds = new Set(JSON.parse(localStorage.getItem("loadedImageIds")
       setloader(true);
 
     }
+    
+
+const queryMatch = url.match(/[\?&]q=([^&]+)/i);
+const query = queryMatch ? decodeURIComponent(queryMatch[1]) : "default";
+
+const pageMatch = url.match(/[\?&]page=(\d+)/i);
+const pageNum = pageMatch ? pageMatch[1] : "1";
+
+const componentPrefix = props.componentFrom || "explore";
+const cacheKey = `${componentPrefix}-${(componentPrefix === "explore") ? query : props.displayImage}-page-${pageNum}`;
+    let cacheCatch = getCache(cacheKey)
+
+
+  const urlParams = new URLSearchParams(url.split("?")[1]);
+const queryFromUrl = urlParams.get("q")?.toLowerCase();
+
+const isExploreNext = props.componentFrom === "exploreNext";
+const expectedQuery = isExploreNext
+  ? props.displayImage?.toLowerCase()
+  : content[updatedHours()].toLowerCase(); // fallback for explore page
+  let cacheArray = cacheKey.split("-")
+console.log("query for", cacheKey.split("-"), expectedQuery, cacheArray.includes(expectedQuery))
+
+
+if (
+ 
+  cacheCatch && cacheArray.includes(expectedQuery)
+
+) {
+  console.log("💾 Using cached result for", cacheKey, queryFromUrl, expectedQuery);
+  setupImageOnPage(cacheCatch);
+  return;
+}
+
+// if(cacheArray.includes(expectedQuery)) return
+
+
+
+
+
+// console.log("fecthing image for", queryFromUrl , expectedQuery)
+
+
+
+
      try {
+      console.log("try runs")
     const response = await fetch(url);   
 
     const result = await response.json();
-
+setCache(cacheKey, result); // 💾 Save to cache
     if (props.componentFrom === "home") {
       // console.log("explore images", result.hits);
       console.log("yes home props")
@@ -121,6 +168,7 @@ const cleanHits = hits.slice(0, cleanCount);
       }
         // if(isTracking){
         try{
+          console.log("explorenext url", exploreNextUrl)
           const response = await fetch(exploreNextUrl);  
           exploreNextPhotos = await response.json();
           console.log("return", exploreNextPhotos)
@@ -153,6 +201,8 @@ const cleanHits = hits.slice(0, cleanCount);
 
 
 async function setupImageOnPage(result){
+     
+  
   if(props.componentFrom === "home"){
   
     // console.log("home result and images", result, images)
@@ -837,7 +887,7 @@ state={{ imageData: image }}
     }}
   
   >
-     {!imageStates[index]?.loaded && <div className="skeleton" />}
+     {/* {!imageStates[index]?.loaded && <div className="skeleton" />} */}
             <img
             className="explore-image"
                  style={{

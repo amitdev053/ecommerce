@@ -488,7 +488,7 @@ function shareImage(image){
 }
   // Fetch images whenever the index changes
   useEffect(() => {
-      clearCache();
+      // clearCache();
    let currentCalculatedIndex = updatedHours();
     getImages(`https://pixabay.com/api/?key=45283300-eddb6d21a3d3d06f2a2381d7d&q=${content[currentCalculatedIndex]}&image_type=photo&page=1`);
     setImageStates(images.map(() => ({ loaded: false })));
@@ -534,7 +534,7 @@ function shareImage(image){
 
   useEffect(() => {
     
-  if (props.componentFrom !== "home") {
+  if (props.componentFrom !== "home" ) {
     
     const observer = new IntersectionObserver(function (entries) {
       if (entries[0].isIntersecting) {
@@ -575,20 +575,8 @@ function shareImage(image){
         observer.observe(lastElement);
         console.log("observe element", lastElement)
       }else{
-        if(blogColRef.current.at(-1)){
-        let lastFirst = blogColRef.current.at(-1);
-          observer.observe(lastFirst);
-        }
-        // ✅ Fallback: check if page is too short (no scroll)
-    //       let SkeltonLayout = document.querySelector('.app_skelton_wrapper')
-    //       if(SkeltonLayout){
-    //         let lastSkeltonELement = SkeltonLayout.children[SkeltonLayout.children.length - 1]
-    //         observer.observe(lastSkeltonELement);
+        setBottomLoader(true);
 
-    //       }
-
-    
-    //  console.log("yes observe")
     
       }   
     

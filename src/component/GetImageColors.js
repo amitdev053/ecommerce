@@ -1,4 +1,4 @@
-import { useCallback  } from 'react';
+import { useCallback, useState, useEffect  } from 'react';
 // this is s function of to get image colors in Explore.js
 function getImageColors(imageUrl, colorCount = 6) {
   return new Promise((resolve, reject) => {
@@ -218,4 +218,250 @@ async function getCachedColor(imageUrl) {
 
   return { getCache, setCache, clearCache };
 }
-export {getImageColors, generateCaption, getCachedColor, useSessionCache}
+
+
+function useIndexedDBCache(dbName = "ImageCacheDB", storeName = "cacheStore") {
+  const [db, setDb] = useState(null);
+
+  useEffect(() => {
+    const openRequest = indexedDB.open(dbName, 1);
+
+    openRequest.onupgradeneeded = (event) => {
+      const db = event.target.result;
+      if (!db.objectStoreNames.contains(storeName)) {
+        db.createObjectStore(storeName);
+      }
+    };
+
+    openRequest.onsuccess = () => {
+      setDb(openRequest.result);
+    };
+
+    openRequest.onerror = (e) => {
+      console.error("❌ IndexedDB open error:", e);
+    };
+  }, [dbName, storeName]);
+
+  const getCache = useCallback((key) => {
+    return new Promise((resolve) => {
+      if (!db) return resolve(null);
+      const tx = db.transaction(storeName, "readonly");
+      const store = tx.objectStore(storeName);
+      const request = store.get(key);
+
+      request.onsuccess = () => {
+        resolve(request.result || null);
+      };
+      request.onerror = () => resolve(null);
+    });
+  }, [db, storeName]);
+
+  const setCache = useCallback((key, value) => {
+    if (!db) return;
+    const tx = db.transaction(storeName, "readwrite");
+    const store = tx.objectStore(storeName);
+    store.put(value, key);
+  }, [db, storeName]);
+
+  const clearCache = useCallback((key = null) => {
+    if (!db) return;
+    const tx = db.transaction(storeName, "readwrite");
+    const store = tx.objectStore(storeName);
+    if (key) {
+      store.delete(key);
+    } else {
+      store.clear();
+    }
+  }, [db, storeName]);
+
+  return { getCache, setCache, clearCache };
+}
+export {getImageColors, generateCaption, getCachedColor, useSessionCache, useIndexedDBCache}
+
+
+//   async function getImages(url, exploreNextInfiniteScroll = false) {
+//     console.log("yes getImages runs")
+//     if((trakImages && props.componentFrom !== "home")){
+//       setloader(true);
+
+//     }
+    
+
+// const queryMatch = url.match(/[\?&]q=([^&]+)/i);
+// const query = queryMatch ? decodeURIComponent(queryMatch[1]) : "default";
+
+// const pageMatch = url.match(/[\?&]page=(\d+)/i);
+// const pageNum = pageMatch ? pageMatch[1] : "1";
+
+// const componentPrefix = props.componentFrom || "explore";
+// const cacheKey = `${componentPrefix}-${(componentPrefix === "explore") ? query : props.displayImage}-page-${pageNum}`;
+//     let cacheCatch =  await getCache(cacheKey)
+
+
+//   const urlParams = new URLSearchParams(url.split("?")[1]);
+// const queryFromUrl = urlParams.get("q")?.toLowerCase();
+
+// const isExploreNext = props.componentFrom === "exploreNext";
+// const expectedQuery = isExploreNext
+//   ? props.displayImage?.toLowerCase()
+//   : content[updatedHours()].toLowerCase(); // fallback for explore page
+//   let cacheArray = cacheKey.split("-")
+// console.log("query for", cacheKey.split("-"), expectedQuery, cacheArray.includes(expectedQuery))
+
+
+// if (
+ 
+//   cacheCatch && cacheArray.includes(expectedQuery)
+
+// ) {
+//   console.log("💾 Using cached result for", cacheCatch, cacheKey, queryFromUrl, expectedQuery);
+//   setupImageOnPage(cacheCatch);
+//   return;
+// }
+
+// // if(cacheArray.includes(expectedQuery)) return
+
+
+
+
+
+// // console.log("fecthing image for", queryFromUrl , expectedQuery)
+
+
+
+
+//      try {
+//       console.log("try runs")
+//     const response = await fetch(url);   
+
+//     const result = await response.json();
+// setCache(cacheKey, result); // 💾 Save to cache
+//     if (props.componentFrom === "home") {
+//       // console.log("explore images", result.hits);
+//       console.log("yes home props")
+//       // setImages(result.hits.splice(0, 7));
+//       const maxImages = 7;
+// const hits = result.hits.slice(0, maxImages);
+
+// // Trim to multiple of 3 (e.g., 6 instead of 7)
+// const cleanCount = hits.length - (hits.length % 3);
+// const cleanHits = hits.slice(0, cleanCount);
+
+//       // setupImageOnPage(result.hits.splice(0, 7))
+//       setupImageOnPage(cleanHits)
+//     } else if(props.componentFrom === "exploreNext"){
+//       // let isTracking = trakImages;
+//       console.log("explorenext page", props.displayImage, url, trakImages)
+//       let exploreNextPhotos;
+
+//       let exploreNextUrl
+//       if(exploreNextInfiniteScroll){
+//         exploreNextUrl = url
+//         // setTrakImage(true)
+//       //  isTracking = trakImages 
+//         console.log("inifinite scroll", pageState, exploreNextUrl, trakImages)
+
+//       }else{
+        
+//         exploreNextUrl = `https://pixabay.com/api/?key=45283300-eddb6d21a3d3d06f2a2381d7d&q=${props.displayImage}&image_type=photo`
+
+//       }
+//         // if(isTracking){
+//         try{
+//           console.log("explorenext url", exploreNextUrl)
+//           const response = await fetch(exploreNextUrl);  
+//           exploreNextPhotos = await response.json();
+//           console.log("return", exploreNextPhotos)
+//           setupImageOnPage(exploreNextPhotos)
+
+//         }catch(error){
+//              setloader(false);    
+//             setBottomLoader(false);
+//         console.log("catch eroor in rxplore next page", pageState, error)
+//         }
+    
+//               // return 
+              
+//             // }
+
+        
+//     }
+    
+//     else {
+//       console.log("explore loading results")
+//      setupImageOnPage(result)
+//     }
+//   } catch (error) {
+//     setloader(false);    
+//     setBottomLoader(false);
+//     console.log("catch eroor in app images", pageState, error)
+//   }
+// }
+
+
+
+
+
+
+// async function getImages(url, exploreNextInfiniteScroll = false) {
+//   console.log("🚀 getImages called", url);
+
+ 
+// const queryMatch = url.match(/[\?&]q=([^&]+)/i);
+// const query = queryMatch ? decodeURIComponent(queryMatch[1]) : "default";
+
+// const pageMatch = url.match(/[\?&]page=(\d+)/i);
+// const pageNum = pageMatch ? pageMatch[1] : "1";
+
+// const componentPrefix = props.componentFrom || "explore";
+// const cacheKey = `${componentPrefix}-${(componentPrefix === "explore") ? query : props.displayImage}-page-${pageNum}`;
+//     let cacheCatch =  await getCache(cacheKey)
+
+
+//   const urlParams = new URLSearchParams(url.split("?")[1]);
+// const queryFromUrl = urlParams.get("q")?.toLowerCase();
+
+// const isExploreNext = props.componentFrom === "exploreNext";
+// const expectedQuery = isExploreNext
+//   ? props.displayImage?.toLowerCase()
+//   : content[updatedHours()].toLowerCase(); // fallback for explore page
+//   let cacheArray = cacheKey.split("-").map(item => item.toLowerCase())
+// console.log("query for",cacheArray, expectedQuery, cacheArray.includes(expectedQuery.toLowerCase()))
+
+
+// if (
+ 
+//   cacheCatch && cacheArray.includes(expectedQuery.toLowerCase())
+
+// ) {
+//   console.log("💾 Using cached result for", cacheCatch, cacheKey, queryFromUrl, expectedQuery);
+//   setupImageOnPage(cacheCatch);
+//   return;
+// }
+
+
+//   try {
+//     console.log("🌐 Fetching from network");
+//     const response = await fetch(url);
+//     const result = await response.json();
+
+//     setCache(cacheKey, result); // 💾 Save to IndexedDB
+ 
+// if( props.componentFrom === "home") {
+//    const maxImages = 7;
+// const hits = result.hits.slice(0, maxImages);
+
+// // Trim to multiple of 3 (e.g., 6 instead of 7)
+// const cleanCount = hits.length - (hits.length % 3);
+// const cleanHits = hits.slice(0, cleanCount);
+//   setupImageOnPage(cleanHits);
+// }else{
+
+//   setupImageOnPage(result);
+// }
+//   } catch (error) {
+//     console.error("❌ Error in getImages", error);
+//     setloader(false);
+//     setBottomLoader(false);
+//   }
+// }

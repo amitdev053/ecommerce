@@ -9,7 +9,7 @@ import defaultBlogImage from "../defaultBlog.jpg";
 import ExploreLinkButton from "./ExploreLinkButton";
 import SkeltonLoading from "./SkeltonLoading";
 import { handleShare } from "./HandleShare";
-import { getImageColors, generateCaption, getCachedColor, useSessionCache } from "./GetImageColors";
+import { getImageColors, generateCaption, getCachedColor, useSessionCache, useIndexedDBCache } from "./GetImageColors";
 import { Link, useNavigate } from "react-router-dom";
 import { Helmet } from "react-helmet";
 
@@ -61,7 +61,8 @@ const Explore = (props) => {
 const loadedImageIds = new Set(JSON.parse(localStorage.getItem("loadedImageIds") || "[]"));
 
 // const { getCache, setCache, clearCache } = useSessionCache(props.componentFrom === "exploreNext" ? "exploreNext": "exploreImages");
-const { getCache, setCache, clearCache } = useSessionCache("exploreImages");
+// const { getCache, setCache, clearCache, dbReady  } = useIndexedDBCache("exploreImages");
+const { getCache, setCache } = useIndexedDBCache();
 
  
   useEffect(()=>{
@@ -73,10 +74,15 @@ const { getCache, setCache, clearCache } = useSessionCache("exploreImages");
   
 
   }, [])
-
+const fetchedPages = useRef(new Set()); 
 
 
   const baseUrl = `https://pixabay.com/api/?key=45283300-eddb6d21a3d3d06f2a2381d7d&q=${content[index]}&image_type=photo`
+
+
+  function RemoveDuplicateHits(query, pageNum){
+
+  }
 
 
   async function getImages(url, exploreNextInfiniteScroll = false) {
@@ -86,16 +92,25 @@ const { getCache, setCache, clearCache } = useSessionCache("exploreImages");
 
     }
     
-
 const queryMatch = url.match(/[\?&]q=([^&]+)/i);
 const query = queryMatch ? decodeURIComponent(queryMatch[1]) : "default";
 
 const pageMatch = url.match(/[\?&]page=(\d+)/i);
 const pageNum = pageMatch ? pageMatch[1] : "1";
+console.log("pageNum", pageNum)
+  //   const pageKey = `${query.toLowerCase()}-page-${pageNum}`;
+  // if (fetchedPages.current.has(pageKey)) {
+  //   console.log("🛑 Already fetched:", pageKey);
+  //   return;
+  // }
+  // fetchedPages.current.add(pageKey);
+  // console.log("🚀 Fetching:", pageKey);
 
+RemoveDuplicateHits(query, pageNum)
 const componentPrefix = props.componentFrom || "explore";
 const cacheKey = `${componentPrefix}-${(componentPrefix === "explore") ? query : props.displayImage}-page-${pageNum}`;
-    let cacheCatch = getCache(cacheKey)
+
+    let cacheCatch =  await getCache(cacheKey)
 
 
   const urlParams = new URLSearchParams(url.split("?")[1]);
@@ -105,8 +120,8 @@ const isExploreNext = props.componentFrom === "exploreNext";
 const expectedQuery = isExploreNext
   ? props.displayImage?.toLowerCase()
   : content[updatedHours()].toLowerCase(); // fallback for explore page
-  let cacheArray = cacheKey.split("-")
-console.log("query for", cacheKey.split("-"), expectedQuery, cacheArray.includes(expectedQuery))
+  let cacheArray = cacheKey.split("-").map(item => item.toLowerCase())
+console.log("query for", cacheArray, expectedQuery, cacheArray.includes(expectedQuery))
 
 
 if (
@@ -114,19 +129,10 @@ if (
   cacheCatch && cacheArray.includes(expectedQuery)
 
 ) {
-  console.log("💾 Using cached result for", cacheKey, queryFromUrl, expectedQuery);
+  console.log("💾 Using cached result for", cacheCatch, cacheKey, queryFromUrl, expectedQuery);
   setupImageOnPage(cacheCatch);
   return;
 }
-
-// if(cacheArray.includes(expectedQuery)) return
-
-
-
-
-
-// console.log("fecthing image for", queryFromUrl , expectedQuery)
-
 
 
 
@@ -197,6 +203,7 @@ const cleanHits = hits.slice(0, cleanCount);
     console.log("catch eroor in app images", pageState, error)
   }
 }
+
 
 
 
@@ -330,10 +337,13 @@ function addImageTouch(){
     setIndex(updatedHours());
     // document.title = `Explore images for ${content[currentCalculatedIndex]}`;
     // Fetch images for the initial index
-    getImages(`https://pixabay.com/api/?key=45283300-eddb6d21a3d3d06f2a2381d7d&q=${content[currentCalculatedIndex]}&image_type=photo`);
+    
+
+      getImages(`https://pixabay.com/api/?key=45283300-eddb6d21a3d3d06f2a2381d7d&q=${content[currentCalculatedIndex]}&image_type=photo&page=1`);
     
     
-    addImageTouch();
+    
+    // addImageTouch();
     // Update the index every hour
     const interval = setInterval(() => {
       setIndex(updatedHours());
@@ -368,7 +378,7 @@ function addImageTouch(){
   //   }
   // });
   
-  showMobileIcon()
+  // showMobileIcon()
 }, [images]);
 
 
@@ -477,7 +487,7 @@ function shareImage(image){
   // Fetch images whenever the index changes
   useEffect(() => {
    let currentCalculatedIndex = updatedHours();
-    getImages(`https://pixabay.com/api/?key=45283300-eddb6d21a3d3d06f2a2381d7d&q=${content[currentCalculatedIndex]}&image_type=photo`);
+    getImages(`https://pixabay.com/api/?key=45283300-eddb6d21a3d3d06f2a2381d7d&q=${content[currentCalculatedIndex]}&image_type=photo&page=1`);
     setImageStates(images.map(() => ({ loaded: false })));
   }, [index]);
 
@@ -629,6 +639,7 @@ function shareImage(image){
   
   
 }, [images.length]);
+
 
 function highlightTag(){
 

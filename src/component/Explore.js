@@ -62,7 +62,7 @@ const loadedImageIds = new Set(JSON.parse(localStorage.getItem("loadedImageIds")
 
 // const { getCache, setCache, clearCache } = useSessionCache(props.componentFrom === "exploreNext" ? "exploreNext": "exploreImages");
 // const { getCache, setCache, clearCache, dbReady  } = useIndexedDBCache("exploreImages");
-const { getCache, setCache } = useIndexedDBCache();
+const { getCache, setCache, clearCache } = useIndexedDBCache();
 
  
   useEffect(()=>{
@@ -98,13 +98,13 @@ const query = queryMatch ? decodeURIComponent(queryMatch[1]) : "default";
 const pageMatch = url.match(/[\?&]page=(\d+)/i);
 const pageNum = pageMatch ? pageMatch[1] : "1";
 console.log("pageNum", pageNum)
-  //   const pageKey = `${query.toLowerCase()}-page-${pageNum}`;
-  // if (fetchedPages.current.has(pageKey)) {
-  //   console.log("🛑 Already fetched:", pageKey);
-  //   return;
-  // }
-  // fetchedPages.current.add(pageKey);
-  // console.log("🚀 Fetching:", pageKey);
+    const pageKey = `${query.toLowerCase()}-page-${pageNum}`;
+  if (fetchedPages.current.has(pageKey)) {
+    console.log("🛑 Already fetched:", pageKey);
+    return;
+  }
+  fetchedPages.current.add(pageKey);
+  console.log("🚀 Fetching:", pageKey);
 
 RemoveDuplicateHits(query, pageNum)
 const componentPrefix = props.componentFrom || "explore";
@@ -141,6 +141,8 @@ if (
     const response = await fetch(url);   
 
     const result = await response.json();
+    console.log("cacheKey for set", cacheKey, result)
+    
 setCache(cacheKey, result); // 💾 Save to cache
     if (props.componentFrom === "home") {
       // console.log("explore images", result.hits);
@@ -169,7 +171,7 @@ const cleanHits = hits.slice(0, cleanCount);
 
       }else{
         
-        exploreNextUrl = `https://pixabay.com/api/?key=45283300-eddb6d21a3d3d06f2a2381d7d&q=${props.displayImage}&image_type=photo`
+        exploreNextUrl = `https://pixabay.com/api/?key=45283300-eddb6d21a3d3d06f2a2381d7d&q=${props.displayImage}&image_type=photo&page=1`
 
       }
         // if(isTracking){
@@ -228,9 +230,9 @@ async function setupImageOnPage(result){
         // after Improbved code version one starts here
 try {
   // const getColors = await getImageColors(img.largeImageURL, 1);
-  // const getColors = await getCachedColor(img.largeImageURL);
+  const getColors = await getCachedColor(img.largeImageURL);
 
-  // defaultColor = getColors;
+  defaultColor = getColors;
 } catch (e) {
   console.error("Error fetching image colors:", e);
 }
@@ -256,9 +258,9 @@ try {
         let defaultColor = "#f8f9fa";
         try {
           
-          // const getColors = await getCachedColor(img.largeImageURL);         
+          const getColors = await getCachedColor(img.largeImageURL);         
           
-          // defaultColor = getColors; 
+          defaultColor = getColors; 
         } catch (e) {
           console.error("Error fetching image colors:", e);
         }
@@ -486,6 +488,7 @@ function shareImage(image){
 }
   // Fetch images whenever the index changes
   useEffect(() => {
+      clearCache();
    let currentCalculatedIndex = updatedHours();
     getImages(`https://pixabay.com/api/?key=45283300-eddb6d21a3d3d06f2a2381d7d&q=${content[currentCalculatedIndex]}&image_type=photo&page=1`);
     setImageStates(images.map(() => ({ loaded: false })));
@@ -531,7 +534,7 @@ function shareImage(image){
 
   useEffect(() => {
     
-  if (props.componentFrom !== "home" && bottomObserverRef.current) {
+  if (props.componentFrom !== "home") {
     
     const observer = new IntersectionObserver(function (entries) {
       if (entries[0].isIntersecting) {
@@ -563,15 +566,20 @@ function shareImage(image){
       rootMargin: '0px 0px 400px 0px',
     });
 
-    // setTimeout(() => {
-      // highlightTag()
+    setTimeout(() => {
+      highlightTag()
       // let lastElement = blogColRef.current[blogColRef.current.length - 5];
+      let lastElement = blogColRef.current.at(-5);
       
-    //   if (lastElement) {
-    //     observer.observe(lastElement);
-    //     console.log("observe element", lastElement)
-    //   }else{
-    //      // ✅ Fallback: check if page is too short (no scroll)
+      if (lastElement) {
+        observer.observe(lastElement);
+        console.log("observe element", lastElement)
+      }else{
+        if(blogColRef.current.at(-1)){
+        let lastFirst = blogColRef.current.at(-1);
+          observer.observe(lastFirst);
+        }
+        // ✅ Fallback: check if page is too short (no scroll)
     //       let SkeltonLayout = document.querySelector('.app_skelton_wrapper')
     //       if(SkeltonLayout){
     //         let lastSkeltonELement = SkeltonLayout.children[SkeltonLayout.children.length - 1]
@@ -582,54 +590,54 @@ function shareImage(image){
     
     //  console.log("yes observe")
     
-    //   }   
+      }   
     
-    // }, 100);
+    }, 100);
 
-     setTimeout(() => {
-      highlightTag();
+    //  setTimeout(() => {
+    //   highlightTag();
 
-      let lastImageElement = blogColRef.current[blogColRef.current.length - 5];
-      let fallbackAttached = false;
+    //   let lastImageElement = blogColRef.current[blogColRef.current.length - 5];
+    //   let fallbackAttached = false;
 
-      if (lastImageElement) {
-        observer.observe(lastImageElement);
-        console.log("✅ Observing last image", lastImageElement);
+    //   if (lastImageElement) {
+    //     observer.observe(lastImageElement);
+    //     console.log("✅ Observing last image", lastImageElement);
 
-        // Smart Fallback: Manually check if already in viewport
-        const rect = lastImageElement.getBoundingClientRect();
-        if (rect.top < window.innerHeight) {
-          console.log("👀 Manually triggering due to auto-visible image");
-          observer.unobserve(lastImageElement);
-          setBottomLoader(true);
+    //     // Smart Fallback: Manually check if already in viewport
+    //     const rect = lastImageElement.getBoundingClientRect();
+    //     if (rect.top < window.innerHeight) {
+    //       console.log("👀 Manually triggering due to auto-visible image");
+    //       observer.unobserve(lastImageElement);
+    //       setBottomLoader(true);
 
-          const nextPage = pageState + 1;
-          setPageState(nextPage);
+    //       const nextPage = pageState + 1;
+    //       setPageState(nextPage);
 
-          const query = clickedTag || content[updatedHours()];
-          getImages(
-            `https://pixabay.com/api/?key=45283300-eddb6d21a3d3d06f2a2381d7d&q=${query}&image_type=photo&page=${nextPage}`
-          );
-        }
-      } else {
-        // Fallback: Observe loading skeleton or bottom ref
-        const skeleton = document.querySelector('.app_skelton_wrapper');
-        if (skeleton && skeleton.children.length > 0) {
-          const lastSkeleton = skeleton.children[skeleton.children.length - 1];
-          observer.observe(lastSkeleton);
-          fallbackAttached = true;
-          console.log("🟨 Observing skeleton fallback");
-        } else if (bottomObserverRef.current) {
-          observer.observe(bottomObserverRef.current);
-          fallbackAttached = true;
-          console.log("🟧 Observing bottomObserverRef fallback");
-        }
+    //       const query = clickedTag || content[updatedHours()];
+    //       getImages(
+    //         `https://pixabay.com/api/?key=45283300-eddb6d21a3d3d06f2a2381d7d&q=${query}&image_type=photo&page=${nextPage}`
+    //       );
+    //     }
+    //   } else {
+    //     // Fallback: Observe loading skeleton or bottom ref
+    //     const skeleton = document.querySelector('.app_skelton_wrapper');
+    //     if (skeleton && skeleton.children.length > 0) {
+    //       const lastSkeleton = skeleton.children[skeleton.children.length - 1];
+    //       observer.observe(lastSkeleton);
+    //       fallbackAttached = true;
+    //       console.log("🟨 Observing skeleton fallback");
+    //     } else if (bottomObserverRef.current) {
+    //       observer.observe(bottomObserverRef.current);
+    //       fallbackAttached = true;
+    //       console.log("🟧 Observing bottomObserverRef fallback");
+    //     }
 
-        if (!fallbackAttached) {
-          console.warn("⚠️ No fallback observer target found");
-        }
-      }
-    }, 100); // Ensure refs are populated
+    //     if (!fallbackAttached) {
+    //       console.warn("⚠️ No fallback observer target found");
+    //     }
+    //   }
+    // }, 100); // Ensure refs are populated
 
     return () => {
       observer.disconnect();

@@ -233,6 +233,7 @@ async function setupImageOnPage(result){
  
         // after Improbved code version one starts here
         if (!colorCache[img.largeImageURL]) {
+            requestIdleCallback(async () => {
 try {
   // const getColors = await getImageColors(img.largeImageURL, 1);
   const getColors = await getCachedColor(img.largeImageURL);
@@ -241,6 +242,7 @@ try {
 } catch (e) {
   console.error("Error fetching image colors:", e);
 }
+  });
  }
 // after Improbved code version one  End here
         return {
@@ -263,6 +265,7 @@ try {
         // let defaultColor = "#ffffff";
         let defaultColor = colorCache[img.largeImageURL] || "#f8f9fa";
         if (!colorCache[img.largeImageURL]) {
+          requestIdleCallback(async () => {
         try {
           
           const getColors = await getCachedColor(img.largeImageURL);         
@@ -271,7 +274,9 @@ try {
         } catch (e) {
           console.error("Error fetching image colors:", e);
         }
+        })
       }
+
 
         return {
           ...img,

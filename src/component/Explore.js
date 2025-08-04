@@ -532,16 +532,8 @@ function shareImage(image){
       navigate(url, { state: { imageData: image } });
     }
 
-  useEffect(() => {
-    
-  if (props.componentFrom !== "home" ) {
-    
-    const observer = new IntersectionObserver(function (entries) {
-      if (entries[0].isIntersecting) {
-        observer.unobserve(entries[0].target);
-        setBottomLoader(true);
-
-        if (props.componentFrom === "exploreNext") {
+  function handleNextPage(){
+       if (props.componentFrom === "exploreNext") {
           const nextPage = pageState + 1;
           setPageState(nextPage);
           setTrakImage(true);
@@ -561,6 +553,19 @@ function shareImage(image){
             `https://pixabay.com/api/?key=45283300-eddb6d21a3d3d06f2a2381d7d&q=${query}&image_type=photo&page=${nextPage}`
           );
         }
+    }
+
+  useEffect(() => {
+    
+  if (props.componentFrom !== "home" ) {
+    
+    const observer = new IntersectionObserver(function (entries) {
+      if (entries[0].isIntersecting) {
+        console.log("triggered...")
+        observer.unobserve(entries[0].target);
+        setBottomLoader(true);
+
+       handleNextPage()
       }
     }, {
       rootMargin: '0px 0px 400px 0px',
@@ -573,9 +578,16 @@ function shareImage(image){
       
       if (lastElement) {
         observer.observe(lastElement);
-        console.log("observe element", lastElement)
+        const rect = lastElement.getBoundingClientRect();
+        console.log("observe element", lastElement, rect, window.innerHeight)
+        if(rect.top < window.innerHeight){
+          console.log("👀 Manually triggering due to auto-visible image");
+          observer.unobserve(lastElement);
+          // observer.observe(lastElement);
+          handleNextPage()
+        }
       }else{
-        setBottomLoader(true);
+        
 
     
       }   

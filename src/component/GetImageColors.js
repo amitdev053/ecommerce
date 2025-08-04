@@ -1,5 +1,7 @@
-import { useCallback, useState, useEffect  } from 'react';
+import { useCallback, useState, useEffect, useRef  } from 'react';
 // this is s function of to get image colors in Explore.js
+
+
 function getImageColors(imageUrl, colorCount = 6) {
   return new Promise((resolve, reject) => {
     const img = new Image();
@@ -220,8 +222,10 @@ async function getCachedColor(imageUrl) {
 }
 
 
+
 function useIndexedDBCache(dbName = "ImageCacheDB", storeName = "cacheStore") {
   const [db, setDb] = useState(null);
+  const memoryCache = useRef(new Map()).current;
 
   useEffect(() => {
     const openRequest = indexedDB.open(dbName, 1);
@@ -242,22 +246,30 @@ function useIndexedDBCache(dbName = "ImageCacheDB", storeName = "cacheStore") {
     };
   }, [dbName, storeName]);
 
-  const getCache = useCallback((key) => {
-    return new Promise((resolve) => {
-      if (!db) return resolve(null);
-      const tx = db.transaction(storeName, "readonly");
-      const store = tx.objectStore(storeName);
-      const request = store.get(key);
+  
 
-      request.onsuccess = () => {
-        resolve(request.result || null);
-      };
-      request.onerror = () => resolve(null);
-    });
-  }, [db, storeName]);
+const getCache = useCallback((key) => {
+  return new Promise((resolve) => {
+    if (memoryCache.has(key)) return resolve(memoryCache.get(key));
+    if (!db) return resolve(null);
+
+    const tx = db.transaction(storeName, "readonly");
+    const store = tx.objectStore(storeName);
+    const request = store.get(key);
+
+    request.onsuccess = () => {
+      const result = request.result;
+      if (result) memoryCache.set(key, result); // cache in memory
+      resolve(result);
+    };
+
+    request.onerror = () => resolve(null);
+  });
+}, [db, storeName]);
 
   const setCache = useCallback((key, value) => {
     if (!db) return;
+      memoryCache.set(key, value);
     const tx = db.transaction(storeName, "readwrite");
     const store = tx.objectStore(storeName);
     store.put(value, key);

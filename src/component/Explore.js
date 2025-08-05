@@ -783,6 +783,8 @@ function toImageKitURL(originalUrl, width = 640) {
   return `https://ik.imagekit.io/k4vr4hitu/tr:w-${width},q-${quality},f-auto/${relativePath}`;
 }
 
+
+
  useEffect(() => {
   let start = null;
 
@@ -803,8 +805,20 @@ function toImageKitURL(originalUrl, width = 640) {
       });
     }
   };
-  
+
   }, []);
+
+    function handleImageClick(img) {
+        if (!imageStates[index]?.loaded) return; // Don't track if image not loaded
+        console.log("image clicked", img)
+      window.gtag('event', 'explore_image_click', {
+        event_category: 'Explore Page',
+        event_label: img?.tags || 'No tags',
+        value: img?.id, // you can also use views or likes
+        image_url: img?.webformatURL 
+      });
+    }
+
 
 
 
@@ -934,7 +948,7 @@ state={{ imageData: image }}
       overflow: 'hidden',
       position: 'relative',
     }}
-  
+  onClick={() => handleImageClick(image)}
   >
      {/* {!imageStates[index]?.loaded && <div className="skeleton" />} */}
             <img

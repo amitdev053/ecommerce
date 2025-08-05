@@ -783,6 +783,28 @@ function toImageKitURL(originalUrl, width = 640) {
   return `https://ik.imagekit.io/k4vr4hitu/tr:w-${width},q-${quality},f-auto/${relativePath}`;
 }
 
+ useEffect(() => {
+  let start = null;
+
+  const timer = setTimeout(() => {
+    if (images.length > 0) {
+      start = Date.now();
+    }
+  }, 15000); // Delay start time tracking by 15 sec
+
+  return () => {
+    clearTimeout(timer);
+    if (start) {
+      const timeSpent = Date.now() - start;
+      window.gtag('event', 'time_on_page', {
+        event_category: 'Explore Page',
+        event_label: 'Explore Component',
+        value: Math.round(timeSpent / 1000),
+      });
+    }
+  };
+  
+  }, []);
 
 
 

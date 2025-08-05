@@ -754,7 +754,8 @@ useEffect(()=>{
 //   return `https://ik.imagekit.io/k4vr4hitu/tr:w-${width},q-${quality},f-auto/${relativePath}`;
 // }
 
-function toImageKitURL(originalUrl, width = 640, quality = 80) {
+function toImageKitURL(originalUrl, width = 640) {
+  let quality = window.innerWidth < 768 ? 40 : 80;
   if (!originalUrl) return "";
 
   const basePixabayUrl = "https://pixabay.com/get/";

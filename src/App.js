@@ -76,24 +76,24 @@ function App() {
     return () => window.removeEventListener('resize', setVh);
   }, []);
   
-   useEffect(() => {
-    fetch('https://api64.ipify.org?format=json')
-      .then((res) => res.json())
-      .then((data) => {
-        const currentIP = data.ip;
-        console.log("User IP:", currentIP); // Optional debug
+  //  useEffect(() => {
+  //   fetch('https://api64.ipify.org?format=json')
+  //     .then((res) => res.json())
+  //     .then((data) => {
+  //       const currentIP = data.ip;
+  //       console.log("User IP:", currentIP); // Optional debug
 
-        if (excludeDevices.includes(currentIP)) {
-          window.gtag('set', 'user_properties', {
-            traffic_type: 'internal'
-          });
-          console.log("Internal traffic excluded"); // Optional
-        }
-      })
-      .catch((err) => {
-        console.error('IP check failed:', err);
-      });
-  }, []);
+  //       if (excludeDevices.includes(currentIP)) {
+  //         window.gtag('set', 'user_properties', {
+  //           traffic_type: 'internal'
+  //         });
+  //         console.log("Internal traffic excluded"); // Optional
+  //       }
+  //     })
+  //     .catch((err) => {
+  //       console.error('IP check failed:', err);
+  //     });
+  // }, []);
 
   
   return (

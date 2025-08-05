@@ -754,8 +754,8 @@ useEffect(()=>{
 //   return `https://ik.imagekit.io/k4vr4hitu/tr:w-${width},q-${quality},f-auto/${relativePath}`;
 // }
 
-function toImageKitURL(originalUrl, width = 640) {
-  let quality = window.innerWidth < 768 ? 40 : 80;
+function toImageKitURL(originalUrl, width = 640, quality= 80) {
+  // let quality = window.innerWidth < 768 ? 40 : 80;
   if (!originalUrl) return "";
 
   const basePixabayUrl = "https://pixabay.com/get/";
@@ -785,39 +785,39 @@ function toImageKitURL(originalUrl, width = 640) {
 
 
 
- useEffect(() => {
-  let start = null;
+//  useEffect(() => {
+//   let start = null;
 
-  const timer = setTimeout(() => {
-    if (images.length > 0) {
-      start = Date.now();
-    }
-  }, 15000); // Delay start time tracking by 15 sec
+//   const timer = setTimeout(() => {
+//     if (images.length > 0) {
+//       start = Date.now();
+//     }
+//   }, 15000); // Delay start time tracking by 15 sec
 
-  return () => {
-    clearTimeout(timer);
-    if (start) {
-      const timeSpent = Date.now() - start;
-      window.gtag('event', 'time_on_page', {
-        event_category: 'Explore Page',
-        event_label: 'Explore Component',
-        value: Math.round(timeSpent / 1000),
-      });
-    }
-  };
+//   return () => {
+//     clearTimeout(timer);
+//     if (start) {
+//       const timeSpent = Date.now() - start;
+//       window.gtag('event', 'time_on_page', {
+//         event_category: 'Explore Page',
+//         event_label: 'Explore Component',
+//         value: Math.round(timeSpent / 1000),
+//       });
+//     }
+//   };
 
-  }, []);
+//   }, []);
 
-    function handleImageClick(img) {
-        if (!imageStates[index]?.loaded) return; // Don't track if image not loaded
-        console.log("image clicked", img)
-      window.gtag('event', 'explore_image_click', {
-        event_category: 'Explore Page',
-        event_label: img?.tags || 'No tags',
-        value: img?.id, // you can also use views or likes
-        image_url: img?.webformatURL 
-      });
-    }
+    // function handleImageClick(img) {
+    //     if (!imageStates[index]?.loaded) return; // Don't track if image not loaded
+    //     console.log("image clicked", img)
+    //   window.gtag('event', 'explore_image_click', {
+    //     event_category: 'Explore Page',
+    //     event_label: img?.tags || 'No tags',
+    //     value: img?.id, // you can also use views or likes
+    //     image_url: img?.webformatURL 
+    //   });
+    // }
 
 
 
@@ -948,7 +948,7 @@ state={{ imageData: image }}
       overflow: 'hidden',
       position: 'relative',
     }}
-  onClick={() => handleImageClick(image)}
+  
   >
      {/* {!imageStates[index]?.loaded && <div className="skeleton" />} */}
             <img

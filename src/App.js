@@ -28,6 +28,8 @@ import Privancy from "./component/Privancy";
 import ExploreNext from "./component/ExploreNext";
 import Services from "./component/Services";
 
+
+const excludeDevices = ["103.208.68.138", "223.237.9.50"]; // Replace with real IPs
 function App() {
   const location = useLocation();
   const matchRoute = useMatch("/blog-detail/:blogId/:blogTitle");
@@ -73,6 +75,26 @@ function App() {
 
     return () => window.removeEventListener('resize', setVh);
   }, []);
+  
+   useEffect(() => {
+    fetch('https://api64.ipify.org?format=json')
+      .then((res) => res.json())
+      .then((data) => {
+        const currentIP = data.ip;
+        console.log("User IP:", currentIP); // Optional debug
+
+        if (excludeDevices.includes(currentIP)) {
+          window.gtag('set', 'user_properties', {
+            traffic_type: 'internal'
+          });
+          console.log("Internal traffic excluded"); // Optional
+        }
+      })
+      .catch((err) => {
+        console.error('IP check failed:', err);
+      });
+  }, []);
+
   
   return (
     <>

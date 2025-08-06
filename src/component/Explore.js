@@ -998,14 +998,14 @@ state={{ imageData: image }}
                 });
         }}
               onError={(e) =>{
-              const originalUrl = image.webformatURL;
-              e.target.src = originalUrl;
-              e.target.srcset = `
-                ${image.previewURL} 150w,
-                ${image.webformatURL} 640w,
-                ${image.largeImageURL} 1280w
-              `;
-                      //  e.target.style.display = "none";
+              // const originalUrl = image.webformatURL;
+              // e.target.src = originalUrl;
+              // e.target.srcset = `
+              //   ${image.previewURL} 150w,
+              //   ${image.webformatURL} 640w,
+              //   ${image.largeImageURL} 1280w
+              // `;
+                       e.target.style.display = "none";
                         }}
            
                       alt={generateCaption(image)}

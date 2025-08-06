@@ -289,7 +289,7 @@ try {
       });
    
       // blogColRef.current.length  = 0
-        blogColRef.current = [];
+        // blogColRef.current = [];
       setImages((prevImages) => {
         const existingIds = new Set(prevImages.map((img) => img.id));
         const uniqueNewImages = sortedImages.filter((img) => !existingIds.has(img.id));
@@ -998,14 +998,14 @@ state={{ imageData: image }}
                 });
         }}
               onError={(e) =>{
-              // const originalUrl = image.webformatURL;
-              // e.target.src = originalUrl;
-              // e.target.srcset = `
-              //   ${image.previewURL} 150w,
-              //   ${image.webformatURL} 640w,
-              //   ${image.largeImageURL} 1280w
-              // `;
-                       e.target.style.display = "none";
+              const originalUrl = image.webformatURL;
+              e.target.src = originalUrl;
+              e.target.srcset = `
+                ${image.previewURL} 150w,
+                ${image.webformatURL} 640w,
+                ${image.largeImageURL} 1280w
+              `;
+                      //  e.target.style.display = "none";
                         }}
            
                       alt={generateCaption(image)}

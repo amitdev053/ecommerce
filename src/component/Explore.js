@@ -755,7 +755,7 @@ useEffect(()=>{
 // }
 
 function toImageKitURL(originalUrl, width = 640, quality= 80) {
-  quality = window.innerWidth < 768 ? 40 : 80;
+  // quality = window.innerWidth < 768 ? 40 : 80;
   if (!originalUrl) return "";
 
   const basePixabayUrl = "https://pixabay.com/get/";

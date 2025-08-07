@@ -755,7 +755,7 @@ useEffect(()=>{
 // }
 
 function toImageKitURL(originalUrl, width = 640, quality= 80) {
-  // let quality = window.innerWidth < 768 ? 40 : 80;
+  quality = window.innerWidth < 768 ? 40 : 80;
   if (!originalUrl) return "";
 
   const basePixabayUrl = "https://pixabay.com/get/";
@@ -861,7 +861,7 @@ function toImageKitURL(originalUrl, width = 640, quality= 80) {
   />
   <meta
     property="og:image"
-    content={images[0]?.webformatURL || "https://market-shops.vercel.app/favicon.png"}
+    content={images[0]?.webformatURL || "https://market-shops.vercel.app/favicons.png"}
   />
   <meta property="og:url" content="https://market-shops.vercel.app/explore" />
   <meta name="twitter:card" content="summary_large_image" />

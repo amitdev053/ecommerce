@@ -384,6 +384,13 @@ let tagList = [
           <title>{title}</title>
           <meta name="description" content={description} />
           <meta name="keywords" content={keywords} />
+
+  <meta property="og:title" content={title} />
+  <meta property="og:description" content={description} />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://market-shops.vercel.app/blogs" />
+  <meta property="og:image" content="https://market-shops.vercel.app/favicons.png" />
+  <link rel="canonical" href="https://market-shops.vercel.app/blogs" />
     </Helmet>
   }
    

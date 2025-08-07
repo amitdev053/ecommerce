@@ -2,7 +2,7 @@ import React, {useState, useEffect} from 'react';
 import "./HtmlToText.css";
 import "react-toastify/dist/ReactToastify.css";
 import { ToastContainer, toast } from "react-toastify";
-
+import { Helmet } from 'react-helmet';
 const HtmlToText = () => {
       const [inputHTML, setInputHTML] = useState("");
       const [outputHTML, setOutputHTML] = useState("");
@@ -54,6 +54,28 @@ useEffect(() => {
 
   return (
 <>
+<Helmet>
+  <title>Format Long Text with Ease – Online HTML/Markdown to Clean Text</title>
+  <meta
+    name="description"
+    content="Paste long content and instantly format it using HTML or Markdown. Clean, structure, and beautify text from ChatGPT, documents, or websites effortlessly."
+  />
+  <meta
+    name="keywords"
+    content="html to text, markdown formatter, format long content, clean up text, convert HTML to readable text, ChatGPT text formatter"
+  />
+  <meta name="robots" content="index, follow" />
+  <meta name="author" content="Browse Next" />
+
+  <meta property="og:title" content="Format Long Content – HTML & Markdown Cleaner" />
+  <meta property="og:description" content="Instantly format long content using HTML or Markdown. Great for blogs, social posts, or refining raw output from AI tools." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://market-shops.vercel.app/tools" />
+  <meta property="og:image" content="https://market-shops.vercel.app/favicons.png" />
+
+  <link rel="canonical" href="https://market-shops.vercel.app/tools" />
+</Helmet>
+
 <div className="container app_container text_to_html_container">
           <div className="app_tool_heading tool_inside_header tool_center_heading text-center">
             Format Long Content

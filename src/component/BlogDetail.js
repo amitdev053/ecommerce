@@ -363,6 +363,13 @@ if(blogDetails){
       </title>
       <meta name="description" content="" />
       <meta name="keywords" content="" />
+
+       <meta property="og:title" content={blogTitile} />
+  <meta property="og:description" content="" />
+  <meta property="og:type" content="website" />
+  {/* <meta property="og:url" content="https://market-shops.vercel.app/blogs" /> */}
+  <meta property="og:image" content="https://market-shops.vercel.app/favicons.png" />
+  {/* <link rel="canonical" href="https://market-shops.vercel.app/blogs" /> */}
     </Helmet>
         <div className="app_detail_blog_container container mt-74 app_container ">
           <div className="row p-0 w-100 d-flex align-items-center overflow-hidden flex-row-reverse position-relative">

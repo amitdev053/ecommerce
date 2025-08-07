@@ -35,8 +35,9 @@ const ExploreNext = () => {
   <meta property="og:description" content={description} />
   <meta property="og:type" content="website" />
   <meta property="og:url" content={`https://market-shops.vercel.app/explore-next/${displayImage.type}/${displayImage.imageTag}`} />
-  <meta property="og:image" content={image?.webformatURL || "https://market-shops.vercel.app/favicon.png"} />
-
+  <meta property="og:image" content={image?.webformatURL || "https://market-shops.vercel.app/favicons.png"} />
+ <meta name="robots" content="index, follow" />
+  <meta name="author" content="Browse Next" />
   <meta name="twitter:card" content="summary_large_image" />
   <link rel="canonical" href={`https://market-shops.vercel.app/explore-next/${displayImage.type}/${displayImage.imageTag}`} />
 </Helmet>

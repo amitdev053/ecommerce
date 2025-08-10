@@ -8,6 +8,8 @@ const features = [
     image: '/assets/find-images.svg',
     // emoji: '🖼️',
     emoji: '✨',
+    // badge: 'For Social Media Creators 🖼️',
+    badge: 'For Social Media Creators 🎨',    
     title: 'Instantly Get Perfect Images on Your Niche',
     modelTitle: 'Instantly Get Perfect Images on Your Niche',
     // title: 'Get Stunning Images for Your Niche in Seconds!',
@@ -26,6 +28,7 @@ const features = [
     emoji: '🎧',
     title: 'Listen Blogs for Free',
     modelTitle: 'Listen Blogs for Free',
+    badge: 'For Commuters or Learners 🎧',
     // title: 'Turn Blogs into Audio — Listen for Free!',
     description: 'Turn blogs to audio and listen anytime, anywhere — hands-free!',
     // fullDescription:"Say goodbye to screen fatigue and hello to hands-free learning! With our ‘Listen Blogs for Free’ feature, you can instantly turn your favorite blogs into audio — and listen anytime, anywhere. Whether you’re commuting, working out, relaxing at home, or multitasking, let the words come to life through clear, natural-sounding voice narration. No subscriptions, no limits — just hit play and enjoy blog content like a podcast. ",
@@ -41,6 +44,7 @@ const features = [
     emoji: '📝',
     title: 'Format Eye-Catching Captions With Ease',
     modelTitle: 'Welcome to Markdown Converter!',
+    badge: 'For Caption Stylers ✍️',
     // title: 'Create Eye-Catching Captions with Ease!',
     // description: 'Style your social posts and descriptions effortlessly using smart tools.',
     description: 'Boost your social posts with smart, stylish formatting tools.',
@@ -268,8 +272,10 @@ document.getElementById("UserGuides").addEventListener("click", (event) => {
             ref={(el) => (cardsRef.current[idx] = el)}
             onMouseEnter={() => handleMouseEnter(idx)}
             onMouseLeave={handleMouseLeave}
+            tabIndex={0} // Make it focusable
             
           >
+          <p className="badge">{feature.badge}</p>
             <i className="fa-solid fa-ellipsis position-absolute app_feature_icons" onClick={()=>openGuides(feature)}></i>
             <div className="feature-emoji">{feature.emoji}</div>
             <h3>{feature.title}</h3>

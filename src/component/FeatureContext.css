@@ -134,6 +134,16 @@
   font-weight: 500;
 }
 
+.feature-cards-wrapper .badge{
+  font-size: 12px !important;
+      background: #f8f9fa;
+    border-radius: 50px;
+    padding: 10px;
+    margin-bottom: 15px;
+    color: black;
+    font-weight: 900;
+}
+
 
 
 /* Glow the button slightly on hover */

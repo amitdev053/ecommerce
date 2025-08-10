@@ -465,9 +465,18 @@ function showMobileIcon(){
   
 
   useEffect(() => {
-    setImageStates((prevStates) =>
-      images.map((_, i) => prevStates[i] || { loaded: false })
-    );
+    // setImageStates((prevStates) =>
+    //   images.map((_, i) => prevStates[i] || { loaded: false })
+    // );
+
+
+    setImageStates((prevStates) => {
+    if (images.length > prevStates.length) {
+      const newStates = images.slice(prevStates.length).map(() => ({ loaded: false }));
+      return [...prevStates, ...newStates];
+    }
+    return prevStates;
+  });
   }, [images]);
 
   function updatedHours(){
@@ -579,7 +588,7 @@ function shareImage(image){
     });
 
     setTimeout(() => {
-      highlightTag()
+      // highlightTag()
       // let lastElement = blogColRef.current[blogColRef.current.length - 5];
       let lastElement = blogColRef.current.at(-5);
       
@@ -671,7 +680,7 @@ function highlightTag(){
 }
 
 //Now Written below code is for the scrollTag functionality--------------------------
-function fetchTopTagImages(){
+function fetchTagImages(){
   let scrollTopElement = document.querySelector('.blog_tag_suggestion')
   if(scrollTopElement && scrollTopElement.children.length > 0){
       // to Remove the all listner first
@@ -721,7 +730,7 @@ sessionStorage.setItem("userFav", e.target.innerText)
 useEffect(()=>{
   setTimeout(()=>{
 
-    fetchTopTagImages()
+    fetchTagImages()
   }, 300)
 })
 

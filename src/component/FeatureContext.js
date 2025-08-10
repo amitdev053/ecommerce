@@ -235,7 +235,7 @@ const FeatureContext = () => {
     description: feature.fullDescription,
     buttonText: 'Got it!'  // Or feature.buttonText if you want dynamic
   });
-    blockOutSideElement(true)
+    // blockOutSideElement(true)
     setLoadingGuides(true)
     
 document.getElementById("UserGuides").classList.add("dialog_container_fluid_show")
@@ -248,7 +248,7 @@ document.getElementById("UserGuides").addEventListener("click", (event) => {
     setGuides(true)
     setTimeout(() => {
       setGuides(false)
-      blockOutSideElement(false)
+      // blockOutSideElement(false)
       document.getElementById("UserGuides").style.transform = `translateY(100%)`;
       document.getElementById("UserGuides").style.overflowY = `auto`;
       document.getElementById("UserGuides").classList.remove("dialog_container_fluid_show")

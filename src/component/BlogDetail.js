@@ -17,13 +17,14 @@ let blogTitile = "";
 function BlogBack(props) {
   const { isPlaying, isPaused, setIsPaused ,playBlog,  samePage } = useContext(BlogAudioContext);
   const [heading, setHeading] = useState("");
+  const [imageSrcForExploreNext, setImageSrcForExploreNext] = useState("");
   const navigate = useNavigate();
   // const utterance = useRef(null); 
   const playIcon = useRef(null);
   const shareIcon = useRef(null);
   const [readBlogs, setReadBlogs] = useState(isPlaying);
   const params = useParams()
-  const [imageHeader, setImagesHeader] = useState(0)         // to track the image header type like image/blogdetail
+  const [imageHeader, setImagesHeader] = useState(false)         // to track the image header type like image/blogdetail
   const location = useLocation()
   
 
@@ -42,9 +43,15 @@ function BlogBack(props) {
     const url = window.location.href.split("/")[5]
     const titleHeading = decodeURIComponent(url.replace(/-/g, ' ')).replace(/\w\S*/g, (word) => word.charAt(0).toUpperCase() + word.substring(1).toLowerCase());
     const title = titleHeading.charAt(0).toUpperCase() + titleHeading.slice(1).toLowerCase();
-    
+    const imageData = location.state?.imageData
     setHeading(title);
+    if(imageData){
+      setImageSrcForExploreNext(imageData)
+
+    }
+
     
+    console.log("setup heading", imageData, title)
   }
 
   
@@ -57,11 +64,11 @@ function BlogBack(props) {
       
       if(exploreNextPage){
         console.log("explore next page header", exploreNextPage)
-        setImagesHeader(1)
+        setImagesHeader(true)
          const tag = props?.componentFrom?.params?.imageTag || "Explore";
       setHeading(tag.charAt(0).toUpperCase() + tag.slice(1));
       }else{
-        setImagesHeader(0)
+        setImagesHeader(false)
 
       }
   
@@ -86,6 +93,7 @@ function BlogBack(props) {
  const imageData = location.state?.imageData
       pageTitle = document.querySelector("#exploreTagImage").innerText    
        pageUrl = imageData.webformatURL
+       
 
     }else{
 
@@ -183,6 +191,34 @@ if(playButton){
     }
   }, [samePage, isPlaying])
 
+  function downlodImage(event, imageUrl) {
+      // Extract extension from the image URL
+  const urlParts = imageUrl.split(".");
+  const extension = urlParts[urlParts.length - 1].split("?")[0]; // Handles query params
+  // Fetch the image as a blob
+  fetch(imageUrl, { mode: 'cors' })
+    .then(response => response.blob())
+    .then(blob => {
+      const url = URL.createObjectURL(blob);
+
+      // Create a hidden download link
+      const link = document.createElement('a');
+      link.href = url;
+      link.download = heading + `.${extension}`; // Use the heading as the filename
+      document.body.appendChild(link);
+      link.click();
+
+      // Cleanup
+      document.body.removeChild(link);
+      URL.revokeObjectURL(url);
+      toast.success("Image downloaded successfully")
+    })
+    .catch(err => {
+      console.error("Image download failed", err);
+      toast.error("Image download failed. Please try again later.");
+    });
+  }
+
   return (
     <>
     <Alert position="bottom-center"> </Alert>
@@ -199,11 +235,17 @@ if(playButton){
                    
                   removeClickFeed(event)}} onMouseUp={(event)=>{removeClickFeed(event)}} onMouseDown={sendClickFeed} onMouseOut={orignalElement}
               ></button>
+              {(imageHeader) &&
+              <div className="image_backview_container" style={{background: imageSrcForExploreNext?.imageColor}}>
+              <img src={imageSrcForExploreNext?.webformatURL} />
+
+              </div>
+              }
               <span className="blog_back_heading " id="exploreTagImage"> {heading} </span>
             </div>
             <div className="col-4 d-flex align-items-center justify-content-end app_blog_detail_action_secound" >
             {/* blog speak button */}
-            {(!imageHeader) &&                 
+            {(!imageHeader) ?                 
             
                <button
                ref={playIcon}
@@ -248,6 +290,17 @@ if(playButton){
                   
                 }}
               ></button>
+              :
+               (
+  window.innerWidth > 999 && (
+    <button className="app_blog_detail_icon download_icon_button" onClick={(e) =>{downlodImage(e, imageSrcForExploreNext?.largeImageURL)}}>
+      <i className="fa-solid fa-download"></i>
+    </button>
+  )
+)
+              
+             
+              
             }
             {/* blog speak button End here */}
               <button

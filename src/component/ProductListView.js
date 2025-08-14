@@ -190,9 +190,15 @@ export default function ProductListView({addToFavourite, isFavorite, componentFr
                     <div className="gallerytitle productname productdiscripation" id="productname">
                       {/* {product.body_html} */}
                       {/* dangerouslySetInnerHTML={{ __html: product.body_html }} */}
-                      {product.body_html
-    ? product.body_html.replace(/<[^>]+>/g, "") + "..."
-    : ""}
+                    {
+  product.body_html
+    ? (
+        window.innerWidth < 768
+          ? product.body_html.replace(/<[^>]+>/g, "").slice(0, 350) + "..."
+          : product.body_html.replace(/<[^>]+>/g, "")
+      )
+    : ""
+}
                     </div>
                     <p className="mt-1 totalgal">
                       Rating: {product?.rating?.rate || "4.0"}

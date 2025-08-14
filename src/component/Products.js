@@ -283,10 +283,10 @@ setChangedPhoto(false)
   });
   }
 }
-useEffect(()=>{
-  handleZoomImage()
-  hoverOnImage()
-}, [])
+// useEffect(()=>{
+//   handleZoomImage()
+//   hoverOnImage()
+// }, [])
 
 
 function ProductImageComponent({product}){
@@ -388,10 +388,15 @@ function ProductImageComponent({product}){
                     <h4 className="gallerytitle productname" id="productname">
                       {product.title.slice(0, 37)}...
                     </h4>
-                    <div className="gallerytitle productname productdiscripation" id="productname">
+                    <span className="gallerytitle productname productdiscripation" id="productname">
                       {/* {product.description.slice(0, 100)}... */}
-                      {product.body_html.slice(0, 100)}...
-                    </div>
+                      {/* {product.body_html.slice(0, 100)}... */}
+
+                        {product.body_html
+    ? product.body_html.replace(/<[^>]+>/g, "").slice(0, 100) + "..."
+    : ""}
+                    </span>
+         
                     
                     <div class="p_btns mt-3">
                       <button

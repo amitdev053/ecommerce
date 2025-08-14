@@ -181,8 +181,11 @@ export default function ProductListView({addToFavourite, isFavorite, componentFr
                     </h4>
                     
                     <div className="gallerytitle productname productdiscripation" id="productname">
-                      {product.body_html}
+                      {/* {product.body_html} */}
                       {/* dangerouslySetInnerHTML={{ __html: product.body_html }} */}
+                      {product.body_html
+    ? product.body_html.replace(/<[^>]+>/g, "") + "..."
+    : ""}
                     </div>
                     <p className="mt-1 totalgal">
                       Rating: {product?.rating?.rate || "4.0"}

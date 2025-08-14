@@ -5,7 +5,7 @@ import { ToastContainer, toast } from "react-toastify";
 import ProductSlider from "./ProductSlider";
 
 
-export default function ProductListView({addToFavourite, isFavorite, componentFrom}) {
+export default function ProductListView({addToFavourite, isFavorite, componentFrom, favoriteIds, DynamicLikeStyles}) {
   // const baseUrl = "https://fakestoreapi.com";
   // const productsUrl = "/products";
   const baseUrl = "https://mysticmoda.in/";   
@@ -19,6 +19,13 @@ export default function ProductListView({addToFavourite, isFavorite, componentFr
   const [cartLength, setCartLength] = useState(0)
  const [initalCartQty, setInitalCartQty] = useState(1)
 
+ useEffect(()=>{
+    DynamicLikeStyles()
+ })
+
+  function isProductFavorite(id) {
+  return favoriteIds.includes(id);
+}
 
   function getProducts(baseUrl, productsUrl) {
     const getProductsUrl = baseUrl + productsUrl;
@@ -158,11 +165,11 @@ export default function ProductListView({addToFavourite, isFavorite, componentFr
                 <div className="col-12  gallerycol list_view_cols mobile_list_view " key={product.id+ i}>
                   <div className="galleryimg position-relative list_view_product_image">
                     <img src={product.images[0].src} id="productimg" alt="" />
-                    <span id="productprice" className="productprice w-100" style={{opacity: isFavorite ? "100%" : "0"}}>
+                    <span id="productprice" className="productprice w-100" style={{opacity: isProductFavorite(product.id) ? "100%" : "0"}}>
                     <strong>  {formatter.format(product.variants[0].price)} </strong>
 
                       <i 
-                      className={`fa-${isFavorite ? 'solid' : 'regular'} fa-heart product_like`}
+                      className={`fa-${isProductFavorite(product.id) ? 'solid' : 'regular'} fa-heart product_like`}
                       onClick={() => {
                           addToFavourite(
                              product.title,

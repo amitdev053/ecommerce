@@ -35,15 +35,20 @@ export default function Products(props) {
   const [initalCartQty, setInitalCartQty] = useState(1)
   const [imageLoaded, setImageLoaded] = useState(false);
   const { addToCart } = useContext(CartContext);
-  const [isFavorite, setIsFavorite] = useState(false);
+  // const [isFavorite, setIsFavorite] = useState(false);
+  const [favoriteIds, setFavoriteIds] = useState(() => {
+  const stored = localStorage.getItem("userLike");
+  return stored ? JSON.parse(stored).map(item => item.productid) : [];
+});
    const [dynamicStyle, setDynamicStyle] = useState(true)
    const [changedPhoto, setChangedPhoto] = useState(false)
   
-  
- 
-   useEffect(()=>{
-      
-    let productLikeElements = document.querySelectorAll(".product_like")  
+  function isProductFavorite(id) {
+  return favoriteIds.includes(id);
+}
+
+function setupDynamicLikeIconsStyles(){
+   let productLikeElements = document.querySelectorAll(".product_like")  
       if(dynamicStyle){
         Array.from(productLikeElements).forEach((element) => {
           // console.log("element like", element)
@@ -61,9 +66,10 @@ export default function Products(props) {
         });
       
       }
-  
-  
-  
+}
+ 
+   useEffect(()=>{
+      setupDynamicLikeIconsStyles() 
     
   })
  
@@ -173,13 +179,15 @@ export default function Products(props) {
   if(existingProduct){
      // If the product is already in the favorites, remove it
      animateLikeHeaderIcon(true)
-     setIsFavorite(false)
+    //  setIsFavorite(false)
+     setFavoriteIds(prev => prev.filter(id => id !== productid));
      usercartarr = usercartarr.filter((curElement) => curElement.productid !== productid);
      localStorage.setItem("userLike", JSON.stringify(usercartarr)); 
     toast.success("Product removed to the Favourite")
   }else{
   setAddTrackCart(true)
-  setIsFavorite(true)
+  // setIsFavorite(true)
+  setFavoriteIds(prev => [...prev, productid]);
   animateLikeHeaderIcon()
   // // console.log("addtocart", usercart)
 
@@ -364,11 +372,11 @@ function ProductImageComponent({product}){
                   <div className="galleryimg position-relative">
                    {/* <ProductImageComponent product={product} /> */}
                    <img src={!changedPhoto ? product.images[0].src : product.images[1].src} id="productimg" className="productImages" alt="" onLoad={handleImageLoad} />
-                    <div id="productprice" className="productprice w-100" style={{opacity: isFavorite ? "100%" : "0"}}>
+                    <div id="productprice" className="productprice w-100" style={{opacity:isProductFavorite(product.id) ? "100%" : "0"}}>
                  <strong>  {formatter.format(product.variants[0].price)} </strong>
                      
                       <i
-                       className={`fa-${isFavorite ? 'solid' : 'regular'} fa-heart product_like`}
+                       className={`fa-${isProductFavorite(product.id) ? 'solid' : 'regular'} fa-heart product_like`}
                         onClick={() => {
                           addToFavourite(
                             product.title,
@@ -445,7 +453,7 @@ function ProductImageComponent({product}){
           </div>
           </>          
           :
-          <ProductListView  addToFavourite={addToFavourite} isFavorite={isFavorite} componentFrom={props.componentFrom} />
+          <ProductListView  addToFavourite={addToFavourite} favoriteIds={favoriteIds} DynamicLikeStyles={setupDynamicLikeIconsStyles} isFavorite={isProductFavorite(allproduct.id)} componentFrom={props.componentFrom} />
          
          }
         </div>

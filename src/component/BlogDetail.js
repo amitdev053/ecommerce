@@ -10,7 +10,7 @@ import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Alert from "./Alert";
 import {Helmet} from "react-helmet"
-
+import ImageDialog from "./ImageDialog";
 
 let blogTitile = "";
 
@@ -218,6 +218,35 @@ if(playButton){
       toast.error("Image download failed. Please try again later.");
     });
   }
+  
+  function openViewImage() {
+    let imageDialog = document.getElementById("imageDialog");
+    let imageWrapper = document.getElementById("imageWrapper");
+    let img = imageWrapper.querySelector("img");
+
+    if (imageDialog && img) {
+        // imageDialog.style.opacity = "1";
+        // imageDialog.style.zIndex = "9999";
+        imageDialog.classList.add('open_main_image_dialog')
+        imageWrapper.classList.add('open_image_wrapper')
+     
+        
+
+        
+
+       
+        imageWrapper.style.width = `${imageSrcForExploreNext.webformatWidth}px`
+        imageWrapper.style.height = `${imageSrcForExploreNext.webformatHeight}px`
+console.log("webFormatWidth and ehgith", imageSrcForExploreNext.webformatHeight, imageSrcForExploreNext.webformatWidth)
+        
+
+       
+    }
+}
+
+  
+    
+  
 
   return (
     <>
@@ -236,8 +265,8 @@ if(playButton){
                   removeClickFeed(event)}} onMouseUp={(event)=>{removeClickFeed(event)}} onMouseDown={sendClickFeed} onMouseOut={orignalElement}
               ></button>
               {(imageHeader) &&
-              <div className="image_backview_container" style={{background: imageSrcForExploreNext?.imageColor}}>
-              <img src={imageSrcForExploreNext?.webformatURL} />
+              <div className="image_backview_container" style={{background: imageSrcForExploreNext?.imageColor}} onClick={openViewImage}>
+              <img src={imageSrcForExploreNext?.webformatURL} alt={`${heading}'s Photo`} />
 
               </div>
               }
@@ -315,6 +344,7 @@ if(playButton){
           </div>
         </div>
       </div>
+      <ImageDialog imageUrl={imageSrcForExploreNext?.webformatURL} heading={heading} />
     </>
   );
 }

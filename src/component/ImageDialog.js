@@ -1,9 +1,11 @@
-import React, {useState} from 'react'
+import React, {useState, useEffect, useRef} from 'react'
 import "./ImageDialog.css";
 
 const ImageDialog = (props) => {
     const [scale, setScale] = useState(1); // zoom scale
       const [activeButton, setActiveButton] = useState(null); // track which button is pressed
+      const [isHovering, setIsHovering] = React.useState(false);
+  const modalRef = useRef(null);
     function CloseOpenView(){
            let imageDialog = document.getElementById("imageDialog");
     let imageWrapper = document.getElementById("imageWrapper");
@@ -28,8 +30,46 @@ const ImageDialog = (props) => {
   function zoomOut() {
     setScale(prev => Math.max(prev - 1, 1)); // limit to min scale(1)
   }
+
+  // Close on scroll (desktop & mobile)
+  // useEffect(() => {
+    
+  //   const handleScroll = (e) => {
+  //     console.log("scroll hover", isHovering)
+      
+  //       CloseOpenView();
+
+      
+  //     // handleClickOutside(e)
+  //   };
+
+  //   window.addEventListener("wheel", handleScroll, { passive: true });
+  //   window.addEventListener("touchmove", handleScroll, { passive: true });
+
+  //   return () => {
+  //     window.removeEventListener("wheel", handleScroll);
+  //     window.removeEventListener("touchmove", handleScroll);
+  //   };
+  // }, []);
+
+ 
+function handleClickOutside(event) {
+  console.log("cusor comes on image", event.target, isHovering)
+  if (event.target.tagName === "IMG") {
+    setIsHovering(true)
+    
+  }else{
+    setIsHovering(false)
+  }
+}
+
+
+
   return (
-    <div className="container-fluid main_image_dialog" id="imageDialog">
+    <div className="container-fluid main_image_dialog" id="imageDialog" 
+     
+    
+  >
         <div className='container image_dialog_container position-relative'>
             <i class="fa-solid fa-xmark close_button_image_largeview"  role="button" 
   tabIndex="0"  onClick={CloseOpenView} 
@@ -40,8 +80,12 @@ const ImageDialog = (props) => {
   }}
   />
 
-            <div className='image_wrapper' id="imageWrapper">
+            <div className='image_wrapper' id="imageWrapper" ref={modalRef}
+          
+            >
 <img src={props.imageUrl} alt={props.heading}
+  // onMouseEnter={(e) =>{ setIsHovering(true)}}
+  // onMouseLeave={(e) =>{ setIsHovering(false)}}
 style={{ transform: `scale(${scale})`, transition: "transform 0.2s ease-in-out" }}
  />
             </div>

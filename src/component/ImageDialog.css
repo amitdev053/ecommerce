@@ -13,6 +13,7 @@
     align-items: center;
     justify-content: center;
     transition: all 0.2s ease-in;
+    padding: 0px ;
    
 }
 .open_main_image_dialog{
@@ -49,11 +50,13 @@ object-fit: contain;
 }
 
 .close_button_image_largeview{
-    position: fixed;
+    position: absolute;
         top: 1%;
     font-size: 30px !important;
-    right: 80px;
-    
+    /* right: 80px; */
+    /* left: 100%; */
+    left: 98.9%;
+    transform: translate(-100%, -0%);
     color: black;
     background: rgb(255 255 254 / 88%);
     padding: 10px 14px;
@@ -107,9 +110,15 @@ background: #ffffff
   
 }
 @media screen and (max-width: 999px) {
+    .image_dialog_container{
+        max-width: 100%;
+    }
     .close_button_image_largeview{
-          top: 1%;
-          right: 1%;
+        top: 0.5%;        
+        /* left: 96%; */
+        /* transform: translate(-0%, -0%); */
+        /* right: 2px; */
+
     }
     .image_zoom_in_out{
         flex-direction: row;
@@ -123,19 +132,21 @@ background: #ffffff
     }
     
 }
-@media screen and (min-width: 620px) and (max-width: 999px){
-    .close_button_image_largeview{
-                  top: 3px;
-        right: 10px;
+
+@media screen and (max-width: 599px) {
+.close_button_image_largeview{
+        top: 0.5%;        
+        /* left: 90%;
+        transform: translate(-0%, -0%); */
+        /* right: 2px; */
+
     }
-    
-    
 }
-@media screen and (min-width: 999px) and (max-width: 1350px){
-    /* .close_button_image_largeview{
-                  top: 3px;
-        right: 48px;
+@media screen and (max-width: 390px) {
+.close_button_image_largeview{
+        top: 0.5%;        
+        /* left: 87%;
+        transform: translate(-0%, -0%); */
+
     }
-     */
-    
 }

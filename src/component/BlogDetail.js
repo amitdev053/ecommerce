@@ -235,8 +235,10 @@ if(playButton){
         
 
        
-        imageWrapper.style.width = `${imageSrcForExploreNext.webformatWidth}px`
-        imageWrapper.style.height = `${imageSrcForExploreNext.webformatHeight}px`
+        // imageWrapper.style.width = `${imageSrcForExploreNext.webformatWidth}px`
+        // imageWrapper.style.height = `${imageSrcForExploreNext.webformatHeight}px`
+        imageWrapper.style.setProperty("width", `${imageSrcForExploreNext.webformatWidth}px`, "important" )
+        imageWrapper.style.setProperty("height", `${imageSrcForExploreNext.webformatHeight}px`,  "important")
 console.log("webFormatWidth and ehgith", imageSrcForExploreNext.webformatHeight, imageSrcForExploreNext.webformatWidth)
         
 

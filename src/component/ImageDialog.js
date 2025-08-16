@@ -98,6 +98,11 @@ style={{ transform: `scale(${scale})`, transition: "transform 0.2s ease-in-out" 
              onMouseDown={() => setActiveButton('in')}
             onMouseUp={() => setActiveButton(null)}
             onMouseLeave={() => setActiveButton(null)}
+
+              // Mobile feedback
+  onTouchStart={() => setActiveButton('in')}
+  onTouchEnd={() => setActiveButton(null)}
+  onTouchCancel={() => setActiveButton(null)}
             ></i>
             <i 
             // class="fa-solid fa-minus" 
@@ -106,6 +111,11 @@ style={{ transform: `scale(${scale})`, transition: "transform 0.2s ease-in-out" 
             onMouseDown={() => setActiveButton('out')}
             onMouseUp={() => setActiveButton(null)}
             onMouseLeave={() => setActiveButton(null)}
+
+            // Mobile feedback
+  onTouchStart={() => setActiveButton('out')}
+  onTouchEnd={() => setActiveButton(null)}
+  onTouchCancel={() => setActiveButton(null)}
             ></i>
 
             </div>

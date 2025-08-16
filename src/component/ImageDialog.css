@@ -109,7 +109,8 @@ background: #ffffff
 
 .image_zoom_in_out i.active-red {
   /* color: red; */
-  background-color: #f8f9fa;
+  /* background-color: #f8f9fa; */
+  background-color: #00000058;
   
 }
 @media screen and (max-width: 999px) {

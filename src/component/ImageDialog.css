@@ -113,12 +113,12 @@ background: #ffffff
   
 }
 @media screen and (max-width: 999px) {
-    .main_image_dialog{
-        height: calc(var(--vh, 1vh) * 100);
-    }
+    /* .main_image_dialog{
+        
+    } */
     .image_dialog_container{
         max-width: 100%;
-         
+         height: calc(var(--vh, 1vh) * 100);
     }
     .close_button_image_largeview{
         top: 0.5%;        

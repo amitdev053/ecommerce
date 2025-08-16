@@ -118,7 +118,8 @@ background: #ffffff
     } */
     .image_dialog_container{
         max-width: 100%;
-         height: calc(var(--vh, 1vh) * 100);
+         /* height: calc(var(--vh, 1vh) * 100); */
+         max-height: calc(var(--vh, 1vh) * 100);
     }
     .close_button_image_largeview{
         top: 0.5%;        
@@ -138,11 +139,11 @@ background: #ffffff
         /* background: white; */
     padding: 15px;
     }
-    .image_wrapper{
-        top: 1px;
-        left: 8%;
-        width: 45px !important;
-        height: 46px !important;
+    .image_dialog_container .image_wrapper{
+          top: 8px;
+        left: 13%;
+        width: 43px !important;
+        height: 41px !important;
 
     }
     .open_image_wrapper{

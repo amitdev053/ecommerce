@@ -373,6 +373,8 @@ const BlogDetail = () => {
     });
   }
   function setStyleCode() {
+    if(!document.querySelector(".blog_detail_full_content")) return
+    
     let blogDetails = document
       .querySelector(".blog_detail_full_content")
       .querySelector("#textToSpeak")

@@ -267,14 +267,35 @@ console.log("webFormatWidth and ehgith", imageSrcForExploreNext.webformatHeight,
                    
                   removeClickFeed(event)}} onMouseUp={(event)=>{removeClickFeed(event)}} onMouseDown={sendClickFeed} onMouseOut={orignalElement}
               ></button>
-              {(imageHeader) &&
-              <Tooltip text="Click to Expand image" position="bottom">
-              <div className="image_backview_container" style={{background: imageSrcForExploreNext?.imageColor}} onClick={openViewImage}>
-              <img src={imageSrcForExploreNext?.webformatURL} alt={`${heading}'s Photo`} />
-
-              </div>
-              </Tooltip>
-              }
+           {imageHeader && (
+  <>
+    {window.innerWidth > 768 ? ( // Desktop only
+      <Tooltip text="Click to Expand image" position="bottom">
+        <div
+          className="image_backview_container"
+          style={{ background: imageSrcForExploreNext?.imageColor }}
+          onClick={openViewImage}
+        >
+          <img
+            src={imageSrcForExploreNext?.webformatURL}
+            alt={`${heading}'s Photo`}
+          />
+        </div>
+      </Tooltip>
+    ) : ( 
+      <div
+        className="image_backview_container"
+        style={{ background: imageSrcForExploreNext?.imageColor }}
+        onClick={openViewImage}
+      >
+        <img
+          src={imageSrcForExploreNext?.webformatURL}
+          alt={`${heading}'s Photo`}
+        />
+      </div>
+    )}
+  </>
+)}
               <span className="blog_back_heading " id="exploreTagImage"> {heading} </span>
             </div>
             <div className="col-4 d-flex align-items-center justify-content-end app_blog_detail_action_secound" >

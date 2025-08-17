@@ -1069,6 +1069,7 @@ margin: 0px 0px 0px 10px !important;
   justify-content: center;
 
 }
+
 .animate_container{
   transition: all 0.2s ease-in-out;
   animation: scale 2s infinite;
@@ -2077,3 +2078,11 @@ canvas{
 .download_icon_button{
   padding: 8px 12px ;
 }
+/* .app_back_button{
+  background: transparent !important;
+  
+}
+.app_back_button:hover{
+  background: #eee !important;
+
+} */

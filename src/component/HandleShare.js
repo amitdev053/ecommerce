@@ -1,4 +1,4 @@
-const handleShare = async (productTitle, productDesc, productImage , fromWhere) => {
+const handleShare = async (productTitle, productDesc, productImage , fromWhere, pageUrl= null) => {
     // console.log("Attempting to share content:", productTitle, productDesc, productImage);
   
     if (navigator.canShare && navigator.canShare({ files: [new File([""], "test.jpg", { type: "image/jpeg" })] })) {
@@ -16,7 +16,7 @@ const handleShare = async (productTitle, productDesc, productImage , fromWhere) 
         await navigator.share({
           title: productTitle,
           text: productDesc,
-          url: window.location.href,
+          url: pageUrl || window.location.href,
           files: [file],
         });
   

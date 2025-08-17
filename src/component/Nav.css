@@ -5,3 +5,14 @@
     border-radius: 50px;
     transform: rotate(9deg);
 }
+
+.desktop_feedback:hover {
+background-color: #00000033 ;
+color: black ;
+
+}
+.mobile_feedback {
+background-color: #00000033 !important;
+color: black !important;
+
+}

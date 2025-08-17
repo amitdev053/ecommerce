@@ -12,6 +12,7 @@ import { handleShare, ShareButton } from "./HandleShare";
 // import browseNextLogo from "./image/newbrowsenext.png"
 import browseNextLogo from "./image/browsenextDirectv2.png"
 import "./Nav.css"
+import Tooltip from "./Tooltip";
 
 
 
@@ -139,8 +140,10 @@ export default function Navbar({trackCart}) {
       }else{
         Array.from(appHeaderContainsLikeIcon).forEach((hlikeicon)=>{
 
-          hlikeicon.style.background = "white"
-          hlikeicon.style.color = "black"
+          // hlikeicon.style.background = "white"
+          // hlikeicon.style.color = "black"
+          hlikeicon.style.removeProperty("background")
+          hlikeicon.style.removeProperty("color")
         })
       }
        if(detectCartModel){
@@ -607,7 +610,60 @@ userCart.addEventListener('touchend', (e) => {
 }
 useEffect(()=>{
   moveToCloseCart()
+  // const likeBtn = document.getElementById("AppHeaderLike");
+  const mobileHeaderBtns = document.querySelectorAll(".mobile_cart");
+
+  if (mobileHeaderBtns) {
+mobileHeaderBtns.forEach((likeBtn)=>{
+  likeBtn.addEventListener("touchstart", startShowingFeedBack);
+  likeBtn.addEventListener("touchend", endShowingFeedBack);
+  likeBtn.addEventListener("touchmove", moveShowingFeedBack);
+
+})
+  }
+
+  // 🔑 Cleanup to avoid multiple bindings
+  return () => {
+    if (mobileHeaderBtns) {
+    // if (likeBtn) {
+    mobileHeaderBtns.forEach((likeBtn)=>{
+      likeBtn.removeEventListener("touchstart", startShowingFeedBack);
+      likeBtn.removeEventListener("touchend", endShowingFeedBack);
+      likeBtn.removeEventListener("touchmove", moveShowingFeedBack);
+    })
+  
+    }
+  };
 }, [])
+
+const  startShowingFeedBack = (e)=>{
+  
+  let clickedElement = e.currentTarget
+  // console.log("like Start Showing feedBack", clickedElement)
+if(clickedElement){
+
+  clickedElement.classList.add('mobile_feedback')
+} 
+
+
+}
+function moveShowingFeedBack(e){
+
+   let clickedElement = e.currentTarget 
+  // console.log("like move Showing feedBack", clickedElement)
+  if(clickedElement){
+
+    clickedElement.classList.remove('mobile_feedback')
+  }
+}
+function endShowingFeedBack(e){
+ let clickedElement = e.currentTarget 
+  // console.log("like end Showing feedBack", clickedElement)
+  if(clickedElement){
+
+    clickedElement.classList.remove('mobile_feedback')
+  }
+}
   
   if (loader === true) {
     return (
@@ -621,14 +677,14 @@ useEffect(()=>{
   
         <nav className="navbar navbar-expand-lg navbar-light bg-light fixed-top p-0">
           <div className="container navbar_container app_container p-0">
-            <Link className={url !== "/blogs" && url !== "/explore" ? `navbar-brand navbar-brand-conditionally` : "navbar-brand"} to="/" >
+            <Link className={url !== "/blogs" && url !== "/explore" ? `navbar-brand navbar-brand-conditionally` : "navbar-brand"} to="/">
             {/* <i className="fa-solid fa-shop app_nav_logo"></i> */}
             <i class="fa-solid fa-location-arrow app_nav_logo"></i>
             {/* <img src={browseNextLogo} className="img-fluid"/> */}
             </Link>
             <div className="mobile_header_action_icon">
-            <div className="app_navbar_like_containericon" id="AppHeaderLike"  onClick={(event) => {openLikes(event)}}>
-              <i className="fa-solid fa-heart animate_like_icon mobile_like_icon"  id="appLikeIcon"></i>
+            <div className="app_navbar_like_containericon mobile_cart" id="AppHeaderLike"  onClick={(event) => {openLikes(event)}}>            
+              <i className="fa-solid fa-heart animate_like_icon mobile_like_icon mob_like"  id="appLikeIcon"></i>            
             </div>
             <div className="icon_area position-relative mobile_cart" id="cartmobileicon"  onClick={(event) => {openCart(event)}}>
               <i className="fa-solid fa-cart-shopping mobile_like_icon "  id="carticon"></i>
@@ -640,7 +696,7 @@ useEffect(()=>{
                 <sup id="cartcount">{totalCart}</sup>
               </div> */}
             <button
-              className="toggle_outline_elemenet"
+              className="toggle_outline_elemenet mobile_cart"
               type="button"
               data-toggle="collapse"
               data-target="#navbarSupportedContent"
@@ -763,9 +819,13 @@ useEffect(()=>{
                 </li> */}
               </ul>
               <div className="contains_likes_carts d-flex">
-              <div className="app_navbar_like_containericon hide_in_mobile_devices" id="AppHeaderLike"  onClick={(event) => {openLikes(event)}}>
+              {/* <Tooltip text="Saved Products" position="bottom"> */}
+              <div className="app_navbar_like_containericon hide_in_mobile_devices desktop_feedback" id="AppHeaderLike"  onClick={(event) => {openLikes(event)}}
+            
+               >
               <i className="fa-solid fa-heart animate_like_icon"  id="appLikeDIcon"></i>
               </div>
+              {/* </Tooltip> */}
 
               <div className="icon_area hide_in_mobile_devices" onClick={(event) => {openCart(event)}} id="cartarea">
                 <i className="fa-solid fa-cart-shopping mr-1" id="carticon"></i>

@@ -1,6 +1,7 @@
 import React, {useState, useEffect, useRef} from 'react'
 import "./ImageDialog.css";
 
+
 const ImageDialog = (props) => {
     const [scale, setScale] = useState(1); // zoom scale
       const [activeButton, setActiveButton] = useState(null); // track which button is pressed
@@ -71,6 +72,7 @@ function handleClickOutside(event) {
     
   >
         <div className='container image_dialog_container position-relative'>
+        
             <i class="fa-solid fa-xmark close_button_image_largeview"  role="button" 
   tabIndex="0"  onClick={CloseOpenView} 
      onKeyDown={(e) => {
@@ -79,6 +81,7 @@ function handleClickOutside(event) {
     }
   }}
   />
+   
 
             <div className='image_wrapper' id="imageWrapper" ref={modalRef}
           
@@ -104,6 +107,8 @@ style={{ transform: `scale(${scale})`, transition: "transform 0.2s ease-in-out" 
   onTouchEnd={() => setActiveButton(null)}
   onTouchCancel={() => setActiveButton(null)}
             ></i>
+
+
             <i 
             // class="fa-solid fa-minus" 
                className={`fa-solid fa-minus ${scale <= 1 ? 'disabled' : ''} ${activeButton === 'out' ? 'active-red' : ''}`}

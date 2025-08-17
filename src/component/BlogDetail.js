@@ -325,14 +325,19 @@ console.log("webFormatWidth and ehgith", imageSrcForExploreNext.webformatHeight,
                 }}
               ></button>
               :
-               (
+              <>
+               {/* (
   window.innerWidth > 999 && (
     <button className="app_blog_detail_icon download_icon_button" onClick={(e) =>{downlodImage(e, imageSrcForExploreNext?.largeImageURL)}}>
       <i className="fa-solid fa-download"></i>
     </button>
   )
-)
-              
+) */}
+  <button className="app_blog_detail_icon download_icon_button" onClick={(e) =>{downlodImage(e, imageSrcForExploreNext?.largeImageURL)}}>
+      <i className="fa-solid fa-download"></i>
+    </button>
+
+    </>          
              
               
             }

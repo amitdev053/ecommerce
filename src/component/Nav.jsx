@@ -318,8 +318,10 @@ if(window.location.pathname === "/saved"){
       navbarHLikeIcon.classList.replace("fa-regular", "fa-solid")
       Array.from(appHeaderContainsLikeIcon).forEach((likeicon)=>{
         
-        likeicon.style.background = "black"
-        likeicon.style.color = "white"
+        // likeicon.style.background = "black"
+        // likeicon.style.color = "white"
+        likeicon.style.setProperty("background", "black", "important")
+        likeicon.style.setProperty("color", "white", "important")
         // appBody.style.setProperty('position', 'fixed', 'important');        
       })
 
@@ -502,9 +504,9 @@ function OpenMobileNavbar(event){
 let navbarIcon = document.querySelector('.toggle_outline_elemenet')
 
 // // console.log("navbarIcon", navbarIcon)
-navbarIcon.firstElementChild.style.setProperty('color', 'white');
-navbarIcon.style.setProperty('background', 'black');
-navbarIcon.firstElementChild.style.setProperty('font-size', "13px")
+navbarIcon.firstElementChild.style.setProperty('color', 'white', "important");
+navbarIcon.style.setProperty('background', 'black', "important");
+navbarIcon.firstElementChild.style.setProperty('font-size', "13px", "important")
 setTimeout(()=>{
   // navbarIcon.style.removeProperty('background', '#eee');
   navbarIcon.firstElementChild.style.removeProperty('font-size', "14px")

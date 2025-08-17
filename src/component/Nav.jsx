@@ -506,7 +506,7 @@ let navbarIcon = document.querySelector('.toggle_outline_elemenet')
 // // console.log("navbarIcon", navbarIcon)
 navbarIcon.firstElementChild.style.setProperty('color', 'white', "important");
 navbarIcon.style.setProperty('background', 'black', "important");
-navbarIcon.firstElementChild.style.setProperty('font-size', "13px", "important")
+navbarIcon.firstElementChild.style.setProperty('font-size', "13px")
 setTimeout(()=>{
   // navbarIcon.style.removeProperty('background', '#eee');
   navbarIcon.firstElementChild.style.removeProperty('font-size', "14px")

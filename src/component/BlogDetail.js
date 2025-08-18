@@ -14,7 +14,7 @@ import ImageDialog from "./ImageDialog";
 import Tooltip from "./Tooltip";
 
 let blogTitile = "";
-
+// let droppedSrc = ""
 function BlogBack(props) {
   const { isPlaying, isPaused, setIsPaused ,playBlog,  samePage } = useContext(BlogAudioContext);
   const [heading, setHeading] = useState("");
@@ -27,7 +27,13 @@ function BlogBack(props) {
   const params = useParams()
   const [imageHeader, setImagesHeader] = useState(false)         // to track the image header type like image/blogdetail
   const location = useLocation()
+  const [droppedImageSize , setDropperImageSize] = useState({})
   
+  
+  useEffect(()=>{
+
+console.log("imageLoad imageSrc", imageSrcForExploreNext)
+  }, [imageSrcForExploreNext])
 
   
   function setHeaderHeading() {
@@ -46,8 +52,29 @@ function BlogBack(props) {
     const title = titleHeading.charAt(0).toUpperCase() + titleHeading.slice(1).toLowerCase();
     const imageData = location.state?.imageData
     setHeading(title);
-    if(imageData){
-      setImageSrcForExploreNext(imageData)
+    if(!imageData){
+      console.log("yes image sets here")
+    setTimeout(()=>{
+      let imageContainer = document.querySelector('.pinterest-layout')
+      if(imageContainer){
+          let children = Array.from(imageContainer.children)
+        let lastChild = children[children.length - 2]
+        console.log("last children", lastChild)
+        setDropperImageSize({width: lastChild.offsetWidth, height: lastChild.offsetHeight})
+        let imageSrc = lastChild.querySelector('img').src
+        lastChild.style.setProperty("border", "2px solid black", "important")
+        console.log("Lat image", imageSrc)        
+        setImageSrcForExploreNext(imageSrc)
+
+        
+
+
+      }
+
+    }, 20000)  
+      
+    }else{
+      setImageSrcForExploreNext(imageData.webformatURL)
 
     }
 
@@ -55,6 +82,7 @@ function BlogBack(props) {
     console.log("setup heading", imageData, title)
   }
 
+ 
   
   useEffect(() => {
     // setTimeout(() => {
@@ -64,7 +92,7 @@ function BlogBack(props) {
       const blogDetailPage  = props.componentFrom.params.hasOwnProperty("blogId")
       
       if(exploreNextPage){
-        console.log("explore next page header", exploreNextPage)
+        console.log("explore next page header", exploreNextPage, props?.componentFrom?.params)
         setImagesHeader(true)
          const tag = props?.componentFrom?.params?.imageTag || "Explore";
       setHeading(tag.charAt(0).toUpperCase() + tag.slice(1));
@@ -77,11 +105,27 @@ function BlogBack(props) {
     // console.log("setHeaderHeading", blogTitile)
   }, [props.componentFrom?.params]);
   
+  
   function handleBack(event) {
     removeClickFeed(event)
     setTimeout(()=>{
-      navigate(-1);
+      if(window?.history.length > 0){
 
+        navigate(-1);
+      }else{
+        if(imageHeader){
+
+          navigate("/explore");
+        }else{
+          navigate("/blogs");
+
+        }
+      }
+      console.log("backheader", window?.history.length)
+
+      
+
+  
     }, 100)
    
   }
@@ -238,8 +282,8 @@ if(playButton){
        
         // imageWrapper.style.width = `${imageSrcForExploreNext.webformatWidth}px`
         // imageWrapper.style.height = `${imageSrcForExploreNext.webformatHeight}px`
-        imageWrapper.style.setProperty("width", `${imageSrcForExploreNext.webformatWidth}px`, "important" )
-        imageWrapper.style.setProperty("height", `${imageSrcForExploreNext.webformatHeight}px`,  "important")
+        imageWrapper.style.setProperty("width", `${imageSrcForExploreNext.webformatWidth || droppedImageSize?.width}px`, "important" )
+        imageWrapper.style.setProperty("height", `${imageSrcForExploreNext.webformatHeight || droppedImageSize?.height}px`,  "important")
 console.log("webFormatWidth and ehgith", imageSrcForExploreNext.webformatHeight, imageSrcForExploreNext.webformatWidth)
         
 
@@ -267,7 +311,7 @@ console.log("webFormatWidth and ehgith", imageSrcForExploreNext.webformatHeight,
                    
                   removeClickFeed(event)}} onMouseUp={(event)=>{removeClickFeed(event)}} onMouseDown={sendClickFeed} onMouseOut={orignalElement}
               ></button>
-           {imageHeader && (
+           {imageHeader && imageSrcForExploreNext && imageSrcForExploreNext !== "" && (
   <>
     {window.innerWidth > 768 ? ( // Desktop only
       <Tooltip text="Click to Expand image" position="bottom">
@@ -277,8 +321,9 @@ console.log("webFormatWidth and ehgith", imageSrcForExploreNext.webformatHeight,
           onClick={openViewImage}
         >
           <img
-            src={imageSrcForExploreNext?.webformatURL}
-            alt={`${heading}'s Photo`}
+            src={imageSrcForExploreNext}
+            alt={`${heading}'s Photo`} className="back_header_image"
+          
           />
         </div>
       </Tooltip>
@@ -289,8 +334,8 @@ console.log("webFormatWidth and ehgith", imageSrcForExploreNext.webformatHeight,
         onClick={openViewImage}
       >
         <img
-          src={imageSrcForExploreNext?.webformatURL}
-          alt={`${heading}'s Photo`}
+          src={imageSrcForExploreNext}
+          alt={`${heading}'s Photo`} className="back_header_image"
         />
       </div>
     )}
@@ -375,7 +420,7 @@ console.log("webFormatWidth and ehgith", imageSrcForExploreNext.webformatHeight,
           </div>
         </div>
       </div>
-      <ImageDialog imageUrl={imageSrcForExploreNext?.webformatURL} heading={heading} />
+      <ImageDialog imageUrl={imageSrcForExploreNext} heading={heading} />
     </>
   );
 }

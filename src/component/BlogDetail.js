@@ -319,7 +319,7 @@ console.log("webFormatWidth and ehgith", imageSrcForExploreNext.webformatHeight,
       <Tooltip text="Click to Expand image" position="bottom">
         <div
           className="image_backview_container"
-          style={{ background: imageSrcForExploreNext?.imageColor }}
+          style={{ background: clickImageObject?.imageColor }}
           onClick={openViewImage}
         >
           <img
@@ -332,7 +332,7 @@ console.log("webFormatWidth and ehgith", imageSrcForExploreNext.webformatHeight,
     ) : ( 
       <div
         className="image_backview_container"
-        style={{ background: imageSrcForExploreNext?.imageColor }}
+        style={{ background: clickImageObject?.imageColor }}
         onClick={openViewImage}
       >
         <img

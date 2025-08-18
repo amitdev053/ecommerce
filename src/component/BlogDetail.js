@@ -19,6 +19,7 @@ function BlogBack(props) {
   const { isPlaying, isPaused, setIsPaused ,playBlog,  samePage } = useContext(BlogAudioContext);
   const [heading, setHeading] = useState("");
   const [imageSrcForExploreNext, setImageSrcForExploreNext] = useState("");
+  const [clickImageObject, setClickImageObject] = useState("")
   const navigate = useNavigate();
   // const utterance = useRef(null); 
   const playIcon = useRef(null);
@@ -75,6 +76,7 @@ console.log("imageLoad imageSrc", imageSrcForExploreNext)
       
     }else{
       setImageSrcForExploreNext(imageData.webformatURL)
+      setClickImageObject(imageData)
 
     }
 
@@ -282,8 +284,8 @@ if(playButton){
        
         // imageWrapper.style.width = `${imageSrcForExploreNext.webformatWidth}px`
         // imageWrapper.style.height = `${imageSrcForExploreNext.webformatHeight}px`
-        imageWrapper.style.setProperty("width", `${imageSrcForExploreNext.webformatWidth || droppedImageSize?.width}px`, "important" )
-        imageWrapper.style.setProperty("height", `${imageSrcForExploreNext.webformatHeight || droppedImageSize?.height}px`,  "important")
+        imageWrapper.style.setProperty("width", `${clickImageObject.webformatWidth || droppedImageSize?.width}px`, "important" )
+        imageWrapper.style.setProperty("height", `${clickImageObject.webformatHeight || droppedImageSize?.height}px`,  "important")
 console.log("webFormatWidth and ehgith", imageSrcForExploreNext.webformatHeight, imageSrcForExploreNext.webformatWidth)
         
 

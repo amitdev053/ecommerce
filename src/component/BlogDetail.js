@@ -401,7 +401,7 @@ console.log("webFormatWidth and ehgith", imageSrcForExploreNext.webformatHeight,
     </button>
   )
 ) */}
-  <button className="app_blog_detail_icon download_icon_button" onClick={(e) =>{downlodImage(e, imageSrcForExploreNext?.largeImageURL)}}>
+  <button className="app_blog_detail_icon download_icon_button" onClick={(e) =>{downlodImage(e, clickImageObject?.largeImageURL)}}>
       <i className="fa-solid fa-download"></i>
     </button>
 

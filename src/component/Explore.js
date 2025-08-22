@@ -875,6 +875,19 @@ function toImageKitURL(originalUrl, width = 640, quality= 80) {
   <meta property="og:url" content="https://market-shops.vercel.app/explore" />
   <meta name="twitter:card" content="summary_large_image" />
   <link rel="canonical" href="https://market-shops.vercel.app/explore" />
+
+   <script type="application/ld+json">
+        {JSON.stringify({
+          "@context": "https://schema.org",
+          "@type": "ImageGallery",
+          "name": content[updatedHours()],
+          "description": "Browse high-resolution images updated hourly in categories like fashion, tech, couples, nature, fitness, romantic, food, and more — all free to use.",
+          "url": `https://market-shops.vercel.app/explore`,
+          "image": ["https://market-shops.vercel.app/favicons.png"],
+        })}
+      </script>
+
+
   <link rel="preload" as="image" href={images[0]?.webformatURL} />
   <link rel="preload" as="image" href={images[1]?.webformatURL} />
   <link rel="preload" as="image" href={images[2]?.webformatURL} />

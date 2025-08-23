@@ -484,13 +484,29 @@ function showMobileIcon(){
     // Function to calculate the current index based on elapsed hours 
       const currentTime = Date.now();
       const hoursElapsed = Math.floor((currentTime - referenceTime) / (60 * 60 * 1000));
-      // // console.log("calc index", hoursElapsed % content.length);
-      content.forEach((element, index) => {
-        if(index === hoursElapsed % content.length){
-          // // console.log("element", element)
-        }
-      })
-      return hoursElapsed % content.length;
+      console.log("hours elapased", hoursElapsed, content.length, content[hoursElapsed])
+
+       // Get current hour (0-23) in local time
+  let currentHour = new Date().getHours();
+
+  let categoryIndex;
+
+  // Custom time-based overrides
+  if (currentHour >= 20 && currentHour < 21) {
+       categoryIndex = content.indexOf("romantic"); // 8 PM - 9 PM
+  } else if (currentHour >= 21 && currentHour < 22) {    
+       categoryIndex = content.indexOf("Date Night");     // 0 to 10 at night
+  } else if (currentHour >= 22 && currentHour < 24) {    
+    categoryIndex = content.indexOf("bedrooms");   // 10 - 12 at night  
+  } else if (currentHour >= 0 && currentHour < 3) {
+    categoryIndex = content.indexOf("kiss");   // 12 - 3 at night  
+  } else {
+    // Normal hourly rotation for other times
+    categoryIndex = hoursElapsed % content.length;
+  }
+      
+      // return hoursElapsed % content.length;
+      return categoryIndex;
    
   }
 function shareImage(image){

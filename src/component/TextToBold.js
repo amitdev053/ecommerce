@@ -105,7 +105,7 @@ const TextToBold = () => {
       <div className="container app_container text_to_bold_container">
         <div className="tool_header">
           <h1 className="app_tool_heading tool_inside_header">
-            Bold Text Generator
+            Bold Captions
           </h1>
           {selectedStyle && (
             <CustomFontSelector

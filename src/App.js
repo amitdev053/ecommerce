@@ -51,6 +51,11 @@ function App() {
   // Update the paths whenever the pathname changes
   useEffect(() => {
     setCookie("userCookie", location.pathname, 30); // Store the previous path in the cookie
+    if(location.pathname === "/explore"){
+      document.body.style.overscrollBehavior = "contain"
+    }else{
+      document.body.style.overscrollBehavior = ""
+    }
   }, [location]);
 
   function getCookie(name) {

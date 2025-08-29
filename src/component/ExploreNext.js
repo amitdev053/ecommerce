@@ -47,7 +47,7 @@ const ExploreNext = () => {
       <meta name="twitter:description" content={description} />
       <meta name="twitter:image" content={image?.webformatURL || "https://market-shops.vercel.app/favicons.png"} />
 
-       <script type="application/ld+json">
+       {/* <script type="application/ld+json">
         {JSON.stringify({
           "@context": "https://schema.org",
           "@type": "ImageObject",
@@ -56,7 +56,39 @@ const ExploreNext = () => {
           "url": `https://market-shops.vercel.app/explore-next/${displayImage.type}/${displayImage.imageTag}`,
           "image": [image?.webformatURL || "https://market-shops.vercel.app/favicons.png"],
         })}
-      </script>
+      </script> */}
+
+
+      <script
+    type="application/ld+json"
+    dangerouslySetInnerHTML={{
+      __html: JSON.stringify({
+        "@context": "https://schema.org",
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+          { "@type": "ListItem", "position": 1, "name": "Explore", "item": "https://browsenext.vercel.app/explore" },
+          { "@type": "ListItem", "position": 2, "name": displayImage.imageTag, "item": `https://browsenext.vercel.app/explore-next/${displayImage.type}/${displayImage.imageTag}` }
+        ]
+      })
+    }}
+  />
+
+  {/* Dynamic ImageObject */}
+  <script
+    type="application/ld+json"
+    dangerouslySetInnerHTML={{
+      __html: JSON.stringify({
+        "@context": "https://schema.org",
+        "@type": "ImageObject",
+        "name": title,
+        "description": description,
+        "url": `https://market-shops.vercel.app/explore-next/${displayImage.type}/${displayImage.imageTag}`,
+        "image": [image?.webformatURL || "https://market-shops.vercel.app/favicons.png"],
+        "license": "https://market-shops.vercel.app/terms",
+        "creator": { "@type": "Organization", "name": "BrowseNext" }
+      })
+    }}
+  />
   
 </Helmet>
 

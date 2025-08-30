@@ -59,7 +59,7 @@ const ExploreNext = () => {
       </script> */}
 
 
-      <script
+      {/* <script
     type="application/ld+json"
     dangerouslySetInnerHTML={{
       __html: JSON.stringify({
@@ -71,10 +71,10 @@ const ExploreNext = () => {
         ]
       })
     }}
-  />
+  /> */}
 
   {/* Dynamic ImageObject */}
-  <script
+  {/* <script
     type="application/ld+json"
     dangerouslySetInnerHTML={{
       __html: JSON.stringify({
@@ -88,7 +88,47 @@ const ExploreNext = () => {
         "creator": { "@type": "Organization", "name": "BrowseNext" }
       })
     }}
+  /> */}
+
+
+  <Helmet>
+  <script
+    type="application/ld+json"
+    dangerouslySetInnerHTML={{
+      __html: JSON.stringify([
+        {
+          "@context": "https://schema.org",
+          "@type": "BreadcrumbList",
+          "itemListElement": [
+            {
+              "@type": "ListItem",
+              "position": 1,
+              "name": "Explore",
+              "item": "https://browsenext.vercel.app/explore"
+            },
+            {
+              "@type": "ListItem",
+              "position": 2,
+              "name": displayImage?.imageTag || "Image",
+              "item": `https://market-shops.vercel.app/explore-next/${displayImage?.type || "photo"}/${displayImage?.imageTag || "default"}`
+            }
+          ]
+        },
+        {
+          "@context": "https://schema.org",
+          "@type": "ImageObject",
+          "name": title || "BrowseNext Image",
+          "description": description || "Explore image on BrowseNext",
+          "url": `https://market-shops.vercel.app/explore-next/${displayImage?.type || "photo"}/${displayImage?.imageTag || "default"}`,
+          "image": [image?.webformatURL || "https://market-shops.vercel.app/favicons.png"],
+          "license": "https://market-shops.vercel.app/terms",
+          "creator": { "@type": "Organization", "name": "BrowseNext" }
+        }
+      ])
+    }}
   />
+</Helmet>
+
   
 </Helmet>
 

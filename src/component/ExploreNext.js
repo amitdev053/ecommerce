@@ -91,7 +91,7 @@ const ExploreNext = () => {
   /> */}
 
 
-  <Helmet>
+  
   <script
     type="application/ld+json"
     dangerouslySetInnerHTML={{
@@ -127,7 +127,7 @@ const ExploreNext = () => {
       ])
     }}
   />
-</Helmet>
+
 
   
 </Helmet>

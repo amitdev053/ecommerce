@@ -193,7 +193,6 @@ const scheduleMidnightReset = () => {
 //     if (midnightRef.current) clearTimeout(midnightRef.current);
 //   };
 // }, []);
-
 useEffect(() => {
   // 1) set initial daily baseline once
   setTotals(applyBoost(startValues, getDailyBoost()));
@@ -204,10 +203,17 @@ useEffect(() => {
     now.getSeconds() * 1000 -
     now.getMilliseconds();
 
-  // 2) align to next full hour
+  // 2) do an immediate increment (so you don’t wait 1h to see something)
+  setCurrentHeading((prev) => (prev + 1) % headings.length);
+  setTotals((prev) => ({
+    totalDownloadImages: prev.totalDownloadImages + STEP,
+    totalListenBlogs: prev.totalListenBlogs + STEP,
+    totalCopiedCaptions: prev.totalCopiedCaptions + STEP,
+  }));
+
+  // 3) align to next full hour
   const alignTimeout = setTimeout(() => {
-    // --- after alignment, run every 1 hour ---
-    setInterval(() => {
+    tickRef.current = setInterval(() => {
       setCurrentHeading((prev) => (prev + 1) % headings.length);
 
       setTotals((prev) => ({
@@ -215,12 +221,10 @@ useEffect(() => {
         totalListenBlogs: prev.totalListenBlogs + STEP,
         totalCopiedCaptions: prev.totalCopiedCaptions + STEP,
       }));
-    }, 3600 * 1000); 
-    
+    }, 3600 * 1000); // every 1 hour
   }, msUntilNextHour);
-  
 
-  // 3) reset at midnight
+  // 4) reset at midnight
   scheduleMidnightReset();
 
   return () => {
@@ -229,6 +233,7 @@ useEffect(() => {
     if (midnightRef.current) clearTimeout(midnightRef.current);
   };
 }, []);
+
 
 
 

@@ -52,6 +52,7 @@ const Explore = (props) => {
   const exploreRef = useRef(null)
   
   
+  
   const [trakImages, setTrakImage] = useState(true);
   const [bottomLoader, setBottomLoader] = useState(false);
   const navigate = useNavigate()
@@ -453,15 +454,8 @@ function showMobileIcon(){
       } else {
         imageColumn.style.height = ""; // Reset height when image is loaded
       }
-      // if (img && img.complete) {
-      //   imageColumn.style.height = img.offsetHeight + "px";
-      // } else {
-      //   img.onload = () => {
-      //     imageColumn.style.height = img.offsetHeight + "px";
-      //   };
-      // }
     });
-  }, [imageStates, images]); // rerun whenever images or states change
+  }, [imageStates, images]); 
   
 
   useEffect(() => {
@@ -557,12 +551,18 @@ function shareImage(image){
   }
 
     function exploreSimilarImages(event, image){
+      
       if(!image) return
       // console.log("similar image", image)
       event.stopPropagation();       
-      const url = `/explore-next/${image.type}/${image.tags.split(',')[0]?.trim().toLowerCase().replace(/\s+/g, '-')}`;      
+       
+          const   url  = `/explore-next/${image.type}/${image.tags.split(',')[0]?.trim().toLowerCase().replace(/\s+/g, '-')}`;
+          
+          
+
       navigate(url, { state: { imageData: image } });
     }
+  
 
   function handleNextPage(){
        if (props.componentFrom === "exploreNext") {
@@ -957,7 +957,16 @@ function toImageKitURL(originalUrl, width = 640, quality= 80) {
       {images.map((image, index) => {
         if (!imageStates[index]) return null; 
         const { loaded } = imageStates[index];
-     
+        const location = window.location.href.split("/")
+        const imageTagText = location[location.length - 1]
+
+         let firstTag = image.tags.split(",")[0]?.trim().toLowerCase();
+  let secondTag = image.tags.split(",")[1]?.trim().toLowerCase();
+
+  // check if last URL segment matches the first tag
+  let useSecond = imageTagText === firstTag;
+
+  let targetTag = (useSecond ? secondTag : firstTag)?.replace(/\s+/g, "-");
         
 {/* console.log("image colors", image.imageColor) */}
            {/* onClick={() => updateInteractionScore(image._category, 2)} key={image.id} */}
@@ -975,7 +984,9 @@ function toImageKitURL(originalUrl, width = 640, quality= 80) {
   }} 
               onClick={(event)=> exploreSimilarImages(event, image)} >      
           
-<Link class="explore_image_link" to={`/explore-next/${image.type}/${image.tags.split(',')[0]?.trim().toLowerCase().replace(/\s+/g, '-')}`}
+<Link class="explore_image_link"
+ to={`/explore-next/${image.type}/${targetTag}`}
+
 state={{ imageData: image }} 
  onClick={(e) => e.stopPropagation()} 
 >

@@ -18,6 +18,11 @@ const ImageDialog = (props) => {
         imageWrapper.classList.remove('open_image_wrapper')
         setTimeout(()=>{
             imageDialog.classList.remove('open_main_image_dialog')
+            // imageDialog.remove()
+            // setTimeout(()=>{
+            //   document.body.appendChild(imageDialog)
+            //   imageDialog.classList.remove('open_main_image_dialog')
+            // }, 500)
         }, 200)
           setScale(1); // reset zoom when closing
     }

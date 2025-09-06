@@ -381,9 +381,7 @@ document.getElementById("UserGuides").addEventListener("click", (event) => {
     totals.totalListenBlogs,
     totals.totalCopiedCaptions,
   ][idx]?.toLocaleString()}{feature.totalDownloads}</p>
-            <button className="feature-btn" onClick={(e) => navigatePage(e.target)}>
-              {feature.buttonText}
-            </button>
+            <button className="feature-btn" onClick={(e) => navigatePage(e.target)}>{feature.buttonText}</button>
           </div>
         ))}
       </div>

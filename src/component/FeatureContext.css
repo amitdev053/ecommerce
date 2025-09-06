@@ -163,6 +163,7 @@
   position: relative;
   font-family: 'Roboto';
   width: 80%;
+  margin-bottom: 15px;
 }
 
 .feature-btn:hover  {
@@ -260,6 +261,8 @@
     background: #f8f9fa;
     border-radius: 50px;
     font-size: 12px !important;
+    /* border : 2px solid #f8f9fa; */
+    background: transparent !important;
 
 
     /* width: fit-content; */

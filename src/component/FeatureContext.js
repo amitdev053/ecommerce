@@ -161,34 +161,70 @@ const scheduleMidnightReset = () => {
   }, ms);
 };
 
+// useEffect(() => {
+//   // 1) set initial daily baseline once
+//   setTotals(applyBoost(startValues, getDailyBoost()));
+//   const now = new Date();
+//   const msUntilNextHour = (60 - now.getMinutes()) * 60 * 1000 - now.getSeconds() * 1000 - now.getMilliseconds(); 
+//   // const msUntilNextHour = 1000;
+
+//   // 2) rotate headings every 1s (your logic)
+//   const headingInterval = setInterval(() => {
+//     setCurrentHeading((prev) => (prev + 1) % headings.length);
+//   }, msUntilNextHour);
+
+//   // 3) increment totals every 1s
+//   if (tickRef.current) clearInterval(tickRef.current);
+//   tickRef.current = setInterval(() => {
+//     setTotals((prev) => ({
+//       totalDownloadImages: prev.totalDownloadImages + STEP,
+//       totalListenBlogs: prev.totalListenBlogs + STEP,
+//       totalCopiedCaptions: prev.totalCopiedCaptions + STEP,
+//     }));
+//   // }, TICK_MS);
+//   }, msUntilNextHour);
+
+//   // 4) reset at midnight
+//   scheduleMidnightReset();
+
+//   return () => {
+//     clearInterval(headingInterval);
+//     if (tickRef.current) clearInterval(tickRef.current);
+//     if (midnightRef.current) clearTimeout(midnightRef.current);
+//   };
+// }, []);
+
 useEffect(() => {
   // 1) set initial daily baseline once
   setTotals(applyBoost(startValues, getDailyBoost()));
+
   const now = new Date();
-  const msUntilNextHour = (60 - now.getMinutes()) * 60 * 1000 - now.getSeconds() * 1000 - now.getMilliseconds(); 
-  // const msUntilNextHour = 1000;
+  const msUntilNextHour =
+    (60 - now.getMinutes()) * 60 * 1000 -
+    now.getSeconds() * 1000 -
+    now.getMilliseconds();
 
-  // 2) rotate headings every 1s (your logic)
-  const headingInterval = setInterval(() => {
-    setCurrentHeading((prev) => (prev + 1) % headings.length);
+  // 2) align to next full hour
+  const alignTimeout = setTimeout(() => {
+    // --- after alignment, run every 1 hour ---
+    setInterval(() => {
+      setCurrentHeading((prev) => (prev + 1) % headings.length);
+
+      setTotals((prev) => ({
+        totalDownloadImages: prev.totalDownloadImages + STEP,
+        totalListenBlogs: prev.totalListenBlogs + STEP,
+        totalCopiedCaptions: prev.totalCopiedCaptions + STEP,
+      }));
+    }, 3600 * 1000); 
+    
   }, msUntilNextHour);
+  
 
-  // 3) increment totals every 1s
-  if (tickRef.current) clearInterval(tickRef.current);
-  tickRef.current = setInterval(() => {
-    setTotals((prev) => ({
-      totalDownloadImages: prev.totalDownloadImages + STEP,
-      totalListenBlogs: prev.totalListenBlogs + STEP,
-      totalCopiedCaptions: prev.totalCopiedCaptions + STEP,
-    }));
-  // }, TICK_MS);
-  }, msUntilNextHour);
-
-  // 4) reset at midnight
+  // 3) reset at midnight
   scheduleMidnightReset();
 
   return () => {
-    clearInterval(headingInterval);
+    clearTimeout(alignTimeout);
     if (tickRef.current) clearInterval(tickRef.current);
     if (midnightRef.current) clearTimeout(midnightRef.current);
   };

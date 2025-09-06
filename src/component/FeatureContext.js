@@ -12,6 +12,7 @@ const startValues = {
   totalCopiedCaptions: 150
 };
 
+
 const features = [
    {
     image: '/assets/find-images.svg',

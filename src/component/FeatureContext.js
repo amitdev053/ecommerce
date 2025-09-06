@@ -1,8 +1,17 @@
-import { React, useEffect, useState, useRef } from 'react';
+import { React, useEffect, useState, useRef, useMemo } from 'react';
 import './FeatureContext.css';
 import { useNavigate } from 'react-router-dom';
 import DialogBox from './DialogBox';
 import UserGuides from './UserGuides';
+// let totalListenBlogs = "30";
+// let totalDownloadImages = "100";
+// let totalCopiedCaptions = "150" ;
+const startValues = {
+  totalDownloadImages: 100,
+  totalListenBlogs: 30,
+  totalCopiedCaptions: 150
+};
+
 const features = [
    {
     image: '/assets/find-images.svg',
@@ -14,6 +23,9 @@ const features = [
     modelTitle: 'Instantly Get Perfect Images on Your Niche',
     // title: 'Get Stunning Images for Your Niche in Seconds!',
     description: 'Choose stunning visuals instantly matching your niche and style in a seconds.',
+    // totalDownloads: `Today's Download Images - ${totalDownloadImages}`,
+    // totalDownloads: `${startValues.totalDownloadImages}+ Downloaded Images Today...`,
+    totalDownloads: `+ Downloaded Images Today...`,
     // description: 'Discover visuals that perfectly match your style—fast and easy.',
     // fullDescription: "Discover the ultimate tool for effortlessly finding perfect images tailored to your content niche. Whether you’re creating blog posts, social media content, presentations, or marketing materials, our platform instantly delivers stunning visuals that match your unique style and subject. No more endless scrolling through irrelevant photos — simply define your niche, and our intelligent image search engine curates a personalized selection just for you. ",
 
@@ -26,9 +38,12 @@ const features = [
   {
     image: '/assets/listen-blogs.svg',
     emoji: '🎧',
-    title: 'Listen Blogs for Free',
+    title: ' Try Now Listen Blogs for Free',
     modelTitle: 'Listen Blogs for Free',
     badge: 'For Commuters or Learners 🎧',
+    // totalDownloads: `Today's Listen Blogs - ${totalListenBlogs}`,
+    // totalDownloads: `${startValues.totalListenBlogs}+ Listened Blogs Today...`,
+    totalDownloads: `+ Listened Blogs Today...`,
     // title: 'Turn Blogs into Audio — Listen for Free!',
     description: 'Turn blogs to audio and listen anytime, anywhere — hands-free!',
     // fullDescription:"Say goodbye to screen fatigue and hello to hands-free learning! With our ‘Listen Blogs for Free’ feature, you can instantly turn your favorite blogs into audio — and listen anytime, anywhere. Whether you’re commuting, working out, relaxing at home, or multitasking, let the words come to life through clear, natural-sounding voice narration. No subscriptions, no limits — just hit play and enjoy blog content like a podcast. ",
@@ -45,6 +60,8 @@ const features = [
     title: 'Format Eye-Catching Captions With Ease',
     modelTitle: 'Welcome to Markdown Converter!',
     badge: 'For Caption Stylers ✍️',
+    // totalDownloads: ` ${startValues.totalCopiedCaptions}+ Copied Captions today...`,
+    totalDownloads: ` + Copied Captions today...`,
     // title: 'Create Eye-Catching Captions with Ease!',
     // description: 'Style your social posts and descriptions effortlessly using smart tools.',
     description: 'Boost your social posts with smart, stylish formatting tools.',
@@ -106,30 +123,109 @@ const FeatureContext = () => {
   buttonText: ''
 });
   const [currentHeading, setCurrentHeading] = useState(0);
+  const [totals, setTotals] = useState(startValues);
+  let incrementBy = 1
 
-  useEffect(() => {
-  // Set heading based on current hour
-  const hour = new Date().getHours();
-  const index = hour % headings.length;
-  setCurrentHeading(index);
+  const STEP = 50;                 // change to 50 if you want +50 per second
+// const TICK_MS = 1000;
 
-  // Optional: Update every full hour
+const tickRef = useRef(null);
+const midnightRef = useRef(null);
+
+// --- daily baseline helpers ---
+const getDaysSinceStart = () =>
+  Math.floor(
+    (Date.now() - new Date("2025-09-06T00:00:00").getTime()) / 86400000
+  );
+
+// alternates: day 0 => +0, day 1 => +50, day 2 => +0, ...
+const getDailyBoost = () => (getDaysSinceStart() % 2) * 50;
+
+const applyBoost = (base, boost) => ({
+  totalDownloadImages: base.totalDownloadImages + boost,
+  totalListenBlogs: base.totalListenBlogs + boost,
+  totalCopiedCaptions: base.totalCopiedCaptions + boost,
+});
+
+const scheduleMidnightReset = () => {
   const now = new Date();
-  const msUntilNextHour = (60 - now.getMinutes()) * 60 * 1000 - now.getSeconds() * 1000 - now.getMilliseconds();
+  const nextMidnight = new Date(now);
+  nextMidnight.setHours(24, 0, 0, 0);
+  const ms = nextMidnight - now;
 
-  const timeout = setTimeout(() => {
+  if (midnightRef.current) clearTimeout(midnightRef.current);
+  midnightRef.current = setTimeout(() => {
+    setTotals(applyBoost(startValues, getDailyBoost())); // reset baseline
+    scheduleMidnightReset(); // schedule next day
+  }, ms);
+};
+
+useEffect(() => {
+  // 1) set initial daily baseline once
+  setTotals(applyBoost(startValues, getDailyBoost()));
+  const now = new Date();
+  const msUntilNextHour = (60 - now.getMinutes()) * 60 * 1000 - now.getSeconds() * 1000 - now.getMilliseconds(); 
+  // const msUntilNextHour = 1000;
+
+  // 2) rotate headings every 1s (your logic)
+  const headingInterval = setInterval(() => {
     setCurrentHeading((prev) => (prev + 1) % headings.length);
-    const interval = setInterval(() => {
-      setCurrentHeading((prev) => (prev + 1) % headings.length);
-    }, 60 * 60 * 1000); // Every 1 hour
-    // Save interval in ref if you want to clear later
   }, msUntilNextHour);
 
+  // 3) increment totals every 1s
+  if (tickRef.current) clearInterval(tickRef.current);
+  tickRef.current = setInterval(() => {
+    setTotals((prev) => ({
+      totalDownloadImages: prev.totalDownloadImages + STEP,
+      totalListenBlogs: prev.totalListenBlogs + STEP,
+      totalCopiedCaptions: prev.totalCopiedCaptions + STEP,
+    }));
+  // }, TICK_MS);
+  }, msUntilNextHour);
+
+  // 4) reset at midnight
+  scheduleMidnightReset();
+
   return () => {
-    clearTimeout(timeout);
-    // If you saved interval to a ref, clear it here too
+    clearInterval(headingInterval);
+    if (tickRef.current) clearInterval(tickRef.current);
+    if (midnightRef.current) clearTimeout(midnightRef.current);
   };
 }, []);
+
+
+
+
+
+//   useEffect(() => {
+//   // Set heading based on current hour
+//   const hour = new Date().getHours();
+//   const index = hour % headings.length;
+//   setCurrentHeading(index);
+//   updateTotals()
+  
+//   const now = new Date();
+// const msUntilNextHour = (60 - now.getMinutes()) * 60 * 1000 - now.getSeconds() * 1000 - now.getMilliseconds();
+//   const msUntilNextHour = 1000;
+
+//   const timeout = setTimeout(() => {
+//     setCurrentHeading((prev) => (prev + 1) % headings.length);
+//     const interval = setInterval(() => {
+//       setCurrentHeading((prev) => (prev + 1) % headings.length); 
+   
+    // }, 60 * 60 * 1000); 
+//     },  1000); 
+//     // Save interval in ref if you want to clear later
+//   }, msUntilNextHour);
+
+//   return () => {
+//     clearTimeout(timeout);
+    
+//   };
+// }, []);
+
+
+
 
   function startAutoHover(startFrom = 0) {
     let index = startFrom;
@@ -280,6 +376,11 @@ document.getElementById("UserGuides").addEventListener("click", (event) => {
             <div className="feature-emoji">{feature.emoji}</div>
             <h3>{feature.title}</h3>
             <p>{feature.description}</p>
+            <p class="badge app_download_assets" id={`feature${idx}`}>  {[
+    totals.totalDownloadImages,
+    totals.totalListenBlogs,
+    totals.totalCopiedCaptions,
+  ][idx]?.toLocaleString()}{feature.totalDownloads}</p>
             <button className="feature-btn" onClick={(e) => navigatePage(e.target)}>
               {feature.buttonText}
             </button>

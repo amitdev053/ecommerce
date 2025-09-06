@@ -5,6 +5,7 @@
   /* background: linear-gradient(135deg, #000000 0%, #1C2526 100%); */
   
   background: #f8f9fa;
+  /* background: red; */
   /* background: #8cb4dc36; */
   /* background-color: white; */
 
@@ -161,6 +162,7 @@
   z-index: 1;
   position: relative;
   font-family: 'Roboto';
+  width: 80%;
 }
 
 .feature-btn:hover  {
@@ -249,12 +251,37 @@
   letter-spacing: 0.5px;
 }
 
+.app_download_assets{
+      /* width: 100%; */
+     /* border-top: 1px solid #00000033; 
+     border-bottom: 1px solid #00000033;  */
+    padding: 10px 20px !important;
+    /* color: black  !important; */
+    background: #f8f9fa;
+    border-radius: 50px;
+    font-size: 12px !important;
+
+
+    /* width: fit-content; */
+    /* padding: 10px 20px;
+    display: block;
+    margin: 25px auto; */
+
+
+    
+}
+
 /* Media Queries for Responsive Design Start Here */
 
 @media (max-width: 750px) {
   .feature-card {
     width: 100% ;
     margin-bottom: 20px;
+    display: flex;
+    flex-direction: column;
+  }
+    .feature-btn{
+    width: 60%;
   }
 }
 
@@ -297,6 +324,10 @@
     /* Hide scrollbars */
   .feature-section::-webkit-scrollbar {
     display: none;
+  }
+
+  .feature-btn{
+    width: 100%;
   }
 }
 /* Media Queries for Responsive Design End here*/

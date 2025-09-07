@@ -62,7 +62,7 @@ const features = [
     modelTitle: 'Welcome to Markdown Converter!',
     badge: 'For Caption Stylers ✍️',
     // totalDownloads: ` ${startValues.totalCopiedCaptions}+ Copied Captions today...`,
-    totalDownloads: ` + Copied Captions today...`,
+    totalDownloads: `+ Copied Captions today...`,
     // title: 'Create Eye-Catching Captions with Ease!',
     // description: 'Style your social posts and descriptions effortlessly using smart tools.',
     description: 'Boost your social posts with smart, stylish formatting tools.',
@@ -193,38 +193,40 @@ const scheduleMidnightReset = () => {
 //     if (midnightRef.current) clearTimeout(midnightRef.current);
 //   };
 // }, []);
-useEffect(() => {
-  // 1) set initial daily baseline once
-  setTotals(applyBoost(startValues, getDailyBoost()));
 
+const START_DATE = new Date("2025-09-06T00:00:00").getTime();
+useEffect(() => {
+  const updateTotals = () => {
+    const now = Date.now();
+    const hoursPassed = Math.floor((now - START_DATE) / (1000 * 60 * 60));
+
+    // Always base from startValues + hoursPassed * STEP
+    setTotals({
+      totalDownloadImages: startValues.totalDownloadImages + hoursPassed * STEP,
+      totalListenBlogs: startValues.totalListenBlogs + hoursPassed * STEP,
+      totalCopiedCaptions: startValues.totalCopiedCaptions + hoursPassed * STEP,
+    });
+
+    setCurrentHeading((prev) => (prev + 1) % headings.length);
+  };
+
+  // Run once immediately
+  updateTotals();
+
+  // Align first interval to the next exact hour
   const now = new Date();
   const msUntilNextHour =
     (60 - now.getMinutes()) * 60 * 1000 -
     now.getSeconds() * 1000 -
     now.getMilliseconds();
 
-  // 2) do an immediate increment (so you don’t wait 1h to see something)
-  setCurrentHeading((prev) => (prev + 1) % headings.length);
-  setTotals((prev) => ({
-    totalDownloadImages: prev.totalDownloadImages + STEP,
-    totalListenBlogs: prev.totalListenBlogs + STEP,
-    totalCopiedCaptions: prev.totalCopiedCaptions + STEP,
-  }));
-
-  // 3) align to next full hour
   const alignTimeout = setTimeout(() => {
-    tickRef.current = setInterval(() => {
-      setCurrentHeading((prev) => (prev + 1) % headings.length);
+    updateTotals(); // run at exact hour mark
 
-      setTotals((prev) => ({
-        totalDownloadImages: prev.totalDownloadImages + STEP,
-        totalListenBlogs: prev.totalListenBlogs + STEP,
-        totalCopiedCaptions: prev.totalCopiedCaptions + STEP,
-      }));
-    }, 3600 * 1000); // every 1 hour
+    tickRef.current = setInterval(updateTotals, 60 * 60 * 1000); // every hour
   }, msUntilNextHour);
 
-  // 4) reset at midnight
+  // Reset at midnight
   scheduleMidnightReset();
 
   return () => {
@@ -233,7 +235,6 @@ useEffect(() => {
     if (midnightRef.current) clearTimeout(midnightRef.current);
   };
 }, []);
-
 
 
 
@@ -422,7 +423,7 @@ document.getElementById("UserGuides").addEventListener("click", (event) => {
     totals.totalDownloadImages,
     totals.totalListenBlogs,
     totals.totalCopiedCaptions,
-  ][idx]?.toLocaleString()}{feature.totalDownloads}</p>
+  ][idx]}{feature.totalDownloads}</p>
             <button className="feature-btn" onClick={(e) => navigatePage(e.target)}>{feature.buttonText}</button>
           </div>
         ))}

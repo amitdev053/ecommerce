@@ -240,32 +240,32 @@ useEffect(() => {
 
 
 
-//   useEffect(() => {
-//   // Set heading based on current hour
-//   const hour = new Date().getHours();
-//   const index = hour % headings.length;
-//   setCurrentHeading(index);
-//   updateTotals()
+  useEffect(() => {
+  // Set heading based on current hour
+  const hour = new Date().getHours();
+  const index = hour % headings.length;
+  setCurrentHeading(index);
+  // updateTotals()
   
-//   const now = new Date();
-// const msUntilNextHour = (60 - now.getMinutes()) * 60 * 1000 - now.getSeconds() * 1000 - now.getMilliseconds();
-//   const msUntilNextHour = 1000;
+  const now = new Date();
+const msUntilNextHour = (60 - now.getMinutes()) * 60 * 1000 - now.getSeconds() * 1000 - now.getMilliseconds();
+  // const msUntilNextHour = 1000;
 
-//   const timeout = setTimeout(() => {
-//     setCurrentHeading((prev) => (prev + 1) % headings.length);
-//     const interval = setInterval(() => {
-//       setCurrentHeading((prev) => (prev + 1) % headings.length); 
+  const timeout = setTimeout(() => {
+    setCurrentHeading((prev) => (prev + 1) % headings.length);
+    const interval = setInterval(() => {
+      setCurrentHeading((prev) => (prev + 1) % headings.length); 
    
-    // }, 60 * 60 * 1000); 
-//     },  1000); 
-//     // Save interval in ref if you want to clear later
-//   }, msUntilNextHour);
-
-//   return () => {
-//     clearTimeout(timeout);
+    }, 60 * 60 * 1000); 
+    // },  1000); 
     
-//   };
-// }, []);
+  }, msUntilNextHour);
+
+  return () => {
+    clearTimeout(timeout);
+    
+  };
+}, []);
 
 
 

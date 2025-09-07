@@ -286,6 +286,9 @@
     .feature-btn{
     width: 60%;
   }
+  .app_download_assets{
+    margin-bottom: 20px !important;
+  }
 }
 
 @media (max-width: 550px) {

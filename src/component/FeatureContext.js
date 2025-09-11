@@ -102,7 +102,7 @@ const headings = [
   "Explore What’s Trending Now",
   "Listen to Our Blogs Into Audio",
   "Turn Blogs into Audio — Free & Easy",
-  "Build. Explore. Create — All in One Platform",
+  "Build. Explore. Create. — All in One Platform",
   "Bold Your Captions — Impress with Every Post",
    "Read Less, Listen More — Audio Blogs for You"
   

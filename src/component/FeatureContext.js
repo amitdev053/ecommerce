@@ -62,7 +62,7 @@ const features = [
     modelTitle: 'Welcome to Markdown Converter!',
     badge: 'For Caption Stylers ✍️',
     // totalDownloads: ` ${startValues.totalCopiedCaptions}+ Copied Captions today...`,
-    totalDownloads: `+ Copied Captions today...`,
+    totalDownloads: `+ Copied Captions Today...`,
     // title: 'Create Eye-Catching Captions with Ease!',
     // description: 'Style your social posts and descriptions effortlessly using smart tools.',
     description: 'Boost your social posts with smart, stylish formatting tools.',

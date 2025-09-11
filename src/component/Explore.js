@@ -580,7 +580,7 @@ function shareImage(image){
 
           const currentCalculatedIndex = updatedHours();
           const query = clickedTag || content[currentCalculatedIndex];
-
+// exploreRef.current.style.minHeight = `${exploreRef.current.offsetHeight + 300}px`
           getImages(
             `https://pixabay.com/api/?key=45283300-eddb6d21a3d3d06f2a2381d7d&q=${query}&image_type=photo&page=${nextPage}`
           );
@@ -999,7 +999,7 @@ state={{ imageData: image }}
     }}
   
   >
-     {/* {!imageStates[index]?.loaded && <div className="skeleton" />} */}
+     {!imageStates[index]?.loaded && <div className="skeleton" />}
             <img
             className="explore-image"
                  style={{

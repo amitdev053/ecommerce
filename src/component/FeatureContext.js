@@ -195,25 +195,68 @@ const scheduleMidnightReset = () => {
 // }, []);
 
 const START_DATE = new Date("2025-09-06T00:00:00").getTime();
+// useEffect(() => {
+//   const updateTotals = () => {
+//     const now = Date.now();
+//     const hoursPassed = Math.floor((now - START_DATE) / (1000 * 60 * 60));
+
+//     // Always base from startValues + hoursPassed * STEP
+//     setTotals({
+//       totalDownloadImages: startValues.totalDownloadImages + hoursPassed * STEP,
+//       totalListenBlogs: startValues.totalListenBlogs + hoursPassed * STEP,
+//       totalCopiedCaptions: startValues.totalCopiedCaptions + hoursPassed * STEP,
+//     });
+
+//     setCurrentHeading((prev) => (prev + 1) % headings.length);
+//   };
+
+//   // Run once immediately
+//   updateTotals();
+
+//   // Align first interval to the next exact hour
+//   const now = new Date();
+//   const msUntilNextHour =
+//     (60 - now.getMinutes()) * 60 * 1000 -
+//     now.getSeconds() * 1000 -
+//     now.getMilliseconds();
+
+//   const alignTimeout = setTimeout(() => {
+//     updateTotals(); // run at exact hour mark
+
+//     tickRef.current = setInterval(updateTotals, 60 * 60 * 1000); // every hour
+//   }, msUntilNextHour);
+
+//   // Reset at midnight
+//   scheduleMidnightReset();
+
+//   return () => {
+//     clearTimeout(alignTimeout);
+//     if (tickRef.current) clearInterval(tickRef.current);
+//     if (midnightRef.current) clearTimeout(midnightRef.current);
+//   };
+// }, []);
+
+const getTodayMidnight = () => {
+  const d = new Date();
+  d.setHours(0, 0, 0, 0);
+  return d.getTime();
+};
+
 useEffect(() => {
   const updateTotals = () => {
     const now = Date.now();
-    const hoursPassed = Math.floor((now - START_DATE) / (1000 * 60 * 60));
+    const hoursPassed =
+      Math.floor((now - getTodayMidnight()) / (1000 * 60 * 60));
 
-    // Always base from startValues + hoursPassed * STEP
     setTotals({
       totalDownloadImages: startValues.totalDownloadImages + hoursPassed * STEP,
       totalListenBlogs: startValues.totalListenBlogs + hoursPassed * STEP,
       totalCopiedCaptions: startValues.totalCopiedCaptions + hoursPassed * STEP,
     });
-
-    setCurrentHeading((prev) => (prev + 1) % headings.length);
   };
 
-  // Run once immediately
   updateTotals();
 
-  // Align first interval to the next exact hour
   const now = new Date();
   const msUntilNextHour =
     (60 - now.getMinutes()) * 60 * 1000 -
@@ -221,13 +264,11 @@ useEffect(() => {
     now.getMilliseconds();
 
   const alignTimeout = setTimeout(() => {
-    updateTotals(); // run at exact hour mark
-
-    tickRef.current = setInterval(updateTotals, 60 * 60 * 1000); // every hour
+    updateTotals();
+    tickRef.current = setInterval(updateTotals, 60 * 60 * 1000);
   }, msUntilNextHour);
 
-  // Reset at midnight
-  scheduleMidnightReset();
+  scheduleMidnightReset(); // keeps daily baseline fresh
 
   return () => {
     clearTimeout(alignTimeout);

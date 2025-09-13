@@ -55,7 +55,7 @@ useEffect(() => {
   return (
 <>
 <Helmet>
-  <title>Format Long Text with Ease – Online HTML/Markdown to Clean Text</title>
+  <title>Online HTML/Markdown to Clean Text | BrowseNext</title>
   <meta
     name="description"
     content="Paste long content and instantly format it using HTML or Markdown. Clean, structure, and beautify text from ChatGPT, documents, or websites effortlessly."
@@ -70,10 +70,10 @@ useEffect(() => {
   <meta property="og:title" content="Format Long Content – HTML & Markdown Cleaner" />
   <meta property="og:description" content="Instantly format long content using HTML or Markdown. Great for blogs, social posts, or refining raw output from AI tools." />
   <meta property="og:type" content="website" />
-  <meta property="og:url" content="https://market-shops.vercel.app/tools" />
-  <meta property="og:image" content="https://market-shops.vercel.app/favicons.png" />
+  <meta property="og:url" content="https://browsenext.today/tools" />
+  <meta property="og:image" content="https://browsenext.today/favicons.png" />
 
-  <link rel="canonical" href="https://market-shops.vercel.app/tools" />
+  <link rel="canonical" href="https://browsenext.today/tools" />
 </Helmet>
 
 <div className="container app_container text_to_html_container">

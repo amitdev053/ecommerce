@@ -440,7 +440,7 @@ const BlogDetail = () => {
       // setBlogDetail(bDetails.data);
       blogDetail.push(bDetails.data);
       // blogTitile = blogDetail[0].title;
-      blogTitile = bDetails.data.title;
+      blogTitile = bDetails.data.title ;
       
       console.log("blog Details response", bDetails.data.title);
       setTimeout(() => {
@@ -530,9 +530,9 @@ if(blogDetails){
        <meta property="og:title" content={blogTitile} />
   <meta property="og:description" content="" />
   <meta property="og:type" content="website" />
-  {/* <meta property="og:url" content="https://market-shops.vercel.app/blogs" /> */}
-  <meta property="og:image" content="https://market-shops.vercel.app/favicons.png" />
-  {/* <link rel="canonical" href="https://market-shops.vercel.app/blogs" /> */}
+  {/* <meta property="og:url" content="https://browsenext.today/blogs" /> */}
+  <meta property="og:image" content="https://browsenext.today/favicons.png" />
+  {/* <link rel="canonical" href="https://browsenext.today/blogs" /> */}
     </Helmet>
         <div className="app_detail_blog_container container mt-74 app_container ">
           <div className="row p-0 w-100 d-flex align-items-center overflow-hidden flex-row-reverse position-relative">

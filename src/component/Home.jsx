@@ -24,7 +24,7 @@ export default function Home() {
 
   useEffect(()=>{
     // topic= "Home"
-    document.title = "Home | Market-Shops"
+    document.title = "BrowseNext — Explore Images, Bold captions & Listen Blogs"
   })
 
   return (

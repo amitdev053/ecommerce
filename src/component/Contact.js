@@ -1,6 +1,6 @@
 import React from 'react';
 import "./Contact.css"; // You can add styling tweaks here
-
+import { Helmet } from 'react-helmet';
 const Contact = () => {
   const cardStyle = {
     flex: '1 1 200px',
@@ -14,6 +14,27 @@ const Contact = () => {
   };
 
   return (
+    <>
+      <Helmet>
+        <title>Contact BrowseNext | Get in Touch</title>
+<meta
+  name="description"
+  content="Have questions, feedback, or ideas? Contact BrowseNext today. We're here to help with support, partnerships, and collaborations."
+/>
+<meta name="robots" content="index, follow" />
+<meta
+  name="keywords"
+  content="Contact BrowseNext, support, feedback, BrowseNext help, BrowseNext email, contact creators"
+/>
+<meta property="og:title" content="Contact BrowseNext | Support & Feedback" />
+<meta property="og:description" content="Reach out to BrowseNext for support, feedback, or collaborations. We’d love to hear from you." />
+<meta property="og:type" content="website" />
+<meta property="og:url" content="https://browsenext.today/contact" />
+<meta property="og:image" content="https://browsenext.today/favicons.png" />
+<link rel="canonical" href="https://browsenext.today/contact" />
+
+      </Helmet>
+    
     <div className="container mt-ps90 about_container app_container">
       <h1 style={{ textAlign: 'center' }}>Contact Us</h1>
       <p style={{ textAlign: 'center' }}>
@@ -54,7 +75,7 @@ const Contact = () => {
         {/* Location Card */}
         <div className="contact_cards" style={cardStyle}>
           <h3 className="h3">Location</h3>
-          <p>Market Shops Vercel, India</p>
+          <p>BrowseNext, India</p>
           <p>(Online-based Platform)</p>
         </div>
 
@@ -66,6 +87,7 @@ const Contact = () => {
         </div>
       </div>
     </div>
+    </>
   );
 };
 

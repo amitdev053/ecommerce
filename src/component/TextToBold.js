@@ -80,10 +80,10 @@ const TextToBold = () => {
   return (
     <>
     <Helmet>
-  <title>Bold Text Generator – For Your Social Media Posts</title>
+  <title>Make Your Captions Stand Out | BrowseNext</title>
   <meta
     name="description"
-    content="Generate bold text with ease using our Bold Text Generator. Copy and paste into Instagram, WhatsApp, or any social media instantly."
+    content="Bold Captions with ease using our Bold Captions Generator. Copy and paste into Instagram, WhatsApp, or any social media instantly."
   />
   <meta
     name="keywords"
@@ -93,11 +93,11 @@ const TextToBold = () => {
   <meta name="author" content="Browse Next" />
 
 
-   <meta property="og:title" content="Bold Text Generator For Yours Social Media Posts" />
+   <meta property="og:title" content="Bold Captions For Yours Social Media Posts" />
   <meta property="og:description" content="Generate bold text with ease using our Bold Text Generator. Copy and paste into Instagram, WhatsApp, or any social media instantly." />
   <meta property="og:type" content="website" />
-  <meta property="og:url" content={`https://market-shops.vercel.app/tools`} />
-  <meta property="og:image" content= "https://market-shops.vercel.app/favicons.png" />
+  <meta property="og:url" content={`https://browsenext.today/tools`} />
+  <meta property="og:image" content= "https://browsenext.today/favicons.png" />
  <meta name="robots" content="index, follow" />
   <meta name="author" content="Browse Next" />
 </Helmet>

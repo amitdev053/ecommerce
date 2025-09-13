@@ -125,7 +125,9 @@ function setupDynamicLikeIconsStyles(){
    
   }    
   useEffect(() => {
-    document.title = "Market-Shops Best Product Market"
+    // document.title = "Market-Shops Best Product Market"
+    // document.title = ""
+    document.title = "BrowseNext — Products"
     getProducts(baseUrl, productsUrl);
   }, []);
   

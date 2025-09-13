@@ -1,13 +1,34 @@
 import React from 'react'
 import "./About.css"
+import { Helmet } from 'react-helmet'
 const About = () => {
   return (
    <>
+   <Helmet>
+   <title>About BrowseNext | Our Mission & Story</title>
+<meta
+  name="description"
+  content="Learn more about BrowseNext — our mission is to empower creators with free images, bold text tools, and blog listening experiences. Discover why thousands of users trust us daily."
+/>
+<meta name="robots" content="index, follow" />
+<meta
+  name="keywords"
+  content="About BrowseNext, BrowseNext story, creator tools, free images, bold text generator, listen blogs"
+/>
+<meta property="og:title" content="About BrowseNext | Empowering Creators" />
+<meta property="og:description" content="BrowseNext provides creators with tools, images, and blogs to inspire creativity and make content stand out. Learn more about our journey." />
+<meta property="og:type" content="website" />
+<meta property="og:url" content="https://browsenext.today/about" />
+<meta property="og:image" content="https://browsenext.today/favicons.png" />
+<link rel="canonical" href="https://browsenext.today/about-us" />
+
+
+   </Helmet>
     <div className='container mt-ps90 about_container app_container'>
     <h1>About Us</h1>
 <div  className='scrolled_content'>
 <p>
-Welcome to <strong  className="strong">[Market-Shops Vercel App]</strong> – your go-to destination for discovering, enjoying, and interacting with high-quality content effortlessly.
+Welcome to <strong  className="strong">[BrowseNext]</strong> – your go-to destination for discovering, enjoying, and interacting with high-quality content effortlessly.
 </p>
 
 <p>
@@ -23,7 +44,7 @@ We are a team of passionate creators, developers, and tech enthusiasts who belie
 
 <h2>Our Mission</h2>
 <p>
-Our mission is to simplify the way people consume and create content. We believe that information should be available in multiple formats — whether it’s visual, textual, or auditory — so that it fits into your lifestyle.
+  Our mission is simple: <strong className='strong'>Get Your Favorite Images in a Minute</strong> — helping you discover, enjoy, and create content faster than ever.
 </p>
 
 <h2>Why Choose Us?</h2>
@@ -43,7 +64,7 @@ Have feedback, questions, or just want to say hello? Head over to our <a href="/
 Thank you for being a part of our growing community. We’re excited to have you here!
 </p>
 
-<p> Powered By<strong className='strong'> — [Vercel] Team</strong></p>
+<p> Powered By<strong className='strong'> — [BrowseNext]</strong></p>
 </div>
     </div>
    </>

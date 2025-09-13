@@ -128,7 +128,7 @@ export default function footer() {
         <div className="col-md-3 col-lg-4 col-xl-3 mx-auto mb-4">
     
           <h6 className="text-uppercase fw-bold mb-4">
-          <i class="fa-solid fa-shop mx-2"></i>Market Shops
+          <i class="fa-solid fa-shop mx-2"></i>BrowseNext
           </h6>
           <p>
     Use bold text generators, explore tech blogs, download premium images & discover creative tools on Market-Shops. All free, all in one place.
@@ -192,7 +192,7 @@ export default function footer() {
 
           <h6 className="text-uppercase fw-bold mb-4">Contact With Us</h6>
      <div  className='fotter_new'>
-     <p><i className="fa-solid fa-globe me-3"></i> <div>Visited On <br />Market Shops</div> </p>
+     <p><i className="fa-solid fa-globe me-3"></i> <div>Visited On <br />BrowseNext</div> </p>
           {/* <p>
             <i className="fas fa-envelope me-3"></i>
             contact@vercel.app
@@ -211,7 +211,7 @@ export default function footer() {
 
   <div className="text-center p-4 footerend" >
     © <span className='fw-bold'>2025</span> Copyright: 
-     <Link className="text-reset fw-bold" to="http://market-shops.vercel.app/" target='_blank'> market-shops.vercel.app</Link>
+     <Link className="text-reset fw-bold" to="http://browsenext.today/" target='_blank'> browsenext.today</Link>
   </div>
 
 </footer>

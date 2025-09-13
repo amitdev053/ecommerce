@@ -870,11 +870,14 @@ function toImageKitURL(originalUrl, width = 640, quality= 80) {
         {
       (props.componentFrom !== "home" && props.componentFrom !== "exploreNext" ) && 
   <Helmet>
-  <title>Explore Images for {content[updatedHours()]} | Market Shops</title>
+  {/* <title>Explore Images for {content[updatedHours()]} | BrowseNext</title> */}
+  <title>Explore {content[updatedHours()]} Images | BrowseNext</title>
+
   <meta
     name="description"
-    content="Browse high-resolution images updated hourly in categories like fashion, tech, couples, nature, fitness, romantic, food, and more — all free to use."
+    content="Browse high-resolution images updated hourly in categories like fashion, tech, couples, nature, fitness, romantic, food, and more — all free to use on BrowseNext."
   />
+  <meta name="robots" content="index, follow" />
   <meta
     name="keywords"
     content="Free stock images, trending images, hourly updated photos, romantic pictures, nature wallpapers, fashion gallery, tech stock images, couples, lifestyle, hugs, aesthetic images"
@@ -886,11 +889,11 @@ function toImageKitURL(originalUrl, width = 640, quality= 80) {
   />
   <meta
     property="og:image"
-    content={images[0]?.webformatURL || "https://market-shops.vercel.app/favicons.png"}
+    content={images[0]?.webformatURL || "https://browsenext.today/favicons.png"}
   />
-  <meta property="og:url" content="https://market-shops.vercel.app/explore" />
+  <meta property="og:url" content="https://browsenext.today/explore" />
   <meta name="twitter:card" content="summary_large_image" />
-  <link rel="canonical" href="https://market-shops.vercel.app/explore" />
+  <link rel="canonical" href="https://browsenext.today/explore" />
 
    <script type="application/ld+json">
         {JSON.stringify({
@@ -898,8 +901,8 @@ function toImageKitURL(originalUrl, width = 640, quality= 80) {
           "@type": "ImageGallery",
           "name": content[updatedHours()],
           "description": "Browse high-resolution images updated hourly in categories like fashion, tech, couples, nature, fitness, romantic, food, and more — all free to use.",
-          "url": `https://market-shops.vercel.app/explore`,
-          "image": ["https://market-shops.vercel.app/favicons.png"],
+          "url": `https://browsenext.today/explore`,
+          "image": ["https://browsenext.todayp/favicons.png"],
         })}
       </script>
 
@@ -952,6 +955,10 @@ function toImageKitURL(originalUrl, width = 640, quality= 80) {
 
         </>
     }
+  <div className="hero d-none">
+    <h1>Explore {content[updatedHours()]} Images✨</h1>
+    <p>Fast, free, and effortless — your go-to destination for amazing visuals.</p>
+  </div>
  <div  className={`${props.componentFrom === "home" ? 'container p-0 pinterest-layout' : 'container pinterest-layout'} ${props.componentFrom === "exploreNext" ? 'mt-ps90' : 'mt-ps90'}`} ref={exploreRef}>
  
       {images.map((image, index) => {

@@ -14,7 +14,7 @@ import { Helmet } from 'react-helmet';
 // react
 let topic = "tensorflow"
 let originalTopic = "angular"
-let title = `Explore ${topic.split('')[0].toUpperCase() + topic.split('').slice(1, topic.length).join("")}: | Market Shops`;
+let title = `Explore ${topic.split('')[0].toUpperCase() + topic.split('').slice(1, topic.length).join("")}: | BrowseNext`;
 const description = `TensorFlow is a leading open-source machine learning framework developed by Google, designed for building, training, and deploying deep learning and AI models. It supports flexible architectures for computer vision, NLP, time series, and more — across web, mobile, and cloud platforms.`;
 const keywords = 'TensorFlow, machine learning, deep learning, neural networks, AI framework, TensorFlow models, TensorFlow examples, open-source ML, computer vision, natural language processing, TensorFlow Lite, TensorFlow.js, deep learning frameworks, Google AI, ML deployment';
 
@@ -123,10 +123,10 @@ const Blogs = (props) => {
   useEffect(() => {
     
         if(topic === ""){
-          document.title = `Explore Blogs: | Market Shops`
+          document.title = `Explore Blogs: | BrowseNext`
         }else{
           console.log("explore", topic)
-          document.title = `Explore ${topic.split('')[0].toUpperCase() + topic.split('').slice(1, topic.length).join("")}: | Market Shops`
+          document.title = `Explore ${topic.split('')[0].toUpperCase() + topic.split('').slice(1, topic.length).join("")}: | BrowseNext`
         }
     
  
@@ -152,10 +152,10 @@ getBlogs(true, searchText)
   useEffect(() => {
     if(props.componentFrom !== "home"){
     if(topic === ""){
-      document.title = `Explore Blogs: | Market Shops`
+      document.title = `Explore Blogs: | BrowseNext`
 
     }else{
-      document.title = `Explore ${topic.split('')[0].toUpperCase() + topic.split('').slice(1, topic.length).join("")}: | Market Shops`
+      document.title = `Explore ${topic.split('')[0].toUpperCase() + topic.split('').slice(1, topic.length).join("")}: | BrowseNext`
     }
   }
   }, [topic]);
@@ -388,9 +388,9 @@ let tagList = [
   <meta property="og:title" content={title} />
   <meta property="og:description" content={description} />
   <meta property="og:type" content="website" />
-  <meta property="og:url" content="https://market-shops.vercel.app/blogs" />
-  <meta property="og:image" content="https://market-shops.vercel.app/favicons.png" />
-  <link rel="canonical" href="https://market-shops.vercel.app/blogs" />
+  <meta property="og:url" content="https://browsenext.today/blogs" />
+  <meta property="og:image" content="https://browsenext.today/favicons.png" />
+  <link rel="canonical" href="https://browsenext.today/blogs" />
     </Helmet>
   }
    

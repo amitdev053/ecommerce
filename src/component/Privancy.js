@@ -1,15 +1,35 @@
 import React from 'react'
 import "./About.css"
 import { Link } from 'react-router-dom'
-
+import { Helmet } from 'react-helmet'
 const Privancy = () => {
   
   return (
    <>
+   <Helmet>
+   <title>Privacy Policy | BrowseNext</title>
+<meta
+  name="description"
+  content="Read BrowseNext's privacy policy to understand how we collect, use, and protect your information. Your privacy and data security are our top priority."
+/>
+<meta name="robots" content="index, follow" />
+<meta
+  name="keywords"
+  content="BrowseNext privacy policy, data protection, user privacy, data usage, security"
+/>
+<meta property="og:title" content="Privacy Policy | BrowseNext" />
+<meta property="og:description" content="Your privacy matters to us. Learn how BrowseNext collects, protects, and uses your information responsibly." />
+<meta property="og:type" content="website" />
+<meta property="og:url" content="https://browsenext.today/privacy-policy" />
+<meta property="og:image" content="https://browsenext.today/favicons.png" />
+<link rel="canonical" href="https://browsenext.today/privacy-policy" />
+
+
+   </Helmet>
     <div className="container privacy-policy mt-ps90 about_container app_container" >
       <h1>Privacy Policy</h1>
       <p><strong className="strong">Effective Date:</strong> [17/05/2025]</p>
-      <p><strong className="strong">Website:</strong> <Link href="https://market-shops.vercel.app" target="_blank" rel="noopener noreferrer">https://market-shops.vercel.app</Link></p>
+      <p><strong className="strong">Website:</strong> <Link href="https://browse.today" target="_blank" rel="noopener noreferrer">https://browse.today</Link></p>
 
       <p>At <strong className="strong">Market Shops</strong>, we respect your privacy and are committed to protecting your personal information. This Privacy Policy outlines how we collect, use, and protect your data when you use our website and services.</p>
 
@@ -60,7 +80,7 @@ const Privancy = () => {
       <h2>8. Contact Us</h2>
       <p>If you have any questions about this Privacy Policy, please contact us:</p>
       <p>Email: <a href="mailto:amitgarg0534@gmail.com">vercelteam@gmail.com</a></p>
-      <p>Website: <a href="https://market-shops.vercel.app" target="_blank" rel="noopener noreferrer">https://market-shops.vercel.app</a></p>
+      <p>Website: <a href="https://browse.today" target="_blank" rel="noopener noreferrer">https://browse.today</a></p>
     </div>
    </>
   )

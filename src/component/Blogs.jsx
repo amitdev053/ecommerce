@@ -388,9 +388,9 @@ let tagList = [
   <meta property="og:title" content={title} />
   <meta property="og:description" content={description} />
   <meta property="og:type" content="website" />
-  <meta property="og:url" content="https://browsenext.today/blogs" />
-  <meta property="og:image" content="https://browsenext.today/favicons.png" />
-  <link rel="canonical" href="https://browsenext.today/blogs" />
+  <meta property="og:url" content="https://www.browsenext.today/blogs" />
+  <meta property="og:image" content="https://www.browsenext.today/favicons.png" />
+  <link rel="canonical" href="https://www.browsenext.today/blogs" />
     </Helmet>
   }
    

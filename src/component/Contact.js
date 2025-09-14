@@ -29,9 +29,9 @@ const Contact = () => {
 <meta property="og:title" content="Contact BrowseNext | Support & Feedback" />
 <meta property="og:description" content="Reach out to BrowseNext for support, feedback, or collaborations. We’d love to hear from you." />
 <meta property="og:type" content="website" />
-<meta property="og:url" content="https://browsenext.today/contact" />
-<meta property="og:image" content="https://browsenext.today/favicons.png" />
-<link rel="canonical" href="https://browsenext.today/contact" />
+<meta property="og:url" content="https://www.browsenext.today/contact" />
+<meta property="og:image" content="https://www.browsenext.today/favicons.png" />
+<link rel="canonical" href="https://www.browsenext.today/contact" />
 
       </Helmet>
     

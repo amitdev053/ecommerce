@@ -18,9 +18,9 @@ const About = () => {
 <meta property="og:title" content="About BrowseNext | Empowering Creators" />
 <meta property="og:description" content="BrowseNext provides creators with tools, images, and blogs to inspire creativity and make content stand out. Learn more about our journey." />
 <meta property="og:type" content="website" />
-<meta property="og:url" content="https://browsenext.today/about" />
-<meta property="og:image" content="https://browsenext.today/favicons.png" />
-<link rel="canonical" href="https://browsenext.today/about-us" />
+<meta property="og:url" content="https://www.browsenext.today/about" />
+<meta property="og:image" content="https://www.browsenext.today/favicons.png" />
+<link rel="canonical" href="https://www.browsenext.today/about-us" />
 
 
    </Helmet>

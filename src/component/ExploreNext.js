@@ -21,7 +21,7 @@ const ExploreNext = () => {
         <meta property="og:title" content={title} />
         <meta property="og:description" content={description} />
         <meta property="og:type" content="website" />
-        <meta property="og:url" content={`https://www.browsenext.today/explore-next/${displayImage.type}/${displayImage.imageTag}`} />
+        <meta property="og:url" content={`https://www.www.browsenext.today/explore-next/${displayImage.type}/${displayImage.imageTag}`} />
         {(image) && <meta property="og:image" content={`${image.webformatURL}`} />}    
         
       </Helmet> */}
@@ -33,19 +33,19 @@ const ExploreNext = () => {
   <meta name="author" content="Browse Next" />
  <meta name="robots" content="index, follow" />  
   
-  <link rel="canonical" href={`https://browsenext.today/explore-next/${displayImage.type}/${displayImage.imageTag}`} />
+  <link rel="canonical" href={`https://www.browsenext.today/explore-next/${displayImage.type}/${displayImage.imageTag}`} />
 
   <meta property="og:title" content={title} />
   <meta property="og:description" content={description} />
   <meta property="og:type" content="website" />
-  <meta property="og:url" content={`https://browsenext.today/explore-next/${displayImage.type}/${displayImage.imageTag}`} />
-  <meta property="og:image" content={image?.webformatURL || "https://browsenext.today/favicons.png"} />
+  <meta property="og:url" content={`https://www.browsenext.today/explore-next/${displayImage.type}/${displayImage.imageTag}`} />
+  <meta property="og:image" content={image?.webformatURL || "https://www.browsenext.today/favicons.png"} />
  <meta property="og:image:alt" content={`Image of ${displayImage.imageTag}`} />
 
      <meta name="twitter:card" content="summary_large_image" />
       <meta name="twitter:title" content={title} />
       <meta name="twitter:description" content={description} />
-      <meta name="twitter:image" content={image?.webformatURL || "https://browsenext.today/favicons.png"} />
+      <meta name="twitter:image" content={image?.webformatURL || "https://www.browsenext.today/favicons.png"} />
 
        {/* <script type="application/ld+json">
         {JSON.stringify({
@@ -53,8 +53,8 @@ const ExploreNext = () => {
           "@type": "ImageObject",
           "name": title,
           "description": description,
-          "url": `https://browsenext.today/explore-next/${displayImage.type}/${displayImage.imageTag}`,
-          "image": [image?.webformatURL || "https://browsenext.today/favicons.png"],
+          "url": `https://www.browsenext.today/explore-next/${displayImage.type}/${displayImage.imageTag}`,
+          "image": [image?.webformatURL || "https://www.browsenext.today/favicons.png"],
         })}
       </script> */}
 
@@ -82,9 +82,9 @@ const ExploreNext = () => {
         "@type": "ImageObject",
         "name": title,
         "description": description,
-        "url": `https://browsenext.today/explore-next/${displayImage.type}/${displayImage.imageTag}`,
-        "image": [image?.webformatURL || "https://browsenext.today/favicons.png"],
-        "license": "https://browsenext.today/terms",
+        "url": `https://www.browsenext.today/explore-next/${displayImage.type}/${displayImage.imageTag}`,
+        "image": [image?.webformatURL || "https://www.browsenext.today/favicons.png"],
+        "license": "https://www.browsenext.today/terms",
         "creator": { "@type": "Organization", "name": "BrowseNext" }
       })
     }}
@@ -110,7 +110,7 @@ const ExploreNext = () => {
               "@type": "ListItem",
               "position": 2,
               "name": displayImage?.imageTag || "Image",
-              "item": `https://browsenext.today/explore-next/${displayImage?.type || "photo"}/${displayImage?.imageTag || "default"}`
+              "item": `https://www.browsenext.today/explore-next/${displayImage?.type || "photo"}/${displayImage?.imageTag || "default"}`
             }
           ]
         },
@@ -119,9 +119,9 @@ const ExploreNext = () => {
           "@type": "ImageObject",
           "name": title || "BrowseNext Image",
           "description": description || "Explore image on BrowseNext",
-          "url": `https://browsenext.today/explore-next/${displayImage?.type || "photo"}/${displayImage?.imageTag || "default"}`,
-          "image": [image?.webformatURL || "https://browsenext.today/favicons.png"],
-          "license": "https://browsenext.today/terms",
+          "url": `https://www.browsenext.today/explore-next/${displayImage?.type || "photo"}/${displayImage?.imageTag || "default"}`,
+          "image": [image?.webformatURL || "https://www.browsenext.today/favicons.png"],
+          "license": "https://www.browsenext.today/terms",
           "creator": { "@type": "Organization", "name": "BrowseNext" }
         }
       ])

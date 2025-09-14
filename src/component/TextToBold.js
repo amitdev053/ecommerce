@@ -89,17 +89,17 @@ const TextToBold = () => {
     name="keywords"
     content="bold text generator, fancy text, text to bold, stylish fonts, social media fonts, Instagram bold text"
   />
-  <meta name="robots" content="index, follow" />
-  <meta name="author" content="Browse Next" />
+  
+  
 
 
    <meta property="og:title" content="Bold Captions For Yours Social Media Posts" />
   <meta property="og:description" content="Generate bold text with ease using our Bold Text Generator. Copy and paste into Instagram, WhatsApp, or any social media instantly." />
   <meta property="og:type" content="website" />
-  <meta property="og:url" content={`https://browsenext.today/tools`} />
-  <meta property="og:image" content= "https://browsenext.today/favicons.png" />
+  <meta property="og:url" content={`https://www.browsenext.today/tools`} />
+  <meta property="og:image" content= "https://www.browsenext.today/favicons.png" />
  <meta name="robots" content="index, follow" />
-  <meta name="author" content="Browse Next" />
+  <meta name="author" content="BrowseNext" />
 </Helmet>
 
       <div className="container app_container text_to_bold_container">

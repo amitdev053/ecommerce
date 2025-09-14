@@ -20,18 +20,18 @@ const Privancy = () => {
 <meta property="og:title" content="Privacy Policy | BrowseNext" />
 <meta property="og:description" content="Your privacy matters to us. Learn how BrowseNext collects, protects, and uses your information responsibly." />
 <meta property="og:type" content="website" />
-<meta property="og:url" content="https://browsenext.today/privacy-policy" />
-<meta property="og:image" content="https://browsenext.today/favicons.png" />
-<link rel="canonical" href="https://browsenext.today/privacy-policy" />
+<meta property="og:url" content="https://www.www.www.browsenext.today/privacy-policy" />
+<meta property="og:image" content="https://www.www.www.browsenext.today/favicons.png" />
+<link rel="canonical" href="https://www.www.www.browsenext.today/privacy-policy" />
 
 
    </Helmet>
     <div className="container privacy-policy mt-ps90 about_container app_container" >
       <h1>Privacy Policy</h1>
       <p><strong className="strong">Effective Date:</strong> [17/05/2025]</p>
-      <p><strong className="strong">Website:</strong> <Link href="https://browse.today" target="_blank" rel="noopener noreferrer">https://browse.today</Link></p>
+      <p><strong className="strong">Website:</strong> <Link href="https://www.browsenext.today/" target="_blank" rel="noopener noreferrer">https://www.browsenext.today/</Link></p>
 
-      <p>At <strong className="strong">Market Shops</strong>, we respect your privacy and are committed to protecting your personal information. This Privacy Policy outlines how we collect, use, and protect your data when you use our website and services.</p>
+      <p>At <strong className="strong">BrowseNext</strong>, we respect your privacy and are committed to protecting your personal information. This Privacy Policy outlines how we collect, use, and protect your data when you use our website and services.</p>
 
       <h2>1. Information We Collect</h2>
       <ul>
@@ -72,15 +72,15 @@ const Privancy = () => {
         <li>Withdraw consent for data processing</li>
         <li>Request data portability where applicable</li>
       </ul>
-      <p>To exercise your rights, contact us at <a href="mailto:amitgarg0534.com">vercelteam@gmail.com</a>.</p>
+      <p>To exercise your rights, contact us at <a href="mailto:amitgarg0534.com">browsenext@gmail.com</a>.</p>
 
       <h2>7. Changes to This Policy</h2>
       <p>We may update this Privacy Policy from time to time. Any changes will be posted on this page with an updated "Effective Date."</p>
 
       <h2>8. Contact Us</h2>
       <p>If you have any questions about this Privacy Policy, please contact us:</p>
-      <p>Email: <a href="mailto:amitgarg0534@gmail.com">vercelteam@gmail.com</a></p>
-      <p>Website: <a href="https://browse.today" target="_blank" rel="noopener noreferrer">https://browse.today</a></p>
+      <p>Email: <a href="mailto:amitgarg0534@gmail.com">browsenext@gmail.com</a></p>
+      <p>Website: <a href="https://www.browsenext.today/" target="_blank" rel="noopener noreferrer">https://browsenext.today/</a></p>
     </div>
    </>
   )

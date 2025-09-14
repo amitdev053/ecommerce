@@ -889,11 +889,11 @@ function toImageKitURL(originalUrl, width = 640, quality= 80) {
   />
   <meta
     property="og:image"
-    content={images[0]?.webformatURL || "https://browsenext.today/favicons.png"}
+    content={images[0]?.webformatURL || "https://www.browsenext.today/favicons.png"}
   />
-  <meta property="og:url" content="https://browsenext.today/explore" />
+  <meta property="og:url" content="https://www.browsenext.today/explore" />
   <meta name="twitter:card" content="summary_large_image" />
-  <link rel="canonical" href="https://browsenext.today/explore" />
+  <link rel="canonical" href="https://www.browsenext.today/explore" />
 
    <script type="application/ld+json">
         {JSON.stringify({
@@ -901,8 +901,8 @@ function toImageKitURL(originalUrl, width = 640, quality= 80) {
           "@type": "ImageGallery",
           "name": content[updatedHours()],
           "description": "Browse high-resolution images updated hourly in categories like fashion, tech, couples, nature, fitness, romantic, food, and more — all free to use.",
-          "url": `https://browsenext.today/explore`,
-          "image": ["https://browsenext.todayp/favicons.png"],
+          "url": `https://www.browsenext.today/explore`,
+          "image": ["https://www.browsenext.today/favicons.png"],
         })}
       </script>
 

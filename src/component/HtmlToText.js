@@ -65,15 +65,15 @@ useEffect(() => {
     content="html to text, markdown formatter, format long content, clean up text, convert HTML to readable text, ChatGPT text formatter"
   />
   <meta name="robots" content="index, follow" />
-  <meta name="author" content="Browse Next" />
+  <meta name="author" content="BrowseNext" />
 
   <meta property="og:title" content="Format Long Content – HTML & Markdown Cleaner" />
   <meta property="og:description" content="Instantly format long content using HTML or Markdown. Great for blogs, social posts, or refining raw output from AI tools." />
   <meta property="og:type" content="website" />
-  <meta property="og:url" content="https://browsenext.today/tools" />
-  <meta property="og:image" content="https://browsenext.today/favicons.png" />
+  <meta property="og:url" content="https://www.browsenext.today/tools" />
+  <meta property="og:image" content="https://www.browsenext.today/favicons.png" />
 
-  <link rel="canonical" href="https://browsenext.today/tools" />
+  <link rel="canonical" href="https://www.browsenext.today/tools" />
 </Helmet>
 
 <div className="container app_container text_to_html_container">

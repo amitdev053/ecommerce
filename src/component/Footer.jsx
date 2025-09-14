@@ -211,7 +211,7 @@ export default function footer() {
 
   <div className="text-center p-4 footerend" >
     © <span className='fw-bold'>2025</span> Copyright: 
-     <Link className="text-reset fw-bold" to="http://browsenext.today/" target='_blank'> browsenext.today</Link>
+     <Link className="text-reset fw-bold" to="http://www.browsenext.today/" target='_blank'>browsenext.today</Link>
   </div>
 
 </footer>

@@ -110,6 +110,7 @@ function App() {
           {/* <Nav trackCart={false} /> */}
 
           <Routes>
+          <Route path="/sitemap.xml" element={null} /> 
             <Route path="/" Component={Home} />
             {/* <Route exact path ='/Hastags' Component={Hashtag}/> */}
             <Route exact path="/explore" Component={Explore} />

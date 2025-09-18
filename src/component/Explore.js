@@ -15,7 +15,45 @@ import { Helmet } from "react-helmet";
 
 
 let content = [
-  "kiss", "Fashion", "Sports", "Music", "Gaming", "Technology", "Health", "Finance", "Education", "Lifestyle", "Travel and Adventure",  "Art and Creativity", "hugs", "Nature and Wildlife", "Food and Culinary", "History and Culture","Fitness and Wellness", "Architecture and Design","Space and Astronomy", "Books and Literature", "Motivation and Productivity",  "Luxury and Lifestyle",  "Science and Innovation",   "bedrooms", "romantic",  "Sibling Love", "Date Night",  "Valentine", "Hobbies and Skills",  "happy pattern", "couples", "bmw-night"
+  "kiss", "Fashion", "Sports", "Music", "Gaming", "Technology", "Health", "Finance", "Education", "Lifestyle", "Travel and Adventure",  "Art and Creativity", "hugs", "Nature and Wildlife", "Food and Culinary", "History and Culture","Fitness and Wellness", "Architecture and Design","Space and Astronomy", "Books and Literature", "Motivation and Productivity",  "Luxury and Lifestyle",  "Science and Innovation",   "bedrooms", "romantic",  "Sibling Love", "Date Night",  "Valentine", "Hobbies and Skills",  "happy pattern", "couples", "bmw-night",
+   "Sunsets and Sunrises",
+   "navratri",
+  "Street Photography",
+  "Cute Animals",
+  "Quotes and Inspiration",
+  "Meditation and Mindfulness",
+  "DIY and Crafts",
+  "Festivals and Celebrations",
+  "Adventure Sports",
+  "Cars and Motorcycles",
+  "Gaming Setup",
+  "Music Festivals",
+  "Luxury Cars",
+  "Coffee and Cafes",
+  "Cityscapes",
+  "Nature Trails",
+  "Beach Vibes",
+  "Snow and Winter",
+  "Street Art",
+  "Fashion Accessories",
+  "Home Decor",
+  "Interior Design",
+  "Wedding Moments",
+  "Love and Romance",
+  "Family Time",
+  "Fitness Motivation",
+  "Healthy Recipes",
+  "Travel Destinations",
+  "Cultural Heritage",
+  "Technology Trends",
+  "Space Exploration",
+  "Photography Tips",
+  "Pet Love",
+  "Nightlife",
+  "Vintage Vibes",
+  "Neon Aesthetics",
+  "Minimalism",
+  "Boho Style"
 ];
 // 🔁 Get the current hour index to rotate categories
 const updatedHours = () => new Date().getHours() % content.length;

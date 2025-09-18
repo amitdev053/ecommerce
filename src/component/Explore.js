@@ -1006,7 +1006,8 @@ state={{ imageData: image }}
     }}
   
   >
-     {!imageStates[index]?.loaded && <div className="skeleton" />}
+     {/* {!imageStates[index]?.loaded && <div className="skeleton" />} */}
+     {(!imageStates[index]?.loaded) && <div className="skeleton" />}
             <img
             className="explore-image"
                  style={{
@@ -1046,13 +1047,24 @@ state={{ imageData: image }}
   //           width={blogColRef.current[index]?.offsetWidth}
   // height={blogColRef.current[index]?.offsetHeight}
 
-              onLoad={() => {
-              setImageStates((prevStates) => {
-                const newState = [...prevStates]; 
-                newState[index] = { loaded: true }; 
-                return newState;
-                });
-        }}
+        //       onLoad={() => {
+        //       setImageStates((prevStates) => {
+        //         const newState = [...prevStates]; 
+        //         newState[index] = { loaded: true }; 
+        //         return newState;
+        //         });
+        // }}
+
+      onLoad={(e) => {
+        // handle cached + freshly loaded images
+        if (e.target.complete) {
+          setImageStates((prev) => {
+            const newState = [...prev];
+            newState[index] = { loaded: true };
+            return newState;
+          });
+        }
+      }}
               onError={(e) =>{
               const originalUrl = image.webformatURL;
               e.target.src = originalUrl;

@@ -6,8 +6,8 @@ import { GiSpikedDragonHead, GiPerspectiveDiceSixFacesRandom } from "react-icons
 import "./SelectBox.css";
 
 const styleList = [
-  { label: "Bold (Serif)", value: "boldSerif", icon: <FaBold /> },
   { label: "Bold (Sans)", value: "boldSans", icon: <FaFont /> },
+  { label: "Bold (Serif)", value: "boldSerif", icon: <FaBold /> },
   { label: "Italic", value: "italic", icon: <FaItalic /> },
   { label: "Bold Italic", value: "boldItalic", icon: <FaItalic /> },
   { label: "Script", value: "script", icon: <FaFeatherAlt /> },

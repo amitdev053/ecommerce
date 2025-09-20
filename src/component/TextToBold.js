@@ -91,8 +91,8 @@ const TextToBold = () => {
 
     setMaps(mapWords);
     setSelectedStyle({
-      label: "Bold (Serif)",
-      value: "boldSerif",
+      label: "Bold (Sans)",
+      value: "boldSans",
     });
   }, []);
 

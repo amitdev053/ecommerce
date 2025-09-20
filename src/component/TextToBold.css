@@ -100,7 +100,7 @@ input{
   @media (max-width: 580px){
     .tool_header{
         flex-direction: column;
-        gap: 10px;
+        gap: 20px;
     }
     .col_textTobold_output {
         flex-direction: column;

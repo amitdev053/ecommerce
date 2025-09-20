@@ -77,7 +77,7 @@ useEffect(() => {
 </Helmet>
 
 <div className="container app_container text_to_html_container">
-          <div className="app_tool_heading tool_inside_header tool_center_heading text-center">
+          <div className="app_tool_heading tool_inside_header tool_center_heading text-center justify-space-between">
             Format Long Content
           </div>
         <div className="tool_header_hmtl" style={{display: "none"}}>

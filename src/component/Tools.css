@@ -22,3 +22,13 @@
 .fnr{
     font-family: 'Roboto';
 }
+
+@media (max-width: 580px){
+.tools_link_header{
+    justify-content: space-around;
+    margin-bottom: 1rem !important
+}
+.app_tools_button{
+     width: max-content !important;
+}
+}

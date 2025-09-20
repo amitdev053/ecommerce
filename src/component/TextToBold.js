@@ -255,7 +255,7 @@ function shuffleArray(array) {
         </div>
         <ScrollTag whereFrom="captions" tagList={shuffleArray(suggestedCaptions)} />
 
-        <div className="col_textTobold_output">
+        <div className="col_textTobold_output mt-1">
           <div className="input_div">
             <textarea
               className="user_textarea_input"

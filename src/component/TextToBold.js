@@ -66,7 +66,7 @@ const TextToBold = () => {
   const [inputText, setInputText] = useState("");
   const [outputText, setOutputText] = useState("");
   const [selectedStyle, setSelectedStyle] = useState(null);
-
+  let [userTyped, setUserTyped] = useState(false); 
   useEffect(() => {
     const mapFromOffsets = (upperOffset, lowerOffset) => {
       const map = {};
@@ -128,6 +128,7 @@ const TextToBold = () => {
 
     function displayDynamicBlogs() {
     // setPageState(1)
+    setUserTyped(false)
     console.log("click on captions")
     let tagNames = document.querySelectorAll('.app_blog_tag_text');
   
@@ -139,13 +140,15 @@ const TextToBold = () => {
   
     tagNames.forEach((tag) => {
       tag.addEventListener("click", (e) => {
+        setUserTyped(false)
         
-        tagNames.forEach((tag) => tag.classList.remove('highlight_tag'));     
+        // tagNames.forEach((tag) => tag.classList.remove('highlight_tag'));     
      
     
-        e.target.classList.add("highlight_tag");          
+        // e.target.classList.add("highlight_tag");          
         // getBlogs(true, tag.innerText);
       setInputText(tag.innerText)
+      highlightTags(tag.innerText)
       // const newUrl = `/blogs/suggest?query=${encodeURIComponent(tag.innerText)}`;
         
        
@@ -168,7 +171,7 @@ const TextToBold = () => {
 
   useEffect(() => {
   if (document.getElementById('inputText')) {
-    document.getElementById('inputText').focus();
+    // document.getElementById('inputText').focus();
     displayDynamicBlogs()
     setInputText(suggestedCaptions[0])
     highlightTags(suggestedCaptions[0])
@@ -181,6 +184,9 @@ const TextToBold = () => {
           display: flex !important;
         }
       }
+        .app_blog_tag_text{
+        color: #160b0b;
+        }
     `;
     document.head.appendChild(style);
 
@@ -191,6 +197,18 @@ const TextToBold = () => {
   }
 
 }, []);
+
+// Remove highlight if user types
+useEffect(() => {
+  if (userTyped ) {
+    const tagNames = document.querySelectorAll(".app_blog_tag_text");
+    tagNames.forEach((tag) => {
+      tag.classList.remove("highlight_tag");
+    });
+  }
+}, [inputText, userTyped]);
+
+
 
 function shuffleArray(array) {
   return array.sort(() => Math.random() - 0.5);
@@ -245,7 +263,12 @@ function shuffleArray(array) {
               
               placeholder="Enter text that you want to bold..."
               value={inputText}
-              onChange={(e) => setInputText(e.target.value)}
+              onChange={(e) => {
+              setInputText(e.target.value)
+              setUserTyped(true); 
+              }
+
+              }
             />
           </div>
 

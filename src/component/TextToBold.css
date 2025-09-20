@@ -116,3 +116,9 @@ input{
         min-height: 130px;
       }
   }
+
+  /* @media screen and (max-width: 680px) {
+    .st_blog_tag_suggestion {
+        display: flex !important;
+    }
+} */

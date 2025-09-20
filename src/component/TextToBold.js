@@ -4,8 +4,62 @@ import Alert from "./Alert";
 import { ToastContainer, toast } from "react-toastify";
 import {CustomFontSelector} from "./SelectBox";
 import { Helmet } from "react-helmet";
+import ScrollTag from "./ScrollTag";
 
-
+const suggestedCaptions = [
+  "Tag your Love💖",
+  "Dream big, shine bigger ✨",
+  "No limits, only vibes 💫",
+  "Slay all day 💎",
+  "Good vibes only 🌈",
+  "Boss mode: ON 🔥",
+  "Keep shining ✨",
+  "Chasing sunsets 🌅",
+  "Self-love first 💖",
+  "Mood: unstoppable 💥",
+  "Glow up season 🌟",
+  "Weekend mood 😎",
+  "Confidence is key 🔑",
+  "Stay golden 🌟",
+  "Hustle in silence 💼",
+  "Positive energy only ✨",
+  "Be your own hero 🦸",
+  "Less perfection, more authenticity 🌿",
+  "Do what you love ❤️",
+  "Fearless & free 🕊️",
+  "Vibes speak louder than words 🎶",
+  "Collect moments, not things 🌸",
+  "Chill mode activated 😌",
+  "Rise & grind 💪",
+  "Smile more, worry less 😊",
+  "Bold moves only ⚡",
+  "Happiness is homemade 🏡",
+  "Keep it classy 💎",
+  "Life’s too short ✨",
+  "Be the energy you want 💫",
+  "Sassy, classy, and a bit smart-assy 😉",
+  "Adventure awaits 🌍",
+  "Good things take time ⏳",
+  "Radiate positivity 🌞",
+  "Queen energy 👑",
+  "Just vibe with it ✨",
+  "Stay wild, moon child 🌙",
+  "Hustle hard, shine harder 💥",
+  "Create your own sunshine ☀️",
+  "Stay humble, hustle hard 💼",
+  "Love yourself first 💖",
+  "Be fearless, be you 🌟",
+  "Dream. Plan. Do. 💫",
+  "Collect memories, not regrets 🌸",
+  "Chase the stars ✨",
+  "Smile, it’s free therapy 😄",
+  "Be bold, be brave ⚡",
+  "Own your story 📖",
+  "Glow like you mean it 🌟",
+  "Radiate confidence 💎",
+  "Stay golden, never settle 🌟",
+  "Make it happen 💪"
+];
 
 const TextToBold = () => {
   const [maps, setMaps] = useState({});
@@ -71,11 +125,77 @@ const TextToBold = () => {
       toast.success("Text copied to clipboard!");
     });
   };
+
+    function displayDynamicBlogs() {
+    // setPageState(1)
+    console.log("click on captions")
+    let tagNames = document.querySelectorAll('.app_blog_tag_text');
+  
+    tagNames.forEach((tag) => {
+      tag.replaceWith(tag.cloneNode(true)); // Clone the tag to remove all listeners
+    });
+  
+    tagNames = document.querySelectorAll('.app_blog_tag_text'); // Re-query after replacing elements
+  
+    tagNames.forEach((tag) => {
+      tag.addEventListener("click", (e) => {
+        
+        tagNames.forEach((tag) => tag.classList.remove('highlight_tag'));     
+     
+    
+        e.target.classList.add("highlight_tag");          
+        // getBlogs(true, tag.innerText);
+      setInputText(tag.innerText)
+      // const newUrl = `/blogs/suggest?query=${encodeURIComponent(tag.innerText)}`;
+        
+       
+       
+        // window.history.pushState({ path: newUrl }, '', newUrl);
+    
+      });
+    });
+  }
+  function highlightTags(initialText){
+      const tagNames = document.querySelectorAll('.app_blog_tag_text');
+    tagNames.forEach((tag) => {
+      if (tag.innerText === initialText) {
+        tag.classList.add('highlight_tag');
+      } else {
+        tag.classList.remove('highlight_tag');
+      }
+    });
+  }
+
   useEffect(() => {
   if (document.getElementById('inputText')) {
     document.getElementById('inputText').focus();
+    displayDynamicBlogs()
+    setInputText(suggestedCaptions[0])
+    highlightTags(suggestedCaptions[0])
+
+     // Dynamically apply media query
+    const style = document.createElement('style');
+    style.innerHTML = `
+      @media screen and (max-width: 680px) { 
+        .st_blog_tag_suggestion {
+          display: flex !important;
+        }
+      }
+    `;
+    document.head.appendChild(style);
+
+    // Optional: clean up style when component unmounts
+    return () => {
+      document.head.removeChild(style);
+    };
   }
+
 }, []);
+
+function shuffleArray(array) {
+  return array.sort(() => Math.random() - 0.5);
+}
+
 
   return (
     <>
@@ -115,6 +235,7 @@ const TextToBold = () => {
           )}
             
         </div>
+        <ScrollTag whereFrom="captions" tagList={shuffleArray(suggestedCaptions)} />
 
         <div className="col_textTobold_output">
           <div className="input_div">

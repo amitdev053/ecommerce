@@ -50,6 +50,12 @@ const userId =  getOrSetUserId()
       // Set user ID and initial pageview
       window.gtag('config', 'G-J0N01TQSXQ', { user_id: userId });
 
+      const isOwner = userId.startsWith('uid-1758'); // e.g., your personal ID
+window.gtag('event', 'page_view', {
+  page_path: location.pathname,
+  is_owner: isOwner ? 'yes' : 'no'
+});
+
       clearInterval(interval);
     }
   }, 100);
@@ -58,8 +64,15 @@ const userId =  getOrSetUserId()
 
    useEffect(() => {
      if (window.gtag) {
-    window.gtag('event', 'page_view', { page_path: location.pathname });
+       const userId = getOrSetUserId();
+      const isOwner = userId.startsWith('uid-1758');
+    
+     window.gtag('event', 'page_view', {
+      page_path: location.pathname,
+      is_owner: isOwner ? 'yes' : 'no'
+    });
   }
+
   }, [location]);
 
 

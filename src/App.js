@@ -27,6 +27,7 @@ import About from "./component/About";
 import Privancy from "./component/Privancy";
 import ExploreNext from "./component/ExploreNext";
 import Services from "./component/Services";
+import { getOrSetUserId } from "./analytics";
 
 
 const excludeDevices = ["103.208.68.138", "223.237.9.50"]; // Replace with real IPs
@@ -37,6 +38,30 @@ function App() {
   const context = useContext(BlogAudioContext);
 
  
+  useEffect(()=>{
+
+const userId =  getOrSetUserId()
+
+ // Wait for GA to load
+    const interval = setInterval(() => {
+      if (window.ga) {
+        console.log("yes ga is present")
+        window.ga('create', 'UA-XXXXXX-Y', 'auto'); // your GA property ID
+        window.ga('set', 'userId', userId);
+        window.ga('send', 'pageview');
+        clearInterval(interval);
+      }
+    }, 100); // check every 100ms
+
+  }, [])
+
+   useEffect(() => {
+    if (window.ga) {
+      window.ga('send', 'pageview', location.pathname);
+      
+    }
+  }, [location]);
+
 
 
   // Function to set a cookie
@@ -56,6 +81,7 @@ function App() {
     }else{
       document.body.style.overscrollBehavior = ""
     }
+
   }, [location]);
 
   function getCookie(name) {

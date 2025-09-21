@@ -42,24 +42,24 @@ function App() {
 
 const userId =  getOrSetUserId()
 
- // Wait for GA to load
-    const interval = setInterval(() => {
-      if (window.ga) {
-        console.log("yes ga is present")
-        window.ga('create', 'UA-XXXXXX-Y', 'auto'); // your GA property ID
-        window.ga('set', 'userId', userId);
-        window.ga('send', 'pageview');
-        clearInterval(interval);
-      }
-    }, 100); // check every 100ms
+  // Wait for gtag to be ready
+  const interval = setInterval(() => {
+    if (window.gtag) {
+      console.log("GA4 is present");
+
+      // Set user ID and initial pageview
+      window.gtag('config', 'G-J0N01TQSXQ', { user_id: userId });
+
+      clearInterval(interval);
+    }
+  }, 100);
 
   }, [])
 
    useEffect(() => {
-    if (window.ga) {
-      window.ga('send', 'pageview', location.pathname);
-      
-    }
+     if (window.gtag) {
+    window.gtag('event', 'page_view', { page_path: location.pathname });
+  }
   }, [location]);
 
 

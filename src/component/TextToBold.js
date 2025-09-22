@@ -218,7 +218,7 @@ function shuffleArray(array) {
   return (
     <>
     <Helmet>
-  <title>Make Your Captions Stand Out | BrowseNext</title>
+  <title>Bold Captions Generator | BrowseNext</title>
   <meta
     name="description"
     content="Bold Captions with ease using our Bold Captions Generator. Copy and paste into Instagram, WhatsApp, or any social media instantly."

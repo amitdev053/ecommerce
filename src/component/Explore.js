@@ -875,13 +875,17 @@ function toImageKitURL(originalUrl, width = 640, quality= 80) {
       console.log("image status", imageStates[index].loaded)
       if (!imageStates[index]?.loaded) return; // Don't track if image not loaded
       console.log("image clicked", img)
-      window.gtag('event', 'explore_image_click', {
-        event_category: 'Explore Page',
-        event_label: img?.tags || 'No tags',
-        value: img?.id, // you can also use views or likes
-        image_url: img?.webformatURL 
-      });
-      console.log(" event send")
+      if(window.gtag){
+
+  window.gtag('event', 'explore_image_click', {
+  img_id: img?.id,
+  tags: img?.tags || 'No tags',
+  image_url: img?.webformatURL,
+  page_path: window.location.pathname
+});
+        console.log(" event send")
+
+      }
     }
 
 

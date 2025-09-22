@@ -880,7 +880,7 @@ function toImageKitURL(originalUrl, width = 640, quality= 80) {
   window.gtag('event', 'explore_image_click', {
   img_id: img?.id,
   tags: img?.tags || 'No tags',
-  image_url: img?.webformatURL,
+  image_url:  img?.largeImageURL || img?.webformatURL,
   page_path: window.location.pathname
 });
         console.log(" event send")

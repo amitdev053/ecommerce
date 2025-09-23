@@ -132,7 +132,8 @@ input{
       }
       .caption_tool_actions{
         bottom: 10px !important;
-        right: 1px !important;
+        right: 5px !important;
+         top: auto !important; 
       }
   }
 

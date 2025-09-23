@@ -231,13 +231,14 @@ function shuffleArray(array) {
   
 
 
-   <meta property="og:title" content="Bold Captions For Yours Social Media Posts" />
+   <meta property="og:title" content="Bold Captions For Yours Social Media" />
   <meta property="og:description" content="Generate bold text with ease using our Bold Text Generator. Copy and paste into Instagram, WhatsApp, or any social media instantly." />
   <meta property="og:type" content="website" />
   <meta property="og:url" content={`https://www.browsenext.today/tools`} />
   <meta property="og:image" content= "https://www.browsenext.today/favicons.png" />
  <meta name="robots" content="index, follow" />
   <meta name="author" content="BrowseNext" />
+
 </Helmet>
 
       <div className="container app_container text_to_bold_container">

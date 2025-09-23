@@ -1,4 +1,4 @@
-const handleShare = async (productTitle, productDesc, productImage , fromWhere, pageUrl= null) => {
+const handleShare = async (productTitle, productDesc, productImage , fromWhere= undefined, pageUrl= null) => {
     // console.log("Attempting to share content:", productTitle, productDesc, productImage);
   
     if (navigator.canShare && navigator.canShare({ files: [new File([""], "test.jpg", { type: "image/jpeg" })] })) {
@@ -13,12 +13,22 @@ const handleShare = async (productTitle, productDesc, productImage , fromWhere, 
         const file = new File([blob], 'image.jpg', { type: 'image/jpeg' });
         // console.log("File created successfully:", file);
   // console.log("Attempting to share content:",file, [file], URL.createObjectURL(file))
-        await navigator.share({
-          title: productTitle,
-          text: productDesc,
-          url: pageUrl || window.location.href,
-          files: [file],
-        });
+     
+        if(fromWhere === "captionTools"){
+          console.log("yes tools_share")
+              await navigator.share({
+                title: productTitle,
+                text: productDesc,
+                url: pageUrl || window.location.href,                
+              });
+        }else{
+              await navigator.share({
+                title: productTitle,
+                text: productDesc,
+                url: pageUrl || window.location.href,
+                files: [file],
+              });
+        }
   
         // console.log('Content shared successfully');
       } catch (error) {
@@ -29,14 +39,28 @@ const handleShare = async (productTitle, productDesc, productImage , fromWhere, 
     }
   };
 
-  function ShareButton ({productTitle, productDesc, productImage}) {
+  function ShareButton ({productTitle, productDesc, productImage, btnClass, callingFrom}) {
   
     return (
-      <button className="btn btn-sm btn-primary p_s_btn brand_button " onClick={() => handleShare(productTitle, productDesc, productImage)}>
+      (callingFrom === "captionTools")
+        ? <i className={`fa-solid fa-share-nodes icon_margin ${btnClass}`} 
+         role="button" tabIndex={0} aria-label={`Share tools`}
+         onClick={() => handleShare(productTitle, productDesc, productImage, callingFrom)}
+          onKeyDown={(e) => {
+                  if (e.key === 'Enter' || e.key === ' ') {
+                    handleShare(productTitle, productDesc, "", callingFrom)
+                  }
+                }}
+        ></i> :
+ <button className={`btn btn-sm btn-primary p_s_btn brand_button btnClass ${btnClass}`}  onClick={() => handleShare(productTitle, productDesc, productImage, callingFrom)}>
         Share 
-        <i class="fa-solid fa-share-nodes icon_margin"></i>
+        <i className="fa-solid fa-share-nodes icon_margin"></i>
         {/* <i class="fa-regular fa-share-from-square icon_margin"></i> */}
       </button>
+
+
+      
+     
 
 
       

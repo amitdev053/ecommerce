@@ -1001,7 +1001,7 @@ function toImageKitURL(originalUrl, width = 640, quality= 80) {
     }
   <div className="hero d-none">
     <h1>Explore {content[updatedHours()]} Images✨</h1>
-    <p>Download HD images for Instagram, Facebook, WhatsApp status, Twitter, LinkedIn, and more — free, fast, and ready to use.</p>
+    <p>Download HD {content[updatedHours()]} images for Instagram, Facebook, WhatsApp status, Twitter, LinkedIn, and more — free, fast, and ready to use.</p>
   </div>
  <div  className={`${props.componentFrom === "home" ? 'container p-0 pinterest-layout' : 'container pinterest-layout'} ${props.componentFrom === "exploreNext" ? 'mt-ps90' : 'mt-ps90'}`} ref={exploreRef}>
  

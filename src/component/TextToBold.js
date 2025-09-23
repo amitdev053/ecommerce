@@ -5,7 +5,7 @@ import { ToastContainer, toast } from "react-toastify";
 import {CustomFontSelector} from "./SelectBox";
 import { Helmet } from "react-helmet";
 import ScrollTag from "./ScrollTag";
-
+import { ShareButton } from "./HandleShare";
 const suggestedCaptions = [
   "Tag your Love💖",
   "Dream big, shine bigger ✨",
@@ -273,7 +273,9 @@ function shuffleArray(array) {
           </div>
 
           <div className="bold_text_ouput input_div position-relative">
-            {inputText.trim() && (
+            {inputText.trim() && 
+            (
+            <div class="caption_tool_actions">
               <i
                role="button"
               tabIndex={0}
@@ -281,11 +283,30 @@ function shuffleArray(array) {
                 className="fa-solid fa-copy copy_bold_texticon outline-none"
                 onClick={copyOutput}
                  onKeyDown={(e) => {
-        if (e.key === 'Enter' || e.key === ' ') {
-          copyOutput();
-        }
-      }}
+                  if (e.key === 'Enter' || e.key === ' ') {
+                    copyOutput();
+                  }
+                }}
               ></i>
+
+              {/* <i
+               role="button"
+              tabIndex={0}
+              aria-label={`Copy bold Text`}
+                className="fa-solid fa-copy copy_bold_texticon outline-none"
+                onClick={copyOutput}
+                 onKeyDown={(e) => {
+                  if (e.key === 'Enter' || e.key === ' ') {
+                    copyOutput();
+                  }
+                }}
+              ></i> */}
+              <ShareButton btnClass={"copy_bold_texticon"} productTitle={"✨ BrowseNext – Free Bold Caption for Social Media ✨"} productDesc={"Make your captions bold & stylish instantly! then just copy & paste..."} callingFrom={"captionTools"} /> 
+
+
+</div>
+
+              
             )}
             <textarea
               id="output"

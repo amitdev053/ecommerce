@@ -32,3 +32,9 @@
      width: max-content !important;
 }
 }
+
+.tools_Share{
+    width: 20% !important;
+    padding: 10px 20px !important;
+    margin-top: 20px !important;
+}

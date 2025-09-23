@@ -68,25 +68,37 @@ input{
   /* .select_font_family option{
     background-color: red;
   } */
-  .copy_bold_texticon{
-    position: absolute;
-    top: 10px;
+
+  .caption_tool_actions{
+         position: absolute;
+    top: 2px;
     right: 10px;
+    display: flex;
+    width: 20%;
+    justify-content: flex-end;
+    /* background: red; */
+    padding: 0px 10px 0px 15px;
+    align-items: center;
+    gap: 0px 5px;
+  }
+  .copy_bold_texticon{
+  
     padding: 10px;
     border: 1px solid transparent;
     transition: all 0.3s ease-in-out;
+    border: 2px solid transparent;
   }
   .copy_bold_texticon:hover{
    background-color: white;
    cursor: pointer;
    border-radius: 50%;
-   border: 1px solid black !important;
+   border: 2px solid black !important;
   }
   .copy_bold_texticon:focus {
      background-color: white;
    cursor: pointer;
    border-radius: 50%;
-   border: 1px solid black !important;
+   border: 2px solid black !important;
 }
  
   .select_font_family:focus {

@@ -228,16 +228,26 @@ function shuffleArray(array) {
     content="bold text generator, fancy text, text to bold, stylish fonts, social media fonts, Instagram bold text"
   />
   
-  
-
+   <meta name="robots" content="index, follow" />
+  <meta name="author" content="BrowseNext" />
+<link rel="canonical" href="https://www.browsenext.today/tools" />
 
    <meta property="og:title" content="Bold Captions For Yours Social Media" />
   <meta property="og:description" content="Generate bold text with ease using our Bold Text Generator. Copy and paste into Instagram, WhatsApp, or any social media instantly." />
   <meta property="og:type" content="website" />
   <meta property="og:url" content={`https://www.browsenext.today/tools`} />
   <meta property="og:image" content= "https://www.browsenext.today/favicons.png" />
- <meta name="robots" content="index, follow" />
-  <meta name="author" content="BrowseNext" />
+
+{/* for twitter */}
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content="Bold Captions For Your Social Media" />
+<meta name="twitter:description" content="Generate bold text with ease using our Bold Text Generator. Copy and paste into Instagram, WhatsApp, or any social media instantly." />
+<meta name="twitter:image" content="https://www.browsenext.today/favicons.png" />
+<meta name="twitter:url" content="https://www.browsenext.today/tools" />
+<meta name="twitter:site" content="@YourTwitterHandle" />
+<meta name="twitter:creator" content="@YourTwitterHandle" />
+
+
 
 </Helmet>
 

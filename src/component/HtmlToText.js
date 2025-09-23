@@ -66,14 +66,22 @@ useEffect(() => {
   />
   <meta name="robots" content="index, follow" />
   <meta name="author" content="BrowseNext" />
-
+  <link rel="canonical" href="https://www.browsenext.today/tools" />
+{/* for fb, Ig, Whatsapp */}
   <meta property="og:title" content="Format Long Content – HTML & Markdown Cleaner" />
   <meta property="og:description" content="Instantly format long content using HTML or Markdown. Great for blogs, social posts, or refining raw output from AI tools." />
   <meta property="og:type" content="website" />
   <meta property="og:url" content="https://www.browsenext.today/tools" />
   <meta property="og:image" content="https://www.browsenext.today/favicons.png" />
 
-  <link rel="canonical" href="https://www.browsenext.today/tools" />
+{/* for twitter */}
+  <meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content="Format Long Content – HTML & Markdown Cleaner" />
+<meta name="twitter:description" content="Instantly format long content using HTML or Markdown. Great for blogs, social posts, or refining raw output from AI tools." />
+<meta name="twitter:image" content="https://www.browsenext.today/favicons.png" />
+<meta name="twitter:url" content="https://www.browsenext.today/tools" />
+
+  
 </Helmet>
 
 <div className="container app_container text_to_html_container">

@@ -170,3 +170,248 @@
   border-radius: 12px;
   display: block;
 }
+
+
+
+-------------------------------------------------------------------------
+
+for the explore image onLoad
+
+   onLoad={(e) => {
+        // handle cached + freshly loaded images
+        if (e.target.complete) {
+          setImageStates((prev) => {
+            const newState = [...prev];
+            newState[index] = { loaded: true };
+            return newState;
+          });
+        }
+      }}
+
+      https://pixabay.com/get/g43c5f509c9fb15d2cb21b2f5d43bc5f24e6d624f99d53b08ff555099b61c9abe36565e5dc59235a9dc5796a83b7c513c07a5c5fc1c99d29791e23a7820181ace_640.jpg
+------------------------------------------------------------------------------------------
+give random positions
+
+function shuffleArray(array) {
+  return array.sort(() => Math.random() - 0.5);
+}
+
+------------------------------------------------------------------------------------------
+download ig storyies with black bg 
+
+function generateStoryImage(imgUrl, caption = "🔥 Found on BrowseNext.today") {
+  const canvas = document.createElement("canvas");
+  canvas.width = 1080;
+  canvas.height = 1920;
+  const ctx = canvas.getContext("2d");
+
+  const img = new Image();
+  img.crossOrigin = "anonymous"; // important if image comes from another domain
+  img.onload = () => {
+    // Fill background (black for safety)
+    ctx.fillStyle = "#000";
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+    // Draw the image scaled to fit
+    const ratio = img.width / img.height;
+    let newWidth = canvas.width;
+    let newHeight = canvas.width / ratio;
+    if (newHeight > canvas.height) {
+      newHeight = canvas.height;
+      newWidth = canvas.height * ratio;
+    }
+    const x = (canvas.width - newWidth) / 2;
+    const y = (canvas.height - newHeight) / 2;
+    ctx.drawImage(img, x, y, newWidth, newHeight);
+
+    // Add caption / branding text
+    ctx.font = "bold 48px Arial";
+    ctx.fillStyle = "#fff";
+    ctx.textAlign = "center";
+    ctx.fillText(caption, canvas.width / 2, canvas.height - 60);
+
+    // Export image
+    const storyImage = canvas.toDataURL("image/png");
+    const link = document.createElement("a");
+    link.href = storyImage;
+    link.download = "story.png";
+    link.click();
+  };
+  img.src = imgUrl;
+}
+
+
+---------------------------------------------------------------------------------------------------------------------------
+
+  function getEmojisByCategory(category) {
+  const emojiMap = {
+    nature: "🌿🌸🌞",
+    food: "🍕🍔🍦",
+    tech: "💻📱🤖",
+    fashion: "👗🕶️👠",
+    animals: "🐶🐱🦁",
+    Love: "❤️❤️"
+  };
+  return emojiMap[category] || "✨😊🎉"; // default emojis
+}
+
+
+
+for dowbnload ig stroyies in blured photo background
+  function generateStoryImage(imgUrl, caption = "🔥 Found on BrowseNext.today") {
+ 
+      // const canvas = document.getElementById("storyCanvas");
+  const canvas = document.createElement("canvas");
+  canvas.width = 1080;
+  canvas.height = 1920;
+  const ctx = canvas.getContext("2d");
+
+  // Load image
+  const img = new Image();
+  img.crossOrigin = "anonymous"; // Important for CORS-safe download
+  img.src = imgUrl;
+
+  img.onload = () => {
+    const W = canvas.width;
+    const H = canvas.height;
+
+    // 1. Fill blurred background
+    ctx.filter = "blur(40px)"; // heavy blur
+    ctx.drawImage(img, 0, 0, W, H);
+    ctx.filter = "none"; // reset filter
+
+    // 2. Draw centered image (fit inside 9:16 safely)
+    const aspect = img.width / img.height;
+    let newW, newH;
+    if (aspect > W / H) {
+      // wider → fit by height
+      newH = H * 0.7;
+      newW = newH * aspect;
+    } else {
+      // taller → fit by width
+      newW = W * 0.9;
+      newH = newW / aspect;
+    }
+    const x = (W - newW) / 2;
+    const y = (H - newH) / 2;
+    ctx.drawImage(img, x, y, newW, newH);
+
+    // 3. Branding text
+    ctx.fillStyle = "white";
+    ctx.font = "bold 48px Arial";
+    ctx.textAlign = "center";
+    let imageCategory = "Love"
+    let emojis = getEmojisByCategory(imageCategory)
+
+
+    ctx.fillText(emojis, W / 2, H / 2);
+    ctx.fillText(caption, W / 2, H - 80);
+
+    // 4. Export final image (download)
+    const link = document.createElement("a");
+    link.download = "story.png";
+    link.href = canvas.toDataURL("image/png");
+    link.click();
+  };
+}
+
+----------------------------------------------------------------------------------------------------------------------
+
+  function getEmojisByCategory(category) {
+  const emojiMap = {
+    nature: "🌿🌸🌞",
+    food: "🍕🍔🍦",
+    tech: "💻📱🤖",
+    fashion: "👗🕶️👠",
+    animals: "🐶🐱🦁",
+    Love: "❤️😍❤️",
+  };
+  return emojiMap[category] || "✨😊🎉"; // default emojis
+}
+
+  function generateStoryImage(imgUrl, caption = "🔥 Found on BrowseNext.today") {
+ 
+    const canvas = document.createElement("canvas");
+canvas.width = 1080;
+canvas.height = 1920;
+const ctx = canvas.getContext("2d");
+
+// Load image
+const img = new Image();
+img.crossOrigin = "anonymous";
+img.src = imgUrl;
+
+img.onload = () => {
+  const W = canvas.width;
+  const H = canvas.height;
+
+  // 1. Blurred background
+  ctx.filter = "blur(40px)";
+  ctx.drawImage(img, 0, 0, W, H);
+  ctx.filter = "none";
+
+  // 2. Draw centered main image
+  const aspect = img.width / img.height;
+  let newW, newH;
+  if (aspect > W / H) {
+    newH = H * 0.7;
+    newW = newH * aspect;
+  } else {
+    newW = W * 0.9;
+    newH = newW / aspect;
+  }
+  const x = (W - newW) / 2;
+  const y = (H - newH) / 2;
+  ctx.drawImage(img, x, y, newW, newH);
+
+  // 3. Center emoji with white background
+  const imageCategory = "Love";
+  const emojis = getEmojisByCategory(imageCategory);
+
+  ctx.font = "bold 120px Arial"; // Big emojis
+  ctx.textAlign = "center";
+  ctx.textBaseline = "middle";
+
+  // Measure text width & height
+  const textMetrics = ctx.measureText(emojis);
+  const textWidth = textMetrics.width;
+  const textHeight = 120; // approximate emoji height (same as font size)
+
+  const padding = 50; // space around emojis
+  const rectWidth = textWidth + padding * 2;
+  const rectHeight = textHeight + padding * 2;
+  const rectX = W / 2 - rectWidth / 2;
+  const rectY = H / 2 - rectHeight / 2;
+
+  // Draw white rounded rectangle
+  ctx.fillStyle = "white";
+  const radius = 50;
+  ctx.beginPath();
+  ctx.moveTo(rectX + radius, rectY);
+  ctx.lineTo(rectX + rectWidth - radius, rectY);
+  ctx.quadraticCurveTo(rectX + rectWidth, rectY, rectX + rectWidth, rectY + radius);
+  ctx.lineTo(rectX + rectWidth, rectY + rectHeight - radius);
+  ctx.quadraticCurveTo(rectX + rectWidth, rectY + rectHeight, rectX + rectWidth - radius, rectY + rectHeight);
+  ctx.lineTo(rectX + radius, rectY + rectHeight);
+  ctx.quadraticCurveTo(rectX, rectY + rectHeight, rectX, rectY + rectHeight - radius);
+  ctx.lineTo(rectX, rectY + radius);
+  ctx.quadraticCurveTo(rectX, rectY, rectX + radius, rectY);
+  ctx.closePath();
+  ctx.fill();
+
+  // Draw emojis on top
+  ctx.fillText(emojis, W / 2, H / 2);
+
+  // 4. Branding text at bottom
+  ctx.fillStyle = "white";
+  ctx.font = "bold 48px Arial";
+  ctx.textBaseline = "bottom";
+  ctx.fillText(caption, W / 2, H - 80);
+
+  // 5. Export final image
+  const link = document.createElement("a");
+  link.download = "story.png";
+  link.href = canvas.toDataURL("image/png");
+  link.click();
+};
+}

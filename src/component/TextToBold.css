@@ -77,7 +77,7 @@ input{
     width: 20%;
     justify-content: flex-end;
     /* background: red; */
-    padding: 0px 10px 0px 15px;
+    padding: 0px 0px 0px 15px;
     align-items: center;
     gap: 0px 5px;
   }
@@ -126,6 +126,9 @@ input{
       }
       .user_textarea_input{
         min-height: 130px;
+      }
+      .copy_bold_texticon{
+        padding: 8px !important;
       }
   }
 

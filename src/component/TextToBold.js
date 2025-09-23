@@ -302,7 +302,7 @@ function shuffleArray(array) {
                   }
                 }}
               ></i> */}
-              <ShareButton btnClass={"copy_bold_texticon"} productTitle={"✨ BrowseNext – Free Bold Caption for Social Media ✨"} productDesc={"Make your captions bold & stylish instantly! then just copy & paste..."} callingFrom={"captionTools"} /> 
+              <ShareButton btnClass={"copy_bold_texticon"} productTitle={"✨ BrowseNext – Free Bold Caption for Social Media ✨"} productDesc={"Make your captions bold & stylish instantly! then just copy & paste... Try now:"} callingFrom={"captionTools"} /> 
 
 
 </div>

@@ -130,6 +130,10 @@ input{
       .copy_bold_texticon{
         padding: 8px !important;
       }
+      .caption_tool_actions{
+        bottom: 10px !important;
+        right: 1px !important;
+      }
   }
 
   /* @media screen and (max-width: 680px) {

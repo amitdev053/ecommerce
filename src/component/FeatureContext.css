@@ -316,8 +316,14 @@
        /* 
               max-width: 100%;
         overflow-x: scroll; */
+        gap: 20px;
 
   }
+    .app_feature_icons{
+        opacity: 100% !important;
+  background-color: white !important;
+  font-size: 22px !important;
+    }
   .feature-card {
     width: 350px;
     margin-bottom: 0px;

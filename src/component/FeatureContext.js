@@ -34,7 +34,7 @@ const features = [
     //   <p>Discover the ultimate tool for effortlessly finding perfect <strong>images content </strong> for your <strong> niche </strong>. Whether you’re creating blog posts, social media content, presentations, or marketing materials, our platform instantly delivers stunning visuals that match your unique style and subject. <strong> No more endless scrolling </strong> through irrelevant <strong>photos </strong>— simply define your niche, and our intelligent image search engine curates a personalized selection <strong>just for you </strong>.</p>
     // `,
     fullDescription: `
-  <p>Explore a world of stunning <strong>images</strong> tailored to your interests with our <strong>Explore</strong> feature. From trending topics to niche categories, our platform makes it effortless to discover visuals that inspire and match your needs. With <strong>Explore Images</strong>, you get a curated stream of high-quality photos that refresh regularly—perfect for <strong>blogs</strong>, <strong>social media</strong>, <strong>presentations</strong>, or any creative project. <strong>No more endless searching</strong>—just fresh, relevant, and beautiful images delivered <strong>for you</strong>.</p>
+  <p>Explore a world of stunning <strong>images</strong> tailored to your interests with our <strong>Explore</strong> feature. From trending topics to niche categories, our platform makes it effortless to discover visuals that inspire and match your needs. With <strong>Explore Images</strong>, you get a curated stream of high-quality photos that refresh regularly—perfect for <strong>blogs</strong>, <strong>social media</strong>, <strong>presentations</strong>, or any creative project. <strong>No more endless searching</strong>—just fresh, relevant, and beautiful images delivered <strong>for you</strong>...</p>
 
   <ul>
   <li><strong>Fresh Discoveries :-</strong> 
@@ -42,6 +42,7 @@ const features = [
     position: relative;
     left: 5%;
     width: 99% !important;
+    top: -2px !important;
     
     ">Browse a constantly updating feed of <strong>high-quality images</strong> across fashion, tech, travel, nature, and more.</p>
   </li>
@@ -51,6 +52,7 @@ const features = [
     position: relative;
     left: 5%;
     width: 99% !important;
+    top: -2px !important;
     
     ">Click any image to instantly see a <strong>larger preview</strong>, metadata, and <strong>related visuals</strong>—perfect for inspiration or deep dives.</p>
   </li>
@@ -60,6 +62,7 @@ const features = [
     position: relative;
     left: 5%;
     width: 99% !important;
+    top: -2px !important;
     
     ">Our platform <strong>rotates fresh images hourly</strong>, so there’s always something new to discover without endless scrolling.</p>
   </li>
@@ -69,6 +72,7 @@ const features = [
     position: relative;
     left: 5%;
     width: 99% !important;
+    top: -2px !important;
     
     ">Find the right images for <strong>blog posts</strong>, <strong>social media</strong>, or <strong>presentations</strong>—all in one place.</p>
   </li>
@@ -78,6 +82,7 @@ const features = [
     position: relative;
     left: 5%;
     width: 99% !important;
+    top: -2px !important;
     
     ">Engage with visuals you like, and easily <strong>share them</strong> or come back later for more inspiration.</p>
   </li>
@@ -120,16 +125,10 @@ const features = [
     // title: 'Create Eye-Catching Captions with Ease!',
     // description: 'Style your social posts and descriptions effortlessly using smart tools.',
     description: 'Boost your social posts with smart, stylish formatting tools.',
-    fullDescription: `<p>Transform your <strong> content effortlessly</strong> with our HTML-to-Markdown converter. Say goodbye to complicated formatting—simply paste your HTML, and let our tool do the magic! Whether <strong> you're creating </strong> blog posts, social media content, or documentation, this easy-to-use tool ensures clean,<strong>readable Markdown in seconds </strong>. Boost your productivity and take control of your formatting with advanced features that handle everything from <strong> headings to hyperlinks </strong>. With this tool, you'll always have polished, professional posts ready to share across any platform. Save time, streamline your workflow, and start formatting like a <strong>pro today</strong>! </p>
-    <div class="usage_guide"><i class="fa-solid fa-message"></i> Usage Of Markdown Tool</div>
-      <ul>
-      <li><strong>Blog Migration :-</strong> <p>Move HTML posts to Markdown platforms for faster, easier sites.</p></li>
-      <li><strong>Social Media Captions :-</strong> <p> Create <strong> beautiful captions and descriptions </strong> for </nbsp> <i class="fa-brands fa-instagram"></i> Instagram, <i class="fa-brands fa-linkedin"></i> LinkedIn, <i class="fa-brands fa-threads"></i> Threads, or <i class="fa-brands fa-twitter"></i> Twitter — then just <strong> copy and paste </strong>  easily.</p></li>
-      <li><strong>Documentation :-</strong> <p> Convert snippets for clean, readable <i class="fa-brands fa-github"></i> GitHub READMEs  </p></li>
-      <li><strong>Social Sharing :-</strong> <p> Reuse content in Slack, Notion, or Discord with clean formatting.</p></li>
-      <li><strong>Editing Ease :-</strong> <p> Edit content faster in simple Markdown editors.</p></li>
-      <li><strong>Captions Ease :-</strong> <p> You can also try different bold styles, fonts, or emojis to make it more fun. It’s free, fast, and super easy. 💡</p></li>
-      </ul>
+    fullDescription: `<p>Transform your <strong>social media captions effortlessly</strong> with our Bold Caption Tool. Say goodbye to boring text—simply type or paste your content, and choose from <strong>7–8 stylish font styles</strong> to make your captions stand out! Whether you’re creating posts for <i class="fa-brands fa-instagram"></i> Instagram, <i class="fa-brands fa-linkedin"></i> LinkedIn, <i class="fa-brands fa-threads"></i> Threads, or <i class="fa-brands fa-twitter"></i> Twitter, our tool ensures <strong>eye-catching, readable captions in seconds</strong>. Boost engagement, save time, and make your content shine with just a few clicks.</p>
+    <div class="usage_guide"><i class="fa-solid fa-message"></i> How to Use the Bold Caption Tool</div>
+
+      <ul> <li><strong>Choose Your Font Style:</strong> <p>Select from 7–8 unique font styles to give your captions a distinctive look.</p></li> <li><strong>Suggested Captions:</strong> <p>Get inspiration instantly with our curated caption suggestions for any post.</p></li> <li><strong>Copy & Share:</strong> <p>Copy your styled captions easily and share them directly across <i class="fa-brands fa-instagram"></i> Instagram, <i class="fa-brands fa-linkedin"></i> LinkedIn, <i class="fa-brands fa-threads"></i> Threads, or <i class="fa-brands fa-twitter"></i> Twitter.</p></li> <li><strong>Editing Made Easy:</strong> <p>Make quick changes in our simple editor and preview your captions instantly.</p></li> <li><strong>Fun & Engaging:</strong> <p>Add bold text, mix emojis, or try different font combinations—make your captions unique, fast, and fun! 💡</p></li> </ul>
     `,
     // fullDescription: `
  
@@ -463,8 +462,20 @@ const msUntilNextHour = (60 - now.getMinutes()) * 60 * 1000 - now.getSeconds() *
     body.style.position = '';
   }
   }
+  function extendUserGuidesModelHeight(userGuideContent){
+      if(userGuideContent){ 
+  
+              if(userGuideContent.scrollHeight > 298){
+                userGuideContent.style.transition = "all 0.2s linear"
+                userGuideContent.style.height = "42dvh"
+              }else{
+                userGuideContent.style.height = "30dvh"                
+              }  
+    }
+  }
   function openGuides(feature) {
     // console.log("open guides", feature)
+    let userGuideContent = document.getElementById('userGuideContent')
       // Save feature data into state
   setGuideContent({
     title: feature.modelTitle,
@@ -473,10 +484,17 @@ const msUntilNextHour = (60 - now.getMinutes()) * 60 * 1000 - now.getSeconds() *
   });
     blockOutSideElement(true)
     setLoadingGuides(true)
+
+    
     
 document.getElementById("UserGuides").classList.add("dialog_container_fluid_show")
 document.getElementById("UserGuides").style.transform = `translateY(0)`;
 document.getElementById("UserGuides").setAttribute("fromInfo", true)
+
+setTimeout(()=>{
+  extendUserGuidesModelHeight(userGuideContent)
+}, 1500)
+
 document.getElementById("UserGuides").addEventListener("click", (event) => {
   if(event.target === document.getElementById("okGuides")){
     // console.log("ok order")
@@ -488,6 +506,7 @@ document.getElementById("UserGuides").addEventListener("click", (event) => {
       document.getElementById("UserGuides").style.transform = `translateY(100%)`;
       document.getElementById("UserGuides").style.overflowY = `auto`;
       document.getElementById("UserGuides").classList.remove("dialog_container_fluid_show")
+      userGuideContent.style.height = "30dvh"
     }, 1000)
   }
 

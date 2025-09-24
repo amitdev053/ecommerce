@@ -32,6 +32,8 @@ const UserGuides = (props) => {
   // Touch Handlers
   function handleTouchStart(e) {
     console.log("touchStart", e.target, !contentRef.current.contains(e.target))
+    //   let userGuideContent = contentRef.current
+   
     if(!contentRef.current.contains(e.target)){
       setStartY(e.touches[0].clientY);
     }
@@ -51,22 +53,16 @@ const UserGuides = (props) => {
     }
   }
 
-  function handleTouchEnd() {
+  function handleTouchEnd(e) {
     let body = document.getElementById("appbody");
     if (!startY || !currentY) return;
 
     const diffY = currentY - startY;
 
     if (diffY > 100) {
-      // Slide out and close
-      modalRef.current.style.transition = 'transform 0.3s ease-out';
-      modalRef.current.style.transform = 'translateY(100%)';
-      body.style.overflowY = 'auto'; 
-      body.style.position = ''; 
-      // After animation, remove modal
-      setTimeout(() => {
-        props.loadingF(false); // or a dedicated close method
-      }, 300);
+     
+      setupCLoseModelStyles(body)
+
     } else {
       // Restore position
       modalRef.current.style.transition = 'transform 0.3s ease-out';
@@ -79,7 +75,28 @@ const UserGuides = (props) => {
     setCurrentY(null);
   }
 
-  
+  function closeModel(event){
+    let body = document.getElementById("appbody");
+    //   console.log("yes onClick fire on userguide model")
+
+    if(event.target === modalRef.current){    
+     setupCLoseModelStyles(body)
+
+      }
+  }
+  function setupCLoseModelStyles(body){
+
+     modalRef.current.style.transition = 'transform 0.3s ease-out';
+      modalRef.current.style.transform = 'translateY(100%)';
+      body.style.overflowY = 'auto'; 
+      body.style.position = ''; 
+      document.getElementById("UserGuides").classList.remove("dialog_container_fluid_show")
+      contentRef.current.style.height = "30dvh"
+      setTimeout(() => {
+        props.loadingF(false); 
+      }, 300);
+
+  }
 
   return createPortal(
     <div
@@ -89,7 +106,8 @@ const UserGuides = (props) => {
       guides="true"
        onTouchStart={handleTouchStart}
       onTouchMove={handleTouchMove}
-      onTouchEnd={handleTouchEnd}
+      onTouchEnd={(e)=>{handleTouchEnd(e)}}
+      onClick={(e)=>{closeModel(e)}}
     >
       <div className="row dialog_row user_guides_row"
      
@@ -106,7 +124,7 @@ const UserGuides = (props) => {
           ) : (
             <div
               className="gallerytitle productname productdiscripation"
-              id="productname"
+              id="userGuideContent"
               dangerouslySetInnerHTML={{ __html: props.description }}
               ref={contentRef}
             >

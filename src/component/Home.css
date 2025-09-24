@@ -1,0 +1,37 @@
+.app_explore_home_feeds {
+        display: flex ;
+    align-items: center ;
+    justify-content: space-between ;
+    padding: 0px 10px 0px 0px ;
+}
+.app_home_feeds_heading{
+    
+
+              font-size: 25px;
+              font-weight: 700;
+              margin: 0px;
+}
+.mobile_heading{
+    display: none;
+}
+.desktop_heading { display: inline; }
+.app_explore_see_all{
+    text-decoration: none;
+    background: black;
+    color: white !important;
+    padding: 8px 20px 8px 20px;
+    border-radius: 30px;
+    font-size: 14px;
+    font-family: "Roboto" !important;
+}
+
+@media (max-width: 520px) {
+ .desktop_heading{
+    display: none;
+ }
+ .mobile_heading { display: inline; }
+
+  .app_explore_see_all{
+white-space: nowrap; 
+  }
+}

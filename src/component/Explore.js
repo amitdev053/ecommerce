@@ -1003,7 +1003,7 @@ function toImageKitURL(originalUrl, width = 640, quality= 80) {
     <h1>Explore {content[updatedHours()]} Images✨</h1>
     <p>Download HD {content[updatedHours()]} images for Instagram, Facebook, WhatsApp status, Twitter, LinkedIn, and more — free, fast, and ready to use.</p>
   </div>
- <div  className={`${props.componentFrom === "home" ? 'container p-0 pinterest-layout' : 'container pinterest-layout'} ${props.componentFrom === "exploreNext" ? 'mt-ps90' : 'mt-ps90'}`} ref={exploreRef}>
+ <div  className={`${props.componentFrom === "home" ? 'container p-0 pinterest-layout mt-5' : 'container pinterest-layout'} ${props.componentFrom === "exploreNext" ? 'mt-ps90' : 'mt-ps90'}`} ref={exploreRef}>
  
       {images.map((image, index) => {
         if (!imageStates[index]) return null; 

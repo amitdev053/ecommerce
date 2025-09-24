@@ -1,13 +1,14 @@
-import React, {useEffect, useState} from 'react'
-import Products from './Products'
-import FeatureContext from './FeatureContext'
-import ProductSlider from './ProductSlider'
-import { useLocation, useParams, useNavigate} from 'react-router-dom'
-import { changeProdiuctView } from './CustomHook'
-import Explore from './Explore'
-import AppPagesHeading from './AppPagesHeading'
-import Blogs from './Blogs'
-import { Helmet } from 'react-helmet'
+import React, {useEffect, useState} from 'react';
+import Products from './Products';
+import FeatureContext from './FeatureContext';
+import ProductSlider from './ProductSlider';
+import { useLocation, useParams, useNavigate, Link} from 'react-router-dom';
+import { changeProdiuctView } from './CustomHook';
+import Explore from './Explore';
+import AppPagesHeading from './AppPagesHeading';
+import Blogs from './Blogs';
+import { Helmet } from 'react-helmet';
+import "./Home.css";
 
 
 let topic = "Home"
@@ -36,6 +37,14 @@ export default function Home() {
 <Products componentFrom="home" />
 <ExploreLinkButton  buttonText="Checkout More Products" buttonType="product" />
 <div className="app_divider"/>
+<div className='explore_home_heading_container app_container app_explore_home_feeds'>
+ <div className='app_home_feeds_heading desktop_heading'>Trending Now: See What’s Hot 🔥 </div>
+ <div className='app_home_feeds_heading mobile_heading'>Trending 🔥 </div>
+
+          <Link class="app_explore_see_all" to="/explore">See all</Link>
+
+</div>
+
 <Explore componentFrom="home" />
 <ExploreLinkButton buttonText="Explore Trending Images" buttonType="explore" />
 <div className="app_divider"/>

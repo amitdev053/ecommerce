@@ -3,6 +3,8 @@ import './FeatureContext.css';
 import { useNavigate } from 'react-router-dom';
 import DialogBox from './DialogBox';
 import UserGuides from './UserGuides';
+import Alert from './Alert';
+import { toast } from 'react-toastify';
 // let totalListenBlogs = "30";
 // let totalDownloadImages = "100";
 // let totalCopiedCaptions = "150" ;
@@ -174,10 +176,12 @@ const FeatureContext = () => {
   const [guideContent, setGuideContent] = useState({
   title: '',
   description: '',
-  buttonText: ''
+  buttonText: '',
+  modelType: '',
 });
   const [currentHeading, setCurrentHeading] = useState(0);
   const [totals, setTotals] = useState(startValues);
+  const [openUserModelCounts, setOpenUserModelCounts] = useState(0)
   let incrementBy = 1
 
   const STEP = 50;                 // change to 50 if you want +50 per second
@@ -462,38 +466,65 @@ const msUntilNextHour = (60 - now.getMinutes()) * 60 * 1000 - now.getSeconds() *
     body.style.position = '';
   }
   }
-  function extendUserGuidesModelHeight(userGuideContent){
+  function extendUserGuidesModelHeight(userGuideContent, type){
       if(userGuideContent){ 
   
-              if(userGuideContent.scrollHeight > 298){
-                userGuideContent.style.transition = "all 0.2s linear"
+              // if(userGuideContent.scrollHeight > 298){
+              //   userGuideContent.style.transition = "all 0.2s linear"
+              //   userGuideContent.style.height = "42dvh"
+              // }else{
+              //   userGuideContent.style.height = "30dvh"                
+              // }  
+              if(type !== "blogs"){
+                  userGuideContent.style.transition = "all 0.2s linear"
                 userGuideContent.style.height = "42dvh"
-              }else{
-                userGuideContent.style.height = "30dvh"                
-              }  
+              }
+
     }
   }
-  function openGuides(feature) {
-    // console.log("open guides", feature)
+  function openGuides(feature, index) {
+    console.log("open guides", feature, index)
+    let type 
+    if(index === 0){
+      type= "images"
+    }else if(index === 1){
+      type ="blogs"
+    }else{
+      type ="tools"
+    }
+
     let userGuideContent = document.getElementById('userGuideContent')
       // Save feature data into state
   setGuideContent({
     title: feature.modelTitle,
     description: feature.fullDescription,
-    buttonText: 'Got it!'  // Or feature.buttonText if you want dynamic
+    // buttonText: 'Got it!',
+    buttonText: 'Start Exploring Now',
+    modelType: type,
   });
     blockOutSideElement(true)
     setLoadingGuides(true)
 
-    
+
+    // setTimeout(()=>{
+      if(window.innerWidth < 550){
+        extendUserGuidesModelHeight(userGuideContent, type)
+      }
+// }, 1500)
     
 document.getElementById("UserGuides").classList.add("dialog_container_fluid_show")
 document.getElementById("UserGuides").style.transform = `translateY(0)`;
 document.getElementById("UserGuides").setAttribute("fromInfo", true)
 
-setTimeout(()=>{
-  extendUserGuidesModelHeight(userGuideContent)
-}, 1500)
+if(window.innerWidth < 550){
+
+  if(!sessionStorage.getItem("openedUserGuideModel") && openUserModelCounts === 0){
+    toast.info("Swipe Down to Close")
+    setOpenUserModelCounts(1)
+    sessionStorage.setItem("openedUserGuideModel", true)
+  }
+}
+
 
 document.getElementById("UserGuides").addEventListener("click", (event) => {
   if(event.target === document.getElementById("okGuides")){
@@ -507,12 +538,23 @@ document.getElementById("UserGuides").addEventListener("click", (event) => {
       document.getElementById("UserGuides").style.overflowY = `auto`;
       document.getElementById("UserGuides").classList.remove("dialog_container_fluid_show")
       userGuideContent.style.height = "30dvh"
-    }, 1000)
+      navigateApp(type)
+    }, 500)
   }
 
 })
 
 
+}
+
+function navigateApp(type){
+    if(type === "images"){
+        usenavigate('/explore');
+    }else if(type === "blogs"){
+        usenavigate('/blogs');
+    }else if(type === "tools"){
+      usenavigate('/tools');
+    }
 }
 
   return (
@@ -531,7 +573,7 @@ document.getElementById("UserGuides").addEventListener("click", (event) => {
             
           >
           <p className="badge">{feature.badge}</p>
-            <i className="fa-solid fa-ellipsis position-absolute app_feature_icons" onClick={()=>openGuides(feature)}></i>
+            <i className="fa-solid fa-ellipsis position-absolute app_feature_icons" onClick={()=>openGuides(feature, idx)}></i>
             <div className="feature-emoji">{feature.emoji}</div>
             <h3>{feature.title}</h3>
             <p>{feature.description}</p>
@@ -545,7 +587,8 @@ document.getElementById("UserGuides").addEventListener("click", (event) => {
         ))}
       </div>
     </section>
-    <UserGuides title={guideContent.title} description={guideContent.description} buttonText="Got it!" guides={guides} loadingF={setLoadingGuides} isLoadingGuides={isLoadingGuides} />
+    <UserGuides title={guideContent.title} description={guideContent.description} buttonText={guideContent.buttonText} guides={guides} loadingF={setLoadingGuides} isLoadingGuides={isLoadingGuides} modelType={guideContent.modelType} />
+    <Alert position="bottom-center" />
     </>
   );
 };

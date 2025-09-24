@@ -31,7 +31,7 @@ const UserGuides = (props) => {
 
   // Touch Handlers
   function handleTouchStart(e) {
-    console.log("touchStart", e.target, !contentRef.current.contains(e.target))
+    // console.log("touchStart", e.target, !contentRef.current.contains(e.target))
     //   let userGuideContent = contentRef.current
    
     if(!contentRef.current.contains(e.target)){

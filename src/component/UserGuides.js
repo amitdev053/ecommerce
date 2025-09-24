@@ -31,10 +31,12 @@ const UserGuides = (props) => {
 
   // Touch Handlers
   function handleTouchStart(e) {
-    console.log("touchStart", e.target.parentElement, contentRef.current)
-    if(e.target.parentElement !== contentRef.current){
+    console.log("touchStart", e.target, !contentRef.current.contains(e.target))
+    if(!contentRef.current.contains(e.target)){
       setStartY(e.touches[0].clientY);
     }
+  
+    
   }
 
   function handleTouchMove(e) {

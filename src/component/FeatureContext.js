@@ -485,12 +485,18 @@ const msUntilNextHour = (60 - now.getMinutes()) * 60 * 1000 - now.getSeconds() *
   function openGuides(feature, index) {
     console.log("open guides", feature, index)
     let type 
+    let buttonContent = "Got it!"
     if(index === 0){
       type= "images"
+      buttonContent = "Start Exploring Now"
+      // buttonContent = "Explore Trending Photos"
     }else if(index === 1){
       type ="blogs"
+      buttonContent = "Start Listening Now"
     }else{
       type ="tools"
+      buttonContent = "Try it Now"
+      
     }
 
     let userGuideContent = document.getElementById('userGuideContent')
@@ -499,7 +505,7 @@ const msUntilNextHour = (60 - now.getMinutes()) * 60 * 1000 - now.getSeconds() *
     title: feature.modelTitle,
     description: feature.fullDescription,
     // buttonText: 'Got it!',
-    buttonText: 'Start Exploring Now',
+    buttonText: buttonContent,
     modelType: type,
   });
     blockOutSideElement(true)
@@ -534,10 +540,13 @@ document.getElementById("UserGuides").addEventListener("click", (event) => {
     setTimeout(() => {
       setGuides(false)
       blockOutSideElement(false)
-      document.getElementById("UserGuides").style.transform = `translateY(100%)`;
-      document.getElementById("UserGuides").style.overflowY = `auto`;
-      document.getElementById("UserGuides").classList.remove("dialog_container_fluid_show")
-      userGuideContent.style.height = "30dvh"
+      if(  document.getElementById("UserGuides")){
+        document.getElementById("UserGuides").style.transform = `translateY(100%)`;
+        document.getElementById("UserGuides").style.overflowY = `auto`;
+        document.getElementById("UserGuides").classList.remove("dialog_container_fluid_show")
+        userGuideContent.style.height = "30dvh"
+
+      }
       navigateApp(type)
     }, 500)
   }

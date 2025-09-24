@@ -66,6 +66,7 @@
     /* height: 67% ; */
     overflow-y: auto; 
     animation: fadeIn 0.3s ease-in-out backwards; 
+    overflow-x: hidden;
 }
 
 .productdiscripation ul{

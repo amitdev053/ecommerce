@@ -30,9 +30,63 @@ const features = [
     // description: 'Discover visuals that perfectly match your style—fast and easy.',
     // fullDescription: "Discover the ultimate tool for effortlessly finding perfect images tailored to your content niche. Whether you’re creating blog posts, social media content, presentations, or marketing materials, our platform instantly delivers stunning visuals that match your unique style and subject. No more endless scrolling through irrelevant photos — simply define your niche, and our intelligent image search engine curates a personalized selection just for you. ",
 
+    // fullDescription: `
+    //   <p>Discover the ultimate tool for effortlessly finding perfect <strong>images content </strong> for your <strong> niche </strong>. Whether you’re creating blog posts, social media content, presentations, or marketing materials, our platform instantly delivers stunning visuals that match your unique style and subject. <strong> No more endless scrolling </strong> through irrelevant <strong>photos </strong>— simply define your niche, and our intelligent image search engine curates a personalized selection <strong>just for you </strong>.</p>
+    // `,
     fullDescription: `
-      <p>Discover the ultimate tool for effortlessly finding perfect <strong>images content </strong> for your <strong> niche </strong>. Whether you’re creating blog posts, social media content, presentations, or marketing materials, our platform instantly delivers stunning visuals that match your unique style and subject. <strong> No more endless scrolling </strong> through irrelevant <strong>photos </strong>— simply define your niche, and our intelligent image search engine curates a personalized selection <strong>just for you </strong>.</p>
-    `,
+  <p>Explore a world of stunning <strong>images</strong> tailored to your interests with our <strong>Explore</strong> feature. From trending topics to niche categories, our platform makes it effortless to discover visuals that inspire and match your needs. With <strong>Explore Images</strong>, you get a curated stream of high-quality photos that refresh regularly—perfect for <strong>blogs</strong>, <strong>social media</strong>, <strong>presentations</strong>, or any creative project. <strong>No more endless searching</strong>—just fresh, relevant, and beautiful images delivered <strong>for you</strong>.</p>
+
+  <ul>
+  <li><strong>Fresh Discoveries :-</strong> 
+    <p style="display: block !important;
+    position: relative;
+    left: 5%;
+    width: 99% !important;
+    
+    ">Browse a constantly updating feed of <strong>high-quality images</strong> across fashion, tech, travel, nature, and more.</p>
+  </li>
+
+  <li><strong>ExploreNext :-</strong> 
+    <p style="display: block !important;
+    position: relative;
+    left: 5%;
+    width: 99% !important;
+    
+    ">Click any image to instantly see a <strong>larger preview</strong>, metadata, and <strong>related visuals</strong>—perfect for inspiration or deep dives.</p>
+  </li>
+
+  <li><strong>Smart Curation :-</strong> 
+    <p style="display: block !important;
+    position: relative;
+    left: 5%;
+    width: 99% !important;
+    
+    ">Our platform <strong>rotates fresh images hourly</strong>, so there’s always something new to discover without endless scrolling.</p>
+  </li>
+
+  <li><strong>Creative Uses :-</strong> 
+    <p style="display: block !important;
+    position: relative;
+    left: 5%;
+    width: 99% !important;
+    
+    ">Find the right images for <strong>blog posts</strong>, <strong>social media</strong>, or <strong>presentations</strong>—all in one place.</p>
+  </li>
+
+  <li><strong>Save & Share :-</strong> 
+    <p style="display: block !important;
+    position: relative;
+    left: 5%;
+    width: 99% !important;
+    
+    ">Engage with visuals you like, and easily <strong>share them</strong> or come back later for more inspiration.</p>
+  </li>
+</ul>
+
+
+
+`
+,
     // buttonText: 'See Images',
     buttonText: 'Explore Now',
   },

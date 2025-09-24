@@ -18,6 +18,7 @@ const UserGuides = (props) => {
     const [startY, setStartY] = useState(null);
   const [currentY, setCurrentY] = useState(null);
   const modalRef = useRef();
+  const contentRef = useRef()
 
   // Cleanup loader timer
   useEffect(() => {
@@ -30,7 +31,10 @@ const UserGuides = (props) => {
 
   // Touch Handlers
   function handleTouchStart(e) {
-    setStartY(e.touches[0].clientY);
+    console.log("touchStart", e.target.parentElement, contentRef.current)
+    if(e.target.parentElement !== contentRef.current){
+      setStartY(e.touches[0].clientY);
+    }
   }
 
   function handleTouchMove(e) {
@@ -102,7 +106,7 @@ const UserGuides = (props) => {
               className="gallerytitle productname productdiscripation"
               id="productname"
               dangerouslySetInnerHTML={{ __html: props.description }}
-              
+              ref={contentRef}
             >
                {/* {props.description}  */}
               

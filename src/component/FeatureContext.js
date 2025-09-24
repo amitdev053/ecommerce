@@ -381,19 +381,21 @@ const msUntilNextHour = (60 - now.getMinutes()) * 60 * 1000 - now.getSeconds() *
     }
   }
   function blockOutSideElement(type){
+    console.log("lock guides", type)
     const body = document.getElementsByTagName("body")[0]
     const bodyChildren = body.children
     Array.from(bodyChildren).forEach((element)=>{
       if(!element.getAttribute("guides") && !element.classList.contains("navbar")){
+        
         if(type){
           // element.setAttribute("aria-hidden", true)
           // element.setAttribute("inert", true)
-          // body.style.overflow = 'hidden';
+          body.style.overflow = 'hidden';
 
         }else{
           // element.removeAttribute("aria-hidden")
           // element.removeAttribute("inert")
-          // body.style.overflow = 'auto';
+          body.style.overflow = 'auto';
           // body.style.position = '';
         }
       }
@@ -415,7 +417,7 @@ const msUntilNextHour = (60 - now.getMinutes()) * 60 * 1000 - now.getSeconds() *
     description: feature.fullDescription,
     buttonText: 'Got it!'  // Or feature.buttonText if you want dynamic
   });
-    // blockOutSideElement(true)
+    blockOutSideElement(true)
     setLoadingGuides(true)
     
 document.getElementById("UserGuides").classList.add("dialog_container_fluid_show")
@@ -428,7 +430,7 @@ document.getElementById("UserGuides").addEventListener("click", (event) => {
     setGuides(true)
     setTimeout(() => {
       setGuides(false)
-      // blockOutSideElement(false)
+      blockOutSideElement(false)
       document.getElementById("UserGuides").style.transform = `translateY(100%)`;
       document.getElementById("UserGuides").style.overflowY = `auto`;
       document.getElementById("UserGuides").classList.remove("dialog_container_fluid_show")

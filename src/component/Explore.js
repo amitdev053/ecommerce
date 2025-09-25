@@ -1051,6 +1051,7 @@ state={{ imageData: image }}
       aspectRatio: `${image.webformatWidth} / ${image.webformatHeight}`,
       overflow: 'hidden',
       position: 'relative',
+      height: "100%"
     }}
   
   >

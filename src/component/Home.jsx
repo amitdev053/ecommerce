@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {useEffect, useRef, useState} from 'react';
 import Products from './Products';
 import FeatureContext from './FeatureContext';
 import ProductSlider from './ProductSlider';
@@ -18,9 +18,9 @@ const description = `Explore market-shop.vercel.app for a diverse selection of p
 
 const DeskTopHeadings = [
   "Fresh Finds Waiting for You ⏰",
-  "Discover What’s New Right Now",
   "Come Back Every Hour for Fresh Finds",
-  "Trending Now: See What’s Hot 🔥 "
+  "Discover What’s New Right Now",
+  "Trending Now: See What’s Hot 🔥 ",
 ]
 // const MobileHeadings = [
 //   "Fresh Images ⏰",
@@ -42,6 +42,7 @@ export default function Home() {
   const [productView, setProductView] = useState("productView")
   const [url, setUrl]= useState(location.pathname)
   const [currentHeading, setCurrentHeading] = useState(0);
+  const buttonRef = useRef(null)
   
 
   useEffect(()=>{
@@ -81,6 +82,43 @@ export default function Home() {
   }, []);
   
 
+ function sendClickFeed(event , element){    
+    let shareButton = event.target;
+    console.log("this", element)
+    if(shareButton){
+      buttonRef.current.style.backgroundColor = "#000000b8";
+      // shareButton.firstElementChild.style.color = "white";
+      shareButton.style.transition = "all 0.05s linear";
+      shareButton.style.transform = "scale(0.9)";
+      
+      // shareButton.firstElementChild.style.backgroundColor = "white";
+    }
+    
+  }
+  function removeClickFeed(event){    
+    let shareButton = event?.target;
+
+    if(shareButton){
+      buttonRef.current.style.backgroundColor = "black";
+      shareButton.style.transform = "scale(1)";
+      // shareButton.firstElementChild.style.color = "";
+      // shareImage(imageUrl)
+          // showBlog();
+          // shareButton.style.backgroundColor = "";
+      
+    }
+    
+  }
+  function orignalElement(event){
+    let shareButton = event?.target;
+    if(shareButton){
+      buttonRef.current.style.backgroundColor = "black";
+      shareButton.style.transform = "scale(1)";
+      // shareButton.firstElementChild.style.color = "";         
+    }    
+  }
+  
+
   return (
     <>
  
@@ -94,7 +132,12 @@ export default function Home() {
  <div className='app_home_feeds_heading desktop_heading'>{DeskTopHeadings[currentHeading]}</div>
  <div className='app_home_feeds_heading mobile_heading'>{MobileHeadings[currentHeading]}</div>
 
-          <Link class="app_explore_see_all" to="/explore">See all</Link>
+          <Link class="app_explore_see_all" to="/explore" draggable={false} ref={buttonRef}   onMouseDown={(e)=>sendClickFeed(e)} onMouseUp={(e)=>removeClickFeed(e)} onMouseOut={(e)=>orignalElement(e)}
+           onTouchStart={(e) => sendClickFeed(e)}
+  onTouchEnd={(e) => removeClickFeed(e)}
+  onTouchCancel={(e) => orignalElement(e)}
+          
+          >See all</Link>
 
 </div>
 

@@ -25,11 +25,12 @@
     font-family: "Roboto" !important;
 }
 
+
 @media (max-width: 520px) {
  .desktop_heading{
     display: none;
  }
- .mobile_heading { display: inline; }
+ .mobile_heading { display: inline; width: max-content !important; }
 
   .app_explore_see_all{
 white-space: nowrap; 

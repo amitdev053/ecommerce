@@ -17,16 +17,23 @@ const description = `Explore market-shop.vercel.app for a diverse selection of p
 // const keywords = '';
 
 const DeskTopHeadings = [
-  "Fresh Images, Every Hour ⏰",
+  "Fresh Finds Waiting for You ⏰",
   "Discover What’s New Right Now",
   "Come Back Every Hour for Fresh Finds",
   "Trending Now: See What’s Hot 🔥 "
 ]
+// const MobileHeadings = [
+//   "Fresh Images ⏰",
+//   "Discover New",
+//   "Come Back Often",
+//   "Trending 🔥"
+// ];
 const MobileHeadings = [
-  "Fresh Images ⏰",
-  "Discover New",
-  "Come Back Often",
-  "Trending 🔥"
+  "New Hot Images 🔥",
+  "Fresh Visuals Every Hour ⏰",
+  "Discover Favorite Images 👀",
+  "Trending Now: Don’t Miss Out"
+  
 ];
 
 export default function Home() {

@@ -433,3 +433,42 @@ Strongest Catchy Options
 
 “Come Back Every Hour for Fresh Finds”
 → Encourages repeat visits.
+
+
+----------------------------------------------------------------------------------------------------------------------------------------
+
+
+useEffect(() => {
+  const imageColumns = document.querySelectorAll(".explore_image");
+
+  imageColumns.forEach((imageColumn, index) => {
+    const img = imageColumn.querySelector("img");
+    if (!img) return;
+
+    // When image loads, calculate rowSpan
+    if (!img.complete) {
+      img.onload = () => {
+        const columnWidth = imageColumn.offsetWidth;
+        const aspectRatio = img.naturalHeight / img.naturalWidth;
+        const scaledHeight = columnWidth * aspectRatio;
+        imageColumn.style.height = `${scaledHeight}px`;
+
+        const rowHeight = 3; // match grid-auto-rows
+        const rowGap = 3;    // match CSS gap
+        const rowSpan = Math.ceil((scaledHeight + rowGap) / (rowHeight + rowGap));
+        imageColumn.style.setProperty("--row-span", rowSpan);
+      };
+    } else {
+      // Already loaded
+      const columnWidth = imageColumn.offsetWidth;
+      const aspectRatio = img.naturalHeight / img.naturalWidth;
+      const scaledHeight = columnWidth * aspectRatio;
+      imageColumn.style.height = `${scaledHeight}px`;
+
+      const rowHeight = 3;
+      const rowGap = 3;
+      const rowSpan = Math.ceil((scaledHeight + rowGap) / (rowHeight + rowGap));
+      imageColumn.style.setProperty("--row-span", rowSpan);
+    }
+  });
+}, [images]);

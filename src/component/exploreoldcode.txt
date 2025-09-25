@@ -1,22 +1,46 @@
-
-
-  /* .pinterest-layout {
-    
-    column-count: 3;      
-  column-gap: 0px;
+ useEffect(() => {
+    const imageColumns = document.querySelectorAll(".explore_image");
   
-  } */
-.pinterest-layout {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-  gap: 3px;
-  grid-auto-rows: 3px; /* base row height for spanning */
-}
+    imageColumns.forEach((imageColumn, index) => {
+      const currentState = imageStates[index];
+      const imageData = images[index];
+      const img = imageColumn.querySelector("img"); // Get the image element
+  
+      if (!currentState?.loaded && imageData) {
+        const columnWidth = imageColumn.offsetWidth; // Get actual width
+        const aspectRatio = imageData.imageHeight / imageData.imageWidth;
+        const scaledHeight = columnWidth * aspectRatio ;
+        // const scaledHeight = columnWidth * aspectRatio - imageData.imageHeight * 0.1;
+  
+        imageColumn.style.height = `${scaledHeight}px`; // Set calculated height
+      } else {
+        imageColumn.style.height = ""; // Reset height when image is loaded
+      }
+    });
+  }, [imageStates, images]); 
+  
+
+----------------------------------------------------------------------------------------------------------------------------------
+
+
+
+  .pinterest-layout {
+    /* display: flex;
+    justify-content: center;
+    flex-wrap: wrap; */
+
+    /* max-width: 85%; */
+    column-count: 3;       /* Number of Pinterest-like columns */
+  column-gap: 0px;
+  /* width: 100%; */
+  
+  /* padding: 10px; */
+  }
   
   .column {
     display: flex;
     flex-direction: column;
-    margin: 5px 4px;
+    margin: 10px 4px;
     overflow: hidden;
       break-inside: avoid;
     border-radius: 10px; 
@@ -25,7 +49,6 @@
     align-items: center;
     justify-content: center;
     border:3px solid white;   
-      grid-row-end: span var(--row-span);
     
   }
   .column:hover {
@@ -155,10 +178,6 @@
       position: relative;
       right: 10px;
     }
-    .pinterest-layout{
-    column-count: 2;
-    grid-template-columns: repeat(3, 1fr);
-  }
   }
  
 
@@ -171,7 +190,6 @@
   }
   .pinterest-layout{
     column-count: 2;
-    grid-template-columns: repeat(2, 1fr);
   }
 
 }

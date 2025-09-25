@@ -506,40 +506,63 @@ function showMobileIcon(){
 
 //   }, [imageStates, images]); 
 
-useEffect(() => {
-  const imageColumns = document.querySelectorAll(".explore_image");
+ useEffect(() => {
+    const imageColumns = document.querySelectorAll(".explore_image");
+  
+    imageColumns.forEach((imageColumn, index) => {
+      const currentState = imageStates[index];
+      const imageData = images[index];
+      const img = imageColumn.querySelector("img"); // Get the image element
+  
+      if (!currentState?.loaded && imageData) {
+        const columnWidth = imageColumn.offsetWidth; // Get actual width
+        const aspectRatio = imageData.imageHeight / imageData.imageWidth;
+        const scaledHeight = columnWidth * aspectRatio ;
+        // const scaledHeight = columnWidth * aspectRatio - imageData.imageHeight * 0.1;
+  
+        imageColumn.style.height = `${scaledHeight}px`; // Set calculated height
+      } else {
+        imageColumn.style.height = ""; // Reset height when image is loaded
+      }
+    });
+  }, [imageStates, images]); 
+  
 
-  imageColumns.forEach((imageColumn, index) => {
-    const img = imageColumn.querySelector("img");
-    if (!img) return;
 
-    // When image loads, calculate rowSpan
-    if (!img.complete) {
-      img.onload = () => {
-        const columnWidth = imageColumn.offsetWidth;
-        const aspectRatio = img.naturalHeight / img.naturalWidth;
-        const scaledHeight = columnWidth * aspectRatio;
-        imageColumn.style.height = `${scaledHeight}px`;
+// useEffect(() => {
+//   const imageColumns = document.querySelectorAll(".explore_image");
 
-        const rowHeight = 3; // match grid-auto-rows
-        const rowGap = 3;    // match CSS gap
-        const rowSpan = Math.ceil((scaledHeight + rowGap) / (rowHeight + rowGap));
-        imageColumn.style.setProperty("--row-span", rowSpan);
-      };
-    } else {
-      // Already loaded
-      const columnWidth = imageColumn.offsetWidth;
-      const aspectRatio = img.naturalHeight / img.naturalWidth;
-      const scaledHeight = columnWidth * aspectRatio;
-      imageColumn.style.height = `${scaledHeight}px`;
+//   imageColumns.forEach((imageColumn, index) => {
+//     const img = imageColumn.querySelector("img");
+//     if (!img) return;
 
-      const rowHeight = 3;
-      const rowGap = 3;
-      const rowSpan = Math.ceil((scaledHeight + rowGap) / (rowHeight + rowGap));
-      imageColumn.style.setProperty("--row-span", rowSpan);
-    }
-  });
-}, [images]);
+//     // When image loads, calculate rowSpan
+//     if (!img.complete) {
+//       img.onload = () => {
+//         const columnWidth = imageColumn.offsetWidth;
+//         const aspectRatio = img.naturalHeight / img.naturalWidth;
+//         const scaledHeight = columnWidth * aspectRatio;
+//         imageColumn.style.height = `${scaledHeight}px`;
+
+//         const rowHeight = 3; // match grid-auto-rows
+//         const rowGap = 3;    // match CSS gap
+//         const rowSpan = Math.ceil((scaledHeight + rowGap) / (rowHeight + rowGap));
+//         imageColumn.style.setProperty("--row-span", rowSpan);
+//       };
+//     } else {
+//       // Already loaded
+//       const columnWidth = imageColumn.offsetWidth;
+//       const aspectRatio = img.naturalHeight / img.naturalWidth;
+//       const scaledHeight = columnWidth * aspectRatio;
+//       imageColumn.style.height = `${scaledHeight}px`;
+
+//       const rowHeight = 3;
+//       const rowGap = 3;
+//       const rowSpan = Math.ceil((scaledHeight + rowGap) / (rowHeight + rowGap));
+//       imageColumn.style.setProperty("--row-span", rowSpan);
+//     }
+//   });
+// }, [images]);
 
 
   

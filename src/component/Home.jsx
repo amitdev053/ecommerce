@@ -16,17 +16,63 @@ let title = `Explore Home | Market Shops`;
 const description = `Explore market-shop.vercel.app for a diverse selection of products. You can get any tech blogs with there images and videos,  Stay updated with our engaging blog content.`;
 // const keywords = '';
 
+const DeskTopHeadings = [
+  "Fresh Images, Every Hour ⏰",
+  "Discover What’s New Right Now",
+  "Come Back Every Hour for Fresh Finds",
+  "Trending Now: See What’s Hot 🔥 "
+]
+const MobileHeadings = [
+  "Fresh Images ⏰",
+  "Discover New",
+  "Come Back Often",
+  "Trending 🔥"
+];
 
 export default function Home() {
   const [SliderHeading, setSliderHeading] = useState("Choose Your Favourite");
   const location = useLocation();
   const [productView, setProductView] = useState("productView")
   const [url, setUrl]= useState(location.pathname)
+  const [currentHeading, setCurrentHeading] = useState(0);
+  
 
   useEffect(()=>{
     // topic= "Home"
     document.title = "BrowseNext — Explore Images, Bold captions & Listen Blogs"
   })
+
+  function rotateDeskTopHeading(arrayHeading){
+     const hour = new Date().getHours();
+    const index = hour % arrayHeading.length;
+    setCurrentHeading(index);
+    // updateTotals()
+    
+    const now = new Date();
+  const msUntilNextHour = (60 - now.getMinutes()) * 60 * 1000 - now.getSeconds() * 1000 - now.getMilliseconds();
+    // const msUntilNextHour = 1000;
+  
+    const timeout = setTimeout(() => {
+      setCurrentHeading((prev) => (prev + 1) % arrayHeading.length);
+      const interval = setInterval(() => {
+        setCurrentHeading((prev) => (prev + 1) % arrayHeading.length); 
+     
+      }, 60 * 60 * 1000); 
+      // },  1000); 
+      
+    }, msUntilNextHour);
+  
+    return () => {
+      clearTimeout(timeout);
+      
+    };
+  }
+   useEffect(() => {
+    // Set heading based on current hour
+   rotateDeskTopHeading(DeskTopHeadings)
+   rotateDeskTopHeading(MobileHeadings)
+  }, []);
+  
 
   return (
     <>
@@ -38,8 +84,8 @@ export default function Home() {
 <ExploreLinkButton  buttonText="Checkout More Products" buttonType="product" />
 <div className="app_divider"/>
 <div className='explore_home_heading_container app_container app_explore_home_feeds'>
- <div className='app_home_feeds_heading desktop_heading'>Trending Now: See What’s Hot 🔥 </div>
- <div className='app_home_feeds_heading mobile_heading'>Trending 🔥 </div>
+ <div className='app_home_feeds_heading desktop_heading'>{DeskTopHeadings[currentHeading]}</div>
+ <div className='app_home_feeds_heading mobile_heading'>{MobileHeadings[currentHeading]}</div>
 
           <Link class="app_explore_see_all" to="/explore">See all</Link>
 

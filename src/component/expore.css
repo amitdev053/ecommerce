@@ -158,6 +158,7 @@
     .pinterest-layout{
     column-count: 2;
     grid-template-columns: repeat(3, 1fr);
+    padding: 0px 10px !important;
   }
   }
  
@@ -172,6 +173,7 @@
   .pinterest-layout{
     column-count: 2;
     grid-template-columns: repeat(2, 1fr);
+    padding: 0px 10px !important;
   }
 
 }

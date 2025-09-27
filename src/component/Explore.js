@@ -247,6 +247,18 @@ const cleanHits = hits.slice(0, cleanCount);
     console.log("catch eroor in app images", pageState, error)
   }
 }
+async function isImageUrlValid(url) {
+  try {
+    const res = await fetch(url, { method: "HEAD" });
+    if (res.ok) {
+      const type = res.headers.get("content-type");
+      return type && type.startsWith("image/");
+    }
+    return false;
+  } catch (err) {
+    return false;
+  }
+}
 
 
 const colorCache = useRef({}).current;
@@ -262,7 +274,11 @@ async function setupImageOnPage(result){
         let defaultColor = "#ffffff";
         // let defaultColor = colorCache[img.largeImageURL] ||  "#f8f9fa";
      
-
+  const isValid = await isImageUrlValid(img.webformatURL);
+        if (!isValid) {
+          console.warn("Skipping expired/broken image:", img.webformatURL);
+          return null;
+        }
  
         // after Improbved code version one starts here
         // if (!colorCache[img.largeImageURL]) {
@@ -299,6 +315,13 @@ try {
         // let defaultColor = colorCache[img.largeImageURL] || "#f8f9fa";
         // if (!colorCache[img.largeImageURL]) {
         //   requestIdleCallback(async () => {
+          // img.webformatURL = "https://pixabay.com/get/g43c5f509c9fb15d2cb21b2f5d43bc5f24e6d624f99d53b08ff555099b61c9abe36565e5dc59235a9dc5796a83b7c513c07a5c5fc1c99d29791e23a7820181ace_640.jpg"
+             // ✅ Check if image URL is valid
+        const isValid = await isImageUrlValid(img.webformatURL);
+        if (!isValid) {
+          console.warn("Skipping expired/broken image:", img.webformatURL);
+          return null;
+        }
         try {
           
           const getColors = await getCachedColor(img.largeImageURL);         

@@ -221,6 +221,7 @@ const cleanHits = hits.slice(0, cleanCount);
           // console.log("explorenext url", exploreNextUrl)
           const response = await fetch(exploreNextUrl);  
           exploreNextPhotos = await response.json();
+          console.log("expolore next photos", exploreNextPhotos)
           // console.log("return", exploreNextPhotos)
           setupImageOnPage(exploreNextPhotos)
 
@@ -238,7 +239,7 @@ const cleanHits = hits.slice(0, cleanCount);
     }
     
     else {
-      // console.log("explore loading results")
+      console.log("explore loading results", result)
      setupImageOnPage(result)
     }
   } catch (error) {
@@ -323,14 +324,14 @@ const validImages = indexedHits.filter(Boolean);
           console.warn("Skipping expired/broken image:", img.webformatURL);
           return null;
         }
-        try {
+        // try {
           
-          const getColors = await getCachedColor(img.largeImageURL);         
-          colorCache[img.largeImageURL] = getColors;
-          defaultColor = getColors; 
-        } catch (e) {
-          console.error("Error fetching image colors:", e);
-        }
+        //   const getColors = await getCachedColor(img.largeImageURL);         
+        //   colorCache[img.largeImageURL] = getColors;
+        //   defaultColor = getColors; 
+        // } catch (e) {
+        //   console.error("Error fetching image colors:", e);
+        // }
       //   })
       // }
 
@@ -345,17 +346,17 @@ const validImages = indexedHits.filter(Boolean);
 const validImages = indexedHits.filter(Boolean);
       const storedScores = JSON.parse(localStorage.getItem("interactionScore") || "{}");
 
-      const sortedImages = validImages.sort((a, b) => {
-        const scoreA = storedScores[a?._category] || 0;
-        const scoreB = storedScores[b?._category] || 0;
-        return scoreB - scoreA;
-      });
+      // const sortedImages = validImages.sort((a, b) => {
+      //   const scoreA = storedScores[a?._category] || 0;
+      //   const scoreB = storedScores[b?._category] || 0;
+      //   return scoreB - scoreA;
+      // });
    
       // blogColRef.current.length  = 0
         // blogColRef.current = [];
       setImages((prevImages) => {
         const existingIds = new Set(prevImages.map((img) => img.id));
-        const uniqueNewImages = sortedImages.filter((img) => !existingIds.has(img.id));
+        const uniqueNewImages = validImages.filter((img) => !existingIds.has(img.id));
         return [...prevImages, ...uniqueNewImages];
       });
 
@@ -707,6 +708,7 @@ function shareImage(image){
             `https://pixabay.com/api/?key=45283300-eddb6d21a3d3d06f2a2381d7d&q=${props.displayImage}&image_type=photo&page=${nextPage}`,
             true
           );
+
         } else {
           const nextPage = pageState + 1;
           setPageState(nextPage);

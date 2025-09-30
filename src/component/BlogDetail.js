@@ -29,12 +29,13 @@ function BlogBack(props) {
   const [imageHeader, setImagesHeader] = useState(false)         // to track the image header type like image/blogdetail
   const location = useLocation()
   const [droppedImageSize , setDropperImageSize] = useState({})
+  const [userCommingFrom, setUserCommingFrom ] = useState(true)
   
   
-  useEffect(()=>{
+//   useEffect(()=>{
 
-console.log("imageLoad imageSrc", imageSrcForExploreNext)
-  }, [imageSrcForExploreNext])
+// console.log("imageLoad imageSrc", imageSrcForExploreNext)
+//   }, [imageSrcForExploreNext])
 
   
   function setHeaderHeading() {
@@ -55,6 +56,7 @@ console.log("imageLoad imageSrc", imageSrcForExploreNext)
     setHeading(title);
     if(!imageData){
       console.log("yes image sets here")
+      setUserCommingFrom(false)
     setTimeout(()=>{
       let imageContainer = document.querySelector('.pinterest-layout')
       if(imageContainer){
@@ -75,6 +77,7 @@ console.log("imageLoad imageSrc", imageSrcForExploreNext)
     }, 20000)  
       
     }else{
+      setUserCommingFrom(true)
       setImageSrcForExploreNext(imageData.webformatURL)
       setClickImageObject(imageData)
 
@@ -100,9 +103,10 @@ console.log("imageLoad imageSrc", imageSrcForExploreNext)
       setHeading(tag.charAt(0).toUpperCase() + tag.slice(1));
       }else{
         setImagesHeader(false)
+        console.log("comming from blogs")
 
       }
-  
+  console.log("blogs header props", props.componentFrom?.params)
     // }, 200);
     // console.log("setHeaderHeading", blogTitile)
   }, [props.componentFrom?.params]);
@@ -111,18 +115,37 @@ console.log("imageLoad imageSrc", imageSrcForExploreNext)
   function handleBack(event) {
     removeClickFeed(event)
     setTimeout(()=>{
-      if(window?.history.length > 0){
+//       if(window?.history.length > 0){
+// console.log("comminf if")
+//         navigate(-1);
+//       }else{
+//         console.log("comminf else")
+//         if(imageHeader){
+// console.log("comminf else inside if imageHeader")
+//           navigate("/explore");
+//         }else{
+//           console.log("comminf else inside else imageHeader")
+//           navigate("/blogs");
 
-        navigate(-1);
-      }else{
-        if(imageHeader){
+//         }
 
-          navigate("/explore");
-        }else{
-          navigate("/blogs");
+//         if(!userCommingFrom){
+//         navigate("/explore");
+//         }
+//       }
+if(!userCommingFrom){
+  navigate("/explore");
+}else{
+  navigate(-1)
+}
 
-        }
-      }
+if(imageHeader){
+   navigate("/explore");
+}else{
+  navigate("/blogs")
+}
+
+
       console.log("backheader", window?.history.length)
 
       
@@ -265,6 +288,10 @@ if(playButton){
       toast.error("Image download failed. Please try again later.");
     });
   }
+
+  function SeeMoreDetails(event, clickedImage){
+    console.log("see More Details", clickedImage)
+  }
   
   function openViewImage() {
     let imageDialog = document.getElementById("imageDialog");
@@ -401,6 +428,10 @@ console.log("webFormatWidth and ehgith", imageSrcForExploreNext.webformatHeight,
     </button>
   )
 ) */}
+  {/* <button className="app_blog_detail_icon download_icon_button" style={{padding:" 8px 13px"}} onClick={(e) =>{SeeMoreDetails(e, clickImageObject)}}>
+      
+      <i class="fa-solid fa-angle-right"></i>
+    </button> */}
   <button className="app_blog_detail_icon download_icon_button" onClick={(e) =>{downlodImage(e, clickImageObject?.largeImageURL)}}>
       <i className="fa-solid fa-download"></i>
     </button>

@@ -454,10 +454,11 @@ console.log("webFormatWidth and ehgith", imageSrcForExploreNext.webformatHeight,
     </button>
   )
 ) */}
-  <button className="app_blog_detail_icon download_icon_button" style={{padding:" 8px 13px"}} onClick={(e) =>{SeeMoreDetails(e, clickImageObject)}}>
+
+  {/* <button className="app_blog_detail_icon download_icon_button" style={{padding:" 8px 13px"}} onClick={(e) =>{SeeMoreDetails(e, clickImageObject)}}>
       
       <i class="fa-solid fa-angle-right"></i>
-    </button>
+    </button> */}
     {userCommingFrom && 
 
     <>

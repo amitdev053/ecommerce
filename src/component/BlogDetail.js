@@ -287,25 +287,51 @@ if(playButton){
   console.log("imageurl", imageUrl)
   const extension = urlParts[urlParts.length - 1].split("?")[0]; // Handles query params
   // Fetch the image as a blob
-  fetch(imageUrl, { mode: 'cors' })
-    .then(response => response.blob())
-    .then(blob => {
+  // fetch(imageUrl, { mode: 'cors' })
+  //   .then(response => response.blob())
+  //   .then(blob => {
+  //     const url = URL.createObjectURL(blob);
+  //     const link = document.createElement('a');
+  //    link.href = url;
+  //     link.download = heading + `.${extension}`; 
+  //     document.body.appendChild(link);
+  //     link.click();
+  //     console.log("link.download", url)
+  //     // Cleanup
+  //     document.body.removeChild(link);
+  //     URL.revokeObjectURL(url);
+  //     toast.success("Image downloaded successfully")
+  //   })
+  //   .catch(err => {
+  //     console.error("Image download failed", err);
+  //     toast.error("Image download failed. Please try again later.");
+  //   });
+
+   const img = new Image();
+  img.crossOrigin = "anonymous"; // try CORS
+  img.src = imageUrl;
+
+  img.onload = () => {
+    const canvas = document.createElement("canvas");
+    canvas.width = img.width;
+    canvas.height = img.height;
+    const ctx = canvas.getContext("2d");
+    ctx.drawImage(img, 0, 0);
+    canvas.toBlob((blob) => {
       const url = URL.createObjectURL(blob);
-const link = document.createElement('a');
-     link.href = url;
-      link.download = heading + `.${extension}`; 
-      document.body.appendChild(link);
+      const link = document.createElement("a");
+      link.href = url;
+      link.download = heading + ".png";
       link.click();
-      console.log("link.download", link.download)
-      // Cleanup
-      document.body.removeChild(link);
       URL.revokeObjectURL(url);
-      toast.success("Image downloaded successfully")
-    })
-    .catch(err => {
-      console.error("Image download failed", err);
-      toast.error("Image download failed. Please try again later.");
+      // toast.success("Image download successful.");
+      toast.success("Image downloaded");
     });
+  };
+
+  img.onerror = () => {
+    toast.error("Cannot download this image due to CORS restrictions.");
+  };
   }
 
   function SeeMoreDetails(event, clickedImage){

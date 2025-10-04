@@ -826,7 +826,7 @@ useEffect(() => {
   if (clickedImageObj?.id) {
     const hiddenImages = JSON.parse(localStorage.getItem("hiddenImages")) || [];
     const exists = hiddenImages.includes(clickedImageObj.id);
-    setIsHideImage(exists);
+    setIsDownloadedImage(exists);
   }
 }, [clickedImageObj]);
 
@@ -834,8 +834,8 @@ useEffect(() => {
 
 useEffect(() => {
   if (clickedImageObj?.id) {
-    const hiddenImages = JSON.parse(localStorage.getItem("downloadedImages")) || [];
-    const exists = hiddenImages.includes(clickedImageObj.id);
+    const downloadedImages = JSON.parse(localStorage.getItem("downloadedImages")) || [];
+    const exists = downloadedImages.includes(clickedImageObj.id);
     setIsHideImage(exists);
   }
 }, [clickedImageObj]);
@@ -901,38 +901,71 @@ setIsHideImage(true)
   const urlParts = imageUrl.split(".");
   const extension = urlParts[urlParts.length - 1].split("?")[0]; // Handles query params
   // Fetch the image as a blob
-  fetch(imageUrl, { mode: 'cors' })
-    .then(response => response.blob())
-    .then(blob => {
-      console.log("response url ", blob)
-      const url = URL.createObjectURL(blob);
-const downloadedImage = JSON.parse(localStorage.getItem("downloadedImages")) || [];
-      // Create a hidden download link
-      const link = document.createElement('a');
-      link.href = url;
-      link.download = content[updatedHours()] || "BrowseNext" + `.${extension}`; // Use the heading as the filename
-      document.body.appendChild(link);
-      link.click();
-      console.log("link ", link)
+//   fetch(imageUrl, { mode: 'cors' })
+//     .then(response => response.blob())
+//     .then(blob => {
+//       console.log("response url ", blob)
+//       const url = URL.createObjectURL(blob);
+// const downloadedImage = JSON.parse(localStorage.getItem("downloadedImages")) || [];
+//       // Create a hidden download link
+//       const link = document.createElement('a');
+//       link.href = url;
+//       link.download = content[updatedHours()] || "BrowseNext" + `.${extension}`; // Use the heading as the filename
+//       document.body.appendChild(link);
+//       link.click();
+//       console.log("link ", link)
 
-      // Cleanup
-      // setTimeout(()=>{
+//       // Cleanup
+//       // setTimeout(()=>{
 
-        document.body.removeChild(link);
-      // }, 200)
-      URL.revokeObjectURL(url);
+//         document.body.removeChild(link);
+//       // }, 200)
+//       URL.revokeObjectURL(url);
       
-      toast.success("Image downloaded successfully")
-    if (!downloadedImage.includes(lastOpenedImageId)) {
+//       toast.success("Image downloaded successfully")
+//     if (!downloadedImage.includes(lastOpenedImageId)) {
+//       downloadedImage.push(lastOpenedImageId);
+//       localStorage.setItem("downloadedImages", JSON.stringify(downloadedImage));
+//     }
+//     setIsDownloadedImage(true)
+//     })
+//     .catch(err => {
+//       console.error("Image download failed", err);
+//       toast.error("Image download failed. Please try again later.");
+//     });
+
+    const img = new Image();
+      img.crossOrigin = "anonymous"; // try CORS
+      img.src = imageUrl;
+    
+      img.onload = () => {
+        const canvas = document.createElement("canvas");
+        canvas.width = img.width;
+        canvas.height = img.height;
+        const ctx = canvas.getContext("2d");
+        ctx.drawImage(img, 0, 0);
+        canvas.toBlob((blob) => {
+          const url = URL.createObjectURL(blob);
+          const link = document.createElement("a");
+          link.href = url;
+          link.download = content[updatedHours()] || "BrowseNext" + ".png";
+          link.click();
+          URL.revokeObjectURL(url);
+          // toast.success("Image download successful.");
+          toast.success("Image downloaded");
+          const downloadedImage = JSON.parse(localStorage.getItem("downloadedImages")) || [];
+           if (!downloadedImage.includes(lastOpenedImageId)) {
       downloadedImage.push(lastOpenedImageId);
       localStorage.setItem("downloadedImages", JSON.stringify(downloadedImage));
     }
     setIsDownloadedImage(true)
-    })
-    .catch(err => {
-      console.error("Image download failed", err);
-      toast.error("Image download failed. Please try again later.");
-    });
+
+        });
+      };
+    
+      img.onerror = () => {
+        toast.error("Cannot download this image due to CORS restrictions.");
+      };
   }
 
 

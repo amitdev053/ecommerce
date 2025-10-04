@@ -1143,6 +1143,40 @@ fetchImages();
     // setImageStates(imagesFromStorage.map(() => ({ loaded: false })));
   }, []);
 
+  function downloadSavedImage(event, imageUrl){
+
+      const urlParts = imageUrl.split(".");
+  console.log("imageurl", imageUrl)
+  const extension = urlParts[urlParts.length - 1].split("?")[0]; 
+
+
+     const img = new Image();
+      img.crossOrigin = "anonymous"; // try CORS
+      img.src = imageUrl;
+    
+      img.onload = () => {
+        const canvas = document.createElement("canvas");
+        canvas.width = img.width;
+        canvas.height = img.height;
+        const ctx = canvas.getContext("2d");
+        ctx.drawImage(img, 0, 0);
+        canvas.toBlob((blob) => {
+          const url = URL.createObjectURL(blob);
+          const link = document.createElement("a");
+          link.href = url;
+          link.download = "BrowseNext" + `.${extension}`;
+          link.click();
+          URL.revokeObjectURL(url);
+          // toast.success("Image download successful.");
+          toast.success("Image downloaded");
+        });
+      };
+    
+      img.onerror = () => {
+        toast.error("Sorry... image could'nt downloaded now... try again later");
+      };
+  }
+
   return(
      <div  className={`container pinterest-layout saved_container`} >
  
@@ -1201,7 +1235,7 @@ state={{ imageData: image }}
   
   >
      {/* {!imageStates[index]?.loaded && <div className="skeleton" />} */}
-     {/* {(!imageStates[index]?.loaded) && <div className="skeleton" id={'skelton' + index} />} */}
+     {(!imageStates[index]?.loaded) && <div className="skeleton" id={'skelton' + index} />}
             <img
             className="explore-image"
                  style={{
@@ -1249,23 +1283,23 @@ state={{ imageData: image }}
         //         });
         // }}
 
-      // onLoad={(e) => {
-      //   // handle cached + freshly loaded images
-      //   console.log("onimage load",e.target.complete)
-      //   if (e.target.complete) {
-      //     setImageStates((prev) => {
-      //       const newState = [...prev];
-      //       newState[index] = { loaded: true };
+      onLoad={(e) => {
+        // handle cached + freshly loaded images
+        console.log("onimage load",e.target.complete)
+        if (e.target.complete) {
+          setSavedImageState((prev) => {
+            const newState = [...prev];
+            newState[index] = { loaded: true };
             
-      //       lockObjects(index)
-      //       if(document.getElementById(`skelton${index}`)){
-      //       document.getElementById(`skelton${index}`).style.display = "none"
+            
+            // if(document.getElementById(`skelton${index}`)){
+            // document.getElementById(`skelton${index}`).style.display = "none"
 
-      //       }
-      //       return newState;
-      //     });
-      //   }
-      // }}
+            // }
+            return newState;
+          });
+        }
+      }}
               // onError={(e) =>{
               // const originalUrl = image.webformatURL;
               // e.target.src = originalUrl;
@@ -1366,7 +1400,7 @@ state={{ imageData: image }}
     // }}
     // onMouseOut={orignalElement}
 
-
+onClick={(e)=>{downloadSavedImage(e, image.largeImageURL)}}
           
                 >
             <i class="fa-solid fa-download explore_image_share_icon"></i>

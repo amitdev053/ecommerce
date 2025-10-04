@@ -964,7 +964,7 @@ setIsHideImage(true)
       };
     
       img.onerror = () => {
-        toast.error("Cannot download this image due to CORS restrictions.");
+        toast.error("Sorry... image could'nt downloaded now... try again later");
       };
   }
 

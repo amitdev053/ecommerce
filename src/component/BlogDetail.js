@@ -285,27 +285,8 @@ if(playButton){
 
   const urlParts = imageUrl.split(".");
   console.log("imageurl", imageUrl)
-  const extension = urlParts[urlParts.length - 1].split("?")[0]; // Handles query params
-  // Fetch the image as a blob
-  // fetch(imageUrl, { mode: 'cors' })
-  //   .then(response => response.blob())
-  //   .then(blob => {
-  //     const url = URL.createObjectURL(blob);
-  //     const link = document.createElement('a');
-  //    link.href = url;
-  //     link.download = heading + `.${extension}`; 
-  //     document.body.appendChild(link);
-  //     link.click();
-  //     console.log("link.download", url)
-  //     // Cleanup
-  //     document.body.removeChild(link);
-  //     URL.revokeObjectURL(url);
-  //     toast.success("Image downloaded successfully")
-  //   })
-  //   .catch(err => {
-  //     console.error("Image download failed", err);
-  //     toast.error("Image download failed. Please try again later.");
-  //   });
+  const extension = urlParts[urlParts.length - 1].split("?")[0]; 
+  
 
    const img = new Image();
   img.crossOrigin = "anonymous"; // try CORS
@@ -321,7 +302,7 @@ if(playButton){
       const url = URL.createObjectURL(blob);
       const link = document.createElement("a");
       link.href = url;
-      link.download = heading + ".png";
+      link.download = heading + `.${extension}`;
       link.click();
       URL.revokeObjectURL(url);
       // toast.success("Image download successful.");
@@ -330,7 +311,7 @@ if(playButton){
   };
 
   img.onerror = () => {
-    toast.error("Cannot download this image due to CORS restrictions.");
+    toast.error("Sorry... image could'nt downloaded now... try again later");
   };
   }
 

@@ -16,3 +16,10 @@ background-color: #00000033 !important;
 color: black !important;
 
 }
+
+.saved_rows{
+    margin-top: 100px;
+}
+.saved_container{
+    column-count: 2 !important; 
+}

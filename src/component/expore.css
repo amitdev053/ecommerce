@@ -2,7 +2,8 @@
 
   .pinterest-layout {
     
-    column-count: 3;      
+    column-count: 3; 
+    /* position:relative;      */
   column-gap: 0px;
   
   }
@@ -78,16 +79,38 @@
   }
 
 
+
+  .adjust_right{
+    right: 50px !important;
+  }
+
   .explore_images_share{
-    top: 1px;
-    right: 1px;
+    top: 2px;
+    right: 2px;
     transition: all 0.2s ease-in-out;
     transform: translate(0px , -50px);
     cursor: pointer;
 
   }
   .column:hover .explore_images_share{
-    transform: translate(0px , 0px);  
+    transform: translate(0px , 0px); 
+  }
+  .column:hover .explore_like_content{
+    transform: translate(0px , 0px) !important; 
+  }
+
+/* when user hide the image */
+  .column.disable-hover:hover .explore_icons {
+      transform: translate(0px , 50px) !important;
+  }
+  .column.disable-hover:hover .explore_images_share {
+    transform: translate(0px , -50px) !important;
+  }
+/* when user hide the image */
+
+
+  .show_click_element{
+transform: translate(0px , 0px) !important; 
   }
   .explore_image_share_icon{
     background: white;
@@ -189,11 +212,12 @@ transform: translate(0px , 0px);
 .bottom_loader{
       width: 100%;
     /* background: red; */
-    height: 50px;
+    height: 100px;
     position: relative;
     display: flex;
     justify-content: center;
     align-items: center;
+    overflow: auto;
 }
 
   .app_loader{

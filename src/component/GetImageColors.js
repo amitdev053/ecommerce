@@ -33,7 +33,8 @@ function getImageColors(imageUrl, colorCount = 6) {
     };
 
     img.onerror = function () {
-      reject("Image failed to load. CORS or invalid URL.");
+      // reject("Image failed to load. CORS or invalid URL.");
+      console.log("cores")
     };
   });
 }

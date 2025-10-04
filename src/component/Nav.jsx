@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useRef, useContext } from "react";
-import { Link, useNavigate, useLocation } from "react-router-dom";
+import { Link, useNavigate, useLocation, useMatch } from "react-router-dom";
 import axios from "axios";
 import Loader from "./Loader";
 import DialogBox from "./DialogBox";
@@ -32,7 +32,8 @@ export default function Navbar({trackCart}) {
   const [modelDetector, setModelDetector] = useState(false)       // detect the mobilebar menu
   const [detectCartModel, setCartModel] = useState(false)         // detect the cart model 
   const [detectLikeModel, setLikeModel] = useState(false)
- 
+   const exploreNextRoute = useMatch("/explore-next/:type/:imageTag");
+   const exploreRoute = useMatch("/explore");
 
 
   function setRowItemCenter(){
@@ -822,17 +823,33 @@ function endShowingFeedBack(e){
               </ul>
               <div className="contains_likes_carts d-flex">
               {/* <Tooltip text="Saved Products" position="bottom"> */}
-              <div className="app_navbar_like_containericon hide_in_mobile_devices desktop_feedback" id="AppHeaderLike"  onClick={(event) => {openLikes(event)}}
-            
-               >
+              {/* {
+                !exploreRoute &&  */}
+
+                <>
+ <div className="app_navbar_like_containericon hide_in_mobile_devices desktop_feedback" id="AppHeaderLike"  onClick={(event) => {openLikes(event)}} >
               <i className="fa-solid fa-heart animate_like_icon"  id="appLikeDIcon"></i>
               </div>
+                </>
+              {/* } */}
+        
               {/* </Tooltip> */}
 
-              <div className="icon_area hide_in_mobile_devices" onClick={(event) => {openCart(event)}} id="cartarea">
-                <i className="fa-solid fa-cart-shopping mr-1" id="carticon"></i>
+              <div className="icon_area hide_in_mobile_devices" style={{padding: "9px 15px", marginLeft: "5px"}} onClick={(event) => {openCart(event)}} id="cartarea">
+              {exploreRoute || exploreNextRoute ?  
+              <>
+                <i class="fa-solid fa-bookmark"></i>
+                <span id="cartText">Saved</span>
+              </>
+              :
+<>
+  <i className="fa-solid fa-cart-shopping mr-1" id="carticon"></i>
                 <span id="cartText">Cart</span>
                {(userCart.length !== 0 ) && (<sup id="cartcount">{totalCart}</sup>)} 
+</>
+              
+              }
+                
               </div>
 
               </div>
@@ -847,6 +864,24 @@ function endShowingFeedBack(e){
             id="userCartContainer"
           >
             <div className="container cart_container" style={{overflowX : "hidden"}}>
+            {exploreRoute || exploreNextRoute ?
+            <div className="row cart_row w-100 saved_rows">
+             <div className="cart_header">
+                  <div style={{fontSize: "20px", fontWeight:700}}>Saved Photos</div>
+                  <i
+                    className="fa-solid fa-xmark"
+                    id="cartclosebtn"
+                    onClick={() => {
+                      closeCart();
+                    }}
+                  ></i>
+                </div>
+                <SavedImages />
+
+            </div>
+
+            :
+            <>
               <div className="row cart_row w-100">
                 <div className="cart_header">
                   <div style={{fontSize: "20px", fontWeight:700}}>Your Cart Products</div>
@@ -946,6 +981,11 @@ function endShowingFeedBack(e){
                   </div>
                 </div>
               </div>
+            </>
+            
+            }
+              
+
             </div>
           </div>
         </cart>
@@ -1056,4 +1096,277 @@ function endShowingFeedBack(e){
       </>
     );
   }
+}
+
+function SavedImages(){
+   const [savedImages, setSavedImages] = useState([]);
+  const [imageStates, setSavedImageState] = useState([]);
+
+  useEffect(() => {
+    // Get saved images from localStorage
+    const imagesFromStorage = JSON.parse(localStorage.getItem("savedImages")) || [];
+        const imageIds = imagesFromStorage.map(img => img.id);
+
+    // setSavedImages(imagesFromStorage);
+      const fetchImages = async () => {
+      try {
+        const promises = imageIds.map(async (id) => {
+          const response = await fetch(`https://pixabay.com/api/?key=45283300-eddb6d21a3d3d06f2a2381d7d&q&id=${id}`);
+          const data = await response.json();
+          // Pixabay returns hits array
+          return data.hits[0]; // return the image object
+        });
+
+        const freshImages = await Promise.all(promises);
+        const validImages = freshImages.filter(Boolean); // remove nulls
+
+        setSavedImages(validImages);
+        setSavedImageState(validImages.map(() => ({ loaded: false })));
+      } catch (err) {
+        console.error("Failed to fetch saved images:", err);
+      }
+    };
+fetchImages();
+    // Initialize imageStates for skeleton/loading handling
+    // setImageStates(imagesFromStorage.map(() => ({ loaded: false })));
+  }, []);
+
+  return(
+     <div  className={`container pinterest-layout saved_container`} >
+ 
+      {savedImages.map((image, index) => {
+        if (!imageStates[index]) return null; 
+        const { loaded } = imageStates[index];
+        const location = window.location.href.split("/")
+        const imageTagText = location[location.length - 1]
+
+         let firstTag = image.tags.split(",")[0]?.trim().toLowerCase();
+  let secondTag = image.tags.split(",")[1]?.trim().toLowerCase();
+
+  // check if last URL segment matches the first tag
+  let useSecond = imageTagText === firstTag;
+
+  let targetTag = (useSecond ? secondTag : firstTag)?.replace(/\s+/g, "-");
+        
+{/* // console.log("image colors", image.imageColor) */}
+           {/* onClick={() => updateInteractionScore(image._category, 2)} key={image.id} */}
+          
+        return (
+          <div 
+          // ref={(el)=> {
+          //   (blogColRef.current[index] = el)            
+             
+          //    }} 
+             className={'column position-relative explore_image'} key={image.id} 
+             style={{
+    backgroundColor: image.imageColor,  // ✅ Correct location
+    // width: image.webformatWidth,
+      '--image-color': image.imageColor,
+    // height: image.webformatHeight
+  }} 
+              // onClick={(event)=> exploreSimilarImages(event, image)} 
+             
+              >      
+          
+<Link class="explore_image_link"
+ to={`/explore-next/${image.type}/${targetTag}`}
+
+state={{ imageData: image }} 
+ onClick={(e) =>{
+ e.stopPropagation()
+//  handleImageClick(image, index)
+ }
+ } 
+>
+  <div className="image-wrapper" 
+  style={{
+      width: '100%',
+      aspectRatio: `${image.webformatWidth} / ${image.webformatHeight}`,
+      overflow: 'hidden',
+      position: 'relative',
+      height: "100%"
+    }}
+  
+  >
+     {/* {!imageStates[index]?.loaded && <div className="skeleton" />} */}
+     {/* {(!imageStates[index]?.loaded) && <div className="skeleton" id={'skelton' + index} />} */}
+            <img
+            className="explore-image"
+                 style={{
+        width: '100%',
+        height: '100%',
+        objectFit: 'cover',
+        display: 'block',
+      }}
+
+            
+              src={image.largeImageURL}
+               srcSet={`
+    ${image.largeImageURL} 150w,
+    ${image.largeImageURL} 640w,
+    ${image.largeImageURL} 1280w
+  `}
+
+    //src={toImageKitURL(image.webformatURL)}
+  // srcSet={`
+  //   ${toImageKitURL(image.previewURL)} 150w,
+  //   ${toImageKitURL(image.webformatURL)} 640w,
+  //   ${toImageKitURL(image.largeImageURL)} 1280w
+  // `}
+  //   src={toImageKitURL(image.webformatURL, image.webformatWidth)}
+  // srcSet={`
+  //   ${toImageKitURL(image.previewURL, image.previewWidth)} ${image.previewWidth}w,
+  //   ${toImageKitURL(image.webformatURL, image.webformatWidth)} ${image.webformatWidth}w,
+  //   ${toImageKitURL(image.largeImageURL, image.imageWidth)} ${image.imageWidth}w
+  // `}
+  
+  
+  sizes="(max-width: 600px) 100vw, (max-width: 1200px) 50vw, 33vw"
+              loading="lazy"     
+                  
+              
+              // onClick={() => updateInteractionScore(image._category, 2)}
+  //           width={blogColRef.current[index]?.offsetWidth}
+  // height={blogColRef.current[index]?.offsetHeight}
+
+        //       onLoad={() => {
+        //       setImageStates((prevStates) => {
+        //         const newState = [...prevStates]; 
+        //         newState[index] = { loaded: true }; 
+        //         return newState;
+        //         });
+        // }}
+
+      // onLoad={(e) => {
+      //   // handle cached + freshly loaded images
+      //   console.log("onimage load",e.target.complete)
+      //   if (e.target.complete) {
+      //     setImageStates((prev) => {
+      //       const newState = [...prev];
+      //       newState[index] = { loaded: true };
+            
+      //       lockObjects(index)
+      //       if(document.getElementById(`skelton${index}`)){
+      //       document.getElementById(`skelton${index}`).style.display = "none"
+
+      //       }
+      //       return newState;
+      //     });
+      //   }
+      // }}
+              // onError={(e) =>{
+              // const originalUrl = image.webformatURL;
+              // e.target.src = originalUrl;
+              // e.target.srcset = `
+              //   ${image.previewURL} 150w,
+              //   ${image.webformatURL} 640w,
+              //   ${image.largeImageURL} 1280w
+              // `;
+              //         //  e.target.style.display = "none";
+              //           }}
+           
+                      // alt={generateCaption(image)}
+           
+            />
+
+
+
+
+ 
+            
+      </div>
+      </Link>
+            {/* {!loaded && <div className="app_loader" />} */}
+
+
+
+
+
+            <div className="explore_icons position-absolute " onClick={(e) => e.stopPropagation()} >
+            <div className="explore_like_content d-flex align-items-center">
+              <i className="fa-solid fa-heart"></i>
+              <span className="explore_fonts mx-1">{image.likes}</span>
+            </div>            
+            <div className="explore_like_content d-flex align-items-center">
+            <i class="fa-regular fa-eye"></i>
+              <span className="explore_fonts mx-1">{image.views}</span>
+            </div>            
+            <div className="explore_like_content d-flex align-items-center">
+            <i class="fa-solid fa-download"></i>
+              <span className="explore_fonts mx-1">{image.downloads}</span>
+            </div>                  
+            </div>
+
+            {/* <div className="explore_like_content d-flex align-items-center position-absolute explore_images_share adjust_right"
+            //  onTouchStart={sendClickFeed} onTouchEnd={(event)=>{removeClickFeed(event, image.webformatURL)}}onMouseUp={(event)=> {removeClickFeed(event, image.webformatURL)} } onMouseDown={sendClickFeed} onMouseOut={orignalElement} 
+
+             onClick={(event) => {
+      event.stopPropagation();
+      event.preventDefault();
+      removeClickFeed(event, image.webformatURL, "share", image.id);
+    }}
+    onMouseDown={(event) => {
+      event.stopPropagation();
+      event.preventDefault();
+      sendClickFeed(event);
+    }}
+    onTouchStart={(event) => {
+      event.stopPropagation();
+      event.preventDefault();
+      sendClickFeed(event);
+    }}
+    onTouchEnd={(event) => {
+      event.stopPropagation();
+      event.preventDefault();
+      removeClickFeed(event, image.webformatURL, "share", image.id);
+    }}
+    onMouseOut={orignalElement}
+
+          
+                >
+            <i class="fa-solid fa-share explore_image_share_icon"></i>
+            
+            </div>     */}
+
+
+               <div className="explore_like_content d-flex align-items-center position-absolute explore_images_share"
+            
+
+    //          onClick={(event) => {
+    //   event.stopPropagation();
+    //   event.preventDefault();
+    //   removeClickFeed(event, image, "option", image.id);
+    // }}
+    // onMouseDown={(event) => {
+    //   event.stopPropagation();
+    //   event.preventDefault();
+    //   sendClickFeed(event);
+    // }}
+    // onTouchStart={(event) => {
+    //   event.stopPropagation();
+    //   event.preventDefault();
+    //   sendClickFeed(event);
+    // }}
+    // onTouchEnd={(event) => {
+    //   event.stopPropagation();
+    //   event.preventDefault();
+    //   removeClickFeed(event, image, "option", image.id);
+    // }}
+    // onMouseOut={orignalElement}
+
+
+          
+                >
+            <i class="fa-solid fa-download explore_image_share_icon"></i>
+            
+            </div>    
+          </div>
+
+        );
+          {/* </Link> */}
+      })}
+    {/* {props.componentFrom === "home" ? <ExploreLinkButton /> : null} */}
+    </div>
+  )
+
 }

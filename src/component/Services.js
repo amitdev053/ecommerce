@@ -133,7 +133,7 @@ const Services = () => {
     Trusted by 20+ businesses • Payments secured via Razorpay • Built with love & Care 💙
   </div>
   </div>
-  <AppShareer />
+  <AppShareer componentFrom="services" />
     </>
   )
 }

@@ -35,6 +35,7 @@ function App() {
   const location = useLocation();
   const matchRoute = useMatch("/blog-detail/:blogId/:blogTitle");
   const exploreNext = useMatch("/explore-next/:type/:imageTag");
+  const exploreRoute = useMatch("/explore");
   const context = useContext(BlogAudioContext);
 
  
@@ -180,7 +181,7 @@ window.gtag('event', 'page_view', {
           <BlogAudioPlayer />
           {/* {(!matchRoute) && <BlogAudioPlayer /> } */}
           {/* {(document.querySelector(".blog_back_heading").innerText === Object.keys(sessionStorage)[0]) && <BlogAudioPlayer />  } */}
-          <Footer />
+          {(!exploreNext && !exploreRoute) && <Footer />}
           <Analytics />
         </CartProvider>
       </BlogAudioProvider>

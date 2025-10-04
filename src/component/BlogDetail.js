@@ -12,13 +12,14 @@ import Alert from "./Alert";
 import {Helmet} from "react-helmet"
 import ImageDialog from "./ImageDialog";
 import Tooltip from "./Tooltip";
-
+import { getImageColors } from "./GetImageColors";
 let blogTitile = "";
 // let droppedSrc = ""
 function BlogBack(props) {
   const { isPlaying, isPaused, setIsPaused ,playBlog,  samePage } = useContext(BlogAudioContext);
   const [heading, setHeading] = useState("");
   const [imageSrcForExploreNext, setImageSrcForExploreNext] = useState("");
+  const [downloadedPixabayUrl, setDowonloadPixabayUrl] = useState(null)
   const [clickImageObject, setClickImageObject] = useState("")
   const navigate = useNavigate();
   // const utterance = useRef(null); 
@@ -29,7 +30,8 @@ function BlogBack(props) {
   const [imageHeader, setImagesHeader] = useState(false)         // to track the image header type like image/blogdetail
   const location = useLocation()
   const [droppedImageSize , setDropperImageSize] = useState({})
-  const [userCommingFrom, setUserCommingFrom ] = useState(true)
+  const [userCommingFrom, setUserCommingFrom ] = useState(true)     // comming from website or other platefroms if false it mean comming from others
+  const [imageColor, setImageColor] = useState("#ffff")
   
   
 //   useEffect(()=>{
@@ -38,7 +40,7 @@ function BlogBack(props) {
 //   }, [imageSrcForExploreNext])
 
   
-  function setHeaderHeading() {
+ async function setHeaderHeading() {
     // let blogTitle = document.querySelector(".blog_title");
     // if (blogTitle !== "" && blogTitle) {
     //   setHeading(blogTitle);
@@ -68,7 +70,7 @@ function BlogBack(props) {
         lastChild.style.setProperty("border", "2px solid black", "important")
         console.log("Lat image", imageSrc)        
         setImageSrcForExploreNext(imageSrc)
-
+setDowonloadPixabayUrl(false)
         
 
 
@@ -78,8 +80,20 @@ function BlogBack(props) {
       
     }else{
       setUserCommingFrom(true)
-      setImageSrcForExploreNext(imageData.webformatURL)
+
+
+    // set the header image color when user comming from explore
+  // const getColor = await getImageColors(clickImageObject.largeImageURL);  
+  // setImageColor(getColor[0])
+  // console.log("image colors", getColor)
+
+  // set the header image src when user comming from explore
+  // setTimeout(()=>{
+
+    setImageSrcForExploreNext(imageData.webformatURL)
+    setDowonloadPixabayUrl(imageData.largeImageURL)
       setClickImageObject(imageData)
+  // }, 300)
 
     }
 
@@ -89,7 +103,7 @@ function BlogBack(props) {
 
  
   
-  useEffect(() => {
+ useEffect(() => {
     // setTimeout(() => {
       setHeaderHeading();
       console.log("props ", props)
@@ -263,21 +277,26 @@ if(playButton){
 
   function downlodImage(event, imageUrl) {
       // Extract extension from the image URL
+      console.log("download clicked image ", imageUrl, "huu")
+      if(!imageUrl) return
+       // Create a hidden download link
+      
+      
+
   const urlParts = imageUrl.split(".");
+  console.log("imageurl", imageUrl)
   const extension = urlParts[urlParts.length - 1].split("?")[0]; // Handles query params
   // Fetch the image as a blob
   fetch(imageUrl, { mode: 'cors' })
     .then(response => response.blob())
     .then(blob => {
       const url = URL.createObjectURL(blob);
-
-      // Create a hidden download link
-      const link = document.createElement('a');
-      link.href = url;
-      link.download = heading + `.${extension}`; // Use the heading as the filename
+const link = document.createElement('a');
+     link.href = url;
+      link.download = heading + `.${extension}`; 
       document.body.appendChild(link);
       link.click();
-
+      console.log("link.download", link.download)
       // Cleanup
       document.body.removeChild(link);
       URL.revokeObjectURL(url);
@@ -346,7 +365,7 @@ console.log("webFormatWidth and ehgith", imageSrcForExploreNext.webformatHeight,
       <Tooltip text="Click to Expand image" position="bottom">
         <div
           className="image_backview_container"
-          style={{ background: clickImageObject?.imageColor }}
+          style={{ background: imageColor }}
           onClick={openViewImage}
         >
           <img
@@ -359,7 +378,7 @@ console.log("webFormatWidth and ehgith", imageSrcForExploreNext.webformatHeight,
     ) : ( 
       <div
         className="image_backview_container"
-        style={{ background: clickImageObject?.imageColor }}
+        style={{ background: imageColor }}
         onClick={openViewImage}
       >
         <img
@@ -428,13 +447,19 @@ console.log("webFormatWidth and ehgith", imageSrcForExploreNext.webformatHeight,
     </button>
   )
 ) */}
-  {/* <button className="app_blog_detail_icon download_icon_button" style={{padding:" 8px 13px"}} onClick={(e) =>{SeeMoreDetails(e, clickImageObject)}}>
+  <button className="app_blog_detail_icon download_icon_button" style={{padding:" 8px 13px"}} onClick={(e) =>{SeeMoreDetails(e, clickImageObject)}}>
       
       <i class="fa-solid fa-angle-right"></i>
-    </button> */}
-  <button className="app_blog_detail_icon download_icon_button" onClick={(e) =>{downlodImage(e, clickImageObject?.largeImageURL)}}>
+    </button>
+    {userCommingFrom && 
+
+    <>
+      <button className="app_blog_detail_icon download_icon_button" onClick={(e) =>{downlodImage(e, imageSrcForExploreNext)}}>
       <i className="fa-solid fa-download"></i>
     </button>
+    </>
+    
+    }
 
     </>          
              

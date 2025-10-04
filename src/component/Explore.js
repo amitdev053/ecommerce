@@ -12,6 +12,9 @@ import { handleShare } from "./HandleShare";
 import { getImageColors, generateCaption, getCachedColor, useSessionCache, useIndexedDBCache } from "./GetImageColors";
 import { Link, useNavigate } from "react-router-dom";
 import { Helmet } from "react-helmet";
+import AppShareer from "./AppShareer";
+import Alert from "./Alert";
+import { toast } from "react-toastify";
 
 
 let content = [
@@ -88,6 +91,7 @@ const Explore = (props) => {
   const bottomObserverRef = useRef([])        // target as last element for infintnite loop
   const [pageState, setPageState] = useState(1)
   const exploreRef = useRef(null)
+  
   
   
   
@@ -312,6 +316,7 @@ const validImages = indexedHits.filter(Boolean);
   }else{
 
   
+
    const indexedHits = await Promise.all(result.hits.map(async (img, i) => {
         let defaultColor = "#ffffff";
         // let defaultColor = colorCache[img.largeImageURL] || "#f8f9fa";
@@ -351,12 +356,15 @@ const validImages = indexedHits.filter(Boolean);
       //   const scoreB = storedScores[b?._category] || 0;
       //   return scoreB - scoreA;
       // });
+        const hiddenImages = JSON.parse(localStorage.getItem("hiddenImages")) || [];
+        const filteredImages = validImages.filter(img => !hiddenImages.includes(img.id));
    
       // blogColRef.current.length  = 0
         // blogColRef.current = [];
       setImages((prevImages) => {
         const existingIds = new Set(prevImages.map((img) => img.id));
-        const uniqueNewImages = validImages.filter((img) => !existingIds.has(img.id));
+        // const uniqueNewImages = validImages.filter((img) => !existingIds.has(img.id));
+        const uniqueNewImages = filteredImages.filter((img) => !existingIds.has(img.id));
         return [...prevImages, ...uniqueNewImages];
       });
 
@@ -547,7 +555,7 @@ function showMobileIcon(){
   
         imageColumn.style.height = `${scaledHeight}px`; // Set calculated height
       } else {
-        imageColumn.style.height = ""; // Reset height when image is loaded
+        imageColumn.style.height = ""; 
       }
     });
   }, [imageStates, images]); 
@@ -665,17 +673,298 @@ function shareImage(image){
     }
     
   }
-  function removeClickFeed(event, imageUrl){    
+  function removeClickFeed(event, imageUrl, type, imageId){    
     event.stopPropagation()
     let shareButton = event?.currentTarget;
     if(shareButton){
       shareButton.firstElementChild.style.backgroundColor = "white";
       shareButton.firstElementChild.style.color = "";
-      shareImage(imageUrl)
+      if(type === "share"){
+        shareImage(imageUrl)
+
+      }else{
+        openMoreOptions(event, type, imageId, imageUrl)
+      }
       
     }
     
   }
+ 
+  // let lastOpenedImageId = null; 
+  // let clickedImageObj = null
+
+  const [lastOpenedImageId, setLastOpenedImageId] = useState(null);
+const [clickedImageObj, setClickedImageObj] = useState(null);
+
+function openMoreOptions(event, type, imageId, clickedImageData) {
+  event.stopPropagation(); 
+console.log("clickedImageData", clickedImageData)
+    // Always clear previous active states
+    if(document.querySelectorAll('.show_click_element')){
+
+      document.querySelectorAll('.show_click_element').forEach(el => {
+        el.classList.remove('show_click_element');
+      });
+    }
+    // Find the container for this imageId
+  const imageContainer = document.querySelector(`[data-image-id="${imageId}"]`);
+  const exploreTopIcon = imageContainer.querySelectorAll('.explore_images_share')
+  const exploreBottomIcon = imageContainer.querySelector('.explore_icons')
+  // const exploreBottomIcon = imageContainer.querySelector(exploreBottomIcon.current)
+  
+
+  console.log("image container", imageContainer, exploreTopIcon, exploreBottomIcon)
+
+  const sharedBox = document.querySelector('.app_sharer_container');
+  const button = event.currentTarget;
+  const rect = button.getBoundingClientRect();
+  
+  let top = rect.bottom + window.scrollY + 20;
+  let left = rect.left + window.scrollX;
+
+    // Get viewport size
+  const viewportWidth = window.innerWidth;
+  const viewportHeight = window.innerHeight;
+
+  // Get sharedBox size (temporarily make it visible to measure if needed)
+  sharedBox.style.opacity = '0';
+  sharedBox.style.display = 'block'; 
+  const boxWidth = sharedBox.offsetWidth;
+  const boxHeight = sharedBox.offsetHeight;
+
+  // Adjust horizontal position if overflowing
+  if (left + boxWidth > window.scrollX + viewportWidth) {
+    left = window.scrollX + viewportWidth - boxWidth - 10; // 10px margin
+  }
+  if (left < window.scrollX) left = window.scrollX - 10;
+
+  // Adjust vertical position if overflowing
+  if (top + boxHeight > window.scrollY + viewportHeight) {
+    top = rect.top + window.scrollY - boxHeight - 10; 
+  }
+  if (top < window.scrollY) top = window.scrollY + 10;
+
+
+  // Case 1: Clicking the same image again -> toggle
+  if (lastOpenedImageId === imageId) {
+    if (getComputedStyle(sharedBox).opacity === "1") {
+      sharedBox.style.opacity = `0%`;
+        Array.from(exploreTopIcon).forEach((item)=>{
+          if(item.classList.contains('show_click_element')){
+            item.classList.remove('show_click_element')
+
+          }
+      })
+      if(exploreBottomIcon.classList.contains('show_click_element')){
+
+        exploreBottomIcon.classList.remove('show_click_element')
+      }
+    
+    } else {
+      sharedBox.style.top = `${top}px`;
+      sharedBox.style.left = `${left}px`;
+      sharedBox.style.height = `auto`;
+      sharedBox.style.opacity = `100%`;
+      sharedBox.style.zIndex = `99999999999999`;
+
+        Array.from(exploreTopIcon).forEach((item)=>{
+        item.classList.add('show_click_element')
+      })
+      if(exploreBottomIcon){
+        exploreBottomIcon.classList.add('show_click_element')
+
+      }
+    }
+  } 
+  // Case 2: Different image -> always show at new position
+  else {
+   
+      sharedBox.style.opacity = `0`;
+
+    setTimeout(() => {
+      sharedBox.style.position = 'absolute';
+      sharedBox.style.width = `250px`;
+      sharedBox.style.height = `auto`;
+      sharedBox.style.top = `${top}px`;
+      sharedBox.style.left = `${left}px`;
+      sharedBox.style.opacity = `1`;
+
+      Array.from(exploreTopIcon).forEach((item) => {
+        item.classList.add('show_click_element');
+      });
+      if(exploreBottomIcon){
+
+        exploreBottomIcon.classList.add('show_click_element');
+      }
+    }, 50); // fade out delay before moving (200ms can be tuned)
+  }
+
+  // update the tracker
+  // lastOpenedImageId = imageId;
+  // clickedImageObj = clickedImageData;
+
+  setLastOpenedImageId(imageId)
+  setClickedImageObj(clickedImageData)
+
+  // console.log("see clickimagedata", clickedImageObj, lastOpenedImageId)
+}
+
+const [isSaved, setIsSaved] = useState(false);
+const [isHideImage, setIsHideImage] = useState(false);
+const [isdownloadedImage, setIsDownloadedImage] = useState(false);
+
+useEffect(() => {
+  if (clickedImageObj?.id) {
+    const savedImages = JSON.parse(localStorage.getItem("savedImages")) || [];
+    // setIsSaved(savedImages.includes(clickedImageObj.id));
+    const exists = savedImages.some(img => img.id === clickedImageObj.id);
+    setIsSaved(exists);
+  }
+}, [clickedImageObj]);
+
+useEffect(() => {
+  if (clickedImageObj?.id) {
+    const hiddenImages = JSON.parse(localStorage.getItem("hiddenImages")) || [];
+    const exists = hiddenImages.includes(clickedImageObj.id);
+    setIsHideImage(exists);
+  }
+}, [clickedImageObj]);
+
+
+
+useEffect(() => {
+  if (clickedImageObj?.id) {
+    const hiddenImages = JSON.parse(localStorage.getItem("downloadedImages")) || [];
+    const exists = hiddenImages.includes(clickedImageObj.id);
+    setIsHideImage(exists);
+  }
+}, [clickedImageObj]);
+
+const handleSaveImage = (imageId, clickedImageObj) => {
+  console.log("handle saved ", clickedImageObj)
+  if (!clickedImageObj) return;
+
+  try {
+    const savedImages = JSON.parse(localStorage.getItem("savedImages")) || [];
+    const alreadySaved = savedImages.some(img => img.id === clickedImageObj.id);
+
+    // if (!savedImages.includes(clickedImageObj.id)) {
+    if (!alreadySaved) {
+      // savedImages.push(clickedImageObj.id);
+      savedImages.push(clickedImageObj);
+    let filteredImage =  savedImages.filter((image)=> image !== null)
+      localStorage.setItem("savedImages", JSON.stringify(filteredImage));
+      toast.success("Image saved");
+      console.log("✅ Image saved:", clickedImageObj.id);
+      setIsSaved(true); // update state
+    } else {
+      toast.info("Image already saved");
+      console.log("⚠️ Image already saved:", clickedImageObj.id);
+    }
+  } catch (error) {
+    console.error("Error saving image:", error);
+    
+  }
+};
+
+const handleHideImage = (imageId) => {
+  if (!imageId) return;
+
+  try {
+    // Get hidden images from localStorage
+    const hiddenImages = JSON.parse(localStorage.getItem("hiddenImages")) || [];
+    const element = document.querySelector(`[data-image-id="${imageId}"]`);
+    let clickedImage = element.querySelector('img')
+    console.log("yes we get the image", clickedImage)
+
+    // Avoid duplicates
+    if (!hiddenImages.includes(imageId)) {
+      hiddenImages.push(imageId);
+      localStorage.setItem("hiddenImages", JSON.stringify(hiddenImages));
+    }
+clickedImage.style.filter = "blur(50px)"
+element.classList.add('disable-hover')
+setIsHideImage(true)
+    // Optionally remove from current state/render
+    // setImages(prevImages => prevImages.filter(img => img.id !== imageId));
+ 
+  } catch (error) {
+    console.error("Error hiding image:", error);
+  }
+};
+
+  function downloadedImage(lastOpenedImageId, ClickedImageObj) {
+    let imageUrl = ClickedImageObj?.largeImageURL
+      // Extract extension from the image URL
+
+        console.log("download from explore", imageUrl, content[updatedHours()])
+  const urlParts = imageUrl.split(".");
+  const extension = urlParts[urlParts.length - 1].split("?")[0]; // Handles query params
+  // Fetch the image as a blob
+  fetch(imageUrl, { mode: 'cors' })
+    .then(response => response.blob())
+    .then(blob => {
+      console.log("response url ", blob)
+      const url = URL.createObjectURL(blob);
+const downloadedImage = JSON.parse(localStorage.getItem("downloadedImages")) || [];
+      // Create a hidden download link
+      const link = document.createElement('a');
+      link.href = url;
+      link.download = content[updatedHours()] || "BrowseNext" + `.${extension}`; // Use the heading as the filename
+      document.body.appendChild(link);
+      link.click();
+      console.log("link ", link)
+
+      // Cleanup
+      // setTimeout(()=>{
+
+        document.body.removeChild(link);
+      // }, 200)
+      URL.revokeObjectURL(url);
+      
+      toast.success("Image downloaded successfully")
+    if (!downloadedImage.includes(lastOpenedImageId)) {
+      downloadedImage.push(lastOpenedImageId);
+      localStorage.setItem("downloadedImages", JSON.stringify(downloadedImage));
+    }
+    setIsDownloadedImage(true)
+    })
+    .catch(err => {
+      console.error("Image download failed", err);
+      toast.error("Image download failed. Please try again later.");
+    });
+  }
+
+
+
+  function clickOnMainContainer(event){
+    event.preventDefault()
+    // console.log("Scroll")
+    const sharedBox = document.querySelector('.app_sharer_container');
+    // console.log("Explore Ref click", window.getComputedStyle(sharedBox).opacity, event.target);
+    if(!sharedBox && !sharedBox)  return 
+    // sharedBox.style.opacity = getComputedStyle(sharedBox).opacity !== "0" && "0";
+    if(window.getComputedStyle(sharedBox).opacity === "1"){
+       if(document.querySelectorAll('.show_click_element')){
+
+      document.querySelectorAll('.show_click_element').forEach(el => {
+        el.classList.remove('show_click_element');
+      });
+    }
+      sharedBox.style.opacity = "0"
+    }
+  }
+  function onScrollClose(){
+    console.log("scroll fire")
+  }
+  useEffect(()=>{
+    if(!document.body || !exploreRef.current)  return 
+
+  document.body.addEventListener('click', clickOnMainContainer);
+  // exploreRef.current.addEventListener('scroll', onScrollClose);
+
+  })
+
   function orignalElement(event){
     let shareButton = event?.currentTarget;
     if(shareButton){
@@ -802,6 +1091,7 @@ useEffect(() => {
   requestAnimationFrame(() => {
     const validElements = blogColRef.current.filter(Boolean);
     const lastElement = validElements.at(-2);
+    console.log("lastElement", validElements, lastElement)
     if (lastElement) {
       observer.observe(lastElement);
       console.log("Observing element:", lastElement);
@@ -941,6 +1231,19 @@ function toImageKitURL(originalUrl, width = 640, quality= 80) {
   // Return the ImageKit CDN URL with transformations
   return `https://ik.imagekit.io/k4vr4hitu/tr:w-${width},q-${quality},f-auto/${relativePath}`;
 }
+
+// function lockObjects(index){
+//   console.log("image states", imageStates[index])
+//   let allImage = document.querySelectorAll('.explore_image')
+//   Array.from(allImage).forEach((img)=>{
+//     let imgPositions = img.getBoundingClientRect()
+    
+
+//   })
+
+// }
+
+
 
 
 
@@ -1129,7 +1432,9 @@ function toImageKitURL(originalUrl, width = 640, quality= 80) {
       '--image-color': image.imageColor,
     // height: image.webformatHeight
   }} 
-              onClick={(event)=> exploreSimilarImages(event, image)} >      
+              onClick={(event)=> exploreSimilarImages(event, image)} 
+              data-image-id={image.id}
+              >      
           
 <Link class="explore_image_link"
  to={`/explore-next/${image.type}/${targetTag}`}
@@ -1202,10 +1507,13 @@ state={{ imageData: image }}
 
       onLoad={(e) => {
         // handle cached + freshly loaded images
+        console.log("onimage load",e.target.complete)
         if (e.target.complete) {
           setImageStates((prev) => {
             const newState = [...prev];
             newState[index] = { loaded: true };
+            
+            // lockObjects(index)
             if(document.getElementById(`skelton${index}`)){
             document.getElementById(`skelton${index}`).style.display = "none"
 
@@ -1242,7 +1550,7 @@ state={{ imageData: image }}
 
 
 
-            <div className="explore_icons position-absolute " onClick={(e) => e.stopPropagation()} >
+            <div className="explore_icons position-absolute " onClick={(e) => e.stopPropagation()}  >
             <div className="explore_like_content d-flex align-items-center">
               <i className="fa-solid fa-heart"></i>
               <span className="explore_fonts mx-1">{image.likes}</span>
@@ -1257,13 +1565,13 @@ state={{ imageData: image }}
             </div>                  
             </div>
 
-            <div className="explore_like_content d-flex align-items-center position-absolute explore_images_share"
+            <div className="explore_like_content d-flex align-items-center position-absolute explore_images_share adjust_right"
             //  onTouchStart={sendClickFeed} onTouchEnd={(event)=>{removeClickFeed(event, image.webformatURL)}}onMouseUp={(event)=> {removeClickFeed(event, image.webformatURL)} } onMouseDown={sendClickFeed} onMouseOut={orignalElement} 
 
              onClick={(event) => {
       event.stopPropagation();
       event.preventDefault();
-      removeClickFeed(event, image.webformatURL);
+      removeClickFeed(event, image.webformatURL, "share", image.id);
     }}
     onMouseDown={(event) => {
       event.stopPropagation();
@@ -1278,14 +1586,47 @@ state={{ imageData: image }}
     onTouchEnd={(event) => {
       event.stopPropagation();
       event.preventDefault();
-      removeClickFeed(event, image.webformatURL);
+      removeClickFeed(event, image.webformatURL, "share", image.id);
     }}
     onMouseOut={orignalElement}
 
           
                 >
             <i class="fa-solid fa-share explore_image_share_icon"></i>
-            {/* <i class="fa-solid fa-share "></i> */}
+            
+            </div>    
+
+
+               <div className="explore_like_content d-flex align-items-center position-absolute explore_images_share"
+            //  onTouchStart={sendClickFeed} onTouchEnd={(event)=>{removeClickFeed(event, image.webformatURL)}}onMouseUp={(event)=> {removeClickFeed(event, image.webformatURL)} } onMouseDown={sendClickFeed} onMouseOut={orignalElement} 
+
+             onClick={(event) => {
+      event.stopPropagation();
+      event.preventDefault();
+      removeClickFeed(event, image, "option", image.id);
+    }}
+    onMouseDown={(event) => {
+      event.stopPropagation();
+      event.preventDefault();
+      sendClickFeed(event);
+    }}
+    onTouchStart={(event) => {
+      event.stopPropagation();
+      event.preventDefault();
+      sendClickFeed(event);
+    }}
+    onTouchEnd={(event) => {
+      event.stopPropagation();
+      event.preventDefault();
+      removeClickFeed(event, image, "option", image.id);
+    }}
+    onMouseOut={orignalElement}
+
+
+          
+                >
+            <i class="fa-solid fa-ellipsis explore_image_share_icon"></i>
+            
             </div>    
           </div>
 
@@ -1304,6 +1645,14 @@ state={{ imageData: image }}
     </div>)
 
     }
+    <AppShareer componentFrom="explore" loadingImages={loader} isImageSaved={isSaved}  onSave={() => handleSaveImage(lastOpenedImageId, clickedImageObj)} 
+    onHide={()=> handleHideImage(lastOpenedImageId)}
+    isHide={isHideImage}
+    onDownload={()=>{downloadedImage(lastOpenedImageId, clickedImageObj)}}
+    isDownloaded={isdownloadedImage}
+
+    />
+    <Alert position="bottom-center"> </Alert>
       </>
     );
   }

@@ -690,8 +690,20 @@ function endShowingFeedBack(e){
               <i className="fa-solid fa-heart animate_like_icon mobile_like_icon mob_like"  id="appLikeIcon"></i>            
             </div>
             <div className="icon_area position-relative mobile_cart" id="cartmobileicon"  onClick={(event) => {openCart(event)}}>
+            {exploreRoute || exploreNextRoute ?  
+            <>
+              <i class="fa-solid fa-bookmark" style={{marginRight: "0px", padding: "5px 2px 3px 1px" }}></i>
+            </>
+
+            :
+            <>
+
               <i className="fa-solid fa-cart-shopping mobile_like_icon "  id="carticon"></i>
               <sup className="cart_mobile_position cartmobileicon">{totalCart}</sup>
+
+            </>
+            
+            }
             </div>
     {/* <div className="icon_area" onClick={(event) => {openCart(event)}} id="cartarea">
                 <i className="fa-solid fa-cart-shopping mr-1" id="carticon"></i>

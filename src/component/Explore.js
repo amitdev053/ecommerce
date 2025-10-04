@@ -1098,9 +1098,10 @@ setIsHideImage(true)
   
   
 // }, [images.length]);
-
 useEffect(() => {
+  console.log("start observing point", loader)
   if (props.componentFrom === "home") return;
+// if (loader) return; 
 
   const observer = new IntersectionObserver(
     (entries) => {
@@ -1121,22 +1122,51 @@ useEffect(() => {
 
 
  // wait for DOM nodes to attach
-  requestAnimationFrame(() => {
-    const validElements = blogColRef.current.filter(Boolean);
+  // requestAnimationFrame(() => {
+  //   const validElements = blogColRef.current.filter(Boolean);
+  //   console.log("validElement", validElements)
+  //   const lastElement = validElements.at(-2);
+  //   console.log("lastElement", validElements, lastElement)
+  //   if (lastElement) {
+  //     observer.observe(lastElement);
+  //     console.log("Observing element:", lastElement);
+  //   }
+
+  // });
+  
+
+ const waitForLastElement = () => {
+    const validElements = blogColRef.current?.filter(Boolean) || [];
     const lastElement = validElements.at(-2);
-    console.log("lastElement", validElements, lastElement)
+
     if (lastElement) {
+      console.log("✅ Found lastElement:", lastElement);
       observer.observe(lastElement);
-      console.log("Observing element:", lastElement);
+    } else {
+      console.log("⏳ Waiting for lastElement to appear...");
+      // Retry every 200ms until available
+      setTimeout(waitForLastElement, 200);
     }
-  });
+  };
+
+  // Start waiting for DOM to stabilize before observing
+  requestAnimationFrame(() => {
+    waitForLastElement();
+  });  
+console.log("intersecting useEffect works", loader)
 
   return () => {
     observer.disconnect();
   };
-}, [images]); // re-run whenever images change
+  
+}, [images]); 
 
+// function checkingElement(){
+//   if(exploreRef.current.children.length < 5) return 
 
+//   let mainContainerLastChild = exploreRef.current.children.length-2
+//   return mainContainerLastChild
+// }
 
 function highlightTag(){
 

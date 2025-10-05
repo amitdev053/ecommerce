@@ -1235,7 +1235,7 @@ state={{ imageData: image }}
   
   >
      {/* {!imageStates[index]?.loaded && <div className="skeleton" />} */}
-     {(!imageStates[index]?.loaded) && <div className="skeleton" id={'skelton' + index} />}
+     {(!imageStates[index]?.loaded) && <div className="skeleton" id={'saved_skelton' + index} />}
             <img
             className="explore-image"
                  style={{
@@ -1282,6 +1282,13 @@ state={{ imageData: image }}
         //         return newState;
         //         });
         // }}
+         onContextMenu={(e) => {
+  if (window.innerWidth < 576) {
+    e.preventDefault(); 
+
+  }
+         }}
+         
 
       onLoad={(e) => {
         // handle cached + freshly loaded images
@@ -1292,10 +1299,10 @@ state={{ imageData: image }}
             newState[index] = { loaded: true };
             
             
-            // if(document.getElementById(`skelton${index}`)){
-            // document.getElementById(`skelton${index}`).style.display = "none"
+            if(document.getElementById(`saved_skelton${index}`)){
+            document.getElementById(`saved_skelton${index}`).style.display = "none"
 
-            // }
+            }
             return newState;
           });
         }

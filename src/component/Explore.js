@@ -675,7 +675,9 @@ function shareImage(image){
   }
   function removeClickFeed(event, imageUrl, type, imageId){    
     event.stopPropagation()
-    let shareButton = event?.currentTarget;
+    let shareButton = event.currentTarget;
+    console.log("share button", shareButton)
+    // if(shareButton.classList.contains('explore_like_content')){
     if(shareButton){
       shareButton.firstElementChild.style.backgroundColor = "white";
       shareButton.firstElementChild.style.color = "";
@@ -686,6 +688,11 @@ function shareImage(image){
         openMoreOptions(event, type, imageId, imageUrl)
       }
       
+    }else{
+      if(type === "option"){
+        openMoreOptions(event, type, imageId, imageUrl)
+      }
+
     }
     
   }
@@ -1535,6 +1542,14 @@ state={{ imageData: image }}
         display: 'block',
       }}
 
+ onContextMenu={(e) => {
+  if (window.innerWidth < 576) {
+    e.preventDefault(); 
+
+  }
+    // openAppSharer(image); 
+    // removeClickFeed(e, image.webformatURL, "option", image.id);
+  }}
             
   //             src={image.webformatURL}
   //              srcSet={`

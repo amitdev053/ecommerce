@@ -43,7 +43,7 @@ console.log("props.loadingimages", props.loadingImages)
 <span>Download</span> */}
 
 <i className={props.isDownloaded ? "fa-solid fa-check" : "fa-solid fa-download"}></i>
-<span>{props.isImageSaved ? <span style={{ fontWeight: 700 }}>Downloaded</span>  : "Download"}</span>
+<span>{props.isDownloaded ? <span style={{ fontWeight: 700 }}>Downloaded</span>  : "Download"}</span>
 </div>
 
 

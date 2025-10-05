@@ -1113,14 +1113,11 @@ function endShowingFeedBack(e){
 function SavedImages(){
    const [savedImages, setSavedImages] = useState([]);
   const [imageStates, setSavedImageState] = useState([]);
+  
 
-  useEffect(() => {
-    // Get saved images from localStorage
-    const imagesFromStorage = JSON.parse(localStorage.getItem("savedImages")) || [];
+    const fetchImages = async () => {
+          const imagesFromStorage = JSON.parse(localStorage.getItem("savedImages")) || [];
         const imageIds = imagesFromStorage.map(img => img.id);
-
-    // setSavedImages(imagesFromStorage);
-      const fetchImages = async () => {
       try {
         const promises = imageIds.map(async (id) => {
           const response = await fetch(`https://pixabay.com/api/?key=45283300-eddb6d21a3d3d06f2a2381d7d&q&id=${id}`);
@@ -1138,10 +1135,20 @@ function SavedImages(){
         console.error("Failed to fetch saved images:", err);
       }
     };
+
+  useEffect(()=>{
+        fetchImages()
+        console.log("getting saved image")
+  }, [savedImages])
+
+  useEffect(() => {
+    
 fetchImages();
-    // Initialize imageStates for skeleton/loading handling
-    // setImageStates(imagesFromStorage.map(() => ({ loaded: false })));
+
+    
+    
   }, []);
+
 
   function downloadSavedImage(event, imageUrl){
 
@@ -1235,7 +1242,7 @@ state={{ imageData: image }}
   
   >
      {/* {!imageStates[index]?.loaded && <div className="skeleton" />} */}
-     {(!imageStates[index]?.loaded) && <div className="skeleton" id={'saved_skelton' + index} />}
+     {/* {(!imageStates[index]?.loaded) && <div className="skeleton" id={'saved_skelton' + index} />} */}
             <img
             className="explore-image"
                  style={{

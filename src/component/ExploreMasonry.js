@@ -1364,7 +1364,7 @@ function toImageKitURL(originalUrl, width = 640, quality= 80) {
     }
 
 const breakpointColumnsObj = {
-  default: 4,   // 4 columns on large screens
+  default: 3,   // 4 columns on large screens
   1100: 3,      // 3 columns if width <= 1100px
   700: 3,       // 2 columns if width <= 700px
   500: 2        // 1 column on small screens

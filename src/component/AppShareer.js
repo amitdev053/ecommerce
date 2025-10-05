@@ -14,6 +14,72 @@ const AppShareer = (props) => {
 useEffect(()=>{
 console.log("props.loadingimages", props.loadingImages)
 }, [])
+let touchStartedInside = false;
+  function sendClickFeed(event, deviceType = "desktop"){    
+    event.stopPropagation()
+    console.log("sendClickFeed", event.currentTarget, event.target)
+    if(deviceType !== "dektop"){
+      touchStartedInside = true
+
+    }
+    let shareButton = event?.currentTarget;
+    if(shareButton){
+      shareButton.style.backgroundColor = "#c5b7b733";
+      shareButton.style.borderRadius = "10px";
+
+      // shareButton.firstElementChild.style.color = "white";
+      
+      // shareButton.firstElementChild.style.backgroundColor = "white";
+    }
+    
+  }
+
+  function orignalElement(event){
+    let shareButton = event?.currentTarget;
+    if(shareButton){
+      shareButton.style.backgroundColor = "";
+      shareButton.style.borderRadius = "";
+      touchStartedInside = false;
+      console.log("originalFeed", touchStartedInside)
+      // shareButton.firstElementChild.style.color = "";         
+    }    
+  }
+
+  function removeClickFeed(event, type, deviceType = "desktop"){    
+    event.stopPropagation()
+    console.log("removeFeed")
+    let shareButton = event?.currentTarget;
+    if(shareButton){
+      shareButton.style.backgroundColor = "";
+      shareButton.style.borderRadius = "";
+      // shareButton.style.color = "";
+ console.log("tocuhStartedInside", touchStartedInside, deviceType)
+    if (!touchStartedInside) {
+      console.log("Touch ended outside — cancel download");
+      return;
+    }
+
+      
+      if(type === "Download"){
+        // shareImage(imageUrl)
+        console.log("now downloading")
+        props.onDownload()
+      }else if(type === "Suggested" ){
+        // openMoreOptions(event, type, imageId, imageUrl)
+      }else if(type === "Save"){
+        props.onSave() 
+
+      }else if(type === "Hide"){
+        props.onHide()
+
+      }else if(type === "notInterested"){
+
+      }
+      
+    }    
+  }
+
+ 
   return (
     <div  className={props.componentFrom === "explore" ? 'app_sharer_container app_explore_option_box' : "app_sharer_container"}>
     {(props.componentFrom === "services") ?
@@ -38,7 +104,34 @@ console.log("props.loadingimages", props.loadingImages)
 
 
 
-<div className='option_item' onClick={props.onDownload}>
+<div className='option_item' 
+// onClick={props.onDownload}
+
+ onClick={(event) => {
+      event.stopPropagation();
+      event.preventDefault();
+      removeClickFeed(event,  "Download");
+    }}
+    onMouseDown={(event) => {
+      event.stopPropagation();
+      event.preventDefault();
+      sendClickFeed(event);
+            
+    }}
+    onTouchStart={(event) => {
+      event.stopPropagation();
+      event.preventDefault();
+      sendClickFeed(event, "mobile");
+    }}
+    onTouchEnd={(event) => {
+      event.stopPropagation();
+      event.preventDefault();
+      removeClickFeed(event, "Download", "mobile");
+    }}
+    onMouseOut={orignalElement}
+    onTouchMove={orignalElement}
+
+>
 {/* <i class="fa-solid fa-download"></i>
 <span>Download</span> */}
 
@@ -48,26 +141,123 @@ console.log("props.loadingimages", props.loadingImages)
 
 
 
-<div className='option_item'>
+<div className='option_item'
+
+ onClick={(event) => {
+      event.stopPropagation();
+      event.preventDefault();
+      removeClickFeed(event,  "Suggested");
+    }}
+    onMouseDown={(event) => {
+      event.stopPropagation();
+      event.preventDefault();
+      sendClickFeed(event);
+    }}
+    onTouchStart={(event) => {
+      event.stopPropagation();
+      event.preventDefault();
+      sendClickFeed(event, "mobile");
+    }}
+    onTouchEnd={(event) => {
+      event.stopPropagation();
+      event.preventDefault();
+      removeClickFeed(event, "Suggested", "mobile");
+    }}
+    onMouseOut={orignalElement}
+    onTouchMove={orignalElement}
+
+>
 {/* <i class="fa-solid fa-thumbs-up"></i> */}
 <i class="fa-regular fa-star"></i>
 <span>Suggest more like this</span>
 </div>
 
-<div className='option_item' onClick={props.onHide}>
+<div className='option_item' 
+// onClick={props.onHide}
+
+ onClick={(event) => {
+      event.stopPropagation();
+      event.preventDefault();
+      removeClickFeed(event,  "Hide");
+    }}
+    onMouseDown={(event) => {
+      event.stopPropagation();
+      event.preventDefault();
+      sendClickFeed(event);
+    }}
+    onTouchStart={(event) => {
+      event.stopPropagation();
+      event.preventDefault();
+      sendClickFeed(event, "mobile");
+    }}
+    onTouchEnd={(event) => {
+      event.stopPropagation();
+      event.preventDefault();
+      removeClickFeed(event, "Hide", "mobile");
+    }}
+    onMouseOut={orignalElement}
+    onTouchMove={orignalElement}
+
+>
 <i className={props.isHide ? "fa-solid fa-eye-slash" : "fa-regular fa-eye-slash"}></i>
-{/* <i class="fa-solid fa-eye-slash"></i> */}
-{/* <span>Hide</span> */}
 <span>{props.isHide ? <span style={{ fontWeight: 700 }}>Hide</span>  : "Hide"}</span>
 </div>
 
-<div className='option_item'  onClick={props.onSave}>
+<div className='option_item' 
+//  onClick={props.onSave}
+
+ onClick={(event) => {
+      event.stopPropagation();
+      event.preventDefault();
+      removeClickFeed(event,  "Save");
+    }}
+    onMouseDown={(event) => {
+      event.stopPropagation();
+      event.preventDefault();
+      sendClickFeed(event);
+    }}
+    onTouchStart={(event) => {
+      event.stopPropagation();
+      event.preventDefault();
+      sendClickFeed(event, "mobile");
+    }}
+    onTouchEnd={(event) => {
+      event.stopPropagation();
+      event.preventDefault();
+      removeClickFeed(event, "Save", "mobile");
+    }}
+    onMouseOut={orignalElement}
+    onTouchMove={orignalElement}
+>
 {/* <i class="fa-solid fa-bookmark"></i> */}
 <i className={props.isImageSaved ? "fa-solid fa-bookmark" : "fa-regular fa-bookmark"}></i>
 <span>{props.isImageSaved ? <span style={{ fontWeight: 700 }}>Saved</span>  : "Save"}</span>
 </div>
 
-<div className='option_item'>
+<div className='option_item'
+ onClick={(event) => {
+      event.stopPropagation();
+      event.preventDefault();
+      removeClickFeed(event,  "notInterested");
+    }}
+    onMouseDown={(event) => {
+      event.stopPropagation();
+      event.preventDefault();
+      sendClickFeed(event);
+    }}
+    onTouchStart={(event) => {
+      event.stopPropagation();
+      event.preventDefault();
+      sendClickFeed(event, "mobile");
+    }}
+    onTouchEnd={(event) => {
+      event.stopPropagation();
+      event.preventDefault();
+      removeClickFeed(event, "notInterested", "mobile");
+    }}
+    onMouseOut={orignalElement}
+    onTouchMove={orignalElement}
+>
 <i class="fa-regular fa-thumbs-down"></i>
  {/* <i class="fa-solid fa-ban"></i> */}
 <span>Not interested</span>

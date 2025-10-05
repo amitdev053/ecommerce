@@ -749,6 +749,8 @@ console.log("clickedImageData", clickedImageData)
   if (lastOpenedImageId === imageId) {
     if (getComputedStyle(sharedBox).opacity === "1") {
       sharedBox.style.opacity = `0%`;
+      sharedBox.style.pointerEvents = `none`;
+
         Array.from(exploreTopIcon).forEach((item)=>{
           if(item.classList.contains('show_click_element')){
             item.classList.remove('show_click_element')
@@ -766,6 +768,7 @@ console.log("clickedImageData", clickedImageData)
       sharedBox.style.height = `auto`;
       sharedBox.style.opacity = `100%`;
       sharedBox.style.zIndex = `99999999999999`;
+      sharedBox.style.pointerEvents = `auto`;
 
         Array.from(exploreTopIcon).forEach((item)=>{
         item.classList.add('show_click_element')
@@ -780,7 +783,7 @@ console.log("clickedImageData", clickedImageData)
   else {
    
       sharedBox.style.opacity = `0`;
-
+      sharedBox.style.pointerEvents = `none`;
     setTimeout(() => {
       sharedBox.style.position = 'absolute';
       sharedBox.style.width = `250px`;
@@ -788,6 +791,7 @@ console.log("clickedImageData", clickedImageData)
       sharedBox.style.top = `${top}px`;
       sharedBox.style.left = `${left}px`;
       sharedBox.style.opacity = `1`;
+      sharedBox.style.pointerEvents = `auto`;
 
       Array.from(exploreTopIcon).forEach((item) => {
         item.classList.add('show_click_element');
@@ -826,7 +830,7 @@ useEffect(() => {
   if (clickedImageObj?.id) {
     const hiddenImages = JSON.parse(localStorage.getItem("hiddenImages")) || [];
     const exists = hiddenImages.includes(clickedImageObj.id);
-    setIsDownloadedImage(exists);
+    setIsHideImage(exists);
   }
 }, [clickedImageObj]);
 
@@ -836,7 +840,7 @@ useEffect(() => {
   if (clickedImageObj?.id) {
     const downloadedImages = JSON.parse(localStorage.getItem("downloadedImages")) || [];
     const exists = downloadedImages.includes(clickedImageObj.id);
-    setIsHideImage(exists);
+    setIsDownloadedImage(exists);
   }
 }, [clickedImageObj]);
 
@@ -985,6 +989,7 @@ setIsHideImage(true)
       });
     }
       sharedBox.style.opacity = "0"
+      sharedBox.style.pointerEvents = "none"
     }
   }
   function onScrollClose(){

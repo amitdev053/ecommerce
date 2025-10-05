@@ -689,10 +689,10 @@ function endShowingFeedBack(e){
             <div className="app_navbar_like_containericon mobile_cart" id="AppHeaderLike"  onClick={(event) => {openLikes(event)}}>            
               <i className="fa-solid fa-heart animate_like_icon mobile_like_icon mob_like"  id="appLikeIcon"></i>            
             </div>
-            <div className="icon_area position-relative mobile_cart" id="cartmobileicon"  onClick={(event) => {openCart(event)}}>
+            <div className="icon_area position-relative mobile_cart" id="cartmobileicon" style={(exploreNextRoute || exploreRoute) && {padding : "0px 16px"}}  onClick={(event) => {openCart(event)}}>
             {exploreRoute || exploreNextRoute ?  
             <>
-              <i class="fa-solid fa-bookmark" style={{marginRight: "0px", padding: "5px 2px 3px 1px" }}></i>
+              <i class="fa-solid fa-bookmark" style={{marginRight: "0px"}}></i>
             </>
 
             :

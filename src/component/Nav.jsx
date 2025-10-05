@@ -1137,8 +1137,9 @@ function SavedImages(){
     };
 
   useEffect(()=>{
-        fetchImages()
-        console.log("getting saved image")
+      if (savedImages.length > 0) {
+    fetchImages();
+  }
   }, [savedImages])
 
   useEffect(() => {

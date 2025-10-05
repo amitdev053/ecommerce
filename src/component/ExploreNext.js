@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react'
 import Explore from './Explore'
+import ExploreMasonry from './ExploreMasonry'
 import { useParams, useLocation } from 'react-router-dom'
 import { Helmet } from 'react-helmet';
 
@@ -134,9 +135,12 @@ const ExploreNext = () => {
 
 
 
-  <Explore
+  {/* <Explore
          key={`${displayImage.type}-${displayImage.imageTag}`}  
-         componentFrom="exploreNext"   displayImage={displayImage.imageTag} ></Explore>
+         componentFrom="exploreNext"   displayImage={displayImage.imageTag} ></Explore> */}
+  <ExploreMasonry
+         key={`${displayImage.type}-${displayImage.imageTag}`}  
+         componentFrom="exploreNext"   displayImage={displayImage.imageTag} ></ExploreMasonry>
     </div>
   )
 }

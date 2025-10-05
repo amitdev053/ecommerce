@@ -1,0 +1,24 @@
+.my-masonry-grid {
+  display: flex;
+  /* margin-left: -16px; */
+  /* width: auto; */
+  max-width: 93% !important;
+}
+
+.my-masonry-grid_column {
+  /* padding-left: 16px;  */
+  background-clip: padding-box;
+}
+
+/* Optional: make images responsive */
+.my-masonry-grid_column > div {
+  /* margin-bottom: 16px; */
+}
+
+@media screen and (max-width: 999px){
+    .my-masonry-grid {
+        max-width: 100% !important;
+        padding-left: 5px !important;
+        padding-right: 5px !important;
+    }
+}

@@ -28,6 +28,7 @@ import Privancy from "./component/Privancy";
 import ExploreNext from "./component/ExploreNext";
 import Services from "./component/Services";
 import { getOrSetUserId } from "./analytics";
+import ExploreMasonry from "./component/ExploreMasonry";
 
 
 const excludeDevices = ["103.208.68.138", "223.237.9.50"]; // Replace with real IPs
@@ -153,7 +154,8 @@ window.gtag('event', 'page_view', {
           <Route path="/sitemap.xml" element={null} /> 
             <Route path="/" Component={Home} />
             {/* <Route exact path ='/Hastags' Component={Hashtag}/> */}
-            <Route exact path="/explore" Component={Explore} />
+            {/* <Route exact path="/explore" Component={Explore} /> */}
+            <Route exact path="/explore" Component={ExploreMasonry} />
             {/* <Route exact path ='/contact' Component={Contact}/> */}
             <Route exact path ='/services' Component={Services}/>
             {/* <Route exact path ='/media' Component={Media}/> */}

@@ -131,7 +131,7 @@ export default function footer() {
           <i class="fa-solid fa-shop mx-2"></i>BrowseNext
           </h6>
           <p>
-    Use bold text generators, explore tech blogs, download premium images & discover creative tools on Market-Shops. All free, all in one place.
+    Use bold text generators, explore tech blogs, download premium images & discover creative tools on BrowseNext. All free, all in one place.
           
           </p>
         </div>

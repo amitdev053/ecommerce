@@ -184,7 +184,7 @@ const FeatureContext = () => {
   const [openUserModelCounts, setOpenUserModelCounts] = useState(0)
   let incrementBy = 1
 
-  const STEP = 50;                 // change to 50 if you want +50 per second
+  const STEP = 100;                 // change to 50 if you want +50 per second
 // const TICK_MS = 1000;
 
 const tickRef = useRef(null);

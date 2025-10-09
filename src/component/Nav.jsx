@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useRef, useContext } from "react";
+import React, { useEffect, useState, useRef, useContext, useLayoutEffect } from "react";
 import { Link, useNavigate, useLocation, useMatch } from "react-router-dom";
 import axios from "axios";
 import Loader from "./Loader";
@@ -1136,19 +1136,23 @@ function SavedImages(){
       }
     };
 
-  useEffect(()=>{
-      if (savedImages.length > 0) {
-    fetchImages();
-  }
-  }, [savedImages])
+  // useEffect(()=>{
+  //     if (savedImages.length > 0) {
+  //   fetchImages();
+  // }
+  // }, [savedImages])
 
-  useEffect(() => {
+//   useEffect(() => {
     
-fetchImages();
+// fetchImages();
 
     
     
-  }, []);
+//   }, []);
+
+useLayoutEffect(()=>{
+  fetchImages()
+}, [])
 
 
   function downloadSavedImage(event, imageUrl){

@@ -28,11 +28,32 @@ const DeskTopHeadings = [
 //   "Come Back Often",
 //   "Trending 🔥"
 // ];
-const MobileHeadings = [
+
+const MobileHeadingses = [
+  "🔥 Must-See!",
+  "⏰ Just In!",
+  "👀 Can’t Miss!",
+  "✨ Hot Picks!",
+  "💎 Hidden Gems",
+  "⚡ Trending Now",
+  "🎯 Top Finds",
+  "🌟 New & Rare",
+  "🚀 Explore Now",
+  "🎉 Today’s Hits",
+
+
+
   "New Hot Images 🔥",
   "Fresh Visuals Every Hour ⏰",
   "Discover Favorite Images 👀",
   "Trending Now: Don’t Miss Out"
+];
+
+const MobileHeadings = [
+"Just in ⏰",
+ "Top Finds 🎯",
+ "Hot Picks ✨",
+ "Can’t Miss 👀"
   
 ];
 

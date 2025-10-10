@@ -678,7 +678,7 @@ function endShowingFeedBack(e){
     return (
       <>
   
-        <nav className="navbar navbar-expand-lg navbar-light bg-light fixed-top p-0">
+        <nav className="navbar navbar-expand-lg navbar-light bg-light fixed-top p-0 adjust_padding">
           <div className="container navbar_container app_container p-0">
             <Link className={url !== "/blogs" && url !== "/explore" ? `navbar-brand navbar-brand-conditionally` : "navbar-brand"} to="/">
             {/* <i className="fa-solid fa-shop app_nav_logo"></i> */}

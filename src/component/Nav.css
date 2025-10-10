@@ -27,3 +27,22 @@ color: black !important;
 .saved_container{
     column-count: 2 !important; 
 }
+.adjust_padding{
+    padding: 8px 0px !important;
+}
+.icon_area sup{
+    top: -9px !important;
+    right: -10px !important;
+
+}
+
+@media screen and (max-width: 999px) {
+    .adjust_padding{
+        padding: 0px !important;
+    }
+    .icon_area sup{
+    top: -7px !important;
+
+}
+    
+}

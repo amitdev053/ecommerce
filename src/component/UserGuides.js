@@ -85,7 +85,7 @@ const UserGuides = (props) => {
       }
   }
   function setupCLoseModelStyles(body){
-
+if(!contentRef.current) return
      modalRef.current.style.transition = 'transform 0.3s ease-out';
       modalRef.current.style.transform = 'translateY(100%)';
       body.style.overflowY = 'auto'; 

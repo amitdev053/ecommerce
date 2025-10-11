@@ -34,7 +34,7 @@ export default function Products(props) {
   const [cartLength, setCartLength] = useState(0)
   const [initalCartQty, setInitalCartQty] = useState(1)
   const [imageLoaded, setImageLoaded] = useState(false);
-  const { addToCart } = useContext(CartContext);
+  const { addToCart, toggleLike, likeItems } = useContext(CartContext);
   // const [isFavorite, setIsFavorite] = useState(false);
   const [favoriteIds, setFavoriteIds] = useState(() => {
   const stored = localStorage.getItem("userLike");
@@ -44,7 +44,8 @@ export default function Products(props) {
    const [changedPhoto, setChangedPhoto] = useState(false)
   
   function isProductFavorite(id) {
-  return favoriteIds.includes(id);
+  // return favoriteIds.includes(id);
+  return likeItems.some(item => item.productid === id);
 }
 
 function setupDynamicLikeIconsStyles(){
@@ -160,44 +161,52 @@ function setupDynamicLikeIconsStyles(){
   
   }
 
-  function addToFavourite(productName,productPrice,ProductImage,productid) {
+
+
+  function addToFavourite(productName,productPrice,productImage,productid) {
     // // console.log("set Cart");
-   
-   let usercartarr = JSON.parse(localStorage.getItem("userLike") || "[]");
-   let usercart = {    
-    productName: productName,
-    productImage: ProductImage,
-    productPrice: productPrice,
-    productid:productid,
-    productQuanity: initalCartQty,
-  };
+console.log("here image ", productImage, likeItems)
+  let isadding =   toggleLike(productName, productPrice, productImage, productid)
+   animateLikeHeaderIcon()
+   likeItems.forEach((item)=>{
+
+     isProductFavorite(item.id)
+   })
+  //  let usercartarr = JSON.parse(localStorage.getItem("userLike") || "[]");
+  //  let usercart = {    
+  //   productName: productName,
+  //   productImage: ProductImage,
+  //   productPrice: productPrice,
+  //   productid:productid,
+  //   productQuanity: initalCartQty,
+  // };
  
-  let existingProduct = usercartarr.find((curElement)=>{
-  return  productid === curElement.productid
-  })
-  // // console.log("existing product",existingProduct)
+  // let existingProduct = usercartarr.find((curElement)=>{
+  // return  productid === curElement.productid
+  // })
+  // // // console.log("existing product",existingProduct)
 
 
-  if(existingProduct){
-     // If the product is already in the favorites, remove it
-     animateLikeHeaderIcon(true)
-    //  setIsFavorite(false)
-     setFavoriteIds(prev => prev.filter(id => id !== productid));
-     usercartarr = usercartarr.filter((curElement) => curElement.productid !== productid);
-     localStorage.setItem("userLike", JSON.stringify(usercartarr)); 
-    toast.success("Product removed to the Favourite")
-  }else{
-  setAddTrackCart(true)
-  // setIsFavorite(true)
-  setFavoriteIds(prev => [...prev, productid]);
-  animateLikeHeaderIcon()
-  // // console.log("addtocart", usercart)
+  // if(existingProduct){
+  //    // If the product is already in the favorites, remove it
+  //    animateLikeHeaderIcon(true)
+  //   //  setIsFavorite(false)
+  //    setFavoriteIds(prev => prev.filter(id => id !== productid));
+  //    usercartarr = usercartarr.filter((curElement) => curElement.productid !== productid);
+  //    localStorage.setItem("userLike", JSON.stringify(usercartarr)); 
+  //   toast.success("Product removed to the Favourite")
+  // }else{
+  // setAddTrackCart(true)
+  // // setIsFavorite(true)
+  // setFavoriteIds(prev => [...prev, productid]);
+  // animateLikeHeaderIcon()
+  // // // console.log("addtocart", usercart)
 
-  let pusharr = usercartarr.push(usercart);
-    setCartLength(pusharr)
-    localStorage.setItem("userLike", JSON.stringify(usercartarr));       
-    toast.success("Product saved to the  Favourite");
-  }
+  // let pusharr = usercartarr.push(usercart);
+  //   setCartLength(pusharr)
+  //   localStorage.setItem("userLike", JSON.stringify(usercartarr));       
+  //   toast.success("Product saved to the  Favourite");
+  // }
 
     
   }

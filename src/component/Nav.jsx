@@ -48,7 +48,7 @@ export default function Navbar({trackCart}) {
   const locations = useLocation();
   const navigate = useNavigate()
 
-  const { addToCart } = useContext(CartContext);
+  const { addToCart, toggleLike, likeItems, cartLength } = useContext(CartContext);
   function handleResize(){
     if(document.querySelector('.cart_header')){
       document.querySelector('.cart_header').style.width = document.querySelector('.cart_container').offsetWidth +"px"
@@ -373,27 +373,37 @@ if(window.location.pathname === "/saved"){
 
 const getUserCart = () => {
   let cartitem = JSON.parse(localStorage.getItem("usercart") || "[]");
-  setUserCart(cartitem);
-  setTotalCart(cartitem.length);
+  
+  // setUserCart(cartitem);
+  // setTotalCart(cartitem.length);
 
   return cartitem;
 };
-useEffect(() => {  
-   getUserCart();    
-  
-}, [userCart]); //userCart
+// useEffect(() => {  
+//    getUserCart();    
+//   console.log("checking cart context", addToCart)
+// }, []); //userCart 
+useEffect(() => {
+  const cart = getUserCart();
+  setUserCart(cart);
+  setTotalCart(cartLength);
+  console.log("checking cart context", addToCart);
+}, [addToCart]);
 
 const getUserLikes = () => {
   let likeItems = JSON.parse(localStorage.getItem("userLike") || "[]");
-  setUserLike(likeItems);
-  setTotalLike(likeItems.length);
+  // setUserLike(likeItems);
+  // setTotalLike(likeItems.length);
 
   return likeItems;
 };
 useEffect(() => {  
-   getUserLikes();    
+   const likesProducts = getUserLikes();   
+     setUserLike(likesProducts);
+     console.log("likeProdcuts", likesProducts)
+  setTotalLike(likesProducts.length); 
   
-}, [userLike]); //userCart
+}, [toggleLike]); 
 
 
   function clearCart() {
@@ -1057,7 +1067,7 @@ function endShowingFeedBack(e){
      
    <div  className="col-md-3 col-sm-12 gallerycol user_favourite_items">
                   <div className="galleryimg user_favourite_image position-relative">
-                    <img src={likeItems.productImage} id="productimg" alt=""  />                  
+                    <img src={likeItems.ProductImage} id="productimg" alt=""  />                  
                   </div>
                   <div className="mediacontent d-inline-block">
                     <h4 className="gallerytitle productname" id="productname">

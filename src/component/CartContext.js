@@ -9,6 +9,12 @@ export const CartProvider = ({ children }) => {
   const [cartLength, setCartLength] = useState(cartItems.length);
   const [addTrackCart, setAddTrackCart] = useState(false);
 
+    // LIKE STATES
+  const [likeItems, setLikeItems] = useState(
+    JSON.parse(localStorage.getItem("userLike") || "[]")
+  );
+  const [likeLength, setLikeLength] = useState(likeItems.length);
+
   // Function to add items to the cart
   const addToCart = (productName, productPrice, ProductImage, productid) => {
     // console.log("set Cart");
@@ -64,6 +70,39 @@ export const CartProvider = ({ children }) => {
     // Disable page scroll
     document.body.style.overflowY = "hidden";
   };
+  // -----------------------
+  // ❤️ TOGGLE LIKE FUNCTION
+  // -----------------------
+
+    const toggleLike = (productName, productPrice, ProductImage, productid) => {
+    let currentLikes = JSON.parse(localStorage.getItem("userLike") || "[]");
+
+    const existing = currentLikes.find((p) => p.productid === productid);
+
+    if (existing) {
+      // remove from likes
+      const updatedLikes = currentLikes.filter(
+        (p) => p.productid !== productid
+      );
+      setLikeItems(updatedLikes);
+      setLikeLength(updatedLikes.length);
+      localStorage.setItem("userLike", JSON.stringify(updatedLikes));
+      toast.info("Removed from Likes ❤️‍🔥");
+    } else {
+      // add to likes
+      const newLike = {
+        productName,
+        productPrice,
+        ProductImage,
+        productid,
+      };
+      const updatedLikes = [...currentLikes, newLike];
+      setLikeItems(updatedLikes);
+      setLikeLength(updatedLikes.length);
+      localStorage.setItem("userLike", JSON.stringify(updatedLikes));
+      toast.success("Added to Likes ❤️");
+    }
+  };
 
   return (
     <CartContext.Provider
@@ -72,6 +111,11 @@ export const CartProvider = ({ children }) => {
         cartLength,
         addToCart,
         addTrackCart,
+
+         // likes
+        likeItems,
+        likeLength,
+        toggleLike,
       }}
     >
       {children}

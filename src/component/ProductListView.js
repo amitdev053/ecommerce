@@ -1,9 +1,9 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import Loader from "./Loader";
 import 'react-toastify/dist/ReactToastify.css';
 import { ToastContainer, toast } from "react-toastify";
 import ProductSlider from "./ProductSlider";
-
+import { CartContext } from './CartContext';
 
 export default function ProductListView({addToFavourite, isFavorite, componentFrom, favoriteIds, DynamicLikeStyles}) {
   // const baseUrl = "https://fakestoreapi.com";
@@ -17,6 +17,7 @@ export default function ProductListView({addToFavourite, isFavorite, componentFr
   const [allproduct, setAllProduct] = useState([]); 
   const [SliderHeading, setSliderHeading] = useState("Choose Your Favourite");
   const [cartLength, setCartLength] = useState(0)
+  const { addToCart, toggleLike, likeItems } = useContext(CartContext);
  const [initalCartQty, setInitalCartQty] = useState(1)
 
  useEffect(()=>{
@@ -24,7 +25,8 @@ export default function ProductListView({addToFavourite, isFavorite, componentFr
  })
 
   function isProductFavorite(id) {
-  return favoriteIds.includes(id);
+  // return favoriteIds.includes(id);
+  return likeItems.some(item => item.productid === id);
 }
 
   function getProducts(baseUrl, productsUrl) {
@@ -46,54 +48,9 @@ export default function ProductListView({addToFavourite, isFavorite, componentFr
           }
       });
   }
-  function addToCart(productName,productPrice,ProductImage,productid) {
+  function UseCart(productName,productPrice,ProductImage,productid) {
     // console.log("set Cart");
-   let usercartarr = JSON.parse(localStorage.getItem("usercart") || "[]");
-   let usercart = {    
-    productName: productName,
-    productImage: ProductImage,
-    productPrice: productPrice,
-    productid:productid,
-    productQuanity: initalCartQty,
-  };
- 
-// console.log(usercartarr)
- 
-  let existingProduct = usercartarr.find((curElement)=>{
-  return  productid === curElement.productid
-  })
-  // console.log("existing product",existingProduct)
-
-
-  if(existingProduct){
-      let modifiedProducts = usercartarr.map((product) =>
-      product.productid === existingProduct.productid
-        ? { ...product, productQuanity: product.productQuanity + 1 }
-        : product
-    );
-
-    // console.log("modified products", modifiedProducts);
-
-    setCartLength((prevLength) => prevLength + 1);
-    localStorage.setItem("usercart", JSON.stringify(modifiedProducts));
-
-
-
-}else{
-
-  // console.log("addtocart", usercart)
-
-  let pusharr = usercartarr.push(usercart);
-    setCartLength(pusharr)
-    localStorage.setItem("usercart", JSON.stringify(usercartarr));       
- 
-  }
-
-
-
-    document.getElementById('userCartContainer').classList.add('show_cart_container')
-    toast.success("Your Product has been added !");
-    
+   addToCart(productName, productPrice, ProductImage, productid)
   }
 
   useEffect(() => {
@@ -208,7 +165,7 @@ export default function ProductListView({addToFavourite, isFavorite, componentFr
                       <button
                         className="btn btn-sm btn-primary p_s_btn  mr-1 brand_button"
                         onClick={() => {
-                          addToCart(
+                          UseCart(
                             product.title,
                             product.variants[0].price,
                             product.images[0].src,

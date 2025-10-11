@@ -1586,7 +1586,7 @@ state={{ imageData: image }}
   
   
   sizes="(max-width: 600px) 100vw, (max-width: 1200px) 50vw, 33vw"
-              loading="lazy"     
+              // loading="lazy"     
                   
               
               onClick={() => updateInteractionScore(image._category, 2)}

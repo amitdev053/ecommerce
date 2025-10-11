@@ -20,9 +20,13 @@ color: black !important;
 .saved_rows{
     margin-top: 130px;
 }
-.saved_rows .cart_header{
+/* .saved_rows .cart_header{
     padding: 15px 15px 15px 10px !important;
     top: 55px;
+} */
+.cart_header{
+    padding: 15px 15px 15px 10px !important;
+    top: 65px !important;
 }
 .saved_container{
     column-count: 2 !important; 
@@ -43,6 +47,10 @@ color: black !important;
     .icon_area sup{
     top: -7px !important;
 
+}
+.cart_header{
+    
+    top: 55px !important;
 }
     
 }

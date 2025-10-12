@@ -2,7 +2,7 @@ import logo from "./logo.svg";
 import "./App.css";
 import "primeflex/primeflex.css";
 
-import React, { useEffect, useContext, lazy, Suspense } from "react";
+import React, { useEffect, useContext, lazy, Suspense, useState } from "react";
 import { Routes, Route, useLocation, useMatch } from "react-router-dom";
 import { Analytics } from "@vercel/analytics/react";
 
@@ -83,6 +83,33 @@ function App() {
     return () => window.removeEventListener("resize", setVh);
   }, []);
 
+   const [savedImages, setSavedImages] = useState([]);
+  const [imageSavedStates, setSavedImageState] = useState([]);
+  
+
+    const fetchSavedImages = async () => {
+          const imagesFromStorage = JSON.parse(localStorage.getItem("savedImages")) || [];
+        const imageIds = imagesFromStorage.map(img => img.id);
+      try {
+        const promises = imageIds.map(async (id) => {
+          const response = await fetch(`https://pixabay.com/api/?key=45283300-eddb6d21a3d3d06f2a2381d7d&q&id=${id}`);
+          const data = await response.json();
+          // Pixabay returns hits array
+          return data.hits[0]; // return the image object
+        });
+
+        const freshImages = await Promise.all(promises);
+        const validImages = freshImages.filter(Boolean); // remove nulls
+
+        setSavedImages(validImages);
+        setSavedImageState(validImages.map(() => ({ loaded: false })));
+   
+
+      } catch (err) {
+        console.error("Failed to fetch saved images:", err);
+      }
+    };
+
   return (
     <BlogAudioProvider>
       <CartProvider>
@@ -90,7 +117,11 @@ function App() {
         {matchRoute || exploreNext ? (
           <BlogBack componentFrom={exploreNext || matchRoute} />
         ) : (
-          <Nav trackCart={false} />
+          <Nav trackCart={false}      
+           setSavedImageState={setSavedImageState}
+                 savedImages={savedImages}
+        imageSavedStates={imageSavedStates}
+                fetchSavedImages={fetchSavedImages}   />
         )}
 
         {/* Routes */}
@@ -101,7 +132,7 @@ function App() {
             path="/explore"
             element={
               <Suspense fallback={<div>Loading Explore...</div>}>
-                <ExploreMasonry />
+                <ExploreMasonry   fetchSavedImages={fetchSavedImages}  />
               </Suspense>
             }
           />

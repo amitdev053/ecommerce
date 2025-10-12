@@ -18,7 +18,7 @@ import {  generateCaption } from "./GetImageColors";
 
 
 
-export default function Navbar({trackCart}) {
+export default function Navbar({savedImages, imageSavedStates , fetchSavedImages, setSavedImageState}) {
   const [userName, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [loader, setloader] = useState(false);
@@ -678,6 +678,10 @@ function endShowingFeedBack(e){
     clickedElement.classList.remove('mobile_feedback')
   }
 }
+
+
+
+
   
   if (loader === true) {
     return (
@@ -899,7 +903,13 @@ function endShowingFeedBack(e){
                     }}
                   ></i>
                 </div>
-                <SavedImages />
+                <SavedImages 
+                setSavedImageState={setSavedImageState}
+                 savedImages={savedImages}
+        imageSavedStates={imageSavedStates}
+                fetchSavedImages={fetchSavedImages} 
+
+                />
 
             </div>
 
@@ -1121,32 +1131,8 @@ function endShowingFeedBack(e){
   }
 }
 
-function SavedImages(){
-   const [savedImages, setSavedImages] = useState([]);
-  const [imageSavedStates, setSavedImageState] = useState([]);
+function SavedImages({savedImages, imageSavedStates , fetchSavedImages, setSavedImageState}){
   
-
-    const fetchImages = async () => {
-          const imagesFromStorage = JSON.parse(localStorage.getItem("savedImages")) || [];
-        const imageIds = imagesFromStorage.map(img => img.id);
-      try {
-        const promises = imageIds.map(async (id) => {
-          const response = await fetch(`https://pixabay.com/api/?key=45283300-eddb6d21a3d3d06f2a2381d7d&q&id=${id}`);
-          const data = await response.json();
-          // Pixabay returns hits array
-          return data.hits[0]; // return the image object
-        });
-
-        const freshImages = await Promise.all(promises);
-        const validImages = freshImages.filter(Boolean); // remove nulls
-
-        setSavedImages(validImages);
-        setSavedImageState(validImages.map(() => ({ loaded: false })));
-      } catch (err) {
-        console.error("Failed to fetch saved images:", err);
-      }
-    };
-
   // useEffect(()=>{
   //     if (savedImages.length > 0) {
   //   fetchImages();
@@ -1162,10 +1148,8 @@ function SavedImages(){
 //   }, []);
 
 useLayoutEffect(()=>{
-  fetchImages()
+  fetchSavedImages()
 }, [])
-
-
   function downloadSavedImage(event, imageUrl){
 
       const urlParts = imageUrl.split(".");
@@ -1223,10 +1207,7 @@ useLayoutEffect(()=>{
           
         return (
           <div
-            // ref={(el)=> {
-            //   (blogColRef.current[index] = el)
-
-            //    }}
+          
             className={"column position-relative explore_image"}
             key={image.id}
             style={{
@@ -1303,7 +1284,7 @@ useLayoutEffect(()=>{
                   <div className="skeleton" />
                 )}
               </div> */}
-              
+
 <div className="image-wrapper" style={{
   width: '100%',
   aspectRatio: `${image.webformatWidth} / ${image.webformatHeight}`,

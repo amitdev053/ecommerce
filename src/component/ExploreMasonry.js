@@ -869,6 +869,7 @@ const handleSaveImage = (imageId, clickedImageObj) => {
       toast.success("Image saved");
       console.log("✅ Image saved:", clickedImageObj.id);
       setIsSaved(true); // update state
+      props.fetchSavedImages()
     } else {
       toast.info("Image already saved");
       console.log("⚠️ Image already saved:", clickedImageObj.id);

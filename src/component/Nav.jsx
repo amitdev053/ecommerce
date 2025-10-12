@@ -1140,7 +1140,6 @@ function SavedImages(){
         const validImages = freshImages.filter(Boolean); // remove nulls
 
         setSavedImages(validImages);
-        // setSavedImageState(validImages.map(() => ({ loaded: false })));
         setSavedImageState(validImages.map(() => ({ loaded: false })));
       } catch (err) {
         console.error("Failed to fetch saved images:", err);
@@ -1258,7 +1257,7 @@ state={{ imageData: image }}
     }}
   
   >
-     {!imageSavedStates[index]?.loaded && <div className="skeleton" />}
+     
      {/* {(!imageStates[index]?.loaded) && <div className="skeleton" id={'saved_skelton' + index} />} */}
             <img
             className="explore-image"
@@ -1338,7 +1337,7 @@ state={{ imageData: image }}
            
             />
 
-
+{!imageSavedStates[index]?.loaded && <div className="skeleton" />}
 
 
  

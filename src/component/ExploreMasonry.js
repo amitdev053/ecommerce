@@ -382,8 +382,8 @@ const validImages = indexedHits.filter(Boolean);
       
 
 
-     
-      setloader(false);
+     setloader(false);
+   
       // console.log("images & loader", images, loader)
       // if(props.componentFrom !== "exploreNext"){
         setTrakImage(false)
@@ -1371,7 +1371,7 @@ const breakpointColumnsObj = {
 };
 
 
-  if (loader === true) {
+  if (!bottomLoader && loader === true) {
     return (
       <>
       

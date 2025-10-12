@@ -13,6 +13,7 @@ import { handleShare, ShareButton } from "./HandleShare";
 import browseNextLogo from "./image/browsenextDirectv2.png"
 import "./Nav.css"
 import Tooltip from "./Tooltip";
+import {  generateCaption } from "./GetImageColors";
 
 
 
@@ -1221,148 +1222,154 @@ useLayoutEffect(()=>{
            {/* onClick={() => updateInteractionScore(image._category, 2)} key={image.id} */}
           
         return (
-          <div 
-          // ref={(el)=> {
-          //   (blogColRef.current[index] = el)            
-             
-          //    }} 
-             className={'column position-relative explore_image'} key={image.id} 
-             style={{
-    backgroundColor: image.imageColor,  // ✅ Correct location
-    // width: image.webformatWidth,
-      '--image-color': image.imageColor,
-    // height: image.webformatHeight
-  }} 
-              // onClick={(event)=> exploreSimilarImages(event, image)} 
-             
-              >      
-          
-<Link class="explore_image_link"
- to={`/explore-next/${image.type}/${targetTag}`}
+          <div
+            // ref={(el)=> {
+            //   (blogColRef.current[index] = el)
 
-state={{ imageData: image }} 
- onClick={(e) =>{
- e.stopPropagation()
-//  handleImageClick(image, index)
- }
- } 
->
-  <div className="image-wrapper" 
-  style={{
-      width: '100%',
-      aspectRatio: `${image.webformatWidth} / ${image.webformatHeight}`,
-      overflow: 'hidden',
-      position: 'relative',
-      height: "100%"
-    }}
-  
-  >
-     
-     {/* {(!imageStates[index]?.loaded) && <div className="skeleton" id={'saved_skelton' + index} />} */}
-            <img
-            className="explore-image"
-                 style={{
-        width: '100%',
-        height: '100%',
-        objectFit: 'cover',
-        display: 'block',
-      }}
-
-            
-              src={image.largeImageURL}
-               srcSet={`
+            //    }}
+            className={"column position-relative explore_image"}
+            key={image.id}
+            style={{
+              backgroundColor: image.imageColor, // ✅ Correct location
+              // width: image.webformatWidth,
+              "--image-color": image.imageColor,
+              // height: image.webformatHeight
+            }}
+            // onClick={(event)=> exploreSimilarImages(event, image)}
+          >
+            <Link
+              class="explore_image_link"
+              to={`/explore-next/${image.type}/${targetTag}`}
+              state={{ imageData: image }}
+              onClick={(e) => {
+                e.stopPropagation();
+                //  handleImageClick(image, index)
+              }}
+            >
+              {/* <div
+                className="image-wrapper"
+                style={{
+                  width: "100%",
+                  aspectRatio: `${image.webformatWidth} / ${image.webformatHeight}`,
+                  overflow: "hidden",
+                  position: "relative",
+                  height: "100%",
+                }}
+              >
+                <img
+                  className="explore-image"
+                  style={{
+                    width: "100%",
+                    height: "100%",
+                    objectFit: "cover",
+                    display: "block",
+                  }}
+                  src={image.largeImageURL}
+                  srcSet={`
     ${image.largeImageURL} 150w,
     ${image.largeImageURL} 640w,
     ${image.largeImageURL} 1280w
   `}
+                  sizes="(max-width: 600px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                  loading="lazy"
+                  onContextMenu={(e) => {
+                    if (window.innerWidth < 576) {
+                      e.preventDefault();
+                    }
+                  }}
+                  onLoad={(e) => {
+                    // handle cached + freshly loaded images
+                    setSavedImageState((prev) => {
+                      const newState = [...prev];
+                      newState[index] = { loaded: true };
+                      return newState;
+                    });
+                  }}
+                  // onError={(e) =>{
+                  // const originalUrl = image.webformatURL;
+                  // e.target.src = originalUrl;
+                  // e.target.srcset = `
+                  //   ${image.previewURL} 150w,
+                  //   ${image.webformatURL} 640w,
+                  //   ${image.largeImageURL} 1280w
+                  // `;
+                  //         //  e.target.style.display = "none";
+                  //           }}
 
-    //src={toImageKitURL(image.webformatURL)}
-  // srcSet={`
-  //   ${toImageKitURL(image.previewURL)} 150w,
-  //   ${toImageKitURL(image.webformatURL)} 640w,
-  //   ${toImageKitURL(image.largeImageURL)} 1280w
-  // `}
-  //   src={toImageKitURL(image.webformatURL, image.webformatWidth)}
-  // srcSet={`
-  //   ${toImageKitURL(image.previewURL, image.previewWidth)} ${image.previewWidth}w,
-  //   ${toImageKitURL(image.webformatURL, image.webformatWidth)} ${image.webformatWidth}w,
-  //   ${toImageKitURL(image.largeImageURL, image.imageWidth)} ${image.imageWidth}w
-  // `}
-  
-  
-  sizes="(max-width: 600px) 100vw, (max-width: 1200px) 50vw, 33vw"
-              loading="lazy"     
-                  
+                  alt={generateCaption(image)}
+                />
+
+                {!imageSavedStates[index]?.loaded && (
+                  <div className="skeleton" />
+                )}
+              </div> */}
               
-              // onClick={() => updateInteractionScore(image._category, 2)}
-  //           width={blogColRef.current[index]?.offsetWidth}
-  // height={blogColRef.current[index]?.offsetHeight}
+<div className="image-wrapper" style={{
+  width: '100%',
+  aspectRatio: `${image.webformatWidth} / ${image.webformatHeight}`,
+  overflow: 'hidden',
+  position: 'relative',
+  height: "100%"
+}}>
+  {/* Low-res blurred placeholder */}
+  <img
+    src={image.previewURL} // small/low-res image
+    style={{
+      width: '100%',
+      height: '100%',
+      objectFit: 'cover',
+      filter: 'blur(20px)',
+      position: 'absolute',
+      top: 0,
+      left: 0,
+      transition: 'opacity 0.5s ease',
+      opacity: imageSavedStates[index]?.loaded ? 0 : 1
+    }}
+    alt={generateCaption(image)}
+  />
 
-        //       onLoad={() => {
-        //       setImageStates((prevStates) => {
-        //         const newState = [...prevStates]; 
-        //         newState[index] = { loaded: true }; 
-        //         return newState;
-        //         });
-        // }}
-         onContextMenu={(e) => {
-  if (window.innerWidth < 576) {
-    e.preventDefault(); 
+  {/* Full-resolution image */}
+  <img
+    className="explore-image"
+    src={image.largeImageURL}
+    style={{
+      width: '100%',
+      height: '100%',
+      objectFit: 'cover',
+      display: 'block',
+      transition: 'opacity 0.5s ease',
+      opacity: imageSavedStates[index]?.loaded ? 1 : 0
+    }}
+    onLoad={() => {
+      setSavedImageState(prev => {
+        const newState = [...prev];
+        newState[index] = { loaded: true };
+        return newState;
+      });
+    }}
+    alt={generateCaption(image)}
+  />
+</div>
 
-  }
-         }}
-         
-
-      onLoad={(e) => {
-        // handle cached + freshly loaded images
-       setSavedImageState((prev) => {
-      const newState = [...prev];
-      newState[index] = { loaded: true };
-      return newState;
-    });
-
-      }}
-              // onError={(e) =>{
-              // const originalUrl = image.webformatURL;
-              // e.target.src = originalUrl;
-              // e.target.srcset = `
-              //   ${image.previewURL} 150w,
-              //   ${image.webformatURL} 640w,
-              //   ${image.largeImageURL} 1280w
-              // `;
-              //         //  e.target.style.display = "none";
-              //           }}
-           
-                      // alt={generateCaption(image)}
-           
-            />
-
-{!imageSavedStates[index]?.loaded && <div className="skeleton" />}
-
-
- 
-            
-      </div>
-      </Link>
+            </Link>
             {/* {!loaded && <div className="app_loader" />} */}
 
-
-
-
-
-            <div className="explore_icons position-absolute " onClick={(e) => e.stopPropagation()} >
-            <div className="explore_like_content d-flex align-items-center">
-              <i className="fa-solid fa-heart"></i>
-              <span className="explore_fonts mx-1">{image.likes}</span>
-            </div>            
-            <div className="explore_like_content d-flex align-items-center">
-            <i class="fa-regular fa-eye"></i>
-              <span className="explore_fonts mx-1">{image.views}</span>
-            </div>            
-            <div className="explore_like_content d-flex align-items-center">
-            <i class="fa-solid fa-download"></i>
-              <span className="explore_fonts mx-1">{image.downloads}</span>
-            </div>                  
+            <div
+              className="explore_icons position-absolute "
+              onClick={(e) => e.stopPropagation()}
+            >
+              <div className="explore_like_content d-flex align-items-center">
+                <i className="fa-solid fa-heart"></i>
+                <span className="explore_fonts mx-1">{image.likes}</span>
+              </div>
+              <div className="explore_like_content d-flex align-items-center">
+                <i class="fa-regular fa-eye"></i>
+                <span className="explore_fonts mx-1">{image.views}</span>
+              </div>
+              <div className="explore_like_content d-flex align-items-center">
+                <i class="fa-solid fa-download"></i>
+                <span className="explore_fonts mx-1">{image.downloads}</span>
+              </div>
             </div>
 
             {/* <div className="explore_like_content d-flex align-items-center position-absolute explore_images_share adjust_right"
@@ -1396,40 +1403,37 @@ state={{ imageData: image }}
             
             </div>     */}
 
+            <div
+              className="explore_like_content d-flex align-items-center position-absolute explore_images_share"
+              //          onClick={(event) => {
+              //   event.stopPropagation();
+              //   event.preventDefault();
+              //   removeClickFeed(event, image, "option", image.id);
+              // }}
+              // onMouseDown={(event) => {
+              //   event.stopPropagation();
+              //   event.preventDefault();
+              //   sendClickFeed(event);
+              // }}
+              // onTouchStart={(event) => {
+              //   event.stopPropagation();
+              //   event.preventDefault();
+              //   sendClickFeed(event);
+              // }}
+              // onTouchEnd={(event) => {
+              //   event.stopPropagation();
+              //   event.preventDefault();
+              //   removeClickFeed(event, image, "option", image.id);
+              // }}
+              // onMouseOut={orignalElement}
 
-               <div className="explore_like_content d-flex align-items-center position-absolute explore_images_share"
-            
-
-    //          onClick={(event) => {
-    //   event.stopPropagation();
-    //   event.preventDefault();
-    //   removeClickFeed(event, image, "option", image.id);
-    // }}
-    // onMouseDown={(event) => {
-    //   event.stopPropagation();
-    //   event.preventDefault();
-    //   sendClickFeed(event);
-    // }}
-    // onTouchStart={(event) => {
-    //   event.stopPropagation();
-    //   event.preventDefault();
-    //   sendClickFeed(event);
-    // }}
-    // onTouchEnd={(event) => {
-    //   event.stopPropagation();
-    //   event.preventDefault();
-    //   removeClickFeed(event, image, "option", image.id);
-    // }}
-    // onMouseOut={orignalElement}
-
-onClick={(e)=>{downloadSavedImage(e, image.largeImageURL)}}
-          
-                >
-            <i class="fa-solid fa-download explore_image_share_icon"></i>
-            
-            </div>    
+              onClick={(e) => {
+                downloadSavedImage(e, image.largeImageURL);
+              }}
+            >
+              <i class="fa-solid fa-download explore_image_share_icon"></i>
+            </div>
           </div>
-
         );
           {/* </Link> */}
       })}

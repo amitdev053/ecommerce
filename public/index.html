@@ -7,8 +7,13 @@
     <!-- <link rel="icon" href="../src/component/image/browsenextDirectv2.png" /> -->
     <meta name="viewport" content="width=device-width, initial-scale=1,  maximum-scale=1.0, user-scalable=no" />
     <meta name="theme-color" content="#000000" />
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
+    <!-- <link  href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous"> -->
+    <link rel="preload" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <noscript>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+</noscript>
     <title>BrowseNext — Tools, Blogs & Images for Creators 🛍️ </title>
+
     <meta name="bingbot" content="noarchive">
     <!-- <meta property="og:title" content="Market Shops"> -->
     <meta name="description" content="Use bold text generators, explore tech blogs, download premium images & discover creative tools on BrowseNext. All free, all in one place.">
@@ -21,8 +26,8 @@
 
     <link rel="apple-touch-icon" href="https://www.browsenext.today/favicons.png" />
     <link rel="manifest" href="%PUBLIC_URL%/manifest.json" />
-    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6245774637629303"
-    crossorigin="anonymous"></script>
+    <!-- <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6245774637629303"
+    crossorigin="anonymous"></script> -->
     
     <meta name="google-adsense-account" content="ca-pub-6245774637629303">
     <meta name="google-site-verification" content="AOQMRgvywafuthYJrhxeQQ4BryNR8tekBRAOWvM9838" />
@@ -32,7 +37,7 @@
     
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-J0N01TQSXQ"></script>
     <!-- <script src="https://code.responsivevoice.org/responsivevoice.js?key=ySi1oyxG"></script> -->
-    <script>
+    <script defer>
       window.dataLayer = window.dataLayer || [];
       function gtag(){dataLayer.push(arguments);}
       gtag('js', new Date());
@@ -76,11 +81,20 @@
   ]
 }
 </script>
-      <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" rel="stylesheet" />
-      <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/prismjs/themes/prism-tomorrow.css">
-      <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/prism-themes/themes/prism-duotone-dark.css">
+      <link  rel="preload"  href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" onload="this.onload=null;this.rel='stylesheet'" />
+          <noscript>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" rel="stylesheet">
+</noscript>
+      <link   rel="preload" href="https://cdn.jsdelivr.net/npm/prismjs/themes/prism-tomorrow.css"  onload="this.onload=null;this.rel='stylesheet'">
+          <noscript>
+  <link href="https://cdn.jsdelivr.net/npm/prismjs/themes/prism-tomorrow.css" rel="stylesheet">
+</noscript>
+      <link rel="preload"  href="https://cdn.jsdelivr.net/npm/prism-themes/themes/prism-duotone-dark.css" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript>
+  <link href="https://cdn.jsdelivr.net/npm/prism-themes/themes/prism-duotone-dark.css" rel="stylesheet">
+</noscript>
       
-      <script type="text/javascript">
+      <script type="text/javascript" defer>
     (function(c,l,a,r,i,t,y){
         c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
         t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
@@ -89,12 +103,13 @@
 </script>
 
   </head>
+  
   <body id="appbody">
     <div id="root"></div>  
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js" integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN" crossorigin="anonymous"></script>
-    <script src="https://kit.fontawesome.com/1508b7bacb.js" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
-   <script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/prism.min.js"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js" integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN" crossorigin="anonymous"></script>
+    <script defer src="https://kit.fontawesome.com/1508b7bacb.js" crossorigin="anonymous"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+   <script defer src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/prism.min.js"></script>
 
 
 <div id="instagram-warning" style="display: none; position: fixed; inset: 0; background: #fff; z-index: 9999; text-align: center; padding: 2rem;">
@@ -133,7 +148,6 @@
     }
   }
 </script>
-
 
 
 

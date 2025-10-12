@@ -1,37 +1,32 @@
 import logo from "./logo.svg";
 import "./App.css";
 import "primeflex/primeflex.css";
+
+import React, { useEffect, useContext, lazy, Suspense } from "react";
+import { Routes, Route, useLocation, useMatch } from "react-router-dom";
+import { Analytics } from "@vercel/analytics/react";
+
 import Home from "./component/Home";
 import Nav from "./component/Nav";
-import Contact from "./component/Contact";
-import Media from "./component/Media";
-import Blogs from "./component/Blogs";
-import Explore from "./component/Explore";
-import Download from "./component/Download";
-import Viewgallery from "./component/Viewgallery";
-import { BlogDetail, BlogBack } from "./component/BlogDetail";
-import Login from "./component/Login";
-import Products from "./component/Products";
-import Coursel from "./component/Counsel";
-import { Analytics } from "@vercel/analytics/react";
 import Footer from "./component/Footer";
-import { Routes, Route, useLocation, useMatch } from "react-router-dom";
-import React, { useEffect, useContext } from "react";
-import Hashtag from "./component/Hashtag";
-import { CartProvider } from "./component/CartContext";
-import { BlogAudioProvider } from "./component/BlogAudioContext";
-import BlogAudioPlayer from "./component/BlogAudioPlayer";
-import { BlogAudioContext } from "./component/BlogAudioContext";
+import Services from "./component/Services";
 import Tools from "./component/Tools";
 import About from "./component/About";
 import Privancy from "./component/Privancy";
-import ExploreNext from "./component/ExploreNext";
-import Services from "./component/Services";
+import Contact from "./component/Contact";
+
+import { BlogDetail, BlogBack } from "./component/BlogDetail";
+import { CartProvider } from "./component/CartContext";
+import { BlogAudioProvider, BlogAudioContext } from "./component/BlogAudioContext";
+import BlogAudioPlayer from "./component/BlogAudioPlayer";
 import { getOrSetUserId } from "./analytics";
-import ExploreMasonry from "./component/ExploreMasonry";
 
+// Lazy-loaded heavy pages
+const ExploreMasonry = lazy(() => import("./component/ExploreMasonry"));
+const Blogs = lazy(() => import("./component/Blogs"));
+const ExploreNext = lazy(() => import("./component/ExploreNext"));
+const Products = lazy(() => import("./component/Products"));
 
-const excludeDevices = ["103.208.68.138", "223.237.9.50"]; // Replace with real IPs
 function App() {
   const location = useLocation();
   const matchRoute = useMatch("/blog-detail/:blogId/:blogTitle");
@@ -39,158 +34,137 @@ function App() {
   const exploreRoute = useMatch("/explore");
   const context = useContext(BlogAudioContext);
 
- 
-  useEffect(()=>{
-
-const userId =  getOrSetUserId()
-
-  // Wait for gtag to be ready
-  const interval = setInterval(() => {
-    if (window.gtag) {
-      console.log("GA4 is present");
-
-      // Set user ID and initial pageview
-      window.gtag('config', 'G-J0N01TQSXQ', { user_id: userId });
-
-      const isOwner = userId.startsWith('uid-1758'); // e.g., your personal ID
-window.gtag('event', 'page_view', {
-  page_path: location.pathname,
-  is_owner: isOwner ? 'yes' : 'no'
-});
-
-      clearInterval(interval);
-    }
-  }, 100);
-
-  }, [])
-
-   useEffect(() => {
-     if (window.gtag) {
-       const userId = getOrSetUserId();
-      const isOwner = userId.startsWith('uid-1758');
-    
-     window.gtag('event', 'page_view', {
-      page_path: location.pathname,
-      is_owner: isOwner ? 'yes' : 'no'
-    });
-  }
-
-  }, [location]);
-
-
-
-  // Function to set a cookie
-  function setCookie(name, value, days) {
-    const date = new Date();
-    date.setTime(date.getTime() + days * 24 * 60 * 60 * 1000);
-    const expires = `expires=${date.toUTCString()}`;
-    const cookie = `${name}=${value}; ${expires}; path=/`;
-    document.cookie = cookie;
-  }
-
-  // Update the paths whenever the pathname changes
+  // GA4 user tracking
   useEffect(() => {
-    setCookie("userCookie", location.pathname, 30); // Store the previous path in the cookie
-    if(location.pathname === "/explore"){
-      document.body.style.overscrollBehavior = "contain"
-    }else{
-      document.body.style.overscrollBehavior = ""
-    }
+    const userId = getOrSetUserId();
+    const interval = setInterval(() => {
+      if (window.gtag) {
+        window.gtag("config", "G-J0N01TQSXQ", { user_id: userId });
+        const isOwner = userId.startsWith("uid-1758");
+        window.gtag("event", "page_view", {
+          page_path: location.pathname,
+          is_owner: isOwner ? "yes" : "no",
+        });
+        clearInterval(interval);
+      }
+    }, 100);
+  }, []);
 
+  useEffect(() => {
+    if (window.gtag) {
+      const userId = getOrSetUserId();
+      const isOwner = userId.startsWith("uid-1758");
+      window.gtag("event", "page_view", {
+        page_path: location.pathname,
+        is_owner: isOwner ? "yes" : "no",
+      });
+    }
   }, [location]);
 
-  function getCookie(name) {
-    const value = `; ${document.cookie}`;
-    const parts = value.split(`; ${name}=`);
-    if (parts.length === 2) return parts.pop().split(";").shift();
-  }
-
-  const cookieValue = getCookie("userCookie");
-  if (cookieValue) {
-    // console.log('new', cookieValue);
-  } else {
-    // console.log('old user');
-  }
-
-    useEffect(() => {
-    const setVh = () => {
-      document.documentElement.style.setProperty('--vh', `${window.innerHeight * 0.01}px`);
+  // Set cookie for previous path
+  useEffect(() => {
+    const setCookie = (name, value, days) => {
+      const date = new Date();
+      date.setTime(date.getTime() + days * 24 * 60 * 60 * 1000);
+      document.cookie = `${name}=${value}; expires=${date.toUTCString()}; path=/`;
     };
-    setVh(); // Initial call
-    window.addEventListener('resize', setVh);
+    setCookie("userCookie", location.pathname, 30);
 
-    return () => window.removeEventListener('resize', setVh);
+    document.body.style.overscrollBehavior = location.pathname === "/explore" ? "contain" : "";
+  }, [location]);
+
+  // Set --vh CSS variable
+  useEffect(() => {
+    const setVh = () => {
+      document.documentElement.style.setProperty("--vh", `${window.innerHeight * 0.01}px`);
+    };
+    setVh();
+    window.addEventListener("resize", setVh);
+    return () => window.removeEventListener("resize", setVh);
   }, []);
-  
-  //  useEffect(() => {
-  //   fetch('https://api64.ipify.org?format=json')
-  //     .then((res) => res.json())
-  //     .then((data) => {
-  //       const currentIP = data.ip;
-  //       console.log("User IP:", currentIP); // Optional debug
 
-  //       if (excludeDevices.includes(currentIP)) {
-  //         window.gtag('set', 'user_properties', {
-  //           traffic_type: 'internal'
-  //         });
-  //         console.log("Internal traffic excluded"); // Optional
-  //       }
-  //     })
-  //     .catch((err) => {
-  //       console.error('IP check failed:', err);
-  //     });
-  // }, []);
-
-  
   return (
-    <>
-      <BlogAudioProvider>
-        <CartProvider>
-          {matchRoute || exploreNext ? <BlogBack componentFrom={exploreNext || matchRoute} /> : <Nav trackCart={false} />}
+    <BlogAudioProvider>
+      <CartProvider>
+        {/* Conditional Nav / BlogBack */}
+        {matchRoute || exploreNext ? (
+          <BlogBack componentFrom={exploreNext || matchRoute} />
+        ) : (
+          <Nav trackCart={false} />
+        )}
 
-          {/* <Nav trackCart={false} /> */}
+        {/* Routes */}
+        <Routes>
+          <Route path="/sitemap.xml" element={null} />
+          <Route path="/" element={<Home />} />
+          <Route
+            path="/explore"
+            element={
+              <Suspense fallback={<div>Loading Explore...</div>}>
+                <ExploreMasonry />
+              </Suspense>
+            }
+          />
+          <Route
+            path="/blogs"
+            element={
+              <Suspense fallback={<div>Loading Blogs...</div>}>
+                <Blogs />
+              </Suspense>
+            }
+          />
+          <Route
+            path="/blogs/search"
+            element={
+              <Suspense fallback={<div>Loading Blogs...</div>}>
+                <Blogs />
+              </Suspense>
+            }
+          />
+          <Route
+            path="/blogs/suggest"
+            element={
+              <Suspense fallback={<div>Loading Blogs...</div>}>
+                <Blogs />
+              </Suspense>
+            }
+          />
+          <Route
+            path="/products"
+            element={
+              <Suspense fallback={<div>Loading Products...</div>}>
+                <Products />
+              </Suspense>
+            }
+          />
+          <Route path="/tools" element={<Tools />} />
+          <Route path="/about-us" element={<About />} />
+          <Route path="/privacy" element={<Privancy />} />
+          <Route path="/contact" element={<Contact />} />
+          <Route
+            path="/blog-detail/:blogId/:blogTitle"
+            element={
+              <Suspense fallback={<div>Loading Blog Detail...</div>}>
+                <BlogDetail />
+              </Suspense>
+            }
+          />
+          <Route
+            path="/explore-next/:type/:imageTag"
+            element={
+              <Suspense fallback={<div>Loading Explore Next...</div>}>
+                <ExploreNext />
+              </Suspense>
+            }
+          />
+          <Route path="/services" element={<Services />} />
+        </Routes>
 
-          <Routes>
-          <Route path="/sitemap.xml" element={null} /> 
-            <Route path="/" Component={Home} />
-            {/* <Route exact path ='/Hastags' Component={Hashtag}/> */}
-            {/* <Route exact path="/explore" Component={Explore} /> */}
-            <Route exact path="/explore" Component={ExploreMasonry} />
-            {/* <Route exact path ='/contact' Component={Contact}/> */}
-            <Route exact path ='/services' Component={Services}/>
-            {/* <Route exact path ='/media' Component={Media}/> */}
-            <Route exact path="/blogs" Component={Blogs} />
-            <Route path="/blogs/search" Component={Blogs} />
-            <Route path="/blogs/suggest" Component={Blogs} />
-            <Route exact path="/products" Component={Products} />
-            <Route exact path="/tools" Component={Tools} />
-            <Route exact path="/about-us" Component={About} />
-            <Route exact path="/privacy" Component={Privancy} />
-            <Route exact path="/contact" Component={Contact} />
-            {/* <Route exact path ='/productcoursel' Component={Coursel}/> */}
-            {/* <Route exact path ='/download' Component={Download}/> */}
-            {/* <Route exact path ='/Login' Component={Login}/> */}
-            <Route
-              exact
-              path="/blog-detail/:blogId/:blogTitle"
-              Component={BlogDetail}
-            />
-            <Route
-              path="/explore-next/:type/:imageTag"
-              Component={ExploreNext}
-            />
-          </Routes>
-          <BlogAudioPlayer />
-          {/* {(!matchRoute) && <BlogAudioPlayer /> } */}
-          {/* {(document.querySelector(".blog_back_heading").innerText === Object.keys(sessionStorage)[0]) && <BlogAudioPlayer />  } */}
-          {(!exploreNext && !exploreRoute) && <Footer />}
-          <Analytics />
-        </CartProvider>
-      </BlogAudioProvider>
-
-
-    
-    </>
+        <BlogAudioPlayer />
+        {!exploreNext && !exploreRoute && <Footer />}
+        <Analytics />
+      </CartProvider>
+    </BlogAudioProvider>
   );
 }
 

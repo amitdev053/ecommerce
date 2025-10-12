@@ -1,14 +1,17 @@
-import React, {useEffect, useRef, useState} from 'react';
+import React, {useEffect, useRef, useState, lazy, Suspense} from 'react';
 import Products from './Products';
 import FeatureContext from './FeatureContext';
 import ProductSlider from './ProductSlider';
 import { useLocation, useParams, useNavigate, Link} from 'react-router-dom';
 import { changeProdiuctView } from './CustomHook';
-import Explore from './Explore';
+// import Explore from './Explore';
+
 import AppPagesHeading from './AppPagesHeading';
 import Blogs from './Blogs';
 import { Helmet } from 'react-helmet';
 import "./Home.css";
+
+const Explore = lazy(() => import('./Explore'));
 
 
 let topic = "Home"
@@ -162,7 +165,10 @@ export default function Home() {
 
 </div>
 
-<Explore componentFrom="home" />
+{/* <Explore componentFrom="home" /> */}
+<Suspense fallback={<div>Loading Explore...</div>}>
+  <Explore componentFrom="home" />
+</Suspense>
 <ExploreLinkButton buttonText="Explore Trending Images" buttonType="explore" />
 <div className="app_divider"/>
 <Blogs componentFrom="home" />

@@ -1122,7 +1122,7 @@ function endShowingFeedBack(e){
 
 function SavedImages(){
    const [savedImages, setSavedImages] = useState([]);
-  const [imageStates, setSavedImageState] = useState([]);
+  const [imageSavedStates, setSavedImageState] = useState([]);
   
 
     const fetchImages = async () => {
@@ -1140,6 +1140,7 @@ function SavedImages(){
         const validImages = freshImages.filter(Boolean); // remove nulls
 
         setSavedImages(validImages);
+        // setSavedImageState(validImages.map(() => ({ loaded: false })));
         setSavedImageState(validImages.map(() => ({ loaded: false })));
       } catch (err) {
         console.error("Failed to fetch saved images:", err);
@@ -1203,8 +1204,9 @@ useLayoutEffect(()=>{
      <div  className={`container pinterest-layout saved_container`} >
  
       {savedImages.map((image, index) => {
-        if (!imageStates[index]) return null; 
-        const { loaded } = imageStates[index];
+        if (!imageSavedStates[index]) return null; 
+        const { loaded } = imageSavedStates[index];
+        
         const location = window.location.href.split("/")
         const imageTagText = location[location.length - 1]
 
@@ -1256,7 +1258,7 @@ state={{ imageData: image }}
     }}
   
   >
-     {/* {!imageStates[index]?.loaded && <div className="skeleton" />} */}
+     {!imageSavedStates[index]?.loaded && <div className="skeleton" />}
      {/* {(!imageStates[index]?.loaded) && <div className="skeleton" id={'saved_skelton' + index} />} */}
             <img
             className="explore-image"
@@ -1314,20 +1316,12 @@ state={{ imageData: image }}
 
       onLoad={(e) => {
         // handle cached + freshly loaded images
-        console.log("onimage load",e.target.complete)
-        if (e.target.complete) {
-          setSavedImageState((prev) => {
-            const newState = [...prev];
-            newState[index] = { loaded: true };
-            
-            
-            if(document.getElementById(`saved_skelton${index}`)){
-            document.getElementById(`saved_skelton${index}`).style.display = "none"
+       setSavedImageState((prev) => {
+      const newState = [...prev];
+      newState[index] = { loaded: true };
+      return newState;
+    });
 
-            }
-            return newState;
-          });
-        }
       }}
               // onError={(e) =>{
               // const originalUrl = image.webformatURL;

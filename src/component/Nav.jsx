@@ -454,7 +454,7 @@ closeCart()
   }
 
   const deleteCart = (cartitemid, index)=>{
-    
+    console.log("deleteCart", index, cartitemid)
     let cartitem = JSON.parse(localStorage.getItem("usercart") || "[]");
 // // console.log("remainingcartitenm", cartitem)
 
@@ -465,8 +465,9 @@ let deletecartitem = delete(cartitem[index])
   return  localStorageitems !== index    
    })
    // // console.log("remainingitem", remainingitem)
-// setUserCart(remainingitem)
-  localStorage.setItem('usercart',JSON.stringify(remainingitem));
+    setUserCart(remainingitem)
+    setTotalCart(remainingitem.length)
+  // localStorage.setItem('usercart',JSON.stringify(remainingitem));
 
   }
 function quantityDecrement(event, cartitem){

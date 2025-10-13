@@ -418,6 +418,9 @@ useEffect(() => {
 
 // localStorage.clear()
 localStorage.removeItem("usercart")
+  // Update state
+      setUserCart([]);
+      setTotalCart(0);
 closeConfirmBox();
 closeCart()
 // toast.success("Your cart has been cleared");
@@ -467,7 +470,7 @@ let deletecartitem = delete(cartitem[index])
    // // console.log("remainingitem", remainingitem)
     setUserCart(remainingitem)
     setTotalCart(remainingitem.length)
-  // localStorage.setItem('usercart',JSON.stringify(remainingitem));
+  localStorage.setItem('usercart',JSON.stringify(remainingitem));
 
   }
 function quantityDecrement(event, cartitem){
@@ -927,7 +930,7 @@ function endShowingFeedBack(e){
                     }}
                   ></i>
                 </div>
-                <div className={(userCart.length === 0 ) ? "col-12 mt-ps100" : "col-12 dividecartitem"} style={{paddingBottom: "40px"}}>
+                <div className={(userCart.length === 0 ) ? "col-12 mt-ps100" : "col-12 dividecartitem new_added_cartstyles"} style={{paddingBottom: "40px"}}>
                   <div className="row p-0 align-items-center">
                   {userCart.length <= 0 ? 
                 (

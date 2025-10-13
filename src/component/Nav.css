@@ -39,6 +39,9 @@ color: black !important;
     right: -10px !important;
 
 }
+.new_added_cartstyles{
+    margin-top: 1.5rem !important;
+}
 
 @media screen and (max-width: 999px) {
     .adjust_padding{
@@ -51,6 +54,9 @@ color: black !important;
 .cart_header{
     
     top: 55px !important;
+}
+.new_added_cartstyles{
+    margin-top: 1rem !important;
 }
     
 }

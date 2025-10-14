@@ -330,7 +330,7 @@ function ProductImageComponent({product}){
       {/* <span id="cartLength">{cartLength}</span> */}
       
         <div  className={props.componentFrom === "home" ? 'container text-left app_container p-0' : 'container text-left mt-ps90 app_container padding_left_20'}>
-      <Alert position="bottom-center"> </Alert>
+      {/* <Alert position="bottom-center"> </Alert> */}
 {/* "app_product_headline app_new_productsetup" */}
 <div  className={props.componentFrom === "home" ? 'app_product_headline' : 'app_product_headline app_new_productsetup'} style={props.componentFrom === "home" ? {margin: "0px auto 20px auto"} : {margin: ""}}>
           {(props.componentFrom === "home")  ?  (

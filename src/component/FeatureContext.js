@@ -597,7 +597,7 @@ function navigateApp(type){
       </div>
     </section>
     <UserGuides title={guideContent.title} description={guideContent.description} buttonText={guideContent.buttonText} guides={guides} loadingF={setLoadingGuides} isLoadingGuides={isLoadingGuides} modelType={guideContent.modelType} />
-    <Alert position="bottom-center" />
+    {/* <Alert position="bottom-center" /> */}
     </>
   );
 };

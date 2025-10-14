@@ -395,7 +395,7 @@ let tagList = [
   }
    
     <div className={props.componentFrom === "home"? `container text-left mt-10 app_container p-0`:`container text-left mt-ps90 app_container`}>
-      <Alert position="bottom-center"> </Alert>
+      {/* <Alert position="bottom-center"> </Alert> */}
       {props.componentFrom != "home" &&
       <>
        <SearchBlogs setBlogs={setBlogs} setHeading={setHeading} setloader={setloader} BackBlogHomes={searchPageString}  searchText={searchText} showBlog={showBlog} />

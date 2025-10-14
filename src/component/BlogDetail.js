@@ -352,7 +352,7 @@ console.log("webFormatWidth and ehgith", imageSrcForExploreNext.webformatHeight,
 
   return (
     <>
-    <Alert position="bottom-center"> </Alert>
+    {/* <Alert position="bottom-center"> </Alert> */}
       <div className="back_header fixed-top">
         <div className="container  app_blog_back_header app_container">
           <div className="row d-flex align-items-center p-0 app_blog_detail_row ">
@@ -420,28 +420,24 @@ console.log("webFormatWidth and ehgith", imageSrcForExploreNext.webformatHeight,
                     return
                   }
                   
-                  setReadBlogs((prev) => {                
+                setReadBlogs((prev) => {
+  if (prev) {
+    // ✅ If currently reading → pause it
+    window.speechSynthesis.pause();
+    setIsPaused(false);
+  } else {
+    // ▶️ If paused → resume speech, else start reading new blog
+    if (window.speechSynthesis.paused) {
+      window.speechSynthesis.resume();
+      setIsPaused(true);
+    } else {
+      readBlog(); // your function that starts a new utterance
+      setIsPaused(true);
+    }
+  }
 
-                      if (prev) {
-                        // console.log("running first ")
-                        window.responsiveVoice.pause();
-                        
-                        setIsPaused(false)
-                      } else {
-                        // console.log("running else first ", prev)
-                        if (speechSynthesis.speaking && speechSynthesis.paused) {              
-                          window.responsiveVoice.resume();
-                          setIsPaused(true)
-                          // console.log("running else inside if first ")
-                        } else {
-                          readBlog();
-                          // console.log("running else inside else ")
-                        }
-
-                      }
-
-                      return !prev;
-                    });
+  return !prev;
+})
                   
                 }}
               ></button>

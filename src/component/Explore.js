@@ -1735,7 +1735,7 @@ state={{ imageData: image }}
     isDownloaded={isdownloadedImage}
 
     />
-    <Alert position="bottom-center"> </Alert>
+    {/* <Alert position="bottom-center"> </Alert> */}
       </>
     );
   }

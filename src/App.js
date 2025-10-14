@@ -5,7 +5,7 @@ import "primeflex/primeflex.css";
 import React, { useEffect, useContext, lazy, Suspense, useState } from "react";
 import { Routes, Route, useLocation, useMatch } from "react-router-dom";
 import { Analytics } from "@vercel/analytics/react";
-
+import Alert from "./component/Alert";
 import Home from "./component/Home";
 import Nav from "./component/Nav";
 import Footer from "./component/Footer";
@@ -113,6 +113,7 @@ function App() {
   return (
     <BlogAudioProvider>
       <CartProvider>
+
         {/* Conditional Nav / BlogBack */}
         {matchRoute || exploreNext ? (
           <BlogBack componentFrom={exploreNext || matchRoute} />
@@ -190,12 +191,15 @@ function App() {
           />
           <Route path="/services" element={<Services />} />
         </Routes>
+        <Alert position="bottom-center"> </Alert> 
 
         <BlogAudioPlayer />
         {!exploreNext && !exploreRoute && <Footer />}
         <Analytics />
+
       </CartProvider>
     </BlogAudioProvider>
+    
   );
 }
 

@@ -329,7 +329,7 @@ function shuffleArray(array) {
           </div>
         </div>
       </div>
-      <Alert position="bottom-center" />
+      {/* <Alert position="bottom-center" /> */}
       
     </>
   );

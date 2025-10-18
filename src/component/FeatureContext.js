@@ -368,12 +368,15 @@ const msUntilNextHour = (60 - now.getMinutes()) * 60 * 1000 - now.getSeconds() *
 
 
 
-  function startAutoHover(startFrom = 0) {
+  function startAutoHover(startFrom = 0) { 
+      if (isModalOpen) return;
+    
     let index = startFrom;
     stopAutoHover();
     let steps =0
+    console.log("index from startHover functions", startFrom)
     intervalRef.current = setInterval(() => {
-      if (isPaused) return;
+      // if (isPaused) return;
 
       cardsRef.current.forEach((card, idx) => {
         if (card) {
@@ -382,22 +385,25 @@ const msUntilNextHour = (60 - now.getMinutes()) * 60 * 1000 - now.getSeconds() *
       });
 
       index = (index + 1) % cardsRef.current.length;
-      setCurrentIndex(index); // update currentIndex in state
-      steps++
-      if (steps > cardsRef.current.length) {
-        stopAutoHover(); // ✅ stop after one full loop
-        removeAnimation(index)
-    }
-    }, 1000);
+      setCurrentIndex(index); 
+      
+    //   steps++
+    //   if (steps > cardsRef.current.length) {
+    //     stopAutoHover(); // ✅ stop after one full loop
+    //     removeAnimation(index)
+    // }
+    }, 2000);
   }
 
   function stopAutoHover() {
+    console.log("stop interval", intervalRef.current)
     if (intervalRef.current) {
       clearInterval(intervalRef.current);
       intervalRef.current = null;
     }
   }
   function removeAnimation(currentIndex) {
+
     cardsRef.current.forEach((card, idx) => {
       if (card) {
         card.classList.remove('hovered', idx === currentIndex);
@@ -407,25 +413,52 @@ const msUntilNextHour = (60 - now.getMinutes()) * 60 * 1000 - now.getSeconds() *
   }
 
   useEffect(() => {
-    startAutoHover(currentIndex); // 🆕 when paused ends, resume from saved index    
-    return () => stopAutoHover();
-  }, []);   // isPaused we can also use here for reset after hover
+    if(window.innerWidth > 680){
+      startAutoHover(currentIndex); 
+      return () => stopAutoHover();
 
+    }
+  }, []);  
+
+  function clearHoverTimeouts() {
+  hoverTimeouts.current.forEach((t) => clearTimeout(t));
+  hoverTimeouts.current = [];
+}
+
+  function clearCardAnimations() {
+  cardsRef.current.forEach((card) => {
+    if (card) {
+      card.classList.remove('hovered');
+    }
+  });
+}
+
+  
+const hoverTimeouts = useRef([]);
   function handleMouseEnter(index) {
+    console.log("handle mouse enter works", index)
     setIsPaused(true);
-    setCurrentIndex(index + 1); // 🆕 start from next card later
+    setCurrentIndex(index + 1); 
+    stopAutoHover()
+        // Clear any old hover timeouts before setting new ones
+  hoverTimeouts.current.forEach(t => clearTimeout(t));
+  hoverTimeouts.current = [];
+
     cardsRef.current.forEach((card, idx) => {
       if (card) {
         card.classList.toggle('hovered', idx === index);
       }
-      setTimeout(() => {
+      const timeout = setTimeout(() => {
         card.classList.remove('hovered', idx === index);
       }, 2000)
+      hoverTimeouts.current.push(timeout);
     });
   }
 
   function handleMouseLeave() {
     setIsPaused(false);
+    startAutoHover(currentIndex === 3 ? 0 : currentIndex)
+    console.log("useing mouse leave", currentIndex)
   }
 
   function navigatePage(element) {
@@ -482,7 +515,11 @@ const msUntilNextHour = (60 - now.getMinutes()) * 60 * 1000 - now.getSeconds() *
 
     }
   }
+  const [isModalOpen, setIsModalOpen] = useState(false);
   function openGuides(feature, index) {
+   
+    setIsModalOpen(true)      // for stop the cards animations
+
     console.log("open guides", feature, index)
     let type 
     let buttonContent = "Got it!"
@@ -510,7 +547,11 @@ const msUntilNextHour = (60 - now.getMinutes()) * 60 * 1000 - now.getSeconds() *
   });
     blockOutSideElement(true)
     setLoadingGuides(true)
+    
 
+
+    
+    console.log("yes true")
 
     // setTimeout(()=>{
       if(window.innerWidth < 550){
@@ -521,7 +562,7 @@ const msUntilNextHour = (60 - now.getMinutes()) * 60 * 1000 - now.getSeconds() *
 document.getElementById("UserGuides").classList.add("dialog_container_fluid_show")
 document.getElementById("UserGuides").style.transform = `translateY(0)`;
 document.getElementById("UserGuides").setAttribute("fromInfo", true)
-
+  
 if(window.innerWidth < 550){
 
   if(!sessionStorage.getItem("openedUserGuideModel") && openUserModelCounts === 0){
@@ -534,8 +575,12 @@ if(window.innerWidth < 550){
 
 document.getElementById("UserGuides").addEventListener("click", (event) => {
   if(event.target === document.getElementById("okGuides")){
-    // console.log("ok order")
+    console.log("ok order")
     setLoadingGuides(false)
+    // startAutoHover(index)
+    setIsModalOpen(false)
+     
+
     setGuides(true)
     setTimeout(() => {
       setGuides(false)
@@ -579,6 +624,8 @@ function navigateApp(type){
             onMouseEnter={() => handleMouseEnter(idx)}
             onMouseLeave={handleMouseLeave}
             tabIndex={0} // Make it focusable
+            // onTouchStart={()=> handleMouseEnter(idx)}
+            // onTouchCancel={handleMouseLeave}
             
           >
           <p className="badge">{feature.badge}</p>
@@ -596,7 +643,7 @@ function navigateApp(type){
         ))}
       </div>
     </section>
-    <UserGuides title={guideContent.title} description={guideContent.description} buttonText={guideContent.buttonText} guides={guides} loadingF={setLoadingGuides} isLoadingGuides={isLoadingGuides} modelType={guideContent.modelType} />
+    <UserGuides title={guideContent.title} description={guideContent.description} buttonText={guideContent.buttonText} guides={guides} loadingF={setLoadingGuides} isLoadingGuides={isLoadingGuides} modelType={guideContent.modelType} modelState={setIsModalOpen}  />
     {/* <Alert position="bottom-center" /> */}
     </>
   );

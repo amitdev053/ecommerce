@@ -81,6 +81,13 @@ const UserGuides = (props) => {
 
     if(event.target === modalRef.current){    
      setupCLoseModelStyles(body)
+     props.modelState(false)      // to play the animation again
+    let cards = document.getElementsByClassName("feature-card")
+    cards[2].classList.add('hovered')
+    
+    
+    
+ 
 
       }
   }

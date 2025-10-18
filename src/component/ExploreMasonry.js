@@ -1053,9 +1053,17 @@ setIsHideImage(true)
           const query = clickedTag || content[currentCalculatedIndex];
 // exploreRef.current.style.minHeight = `${exploreRef.current.offsetHeight + 300}px`
 // console.log("hit from infinite scroll", query, nextPage)
-          getImages(
-            `https://pixabay.com/api/?key=45283300-eddb6d21a3d3d06f2a2381d7d&q=${query}&image_type=photo&page=${nextPage}`
-          );
+if(window.innerWidth < 580){
+  getImages(
+    `https://pixabay.com/api/?key=45283300-eddb6d21a3d3d06f2a2381d7d&q=${query}&image_type=photo&page=${nextPage}&per_page=8`
+  );
+
+}else{
+  getImages(
+    `https://pixabay.com/api/?key=45283300-eddb6d21a3d3d06f2a2381d7d&q=${query}&image_type=photo&page=${nextPage}`
+  );
+
+}
         }
     }
 

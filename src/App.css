@@ -2,6 +2,8 @@
 @impot "./component/explore.css";
 @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700;900&family=Titillium+Web:wght@200;300;400;600;700;900&display=swap');
 
+
+
 html{
   user-select: none;
   overflow-x: hidden;
@@ -48,7 +50,7 @@ body{
   background-color: white;
   box-shadow: 0 4px 12px 0 rgba(0,0,0,.05)
 }
-/* .navbar{
+/* .navbar , .back_header{
    background-color: rgba(255, 255, 255, 0.5) !important; 
   backdrop-filter: blur(10px) !important; 
   -webkit-backdrop-filter: blur(10px) !important; 
@@ -86,7 +88,7 @@ body{
 .nav-link{
   font-weight: 600;
   padding-bottom: 6px;
-  border-bottom: 2px solid #f8f9fa;
+  border-bottom: 2px solid transparent;
 }
 @media screen and (min-width: 999px) {  
   .nav-link:not(.active):hover {

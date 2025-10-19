@@ -1,6 +1,6 @@
 import "./expore.css";
 import "./exploreMasonry.css"
-import React, { useEffect, useState, useContext, useRef, lazy } from "react";
+import React, { useEffect, useState, useContext, useRef, lazy, useLayoutEffect } from "react";
 import Loader from "./Loader";
 import ScrollTag from "./ScrollTag"; // Add this line to import ScrollTag
 import AppPagesHeading from "./AppPagesHeading"; // Add this line to import AppPagesHeading
@@ -426,7 +426,7 @@ function addImageTouch(){
   })
 }
 
-  useEffect(() => { 
+  useLayoutEffect(() => { 
    
     // Set the initial index
     let currentCalculatedIndex = updatedHours();

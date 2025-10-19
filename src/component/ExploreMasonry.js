@@ -838,6 +838,8 @@ console.log("clickedImageData", clickedImageData)
 const [isSaved, setIsSaved] = useState(false);
 const [isHideImage, setIsHideImage] = useState(false);
 const [isdownloadedImage, setIsDownloadedImage] = useState(false);
+const [isSuggested, setIsSuggested] = useState(false);
+const [isDislikeImage, setDislikedImage] = useState(false);
 
 useEffect(() => {
   if (clickedImageObj?.id) {
@@ -850,9 +852,26 @@ useEffect(() => {
 
 useEffect(() => {
   if (clickedImageObj?.id) {
+    const savedImages = JSON.parse(localStorage.getItem("suggestedImages")) || [];
+    // setIsSaved(savedImages.includes(clickedImageObj.id));
+    const exists = savedImages.some(img => img.id === clickedImageObj.id);
+    setIsSuggested(exists);
+  }
+}, [clickedImageObj]);
+
+useEffect(() => {
+  if (clickedImageObj?.id) {
     const hiddenImages = JSON.parse(localStorage.getItem("hiddenImages")) || [];
     const exists = hiddenImages.includes(clickedImageObj.id);
     setIsHideImage(exists);
+  }
+}, [clickedImageObj]);
+
+useEffect(() => {
+  if (clickedImageObj?.id) {
+    const hiddenImages = JSON.parse(localStorage.getItem("DislikedImages")) || [];
+    const exists = hiddenImages.includes(clickedImageObj.id);
+    setDislikedImage(exists);
   }
 }, [clickedImageObj]);
 
@@ -866,12 +885,18 @@ useEffect(() => {
   }
 }, [clickedImageObj]);
 
-const handleSaveImage = (imageId, clickedImageObj) => {
+const handleSaveImage = (imageId, clickedImageObj, handleSuggested = false) => {
   console.log("handle saved ", clickedImageObj)
   if (!clickedImageObj) return;
 
   try {
-    const savedImages = JSON.parse(localStorage.getItem("savedImages")) || [];
+    let savedImages
+    if(handleSuggested){      
+       savedImages = JSON.parse(localStorage.getItem("suggestedImages")) || [];
+    }else{
+       savedImages = JSON.parse(localStorage.getItem("savedImages")) || [];
+
+    }
     const alreadySaved = savedImages.some(img => img.id === clickedImageObj.id);
 
     // if (!savedImages.includes(clickedImageObj.id)) {
@@ -879,44 +904,88 @@ const handleSaveImage = (imageId, clickedImageObj) => {
       // savedImages.push(clickedImageObj.id);
       savedImages.push(clickedImageObj);
     let filteredImage =  savedImages.filter((image)=> image !== null)
+
+    if(handleSuggested){
+
+      localStorage.setItem("suggestedImages", JSON.stringify(filteredImage));
+      toast.success("🎯 Recommendation Saved");
+      setIsSuggested(true); 
+    }else{
       localStorage.setItem("savedImages", JSON.stringify(filteredImage));
       toast.success("Image saved");
-      console.log("✅ Image saved:", clickedImageObj.id);
-      setIsSaved(true); // update state
+      setIsSaved(true); 
       props.fetchSavedImages()
+    }
+    
+      
     } else {
-      toast.info("Image already saved");
-      console.log("⚠️ Image already saved:", clickedImageObj.id);
+      if(handleSuggested){
+        // toast.info("Already selected to yours suggested images");
+        toast.info("✨ Already recommended for you")
+
+      }else{
+        toast.info("Image already saved");
+
+      }
+      // console.log("⚠️ Image already saved:", clickedImageObj.id);
     }
   } catch (error) {
+
     console.error("Error saving image:", error);
     
   }
 };
+const onSuggested = (imageId, clickedImageObj)=>{
 
-const handleHideImage = (imageId) => {
+   handleSaveImage(imageId, clickedImageObj, true)
+
+}
+const onDislike = (imageId, clickedImageObj)=>{
+  handleHideImage(imageId, clickedImageObj, true)
+}
+
+const handleHideImage = (imageId, handleDislike = false) => {
   if (!imageId) return;
 
   try {
     // Get hidden images from localStorage
-    const hiddenImages = JSON.parse(localStorage.getItem("hiddenImages")) || [];
-    const element = document.querySelector(`[data-image-id="${imageId}"]`);
-    let clickedImage = element.querySelector('img')
-    console.log("yes we get the image", clickedImage)
+    let hiddenImages
+    if(handleDislike){
+      hiddenImages = JSON.parse(localStorage.getItem("DislikedImages")) || [];
+      // Avoid duplicates
+      if (!hiddenImages.includes(imageId)) {
+        hiddenImages.push(imageId);
+        localStorage.setItem("DislikedImages", JSON.stringify(hiddenImages));
+      }
+      setDislikedImage(true)
 
-    // Avoid duplicates
-    if (!hiddenImages.includes(imageId)) {
-      hiddenImages.push(imageId);
-      localStorage.setItem("hiddenImages", JSON.stringify(hiddenImages));
+    }else{
+      hiddenImages = JSON.parse(localStorage.getItem("hiddenImages")) || [];
+
+      const element = document.querySelector(`[data-image-id="${imageId}"]`);
+      let clickedImage = element.querySelector('img')
+      console.log("yes we get the image", clickedImage)
+  
+      // Avoid duplicates
+      if (!hiddenImages.includes(imageId)) {
+        hiddenImages.push(imageId);
+        localStorage.setItem("hiddenImages", JSON.stringify(hiddenImages));
+      }
+      
+  clickedImage.style.filter = "blur(50px)"
+  element.classList.add('disable-hover')
+  setIsHideImage(true)
     }
-clickedImage.style.filter = "blur(50px)"
-element.classList.add('disable-hover')
-setIsHideImage(true)
-    // Optionally remove from current state/render
-    // setImages(prevImages => prevImages.filter(img => img.id !== imageId));
+   
  
   } catch (error) {
-    console.error("Error hiding image:", error);
+    if(handleDislike){
+      console.error("Error Dislike:", error);
+
+    }else{
+
+      console.error("Error hiding image:", error);
+    }
   }
 };
 
@@ -927,39 +996,6 @@ setIsHideImage(true)
         console.log("download from explore", imageUrl, content[updatedHours()])
   const urlParts = imageUrl.split(".");
   const extension = urlParts[urlParts.length - 1].split("?")[0]; // Handles query params
-  // Fetch the image as a blob
-//   fetch(imageUrl, { mode: 'cors' })
-//     .then(response => response.blob())
-//     .then(blob => {
-//       console.log("response url ", blob)
-//       const url = URL.createObjectURL(blob);
-// const downloadedImage = JSON.parse(localStorage.getItem("downloadedImages")) || [];
-//       // Create a hidden download link
-//       const link = document.createElement('a');
-//       link.href = url;
-//       link.download = content[updatedHours()] || "BrowseNext" + `.${extension}`; // Use the heading as the filename
-//       document.body.appendChild(link);
-//       link.click();
-//       console.log("link ", link)
-
-//       // Cleanup
-//       // setTimeout(()=>{
-
-//         document.body.removeChild(link);
-//       // }, 200)
-//       URL.revokeObjectURL(url);
-      
-//       toast.success("Image downloaded successfully")
-//     if (!downloadedImage.includes(lastOpenedImageId)) {
-//       downloadedImage.push(lastOpenedImageId);
-//       localStorage.setItem("downloadedImages", JSON.stringify(downloadedImage));
-//     }
-//     setIsDownloadedImage(true)
-//     })
-//     .catch(err => {
-//       console.error("Image download failed", err);
-//       toast.error("Image download failed. Please try again later.");
-//     });
 
     const img = new Image();
       img.crossOrigin = "anonymous"; // try CORS
@@ -1056,7 +1092,7 @@ setIsHideImage(true)
 
           if(window.innerWidth < 580){
             getImages(
-              `https://pixabay.com/api/?key=45283300-eddb6d21a3d3d06f2a2381d7d&q=${props.displayImage}&image_type=photo&page=${nextPage}&per_page=8`,
+              `https://pixabay.com/api/?key=45283300-eddb6d21a3d3d06f2a2381d7d&q=${props.displayImage}&image_type=photo&page=${nextPage}&per_page=12`,
               true
             );
             
@@ -1078,7 +1114,7 @@ setIsHideImage(true)
 // console.log("hit from infinite scroll", query, nextPage)
 if(window.innerWidth < 580){
   getImages(
-    `https://pixabay.com/api/?key=45283300-eddb6d21a3d3d06f2a2381d7d&q=${query}&image_type=photo&page=${nextPage}&per_page=8`
+    `https://pixabay.com/api/?key=45283300-eddb6d21a3d3d06f2a2381d7d&q=${query}&image_type=photo&page=${nextPage}&per_page=12`
   );
 
 }else{
@@ -1778,6 +1814,10 @@ state={{ imageData: image }}
     isHide={isHideImage}
     onDownload={()=>{downloadedImage(lastOpenedImageId, clickedImageObj)}}
     isDownloaded={isdownloadedImage}
+    onSuggested={()=> onSuggested(lastOpenedImageId, clickedImageObj)}
+    isSuggested={isSuggested}
+    onDislike={()=> onDislike(lastOpenedImageId, clickedImageObj)}
+    isDislike={isDislikeImage}
 
     />
     {/* <Alert position="bottom-center"> </Alert> */}

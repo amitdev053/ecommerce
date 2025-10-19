@@ -66,6 +66,7 @@ let touchStartedInside = false;
         props.onDownload()
       }else if(type === "Suggested" ){
         // openMoreOptions(event, type, imageId, imageUrl)
+        props.onSuggested()
       }else if(type === "Save"){
         props.onSave() 
 
@@ -73,6 +74,8 @@ let touchStartedInside = false;
         props.onHide()
 
       }else if(type === "notInterested"){
+        props.onDislike()
+        
 
       }
       
@@ -167,9 +170,12 @@ let touchStartedInside = false;
     onTouchMove={orignalElement}
 
 >
-{/* <i class="fa-solid fa-thumbs-up"></i> */}
-<i class="fa-regular fa-star"></i>
-<span>Suggest more like this</span>
+
+{/* <i class="fa-regular fa-star"></i> */}
+
+<i className={props.isSuggested ? "fa-solid fa-star" : "fa-regular fa-star"}></i>
+
+<span>{props.isSuggested ? <span style={{ fontWeight: 700 }}>Recommendation Saved</span>  : "Suggest more like this"}</span>
 </div>
 
 <div className='option_item' 
@@ -247,7 +253,7 @@ let touchStartedInside = false;
     }}
     onTouchStart={(event) => {
       event.stopPropagation();
-      event.preventDefault();
+      // event.preventDefault();
       sendClickFeed(event, "mobile");
     }}
     onTouchEnd={(event) => {
@@ -258,9 +264,11 @@ let touchStartedInside = false;
     onMouseOut={orignalElement}
     onTouchMove={orignalElement}
 >
-<i class="fa-regular fa-thumbs-down"></i>
+{/* <i class="fa-regular fa-thumbs-down"></i> */}
+<i className={props.isDislike ? "fa-solid fa-thumbs-down" : "fa-regular fa-thumbs-down"}></i>
  {/* <i class="fa-solid fa-ban"></i> */}
-<span>Not interested</span>
+
+<span>{props.isDislike ? <span style={{ fontWeight: 700 }}>Not interested</span>  : "Not interested"}</span>
 </div>
 
 

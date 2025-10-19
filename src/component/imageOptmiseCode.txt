@@ -1,0 +1,129 @@
+  
+  const indexedHits = await Promise.all(result.hits.map(async (img, i) => {
+        let defaultColor = "#ffffff";
+        // let defaultColor = colorCache[img.largeImageURL] || "#f8f9fa";
+        // if (!colorCache[img.largeImageURL]) {
+        //   requestIdleCallback(async () => {
+          // img.webformatURL = "https://pixabay.com/get/g43c5f509c9fb15d2cb21b2f5d43bc5f24e6d624f99d53b08ff555099b61c9abe36565e5dc59235a9dc5796a83b7c513c07a5c5fc1c99d29791e23a7820181ace_640.jpg"
+             // ✅ Check if image URL is valid
+        const isValid = await isImageUrlValid(img.webformatURL);
+        if (!isValid) {
+          console.warn("Skipping expired/broken image:", img.webformatURL);
+          return null;
+        }
+        // try {
+          
+        //   const getColors = await getCachedColor(img.largeImageURL);         
+        //   colorCache[img.largeImageURL] = getColors;
+        //   defaultColor = getColors; 
+        // } catch (e) {
+        //   console.error("Error fetching image colors:", e);
+        // }
+      //   })
+      // }
+
+
+        return {
+          ...img,
+          _orderIndex: images.length + i,
+          _category: content[index],
+          imageColor: defaultColor,
+        };
+      }));
+const validImages = indexedHits.filter(Boolean);
+      const storedScores = JSON.parse(localStorage.getItem("interactionScore") || "{}");
+
+      // const sortedImages = validImages.sort((a, b) => {
+      //   const scoreA = storedScores[a?._category] || 0;
+      //   const scoreB = storedScores[b?._category] || 0;
+      //   return scoreB - scoreA;
+      // });
+        const hiddenImages = JSON.parse(localStorage.getItem("hiddenImages")) || [];
+        const filteredImages = validImages.filter(img => !hiddenImages.includes(img.id));
+   
+      // blogColRef.current.length  = 0
+        // blogColRef.current = [];
+      setImages((prevImages) => {
+        const existingIds = new Set(prevImages.map((img) => img.id));
+        // const uniqueNewImages = validImages.filter((img) => !existingIds.has(img.id));
+        const uniqueNewImages = filteredImages.filter((img) => !existingIds.has(img.id));
+        return [...prevImages, ...uniqueNewImages];
+      });
+
+      
+
+//       const newHits = result.hits.map((img, i) => ({
+//   ...img,
+//   _orderIndex: images.length + i,
+//   _category: content[index],
+//   imageColor: '#e0e0e0',
+// }));
+//       setImages((prevImages) => [...prevImages, ...newHits]);
+
+      
+
+
+     setloader(false);
+   
+      // console.log("images & loader", images, loader)
+      // if(props.componentFrom !== "exploreNext"){
+        setTrakImage(false)
+      // }
+      if(bottomLoader){
+        setBottomLoader(false);
+      }
+
+
+
+
+
+
+
+
+
+
+---------------------------------------------------------------------------------------------------------------------------------------
+
+For the home condition
+ // // console.log("home result and images", result, images)
+
+     const indexedHits = await Promise.all(result.map(async (img, i) => {
+        let defaultColor = "#ffffff";
+        // let defaultColor = colorCache[img.largeImageURL] ||  "#f8f9fa";
+     
+  const isValid = await isImageUrlValid(img.webformatURL);
+        if (!isValid) {
+          console.warn("Skipping expired/broken image:", img.webformatURL);
+          return null;
+        }
+ 
+        // after Improbved code version one starts here
+        // if (!colorCache[img.largeImageURL]) {
+        //     requestIdleCallback(async () => {
+try {
+  // const getColors = await getImageColors(img.largeImageURL, 1);
+  const getColors = await getCachedColor(img.largeImageURL);
+   colorCache[img.largeImageURL] = getColors;
+  defaultColor = getColors;
+} catch (e) {
+  console.error("Error fetching image colors:", e);
+}
+//   });
+//  }
+// after Improbved code version one  End here
+        return {
+          ...img,
+          _orderIndex: images.length + i,
+          _category: content[index],
+          imageColor: defaultColor,
+          // imageColor: "#ffffff",
+        };
+      }));
+const validImages = indexedHits.filter(Boolean);
+// console.log("validateImage Home", validImages)
+         setloader(false);
+        setImages(validImages)
+      // console.log("index hits", result, indexedHits)
+
+---------------------------------------------------------------------------------------------------------------------------------------
+

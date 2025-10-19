@@ -1520,7 +1520,7 @@ const breakpointColumnsObj = {
 
  breakpointCols={breakpointColumnsObj}
 //   className="my-masonry-grid"
-   className={`${props.componentFrom === "home" ? 'container p-0 pinterest-layout mt-5 my-masonry-grid' : 'container my-masonry-grid'} ${props.componentFrom === "exploreNext" ? 'mt-ps90' : 'mt-ps90'}`} 
+   className={`${props.componentFrom === "home" ? 'container p-0 pinterest-layout mt-5 my-masonry-grid masnary_home' : 'container my-masonry-grid'} ${props.componentFrom === "exploreNext" ? 'mt-ps90' : 'mt-ps90'}`} 
   columnClassName="my-masonry-grid_column"
  >
  

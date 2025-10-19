@@ -10,6 +10,7 @@ import AppPagesHeading from './AppPagesHeading';
 import Blogs from './Blogs';
 import { Helmet } from 'react-helmet';
 import "./Home.css";
+import ExploreMasonry from './ExploreMasonry';
 
 const Explore = lazy(() => import('./Explore'));
 
@@ -166,9 +167,9 @@ export default function Home() {
 </div>
 
 {/* <Explore componentFrom="home" /> */}
-<Suspense fallback={<div>Loading Explore...</div>}>
-  <Explore componentFrom="home" />
-</Suspense>
+{/* <Suspense fallback={<div>Loading Explore...</div>}> */}
+  <ExploreMasonry componentFrom="home" />
+ {/* </Suspense> */}
 <ExploreLinkButton buttonText="Explore Trending Images" buttonType="explore" />
 <div className="app_divider"/>
 <Blogs componentFrom="home" />

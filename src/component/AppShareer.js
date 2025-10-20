@@ -96,9 +96,9 @@ let touchStartedInside = false;
         <i class="fa-regular fa-copy copy_icon"></i>
 </>
 : 
-!props.loadingImages && 
-
 <>
+{/* !props.loadingImages &&  */}
+{console.log("props.loadingImages", props.loadingImages)}
 
 
 

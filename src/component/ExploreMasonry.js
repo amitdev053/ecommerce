@@ -280,7 +280,7 @@ async function setupImageOnPage(result){
     ...img,
     _orderIndex: images.length + i,
     _category: content[index],
-    imageColor: "#ffffff", // fallback color
+    imageColor: "#ffffff", 
   }));
 
   // ✅ Step 2: Immediately show images (fast paint)
@@ -289,6 +289,9 @@ async function setupImageOnPage(result){
     const uniqueNewImages = rawHits.filter((img) => !existingIds.has(img.id));
     return [...prevImages, ...uniqueNewImages];
   });
+
+  props.featurStoredImage(images)
+  console.log("images", images)
 
   // ✅ Step 3: Background validation + color fetching (non-blocking)
   requestIdleCallback(async () => {
@@ -352,7 +355,7 @@ const rawHits = result.hits
     _orderIndex: images.length + i,
     _category: content[index],
     imageColor: "#ffffff",
-    isValidating: true, // helps show skeletons until validation completes
+    isValidating: true,
   }));
 
 // ✅ Step 2: Instantly paint all (fast visual feedback)
@@ -1249,6 +1252,8 @@ useEffect(() => {
   
 
  const waitForLastElement = () => {
+  if(props.componentFrom === "home") return 
+  
     const validElements = blogColRef.current?.filter(Boolean) || [];
     const lastElement = validElements.at(-2);
 

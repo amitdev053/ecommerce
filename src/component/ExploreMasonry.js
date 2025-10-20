@@ -153,7 +153,7 @@ const pageNum = pageMatch ? pageMatch[1] : "1";
   fetchedPages.current.add(pageKey);
   // console.log("🚀 Fetching:", pageKey);
 
-RemoveDuplicateHits(query, pageNum)
+// RemoveDuplicateHits(query, pageNum)
 const componentPrefix = props.componentFrom || "explore";
 const cacheKey = `${componentPrefix}-${(componentPrefix === "explore") ? query : props.displayImage}-page-${pageNum}`;
 
@@ -268,7 +268,7 @@ async function isImageUrlValid(url) {
 
 
 const colorCache = useRef({}).current;
-
+const hasLoadedOnce = useRef(false);
 async function setupImageOnPage(result){
      
   
@@ -342,7 +342,7 @@ async function setupImageOnPage(result){
     
 
 // ✅ Step 1: Prepare all hits with default metadata
-console.log("now results come...here", result.hits)
+console.log("now results come...here", result.hits);
 const hiddenImages = JSON.parse(localStorage.getItem("hiddenImages")) || [];
 
 const rawHits = result.hits
@@ -351,57 +351,89 @@ const rawHits = result.hits
     ...img,
     _orderIndex: images.length + i,
     _category: content[index],
-    imageColor: "#ffffff", // fallback color
+    imageColor: "#ffffff",
+    isValidating: true, // helps show skeletons until validation completes
   }));
 
-// ✅ Step 2: Immediately show images (fast paint, no delay)
+// ✅ Step 2: Instantly paint all (fast visual feedback)
 setImages((prevImages) => {
   const existingIds = new Set(prevImages.map((img) => img.id));
   const uniqueNewImages = rawHits.filter((img) => !existingIds.has(img.id));
   return [...prevImages, ...uniqueNewImages];
 });
-console.log("now results printed...here", result.hits)
-// ✅ Step 3: Background validation + cleanup (non-blocking)
-requestIdleCallback(async () => {
+
+// ✅ Step 3: Split into two batches (fast first + deferred)
+const immediateBatch = rawHits.slice(0, 8); // first few images = top of viewport
+const deferredBatch = rawHits.slice(8);
+
+(async () => {
   try {
-    const batchSize = 10;
-    let validImages = [];
-
-    for (let i = 0; i < rawHits.length; i += batchSize) {
-      const batch = rawHits.slice(i, i + batchSize);
-
-      const validatedBatch = await Promise.all(
-        batch.map(async (img) => {
-          const isValid = await isImageUrlValid(img.webformatURL);
-          return isValid ? img : null;
-        })
-      );
-
-      validImages = validImages.concat(validatedBatch.filter(Boolean));
-    }
-
-    // ✅ Merge validated, still excluding hidden ones
-    const filteredImages = validImages.filter(
-      (img) => !hiddenImages.includes(img.id)
+    // 🚀 Validate first batch immediately (visible part)
+    const validatedImmediate = await Promise.all(
+      immediateBatch.map(async (img) => {
+        const isValid = await isImageUrlValid(img.webformatURL);
+        return isValid ? { ...img, isValidating: false } : null;
+      })
     );
 
-    setImages((prevImages) => {
-      const existingIds = new Set(prevImages.map((img) => img.id));
-      const uniqueNewImages = filteredImages.filter(
-        (img) => !existingIds.has(img.id)
+    const validImmediate = validatedImmediate.filter(Boolean);
+    setImages((prev) => {
+      const ids = new Set(prev.map((i) => i.id));
+      const unique = validImmediate.filter((i) => !ids.has(i.id));
+      return prev.map((img) =>
+        validImmediate.some((v) => v.id === img.id)
+          ? { ...img, isValidating: false }
+          : img
       );
-      return [...prevImages, ...uniqueNewImages];
     });
-    console.log("now results filtered...here", result.hits)
+
+    // ⚙️ Step 4: Validate remaining batch in idle time (non-blocking)
+    requestIdleCallback(async () => {
+      try {
+        const batchSize = 10;
+        let validImages = [];
+
+        for (let i = 0; i < deferredBatch.length; i += batchSize) {
+          const batch = deferredBatch.slice(i, i + batchSize);
+
+          const validatedBatch = await Promise.all(
+            batch.map(async (img) => {
+              const isValid = await isImageUrlValid(img.webformatURL);
+              return isValid ? { ...img, isValidating: false } : null;
+            })
+          );
+
+          validImages = validImages.concat(validatedBatch.filter(Boolean));
+        }
+
+        // ✅ Merge validated (still excluding hidden)
+        const filteredImages = validImages.filter(
+          (img) => !hiddenImages.includes(img.id)
+        );
+
+        setImages((prev) => {
+          const ids = new Set(prev.map((i) => i.id));
+          const unique = filteredImages.filter((i) => !ids.has(i.id));
+          return prev.map((img) =>
+            filteredImages.some((v) => v.id === img.id)
+              ? { ...img, isValidating: false }
+              : img
+          );
+        });
+      } catch (err) {
+        console.error("Deferred validation failed:", err);
+      } finally {
+        // ✅ Cleanup loaders and flags
+        setloader(false);
+        hasLoadedOnce.current = true;
+        setTrakImage(false);
+        if (bottomLoader) setBottomLoader(false);
+      }
+    });
   } catch (err) {
-    console.error("Background validation failed:", err);
-  } finally {
-    // ✅ Cleanup loaders and tracking states
-    setloader(false);
-    setTrakImage(false);
-    if (bottomLoader) setBottomLoader(false);
+    console.error("Immediate validation failed:", err);
   }
-});
+})();
 
  
 
@@ -1613,7 +1645,7 @@ state={{ imageData: image }}
   
   >
      {/* {!imageStates[index]?.loaded && <div className="skeleton" />} */}
-     {(!imageStates[index]?.loaded) && <div className="skeleton" id={'skelton' + index} />}
+     {(!imageStates[index]?.loaded || image.isValidating) && <div className="skeleton" id={'skelton' + index} />}
             <img
             className="explore-image"
                  style={{

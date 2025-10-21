@@ -287,11 +287,14 @@ async function setupImageOnPage(result){
   setImages((prevImages) => {
     const existingIds = new Set(prevImages.map((img) => img.id));
     const uniqueNewImages = rawHits.filter((img) => !existingIds.has(img.id));
+    const newImages = [...prevImages, ...uniqueNewImages];
+    props.featurStoredImage(newImages)
+    
     return [...prevImages, ...uniqueNewImages];
   });
 
-  props.featurStoredImage(images)
-  console.log("images", images)
+  
+  console.log("featured images images")
 
   // ✅ Step 3: Background validation + color fetching (non-blocking)
   requestIdleCallback(async () => {
@@ -1253,7 +1256,7 @@ useEffect(() => {
 
  const waitForLastElement = () => {
   if(props.componentFrom === "home") return 
-  
+
     const validElements = blogColRef.current?.filter(Boolean) || [];
     const lastElement = validElements.at(-2);
 

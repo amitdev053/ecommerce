@@ -1,10 +1,11 @@
 import { React, useEffect, useState, useRef, useMemo } from 'react';
 import './FeatureContext.css';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import DialogBox from './DialogBox';
 import UserGuides from './UserGuides';
 import Alert from './Alert';
 import { toast } from 'react-toastify';
+import { use } from 'react';
 // let totalListenBlogs = "30";
 // let totalDownloadImages = "100";
 // let totalCopiedCaptions = "150" ;
@@ -163,7 +164,7 @@ const headings = [
   
 ];
 
-const FeatureContext = () => {
+const FeatureContext = (props) => {
   const usenavigate = useNavigate();
   const cardsRef = useRef([]);
   const intervalRef = useRef(null);
@@ -182,6 +183,7 @@ const FeatureContext = () => {
   const [currentHeading, setCurrentHeading] = useState(0);
   const [totals, setTotals] = useState(startValues);
   const [openUserModelCounts, setOpenUserModelCounts] = useState(0)
+  const [featuredImageStates, setFeaturedImageState] = useState([])
   let incrementBy = 1
 
   const STEP = 100;                 // change to 50 if you want +50 per second
@@ -365,6 +367,26 @@ const msUntilNextHour = (60 - now.getMinutes()) * 60 * 1000 - now.getSeconds() *
   };
 }, []);
 
+useEffect(()=>{
+  console.log("featured state works")
+  if (props.displayedFeaturedImages.length === 0) return 
+  console.log(" yes grater then zero")
+const initialStates = props.displayedFeaturedImages.map(()=>({
+  loaded: false
+}))
+setFeaturedImageState(initialStates)
+  
+
+}, [props.displayedFeaturedImages])
+
+ const handleFeaturedImagesLoad = (index) => {
+   setFeaturedImageState ((prev) =>
+      prev.map((imageState, i) =>
+        i === index ? { ...imageState, loaded: true } : imageState
+      )
+    );
+
+  };
 
 
 
@@ -600,6 +622,9 @@ document.getElementById("UserGuides").addEventListener("click", (event) => {
 
 
 }
+function shuffleArray(array) {
+  return array.sort(() => Math.random() - 0.5);
+}
 
 function navigateApp(type){
     if(type === "images"){
@@ -630,7 +655,78 @@ function navigateApp(type){
           >
           <p className="badge">{feature.badge}</p>
             <i className="fa-solid fa-ellipsis position-absolute app_feature_icons" onClick={()=>openGuides(feature, idx)}></i>
+            {(idx === 0) ?
+          
+          <div className="featured-images-container" style={{ display: 'flex', alignItems: 'center', gap: 0, justifyContent: 'center', padding
+          : "10px 0px"}}>
+  {props.displayedFeaturedImages.slice(0, 3).map((img, indx) => {
+    const overlap = indx * -8; // negative left offset per image
+    const zIndex = 10 - indx; // top image gets higher z-index
+
+    return (
+      <>
+     <Link to="/explore">
+     <div
+        key={indx}
+        style={{
+          width: "40px",
+          height: "40px",
+          borderRadius: "50%",
+          // position: indx === 0 ? "static" : "relative",
+          position: "relative",
+          left: overlap + "px",
+          zIndex: zIndex,
+        }}
+      >
+        {/* Skeleton placeholder (shown when not loaded) */}
+        {!featuredImageStates[indx]?.loaded && (
+          
+          <div
+            className="skeleton featured_image_skeleton"
+            style={{
+              width: "100%",
+              height: "100%",
+              borderRadius: "50%",
+              background:
+                "linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%)",
+              backgroundSize: "200% 100%",
+              animation: "skeleton-loading 1.2s ease-in-out infinite",
+              position: "absolute",
+              top: 0,
+              left: 0,
+            }}
+          />
+          
+        )}
+
+        {/* Actual image (shown after loading) */}
+        <img
+          src={img.largeImageURL || img.webformatURL}
+          alt={img.title || `featured-${idx}`}
+          style={{
+            width: "100%",
+            height: "100%",
+            borderRadius: "50%",
+            objectFit: "cover",
+            border: "1px solid #ccc",
+            // display: featuredImageStates[indx]?.loaded ? "block" : "none",
+          }}
+          onLoad={() => {
+            handleFeaturedImagesLoad(indx);
+          }}
+        />
+      </div>
+      </Link>
+      </>
+    );
+  })}
+</div>
+        
+
+            : 
+            
             <div className="feature-emoji">{feature.emoji}</div>
+            }
             <h3>{feature.title}</h3>
             <p>{feature.description}</p>
             <p class="badge app_download_assets" id={`feature${idx}`}>  {[
@@ -648,5 +744,6 @@ function navigateApp(type){
     </>
   );
 };
+
 
 export default FeatureContext;

@@ -68,11 +68,13 @@ export default function Home() {
   const [url, setUrl]= useState(location.pathname)
   const [currentHeading, setCurrentHeading] = useState(0);
   const buttonRef = useRef(null)
+  const [featuredStoredImage, setFeatureStoredImage] = useState([])
   
 
   useEffect(()=>{
     // topic= "Home"
     document.title = "BrowseNext — Explore Images, Bold captions & Listen Blogs"
+    
   })
 
   function rotateDeskTopHeading(arrayHeading){
@@ -110,6 +112,7 @@ export default function Home() {
  function sendClickFeed(event , element){    
     let shareButton = event.target;
     console.log("this", element)
+    console.log("document.title in home", featuredStoredImage)
     if(shareButton){
       buttonRef.current.style.backgroundColor = "#000000b8";
       // shareButton.firstElementChild.style.color = "white";
@@ -149,7 +152,7 @@ export default function Home() {
  
     <div id={productView} className='container app_container mt-ps90'>
    
-<FeatureContext />
+<FeatureContext displayedFeaturedImages={featuredStoredImage} />
 <Products componentFrom="home" />
 <ExploreLinkButton  buttonText="Checkout More Products" buttonType="product" />
 <div className="app_divider"/>
@@ -168,7 +171,7 @@ export default function Home() {
 
 {/* <Explore componentFrom="home" /> */}
 {/* <Suspense fallback={<div>Loading Explore...</div>}> */}
-  <ExploreMasonry componentFrom="home" />
+  <ExploreMasonry componentFrom="home" featurStoredImage={setFeatureStoredImage} />
  {/* </Suspense> */}
 <ExploreLinkButton buttonText="Explore Trending Images" buttonType="explore" />
 <div className="app_divider"/>

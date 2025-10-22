@@ -904,6 +904,54 @@ console.log("clickedImageData", clickedImageData)
 
   // console.log("see clickimagedata", clickedImageObj, lastOpenedImageId)
 }
+useEffect(() => {
+  // Close sharer when user scrolls
+  const handleScroll = () => {
+    const sharedBox = document.querySelector('.app_sharer_container');
+    if (sharedBox) {
+      sharedBox.style.opacity = '0';
+      sharedBox.style.pointerEvents = 'none';
+    }
+
+    // Remove highlight from icons
+    document.querySelectorAll('.show_click_element').forEach((el) =>
+      el.classList.remove('show_click_element')
+    );
+    document.querySelectorAll('.show_click_element_border').forEach((el) =>
+      el.classList.remove('show_click_element_border')
+    );
+  };
+
+  // Close sharer when user clicks outside
+  const handleClickOutside = (event) => {
+    const sharedBox = document.querySelector('.app_sharer_container');
+    if (!sharedBox) return;
+
+    // If clicked outside the sharer
+    if (!sharedBox.contains(event.target)) {
+      sharedBox.style.opacity = '0';
+      sharedBox.style.pointerEvents = 'none';
+
+      document.querySelectorAll('.show_click_element').forEach((el) =>
+        el.classList.remove('show_click_element')
+      );
+      document.querySelectorAll('.show_click_element_border').forEach((el) =>
+        el.classList.remove('show_click_element_border')
+      );
+    }
+  };
+
+  window.addEventListener('scroll', handleScroll);
+  document.addEventListener('click', handleClickOutside);
+  document.addEventListener('touchstart', handleClickOutside);
+
+
+  return () => {
+    window.removeEventListener('scroll', handleScroll);
+    document.removeEventListener('click', handleClickOutside);
+    document.removeEventListener('touchstart', handleClickOutside);
+  };
+}, []);
 
 const [isSaved, setIsSaved] = useState(false);
 const [isHideImage, setIsHideImage] = useState(false);

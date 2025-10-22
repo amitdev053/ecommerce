@@ -483,9 +483,22 @@ function addImageTouch(){
       setIndex(updatedHours());
     }, 60 * 60 * 1000); // 1 hour in milliseconds
 
+         
+
     // Cleanup the interval on component unmount
     return () => clearInterval(interval);
   }, []);
+  useEffect(() => {
+    const referenceTime = new Date("2025-01-01T00:00:00Z").getTime();
+    
+    const interval = setInterval(() => {
+        const currentTime = Date.now();
+        const minutesElapsed = Math.floor((currentTime - referenceTime) / (60 * 1000)) % 60;
+        props.lastUpdatedAt(minutesElapsed);
+    }, 60 * 1000); // update every 1 minute
+
+    return () => clearInterval(interval);
+}, []);
 
   useEffect(() => {
   // images.forEach((img, i) => {
@@ -670,9 +683,14 @@ function showMobileIcon(){
 
   function updatedHours(){
     const referenceTime = new Date("2025-01-01T00:00:00Z").getTime();
+    
+
     // Function to calculate the current index based on elapsed hours 
       const currentTime = Date.now();
+      const lastUpdated = props.lastUpdatedAtState || currentTime; // fallback if undefined
       const hoursElapsed = Math.floor((currentTime - referenceTime) / (60 * 60 * 1000));
+            // Minutes within the current hour (0-59)
+    const minutesElapsed = Math.floor((currentTime - referenceTime) / (60 * 1000)) % 60;
       // console.log("hours elapased", hoursElapsed, content.length, content[hoursElapsed])
 
        // Get current hour (0-23) in local time
@@ -693,8 +711,12 @@ function showMobileIcon(){
     // Normal hourly rotation for other times
     categoryIndex = hoursElapsed % content.length;
   }
-      
+      console.log("explore masonary hours",currentTime, hoursElapsed, categoryIndex, referenceTime)
       // return hoursElapsed % content.length;
+      if(props.lastUpdatedAt){
+        props.lastUpdatedAt(minutesElapsed)
+
+      }
       return categoryIndex;
    
   }

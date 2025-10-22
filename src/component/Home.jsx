@@ -69,6 +69,7 @@ export default function Home() {
   const [currentHeading, setCurrentHeading] = useState(0);
   const buttonRef = useRef(null)
   const [featuredStoredImage, setFeatureStoredImage] = useState([])
+  const [lastUpdatedTime, setLastupdatedTime] = useState(new Date().toISOString())
   
 
   useEffect(()=>{
@@ -152,11 +153,18 @@ export default function Home() {
  
     <div id={productView} className='container app_container mt-ps90'>
    
-<FeatureContext displayedFeaturedImages={featuredStoredImage} />
+<FeatureContext displayedFeaturedImages={featuredStoredImage}  />
 <div className="app_divider"/>
 <div className='explore_home_heading_container app_container app_explore_home_feeds'>
+<div className="app_left_elmenets">
+<div className='home_heading_updates d-flex flex-column'>
  <div className='app_home_feeds_heading desktop_heading'>{DeskTopHeadings[currentHeading]}</div>
  <div className='app_home_feeds_heading mobile_heading'>{MobileHeadings[currentHeading]}</div>
+    <span className='last_updated_text'>Last updated at {lastUpdatedTime}min ago</span>
+ </div>
+
+
+</div>
 
           <Link class="app_explore_see_all" to="/explore" draggable={false} ref={buttonRef}   onMouseDown={(e)=>sendClickFeed(e)} onMouseUp={(e)=>removeClickFeed(e)} onMouseOut={(e)=>orignalElement(e)}
            onTouchStart={(e) => sendClickFeed(e)}
@@ -169,7 +177,7 @@ export default function Home() {
 
 {/* <Explore componentFrom="home" /> */}
 {/* <Suspense fallback={<div>Loading Explore...</div>}> */}
-  <ExploreMasonry componentFrom="home" featurStoredImage={setFeatureStoredImage} />
+  <ExploreMasonry componentFrom="home" featurStoredImage={setFeatureStoredImage} lastUpdatedAt={setLastupdatedTime} />
  {/* </Suspense> */}
 <ExploreLinkButton buttonText="Explore Trending Images" buttonType="explore" />
 <div className="app_divider"/>

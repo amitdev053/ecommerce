@@ -40,3 +40,10 @@ white-space: nowrap;
   position: relative;
   left: 4px;
 }
+.last_updated_text{
+  color: #938f8f;
+  font-size: 14px;
+  font-weight: 500;
+  /* position: relative;
+  left: 3px; */
+}

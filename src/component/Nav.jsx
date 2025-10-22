@@ -1312,7 +1312,7 @@ useLayoutEffect(()=>{
     }}
     alt={generateCaption(image)}
   />
-
+  
   {/* Full-resolution image */}
   <img
     className="explore-image"

@@ -494,7 +494,9 @@ function addImageTouch(){
     const interval = setInterval(() => {
         const currentTime = Date.now();
         const minutesElapsed = Math.floor((currentTime - referenceTime) / (60 * 1000)) % 60;
-        props.lastUpdatedAt(minutesElapsed);
+        if(props.lastUpdatedAt){
+          props.lastUpdatedAt(minutesElapsed);
+        }
     }, 60 * 1000); // update every 1 minute
 
     return () => clearInterval(interval);

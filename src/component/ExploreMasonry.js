@@ -1511,12 +1511,16 @@ const breakpointColumnsObj = {
 
 {/* <ScrollTag  tagList={content} showBlog={getImages} /> */}
 {(props.componentFrom !== "exploreNext") &&
-           <div className="container mt-ps90 app_container">
+<>
+           {/* <div className="container mt-ps90 app_container"> */}
 
 {/* <ScrollTag whereFrom="explore"  tagList={content} showBlog={getImages} /> */}
-        </div>
+        {/* </div> */}
+        </>
 }
-        <SkeltonLoading count={30}/>
+
+{(props.componentFrom === "home") ? <SkeltonLoading itemsPerColumn= {3} loadingFor="home" /> : <SkeltonLoading  itemsPerColumn={6} />}
+        
       </>
     );
   } else {

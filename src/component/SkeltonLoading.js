@@ -111,7 +111,7 @@ import React from 'react';
 import { useLocation } from 'react-router-dom';
 import './SkeltonLoading.css';
 
-const SkeltonLoading = ({ columns = 3, itemsPerColumn = 6 }) => {
+const SkeltonLoading = (props, { columns = 3, itemsPerColumn = 6 }) => {
     const location = useLocation();
   const isExploreNextPage = location.pathname.startsWith('/explore-next/photo/');
   // const generateRandomHeights = () => {
@@ -143,7 +143,7 @@ const generateRandomHeights = () => {
     );
   });
  
-  return <div  className={`masonry-skeleton-wrapper container app_skelton_wrapper  ${isExploreNextPage ? 'mt-74' : 'my-5'}`}   >{skeletonColumns}</div>;
+  return <div  className={`masonry-skeleton-wrapper container app_skelton_wrapper  ${isExploreNextPage ? 'mt-ps90' : 'mt-ps90'}  ${props.loadingFor === "home" && 'my-5 p-0'}`}   >{skeletonColumns}</div>;
 };
 
 export default SkeltonLoading;

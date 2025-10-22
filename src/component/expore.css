@@ -112,6 +112,9 @@
   .show_click_element{
 transform: translate(0px , 0px) !important; 
   }
+  .show_click_element_border{
+border: 3px solid black;
+  }
   .explore_image_share_icon{
     background: white;
     padding: 8px;

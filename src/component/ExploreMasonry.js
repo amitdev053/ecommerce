@@ -790,6 +790,11 @@ console.log("clickedImageData", clickedImageData)
         el.classList.remove('show_click_element');
       });
     }
+    if(document.querySelectorAll('.show_click_element_border')){
+    document.querySelectorAll('.show_click_element_border').forEach(el => {
+        el.classList.remove('show_click_element_border');
+      });
+    }
     // Find the container for this imageId
   const imageContainer = document.querySelector(`[data-image-id="${imageId}"]`);
   const exploreTopIcon = imageContainer.querySelectorAll('.explore_images_share')
@@ -842,6 +847,7 @@ console.log("clickedImageData", clickedImageData)
           }
       })
       if(exploreBottomIcon.classList.contains('show_click_element')){
+        imageContainer.classList.remove('show_click_element_border')
 
         exploreBottomIcon.classList.remove('show_click_element')
       }
@@ -859,6 +865,7 @@ console.log("clickedImageData", clickedImageData)
       })
       if(exploreBottomIcon){
         exploreBottomIcon.classList.add('show_click_element')
+        imageContainer.classList.add('show_click_element_border')
 
       }
     }
@@ -883,6 +890,7 @@ console.log("clickedImageData", clickedImageData)
       if(exploreBottomIcon){
 
         exploreBottomIcon.classList.add('show_click_element');
+        imageContainer.classList.add('show_click_element_border')
       }
     }, 50); // fade out delay before moving (200ms can be tuned)
   }

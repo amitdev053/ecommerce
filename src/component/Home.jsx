@@ -163,7 +163,7 @@ export default function Home() {
   onTouchEnd={(e) => removeClickFeed(e)}
   onTouchCancel={(e) => orignalElement(e)}
           
-          >See all</Link>
+          >See all <i className="fa-solid fa-angle-right home_seeall_icon"></i></Link>
 
 </div>
 

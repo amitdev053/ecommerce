@@ -36,3 +36,7 @@
 white-space: nowrap; 
   }
 }
+.home_seeall_icon{
+  position: relative;
+  left: 4px;
+}

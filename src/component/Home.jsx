@@ -153,8 +153,6 @@ export default function Home() {
     <div id={productView} className='container app_container mt-ps90'>
    
 <FeatureContext displayedFeaturedImages={featuredStoredImage} />
-<Products componentFrom="home" />
-<ExploreLinkButton  buttonText="Checkout More Products" buttonType="product" />
 <div className="app_divider"/>
 <div className='explore_home_heading_container app_container app_explore_home_feeds'>
  <div className='app_home_feeds_heading desktop_heading'>{DeskTopHeadings[currentHeading]}</div>
@@ -175,6 +173,11 @@ export default function Home() {
  {/* </Suspense> */}
 <ExploreLinkButton buttonText="Explore Trending Images" buttonType="explore" />
 <div className="app_divider"/>
+
+<Products componentFrom="home" />
+<ExploreLinkButton  buttonText="Checkout More Products" buttonType="product" />
+<div className="app_divider"/>
+
 <Blogs componentFrom="home" />
 <ExploreLinkButton buttonText="Explore Latest Blogs " buttonType="blog" />
 

@@ -1,6 +1,6 @@
 import "./expore.css";
 import "./exploreMasonry.css"
-import React, { useEffect, useState, useContext, useRef, lazy, useLayoutEffect } from "react";
+import React, { useEffect, useState, useContext, useRef, lazy, useLayoutEffect, useMemo } from "react";
 import Loader from "./Loader";
 import ScrollTag from "./ScrollTag"; // Add this line to import ScrollTag
 import AppPagesHeading from "./AppPagesHeading"; // Add this line to import AppPagesHeading
@@ -738,9 +738,9 @@ function shareImage(image){
     getImages(`https://pixabay.com/api/?key=45283300-eddb6d21a3d3d06f2a2381d7d&q=${content[currentCalculatedIndex]}&image_type=photo&page=1`);
     setImageStates(images.map(() => ({ loaded: false })));
   }, [index]);
-
+const moreOptionsRef = useRef(null)
   function sendClickFeed(event){    
-    event.stopPropagation()
+    // event.stopPropagation()
     let shareButton = event?.currentTarget;
     if(shareButton){
       shareButton.firstElementChild.style.backgroundColor = "#05050524";
@@ -1558,133 +1558,8 @@ const breakpointColumnsObj = {
   500: 2        // 1 column on small screens
 };
 
-
-  if (!bottomLoader && loader === true) {
-    return (
-      <>
-      
-        {/* <Loader></Loader> */}
-
-{/* <ScrollTag  tagList={content} showBlog={getImages} /> */}
-{(props.componentFrom !== "exploreNext") &&
-<>
-           {/* <div className="container mt-ps90 app_container"> */}
-
-{/* <ScrollTag whereFrom="explore"  tagList={content} showBlog={getImages} /> */}
-        {/* </div> */}
-        </>
-}
-
-{(props.componentFrom === "home") ? <SkeltonLoading itemsPerColumn= {3} loadingFor="home" /> : <SkeltonLoading  itemsPerColumn={6} />}
-        
-      </>
-    );
-  } else {
-    return (
-      <>
-
-        {
-      (props.componentFrom !== "home" && props.componentFrom !== "exploreNext" ) && 
-  <Helmet>
-  {/* <title>Explore Images for {content[updatedHours()]} | BrowseNext</title> */}
-  <title>Explore {content[updatedHours()]} Images | BrowseNext</title>
-
-  <meta
-    name="description"
-    content="Browse high-resolution images updated hourly in categories like fashion, tech, couples, nature, fitness, romantic, food, and more — all free to use on BrowseNext."
-  />
-  <meta name="robots" content="index, follow" />
-  <meta
-    name="keywords"
-    content="Free stock images, trending images, hourly updated photos, romantic pictures, nature wallpapers, fashion gallery, tech stock images, couples, lifestyle, hugs, aesthetic images"
-  />
-  <meta property="og:title" content="Explore Trending Images | Market Shops" />
-  <meta
-    property="og:description"
-    content="Market Shops Explore page updates every hour with high-quality images across 30+ popular categories. Free and easy to download!"
-  />
-  <meta
-    property="og:image"
-    content={images[0]?.webformatURL || "https://www.browsenext.today/favicons.png"}
-  />
-  <meta property="og:url" content="https://www.browsenext.today/explore" />
-  <meta name="twitter:card" content="summary_large_image" />
-  <link rel="canonical" href="https://www.browsenext.today/explore" />
-
-   <script type="application/ld+json">
-        {JSON.stringify({
-          "@context": "https://schema.org",
-          "@type": "ImageGallery",
-          "name": content[updatedHours()],
-          "description": "Browse high-resolution images updated hourly in categories like fashion, tech, couples, nature, fitness, romantic, food, and more — all free to use.",
-          "url": `https://www.browsenext.today/explore`,
-          "image": ["https://www.browsenext.today/favicons.png"],
-        })}
-      </script>
-
-
-  <link rel="preload" as="image" href={images[0]?.webformatURL} />
-  <link rel="preload" as="image" href={images[1]?.webformatURL} />
-  <link rel="preload" as="image" href={images[2]?.webformatURL} />
-  <link rel="preload" as="image" href={images[3]?.webformatURL} />
-</Helmet>
-
-
-    
-  }
-        {props.componentFrom !== "home" &&
-        <>
-            {/* <div
-          style={{
-            display: "flex",
-            flexDirection: "column",
-            justifyContent: "left",
-            alignItems: "left",
-            marginBottom: "20px",
-            marginTop: "90px",
-            maxWidth: "89%",
-            gap: "10px 0px",
-            padding: "0px 20px",
-          }}
-          className="container app_product_headline"
-        >
-          <AppPagesHeading heading={"Explore Image for " +  document.title.split(' ')[3]}  />
-          <div>
-          <span className="image_suggestion_text">Next every hours Upcoming images </span>
-     
-          <div class="upcomming_images">
-            <span className="app_product_headline_text">Music</span>
-            <span className="app_product_headline_text">Music</span>
-            <span className="app_product_headline_text">Music</span>
-            <span className="app_product_headline_text">Music</span>
-          </div>
-          </div>
-          
-        </div> */}
-
-{/* {(props.componentFrom !== "exploreNext") &&
-        <div className="container mt-ps90 app_container">
-
-<ScrollTag  whereFrom="explore" tagList={content} showBlog={getImages} />
-        </div>
-} */}
-
-        </>
-    }
-  <div className="hero d-none">
-    <h1>Explore {content[updatedHours()]} Images✨</h1>
-    <p>Download HD {content[updatedHours()]} images for Instagram, Facebook, WhatsApp status, Twitter, LinkedIn, and more — free, fast, and ready to use.</p>
-  </div>
- <Masonry  
-//  className={`${props.componentFrom === "home" ? 'container p-0 pinterest-layout mt-5' : 'container pinterest-layout'} ${props.componentFrom === "exploreNext" ? 'mt-ps90' : 'mt-ps90'}`} ref={exploreRef}
-
- breakpointCols={breakpointColumnsObj}
-//   className="my-masonry-grid"
-   className={`${props.componentFrom === "home" ? 'container p-0 pinterest-layout mt-5 my-masonry-grid masnary_home' : 'container my-masonry-grid'} ${props.componentFrom === "exploreNext" ? 'mt-ps90' : 'mt-ps90'}`} 
-  columnClassName="my-masonry-grid_column"
- >
- 
-      {images.map((image, index) => {
+const memorizedImages= useMemo(()=>{
+  return   images.map((image, index) => {
         if (!imageStates[index]) return null; 
         const { loaded } = imageStates[index];
         const location = window.location.href.split("/")
@@ -1899,9 +1774,10 @@ state={{ imageData: image }}
       sendClickFeed(event);
     }}
     onTouchStart={(event) => {
-      event.stopPropagation();
-      event.preventDefault();
+      event?.preventDefault();
+      event?.stopPropagation();
       sendClickFeed(event);
+          
     }}
     onTouchEnd={(event) => {
       event.stopPropagation();
@@ -1909,18 +1785,145 @@ state={{ imageData: image }}
       removeClickFeed(event, image, "option", image.id);
     }}
     onMouseOut={orignalElement}
-
+    ref={moreOptionsRef}
 
           
                 >
-            <i class="fa-solid fa-ellipsis explore_image_share_icon"></i>
+            <i class="fa-solid fa-ellipsis explore_image_share_icon touch_none"></i>
             
             </div>    
           </div>
 
         );
           {/* </Link> */}
-      })}
+      })
+}, [images, imageStates])
+
+
+  if (!bottomLoader && loader === true) {
+    return (
+      <>
+      
+        {/* <Loader></Loader> */}
+
+{/* <ScrollTag  tagList={content} showBlog={getImages} /> */}
+{(props.componentFrom !== "exploreNext") &&
+<>
+           {/* <div className="container mt-ps90 app_container"> */}
+
+{/* <ScrollTag whereFrom="explore"  tagList={content} showBlog={getImages} /> */}
+        {/* </div> */}
+        </>
+}
+
+{(props.componentFrom === "home") ? <SkeltonLoading itemsPerColumn= {3} loadingFor="home" /> : <SkeltonLoading  itemsPerColumn={6} />}
+        
+      </>
+    );
+  } else {
+    return (
+      <>
+
+        {
+      (props.componentFrom !== "home" && props.componentFrom !== "exploreNext" ) && 
+  <Helmet>
+  {/* <title>Explore Images for {content[updatedHours()]} | BrowseNext</title> */}
+  <title>Explore {content[updatedHours()]} Images | BrowseNext</title>
+
+  <meta
+    name="description"
+    content="Browse high-resolution images updated hourly in categories like fashion, tech, couples, nature, fitness, romantic, food, and more — all free to use on BrowseNext."
+  />
+  <meta name="robots" content="index, follow" />
+  <meta
+    name="keywords"
+    content="Free stock images, trending images, hourly updated photos, romantic pictures, nature wallpapers, fashion gallery, tech stock images, couples, lifestyle, hugs, aesthetic images"
+  />
+  <meta property="og:title" content="Explore Trending Images | Market Shops" />
+  <meta
+    property="og:description"
+    content="Market Shops Explore page updates every hour with high-quality images across 30+ popular categories. Free and easy to download!"
+  />
+  <meta
+    property="og:image"
+    content={images[0]?.webformatURL || "https://www.browsenext.today/favicons.png"}
+  />
+  <meta property="og:url" content="https://www.browsenext.today/explore" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <link rel="canonical" href="https://www.browsenext.today/explore" />
+
+   <script type="application/ld+json">
+        {JSON.stringify({
+          "@context": "https://schema.org",
+          "@type": "ImageGallery",
+          "name": content[updatedHours()],
+          "description": "Browse high-resolution images updated hourly in categories like fashion, tech, couples, nature, fitness, romantic, food, and more — all free to use.",
+          "url": `https://www.browsenext.today/explore`,
+          "image": ["https://www.browsenext.today/favicons.png"],
+        })}
+      </script>
+
+
+  <link rel="preload" as="image" href={images[0]?.webformatURL} />
+  <link rel="preload" as="image" href={images[1]?.webformatURL} />
+  <link rel="preload" as="image" href={images[2]?.webformatURL} />
+  <link rel="preload" as="image" href={images[3]?.webformatURL} />
+</Helmet>
+
+
+    
+  }
+        {props.componentFrom !== "home" &&
+        <>
+            {/* <div
+          style={{
+            display: "flex",
+            flexDirection: "column",
+            justifyContent: "left",
+            alignItems: "left",
+            marginBottom: "20px",
+            marginTop: "90px",
+            maxWidth: "89%",
+            gap: "10px 0px",
+            padding: "0px 20px",
+          }}
+          className="container app_product_headline"
+        >
+          <AppPagesHeading heading={"Explore Image for " +  document.title.split(' ')[3]}  />
+          <div>
+          <span className="image_suggestion_text">Next every hours Upcoming images </span>
+     
+          <div class="upcomming_images">
+            <span className="app_product_headline_text">Music</span>
+            <span className="app_product_headline_text">Music</span>
+            <span className="app_product_headline_text">Music</span>
+            <span className="app_product_headline_text">Music</span>
+          </div>
+          </div>
+          
+        </div> */}
+
+{/* {(props.componentFrom !== "exploreNext") &&
+        <div className="container mt-ps90 app_container">
+
+<ScrollTag  whereFrom="explore" tagList={content} showBlog={getImages} />
+        </div>
+} */}
+
+        </>
+    }
+  <div className="hero d-none">
+    <h1>Explore {content[updatedHours()]} Images✨</h1>
+    <p>Download HD {content[updatedHours()]} images for Instagram, Facebook, WhatsApp status, Twitter, LinkedIn, and more — free, fast, and ready to use.</p>
+  </div>
+ <Masonry  
+ breakpointCols={breakpointColumnsObj}
+//   className="my-masonry-grid"
+   className={`${props.componentFrom === "home" ? 'container p-0 pinterest-layout mt-5 my-masonry-grid masnary_home' : 'container my-masonry-grid'} ${props.componentFrom === "exploreNext" ? 'mt-ps90' : 'mt-ps90'}`} 
+  columnClassName="my-masonry-grid_column"
+ >
+ 
+    {memorizedImages}
     {/* {props.componentFrom === "home" ? <ExploreLinkButton /> : null} */}
     </Masonry>
     <div ref={bottomObserverRef} style={{ height: '1px' }} />

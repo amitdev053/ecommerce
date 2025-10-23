@@ -25,3 +25,6 @@
 .masnary_home{
   max-width: 100% !important;
 }
+.touch_none{
+  touch-action: none;
+}

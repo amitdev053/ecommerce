@@ -975,7 +975,7 @@ function endShowingFeedBack(e){
                                   {cartitem.productName.slice(0, 20)}...
                                 </div>
                                 <div className="cartitemprice">
-                                  Item price: ${cartitem.productPrice}
+                                  Item price: <strong>₹</strong> {cartitem.productPrice}
                                 </div>
                               </div>
                             </div>

@@ -2101,6 +2101,8 @@ canvas{
   left: 12px;
   padding: 4px 9px 4px 9px;
   border-radius: 50px;
+  transition: all 0.2s ease-in-out;
+  cursor: pointer;
  }
  .gallerycol:hover .product_purchaser_element{
       
@@ -2108,6 +2110,9 @@ canvas{
       background: #040a0e;
     
     
+ }
+ .product_purchaser_element:hover{
+    background-color: #000000b8 !important;
  }
  .gallerycol:hover .product_purchaser_element i{
       color: #f8f9fa;

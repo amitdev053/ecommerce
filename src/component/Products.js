@@ -365,7 +365,7 @@ function ProductImageComponent({product}){
               <>
               <div className="row" id="ProductContainer" style={props.componentFrom === "home" ? {margin: "0px auto"} : {margin: ""}}>
             {/* Columns Started Here */}
-            {allproduct.map((product) => {
+            {allproduct.map((product, index) => {
               const buyProductUrl = `https://mysticmoda.in/collections/salwar-suits-under-999/products/${product.handle}`
               const formatter = new Intl.NumberFormat("en-IN", {
                 style: "currency",
@@ -389,6 +389,8 @@ function ProductImageComponent({product}){
                       <i class="fa-solid fa-arrow-up-right-from-square"></i>
                       </Link>
                       </div> */}
+                      
+                      {(index === 1 || index === 3 || index === 6 || index === 17 || index === 21 ||  index === 27) && <i class="fa-solid fa-fire product_popular"></i>}
                    <img src={!changedPhoto ? product.images[0].src : product.images[1].src} id="productimg" className="productImages" alt="" onLoad={handleImageLoad} />
                     <div id="productprice" className="productprice w-100" style={{opacity:isProductFavorite(product.id) ? "100%" : "0"}}>
                  <strong>  {formatter.format(product.variants[0].price)} </strong>

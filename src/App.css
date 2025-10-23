@@ -2114,12 +2114,13 @@ canvas{
     
     
  }
- /* .product_purchaser_element {
+ .product_popular{
     position: absolute;
     bottom: 0;
     right: 0px;
     padding: 10px 15px;
-} */
+    color: white;
+}
  .margin_left_for_share{
   margin-left: 9px;
  }

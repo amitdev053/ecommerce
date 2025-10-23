@@ -3,10 +3,12 @@ import "./ImageDialog.css";
 
 
 const ImageDialog = (props) => {
-    const [scale, setScale] = useState(1); // zoom scale
+    let [scale, setScale] = useState(1); // zoom scale
       const [activeButton, setActiveButton] = useState(null); // track which button is pressed
       const [isHovering, setIsHovering] = React.useState(false);
+      const previewImageRef = useRef(null)
   const modalRef = useRef(null);
+  
     function CloseOpenView(){
            let imageDialog = document.getElementById("imageDialog");
     let imageWrapper = document.getElementById("imageWrapper");
@@ -29,12 +31,31 @@ const ImageDialog = (props) => {
     }
       // Zoom in function
   function zoomIn() {
-    setScale(prev => Math.min(prev + 1, 5)); // limit to max scale(5)
+    // setScale(prev => Math.min(prev + 1, 5));
+    let img = previewImageRef.current
+    if(img){
+    setScale(prev => {
+      const newScale = Math.min(prev + 1, 5);
+      img.style.transform = `scale(${newScale})`; // use new value immediately
+      return newScale;
+    });
+
+    }
   }
 
   // Zoom out function
   function zoomOut() {
-    setScale(prev => Math.max(prev - 1, 1)); // limit to min scale(1)
+    // setScale(prev => Math.max(prev - 1, 1));
+      let img = previewImageRef.current
+    if(img){
+    setScale(prev => {
+      const newScale = Math.max(prev - 1, 1);
+      img.style.transform = `scale(${newScale})`; // use new value immediately
+      return newScale;
+    });
+            
+
+    }
   }
 
   // Close on scroll (desktop & mobile)
@@ -94,7 +115,8 @@ function handleClickOutside(event) {
 <img src={props.imageUrl} alt={props.heading}
   // onMouseEnter={(e) =>{ setIsHovering(true)}}
   // onMouseLeave={(e) =>{ setIsHovering(false)}}
-style={{ transform: `scale(${scale})`, transition: "transform 0.2s ease-in-out" }}
+// style={{ transform: `scale(${scale})`, transition: "transform 0.2s ease-in-out" }}
+ref={previewImageRef}
  />
             </div>
             <div className="image_zoom_in_out">

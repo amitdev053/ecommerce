@@ -13,7 +13,8 @@ const Tooltip = ({ children, text, position = "top" ,  defaultVisible = false })
         fontSize: "12px",
         fontWeight: "300",
         width: "max-content",
-        letterSpacing: "1px"
+        letterSpacing: "1px",
+        zIndex: "999999",
        
     },
    

@@ -931,7 +931,7 @@ function endShowingFeedBack(e){
                   ></i>
                 </div>
                 <div className={(userCart.length === 0 ) ? "col-12 mt-ps100" : "col-12 dividecartitem new_added_cartstyles"} style={{paddingBottom: "40px"}}>
-                  <div className="row p-0 align-items-center">
+                  <div className="row p-0 align-items-center row_cart_width">
                   {userCart.length <= 0 ? 
                 (
                   <>
@@ -950,6 +950,8 @@ function endShowingFeedBack(e){
                  )
                  
                   : userCart.map((cartitem, index) => {
+                      const productUrl = `https://mysticmoda.in/collections/salwar-suits-under-999/products/${cartitem.productHandle}`
+                      console.log("setting visiting url", productUrl)
                       return (
                         <>
                           <div
@@ -991,6 +993,17 @@ function endShowingFeedBack(e){
                                 deleteCart(cartitem.productid, index);
                               }}
                             ></i>
+                            <Tooltip text="Buy" position="bottom">
+                           <Link target="_blank" to={productUrl}>
+                            <i
+                              className="fa-solid fa-angle-right"
+                              style={{ cursor: "pointer" }}
+                              // onClick={() => {
+                              //   deleteCart(cartitem.productid, index);
+                              // }}
+                            ></i>
+                            </Link>
+                            </Tooltip>
                           </div>
                         </>
                       );

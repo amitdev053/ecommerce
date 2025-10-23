@@ -4,7 +4,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import { ToastContainer, toast } from "react-toastify";
 import ProductSlider from "./ProductSlider";
 import ProductListView from "./ProductListView";
-import { json } from "react-router-dom";
+import { json, Link } from "react-router-dom";
 import Alert from "./Alert"
 import { useLocation, useParams} from 'react-router-dom'
 
@@ -132,8 +132,9 @@ function setupDynamicLikeIconsStyles(){
     getProducts(baseUrl, productsUrl);
   }, []);
   
-  function clickToCart(productName,productPrice,ProductImage,productid){
-    addToCart(productName, productPrice, ProductImage, productid)
+  function clickToCart(productName,productPrice,ProductImage,productid, productHandle){
+    console.log("see for producthanlde", productHandle)
+    addToCart(productName, productPrice, ProductImage, productid, productHandle)
      
   }
 
@@ -163,10 +164,10 @@ function setupDynamicLikeIconsStyles(){
 
 
 
-  function addToFavourite(productName,productPrice,productImage,productid) {
+  function addToFavourite(productName,productPrice,productImage,productid, productHandleForSave) {
     // // console.log("set Cart");
 console.log("here image ", productImage, likeItems)
-  let isadding =   toggleLike(productName, productPrice, productImage, productid)
+  let isadding =   toggleLike(productName, productPrice, productImage, productid, productHandleForSave)
    animateLikeHeaderIcon()
    likeItems.forEach((item)=>{
 
@@ -365,6 +366,7 @@ function ProductImageComponent({product}){
               <div className="row" id="ProductContainer" style={props.componentFrom === "home" ? {margin: "0px auto"} : {margin: ""}}>
             {/* Columns Started Here */}
             {allproduct.map((product) => {
+              const buyProductUrl = `https://mysticmoda.in/collections/salwar-suits-under-999/products/${product.handle}`
               const formatter = new Intl.NumberFormat("en-IN", {
                 style: "currency",
                 currency: "INR",
@@ -382,6 +384,11 @@ function ProductImageComponent({product}){
                 <div className="products_mmd_container">
                   <div className="galleryimg position-relative">
                    {/* <ProductImageComponent product={product} /> */}
+                     {/* <div className="product_purchaser_element">
+                      <Link target="_blank" to={buyProductUrl}>
+                      <i class="fa-solid fa-arrow-up-right-from-square"></i>
+                      </Link>
+                      </div> */}
                    <img src={!changedPhoto ? product.images[0].src : product.images[1].src} id="productimg" className="productImages" alt="" onLoad={handleImageLoad} />
                     <div id="productprice" className="productprice w-100" style={{opacity:isProductFavorite(product.id) ? "100%" : "0"}}>
                  <strong>  {formatter.format(product.variants[0].price)} </strong>
@@ -393,7 +400,8 @@ function ProductImageComponent({product}){
                             product.title,
                             product.variants[0].price,
                             product.images[0].src,
-                            product.id
+                            product.id,
+                            product.handle
                           );
                         }}
                       
@@ -421,14 +429,18 @@ function ProductImageComponent({product}){
                       <button
                         className="btn btn-sm btn-primary p_s_btn  mr-1 brand_button"
                         onClick={() => {
+                          let productHandle = product.handle
+                          console.log("producthanlde...", productHandle)
+
                           clickToCart(
                             product.title,
                               product.variants[0].price,
                             product.images[0].src,
                             product.id,
-                            baseUrl,
+                                 productHandle,
                             cartUrl, 
-                            addTrackCart
+                            addTrackCart,
+                            baseUrl
                           );
                         }}
                       >
@@ -453,7 +465,15 @@ function ProductImageComponent({product}){
                         <i class="fa-regular fa-share-from-square icon_margin"></i>
                         
                       </button> */}
-                      <ShareButton  productTitle={product.title} productDesc={product.body_html} productImage={product.images[0].src}/>
+                      <ShareButton   productTitle={product.title} productDesc={product.body_html} productImage={product.images[0].src}/>
+                      <div className="product_purchaser_element">
+
+                      <Link target="_blank" to={buyProductUrl}>
+                      <i class="fa-solid fa-arrow-up-right-from-square"></i>
+
+                      </Link>
+                      </div>
+
                     </div>
                   </div>
                   </div>

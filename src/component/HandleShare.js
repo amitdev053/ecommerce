@@ -52,7 +52,7 @@ const handleShare = async (productTitle, productDesc, productImage , fromWhere= 
                   }
                 }}
         ></i> :
- <button className={`btn btn-sm btn-primary p_s_btn brand_button btnClass ${btnClass}`}  onClick={() => handleShare(productTitle, productDesc, productImage, callingFrom)}>
+ <button className={`btn btn-sm btn-primary p_s_btn brand_button btnClass ${btnClass} margin_left_for_share`}  onClick={() => handleShare(productTitle, productDesc, productImage, callingFrom)}>
         Share 
         <i className="fa-solid fa-share-nodes icon_margin"></i>
         {/* <i class="fa-regular fa-share-from-square icon_margin"></i> */}

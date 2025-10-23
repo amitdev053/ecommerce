@@ -16,7 +16,7 @@ export const CartProvider = ({ children }) => {
   const [likeLength, setLikeLength] = useState(likeItems.length);
 
   // Function to add items to the cart
-  const addToCart = (productName, productPrice, ProductImage, productid) => {
+  const addToCart = (productName, productPrice, ProductImage, productid, productHandle= "") => {
     // console.log("set Cart");
 
     let initalCartQty = 1;
@@ -29,6 +29,7 @@ export const CartProvider = ({ children }) => {
       productPrice: productPrice,
       productid: productid,
       productQuanity: initalCartQty,
+      productHandle: productHandle
     };
 
     let existingProduct = usercartarr.find((curElement) => curElement.productid === productid);
@@ -74,7 +75,7 @@ export const CartProvider = ({ children }) => {
   // ❤️ TOGGLE LIKE FUNCTION
   // -----------------------
 
-    const toggleLike = (productName, productPrice, ProductImage, productid) => {
+    const toggleLike = (productName, productPrice, ProductImage, productid, productHandleForSave="") => {
     let currentLikes = JSON.parse(localStorage.getItem("userLike") || "[]");
 
     const existing = currentLikes.find((p) => p.productid === productid);
@@ -95,6 +96,7 @@ export const CartProvider = ({ children }) => {
         productPrice,
         ProductImage,
         productid,
+        productHandleForSave
       };
       const updatedLikes = [...currentLikes, newLike];
       setLikeItems(updatedLikes);

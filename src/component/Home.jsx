@@ -154,7 +154,8 @@ export default function Home() {
     <div id={productView} className='container app_container mt-ps90'>
    
 <FeatureContext displayedFeaturedImages={featuredStoredImage}  />
-<div className="app_divider"/>
+{/* <div className="app_divider"/> */}
+
 <div className='explore_home_heading_container app_container app_explore_home_feeds'>
 <div className="app_left_elmenets">
 <div className='home_heading_updates d-flex flex-column'>

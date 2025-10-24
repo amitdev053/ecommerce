@@ -88,6 +88,8 @@ function App() {
   
 
     const fetchSavedImages = async () => {
+      console.log("fetched locations", location.pathname)
+      if(location.pathname === "/" || location.pathname === "/blogs") return 
           const imagesFromStorage = JSON.parse(localStorage.getItem("savedImages")) || [];
         const imageIds = imagesFromStorage.map(img => img.id);
       try {

@@ -1,6 +1,6 @@
 @import "~react-image-gallery/styles/css/image-gallery.css";
 @impot "./component/explore.css";
-@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700;900&family=Titillium+Web:wght@200;300;400;600;700;900&display=swap');
+/* @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700;900&family=Titillium+Web:wght@200;300;400;600;700;900&display=swap'); */
 
 
 
@@ -2110,6 +2110,12 @@ canvas{
       background: #040a0e;
     
     
+ }
+ .blog_most_listened{
+      position: absolute;
+    bottom: 0;
+    right: 8px;
+    font-size: 18px;
  }
  .product_purchaser_element:hover{
     background-color: #000000b8 !important;

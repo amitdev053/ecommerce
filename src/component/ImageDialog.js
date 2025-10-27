@@ -19,6 +19,7 @@ const ImageDialog = (props) => {
         imageWrapper.style.height = `${50}px`
         imageWrapper.classList.remove('open_image_wrapper')
         setTimeout(()=>{
+          
             imageDialog.classList.remove('open_main_image_dialog')
             // imageDialog.remove()
             // setTimeout(()=>{
@@ -26,7 +27,7 @@ const ImageDialog = (props) => {
             //   imageDialog.classList.remove('open_main_image_dialog')
             // }, 500)
         }, 200)
-          setScale(1); // reset zoom when closing
+          setScale(1); 
     }
     }
       // Zoom in function

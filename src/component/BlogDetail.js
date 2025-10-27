@@ -337,9 +337,20 @@ if(playButton){
        
         // imageWrapper.style.width = `${imageSrcForExploreNext.webformatWidth}px`
         // imageWrapper.style.height = `${imageSrcForExploreNext.webformatHeight}px`
-        imageWrapper.style.setProperty("width", `${clickImageObject.webformatWidth || droppedImageSize?.width}px`, "important" )
-        imageWrapper.style.setProperty("height", `${clickImageObject.webformatHeight || droppedImageSize?.height}px`,  "important")
-console.log("webFormatWidth and ehgith", imageSrcForExploreNext.webformatHeight, imageSrcForExploreNext.webformatWidth)
+        if(window.innerWidth <= 480 && window.innerHeight < clickImageObject.webformatHeight){
+              imageWrapper.style.setProperty("width", `${clickImageObject.webformatWidth || droppedImageSize?.width}px`, "important" )
+          imageWrapper.style.setProperty("height", `${400 || 400}px`,  "important")
+          // imageWrapper.style.setProperty("border-radius", `50px`,  "important")
+          // img.style.setProperty("border-radius", `50px`,  "important")
+          
+          // console.log("image height is grater then window height", )
+
+        }else{
+
+          imageWrapper.style.setProperty("width", `${clickImageObject.webformatWidth || droppedImageSize?.width}px`, "important" )
+          imageWrapper.style.setProperty("height", `${clickImageObject.webformatHeight || droppedImageSize?.height}px`,  "important")
+        }
+
         
 
        
@@ -368,6 +379,7 @@ console.log("webFormatWidth and ehgith", imageSrcForExploreNext.webformatHeight,
               ></button>
            {imageHeader && imageSrcForExploreNext && imageSrcForExploreNext !== "" && (
   <>
+  {console.log("src set", imageSrcForExploreNext)}
     {window.innerWidth > 768 ? ( // Desktop only
       <Tooltip text="Click to Expand image" position="bottom">
         <div

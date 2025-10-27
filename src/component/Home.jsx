@@ -146,21 +146,14 @@ export default function Home() {
       // shareButton.firstElementChild.style.color = "";         
     }    
   }
-  
-
-  return (
-    <>
- 
-    <div id={productView} className='container app_container mt-ps90'>
-   
-<FeatureContext displayedFeaturedImages={featuredStoredImage}  />
-{/* <div className="app_divider"/> */}
-
-<div className='explore_home_heading_container app_container app_explore_home_feeds'>
+  function ExploreHeading(props){
+    return(
+      <>
+        <div className='explore_home_heading_container app_container app_explore_home_feeds'>
 <div className="app_left_elmenets">
 <div className='home_heading_updates d-flex flex-column'>
- <div className='app_home_feeds_heading desktop_heading'>{DeskTopHeadings[currentHeading]}</div>
- <div className='app_home_feeds_heading mobile_heading'>{MobileHeadings[currentHeading]}</div>
+ <div className='app_home_feeds_heading desktop_heading'>{props.deskTopHeading}</div>
+ <div className='app_home_feeds_heading mobile_heading'>{props.mobileHeading}</div>
     <span className='last_updated_text'>Last updated at {lastUpdatedTime}min ago</span>
  </div>
 
@@ -175,6 +168,20 @@ export default function Home() {
           >See all <i className="fa-solid fa-angle-right home_seeall_icon"></i></Link>
 
 </div>
+      </>
+    )
+  }
+  
+
+  return (
+    <>
+ 
+    <div id={productView} className='container app_container mt-ps90'>
+   
+<FeatureContext displayedFeaturedImages={featuredStoredImage}   />
+{/* <div className="app_divider"/> */}
+
+<ExploreHeading forWhich="HomeFeeds" deskTopHeading={DeskTopHeadings[currentHeading]} mobileHeading={MobileHeadings[currentHeading]} />
 
 {/* <Explore componentFrom="home" /> */}
 {/* <Suspense fallback={<div>Loading Explore...</div>}> */}

@@ -64,3 +64,26 @@ console.log("now results come...here", result.hits)
 //     if (bottomLoader) setBottomLoader(false);
 //   }
 // });
+
+------------------------------------------------------------------------------------------------------------------------------
+
+async function getSavedByOthersImages() {
+  const url = `https://pixabay.com/api/?key=45283300-eddb6d21a3d3d06f2a2381d7d&order=popular&editors_choice=true&image_type=photo&per_page=20`;
+
+  const cacheKey = "saved-by-others";
+  const cacheCatch = await getCache(cacheKey);
+
+  if (cacheCatch) {
+    setupImageOnPage(cacheCatch); // reuse your same image setup logic
+    return;
+  }
+
+  try {
+    const response = await fetch(url);
+    const result = await response.json();
+    setCache(cacheKey, result);
+    setupImageOnPage(result);
+  } catch (error) {
+    console.error("Error fetching saved-by-others images:", error);
+  }
+}

@@ -60,6 +60,28 @@ const MobileHeadings = [
  "Can’t Miss 👀"
   
 ];
+const subTitlesForSavedFeeds = [
+"Most-loved picks from users",
+"See what everyone’s saving right now",
+"Discover what’s catching attention",
+"Popular images people saved now!",
+"What others found worth saving",
+
+"Images people loved the most",
+"Trending saves from users",
+"Recently saved by others",
+"Inspired by what people save",
+"Saved and shared by the community",
+  
+];
+
+const buttonTextForSavedOthers = [
+"Save for Later",
+"Save to My Collection",
+"Add to My Saves",
+"Save This Image",
+"Add to Favorites",  
+];
 
 export default function Home() {
   const [SliderHeading, setSliderHeading] = useState("Choose Your Favourite");
@@ -78,35 +100,62 @@ export default function Home() {
     
   })
 
-  function rotateDeskTopHeading(arrayHeading){
-     const hour = new Date().getHours();
-    const index = hour % arrayHeading.length;
-    setCurrentHeading(index);
-    // updateTotals()
+  // function rotateDeskTopHeading(arrayHeading){
+  //    const hour = new Date().getHours();
+  //   const index = hour % arrayHeading.length;
+  //   setCurrentHeading(index);
     
-    const now = new Date();
-  const msUntilNextHour = (60 - now.getMinutes()) * 60 * 1000 - now.getSeconds() * 1000 - now.getMilliseconds();
-    // const msUntilNextHour = 1000;
+    
+  //   const now = new Date();
+  // const msUntilNextHour = (60 - now.getMinutes()) * 60 * 1000 - now.getSeconds() * 1000 - now.getMilliseconds();
+  //   // const msUntilNextHour = 1000;
   
-    const timeout = setTimeout(() => {
-      setCurrentHeading((prev) => (prev + 1) % arrayHeading.length);
-      const interval = setInterval(() => {
-        setCurrentHeading((prev) => (prev + 1) % arrayHeading.length); 
+  //   const timeout = setTimeout(() => {
+  //     setCurrentHeading((prev) => (prev + 1) % arrayHeading.length);
+  //     const interval = setInterval(() => {
+  //       setCurrentHeading((prev) => (prev + 1) % arrayHeading.length); 
      
-      }, 60 * 60 * 1000); 
-      // },  1000); 
+  //     }, 60 * 60 * 1000); 
+  //     // },  1000); 
       
-    }, msUntilNextHour);
+  //   }, msUntilNextHour);
   
-    return () => {
-      clearTimeout(timeout);
+  //   return () => {
+  //     clearTimeout(timeout);
       
-    };
-  }
+  //   };
+  // }
+
+  function rotateDeskTopHeading(arrayHeading, setFn) {
+  const hour = new Date().getHours();
+  const index = hour % arrayHeading.length;
+  setFn(index);
+
+  const now = new Date();
+  const msUntilNextHour =
+    (60 - now.getMinutes()) * 60 * 1000 -
+    now.getSeconds() * 1000 -
+    now.getMilliseconds();
+
+  const timeout = setTimeout(() => {
+    setFn((prev) => (prev + 1) % arrayHeading.length);
+    const interval = setInterval(() => {
+      setFn((prev) => (prev + 1) % arrayHeading.length);
+    }, 60 * 60 * 1000);
+  }, msUntilNextHour);
+
+  return () => clearTimeout(timeout);
+}
+const [currentSubtitleForSaved, setCurrentSubtitleForSaved] = useState(0);
+const [buttonText, setButtonText] = useState(0)
    useEffect(() => {
     // Set heading based on current hour
-   rotateDeskTopHeading(DeskTopHeadings)
-   rotateDeskTopHeading(MobileHeadings)
+  //  rotateDeskTopHeading(DeskTopHeadings)
+   rotateDeskTopHeading(DeskTopHeadings, setCurrentHeading)
+   rotateDeskTopHeading(MobileHeadings, setCurrentHeading)
+    rotateDeskTopHeading(subTitlesForSavedFeeds, setCurrentSubtitleForSaved);
+    rotateDeskTopHeading(buttonTextForSavedOthers, setButtonText);
+  
   }, []);
   
 
@@ -154,7 +203,10 @@ export default function Home() {
 <div className='home_heading_updates d-flex flex-column'>
  <div className='app_home_feeds_heading desktop_heading'>{props.deskTopHeading}</div>
  <div className='app_home_feeds_heading mobile_heading'>{props.mobileHeading}</div>
-    <span className='last_updated_text'>Last updated at {lastUpdatedTime}min ago</span>
+
+ {props.forWhich === "HomeFeeds" ? <span className='last_updated_text'>Last updated at {lastUpdatedTime}min ago</span> : <span className='last_updated_text'>{subTitlesForSavedFeeds[currentHeading]}</span>}
+ {/* {props.forWhich === "HomeFeeds" && <span className='last_updated_text'>Last updated at {lastUpdatedTime}min ago</span>} */}
+    
  </div>
 
 
@@ -185,10 +237,16 @@ export default function Home() {
 
 {/* <Explore componentFrom="home" /> */}
 {/* <Suspense fallback={<div>Loading Explore...</div>}> */}
-  <ExploreMasonry componentFrom="home" featurStoredImage={setFeatureStoredImage} lastUpdatedAt={setLastupdatedTime} />
+  <ExploreMasonry componentFrom="home" displayFor="forExplore" featurStoredImage={setFeatureStoredImage} lastUpdatedAt={setLastupdatedTime} />
  {/* </Suspense> */}
+ 
 <ExploreLinkButton buttonText="Explore Trending Images" buttonType="explore" />
 <div className="app_divider"/>
+<ExploreHeading forWhich="SavedFeeds" deskTopHeading="Saved By Others" mobileHeading="Saved By Others" />
+<ExploreMasonry componentFrom="home" displayFor="forSaved" featurStoredImage={setFeatureStoredImage} lastUpdatedAt={setLastupdatedTime} />
+<ExploreLinkButton buttonText={buttonTextForSavedOthers[buttonText]} buttonType="explore" />
+<div className="app_divider"/>
+
 
 <Products componentFrom="home" />
 <ExploreLinkButton  buttonText="Checkout More Products" buttonType="product" />

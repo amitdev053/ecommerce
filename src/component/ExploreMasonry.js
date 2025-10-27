@@ -129,6 +129,15 @@ const fetchedPages = useRef(new Set());
   }
 
   
+function getBeautifulImages(result, perItems) {
+  return result.filter(img => img.likes > 450 && img.downloads > 1000 && img.imageWidth > 2000)
+    .map(img => ({
+      ...img,
+      score: img.likes * 2 + img.downloads * 0.5 + img.comments * 1.5
+    }))
+    .sort((a, b) => b.score - a.score)
+    .slice(0, perItems);
+}
 
 
 
@@ -202,8 +211,30 @@ const hits = result.hits.slice(0, maxImages);
 const cleanCount = hits.length - (hits.length % 3);
 const cleanHits = hits.slice(0, cleanCount);
 
-      // setupImageOnPage(result.hits.splice(0, 7))
-      setupImageOnPage(cleanHits)
+console.log("for home data", props.displayFor, hits, result.hits)
+// return
+if(props.displayFor === "forExplore"){
+  // setupImageOnPage(result.hits.splice(0, 7))
+  setupImageOnPage(cleanHits)
+}else{
+  // Fetching for the saved By Others
+  try{
+          // console.log("explorenext url", exploreNextUrl)
+          window.addEventListener("load", async () => {
+            const hourOfYear = Math.floor((Date.now() - new Date(new Date().getFullYear(), 0, 0)) / 3600000);
+             const page = (hourOfYear % 5) + 1;
+  const response = await fetch(  `https://pixabay.com/api/?key=45283300-eddb6d21a3d3d06f2a2381d7d&order=popular&editors_choice=true&image_type=photo&page=${page}&per_page=100`);  
+          let savedByOthers = await response.json();
+          let higherLikes = getBeautifulImages(savedByOthers.hits, 6)
+         
+          setupImageOnPage(higherLikes)
+          })
+  }catch(error){
+    console.log("fetching home saved error")
+  }
+  // Fetching for the saved By Others
+
+}
     } else if(props.componentFrom === "exploreNext"){
       // let isTracking = trakImages;
       // console.log("explorenext page", props.displayImage, url, trakImages)
@@ -446,6 +477,8 @@ const deferredBatch = rawHits.slice(8);
          
   }
 }
+
+
 
  
 function addImageTouch(){
@@ -1713,7 +1746,7 @@ state={{ imageData: image }}
 
 
 
-            <div className="explore_icons position-absolute " onClick={(e) => e.stopPropagation()}  >
+            <div className={(props.componentFrom === "home" && props.displayFor === "forExplore") ? `home_explore_icons explore_icons position-absolute` : `explore_icons position-absolute`} onClick={(e) => e.stopPropagation()}  >
             <div className="explore_like_content d-flex align-items-center">
               <i className="fa-solid fa-heart"></i>
               <span className="explore_fonts mx-1">{image.likes}</span>
@@ -1729,7 +1762,7 @@ state={{ imageData: image }}
             </div>
 
             <div className="explore_like_content d-flex align-items-center position-absolute explore_images_share adjust_right"
-            //  onTouchStart={sendClickFeed} onTouchEnd={(event)=>{removeClickFeed(event, image.webformatURL)}}onMouseUp={(event)=> {removeClickFeed(event, image.webformatURL)} } onMouseDown={sendClickFeed} onMouseOut={orignalElement} 
+          
 
              onClick={(event) => {
       event.stopPropagation();
@@ -1760,8 +1793,7 @@ state={{ imageData: image }}
             </div>    
 
 
-               <div className="explore_like_content d-flex align-items-center position-absolute explore_images_share"
-            //  onTouchStart={sendClickFeed} onTouchEnd={(event)=>{removeClickFeed(event, image.webformatURL)}}onMouseUp={(event)=> {removeClickFeed(event, image.webformatURL)} } onMouseDown={sendClickFeed} onMouseOut={orignalElement} 
+          <div className="explore_like_content d-flex align-items-center position-absolute explore_images_share"         
 
              onClick={(event) => {
       event.stopPropagation();
@@ -1816,7 +1848,7 @@ state={{ imageData: image }}
         </>
 }
 
-{(props.componentFrom === "home") ? <SkeltonLoading itemsPerColumn= {3} loadingFor="home" /> : <SkeltonLoading  itemsPerColumn={6} />}
+{(props.componentFrom === "home") ? <SkeltonLoading itemsPerColumn= {3} loadingFor="home"  /> : <SkeltonLoading  itemsPerColumn={6} />}
         
       </>
     );

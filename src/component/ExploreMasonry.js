@@ -17,6 +17,7 @@ import AppShareer from "./AppShareer";
 import Alert from "./Alert";
 import { toast } from "react-toastify";
 import Masonry from "react-masonry-css";
+import Tooltip from "./Tooltip";
 
 let content = [
   "kiss", "Fashion", "Sports", "Music", "Gaming", "Technology", "Health", "Finance", "Education", "Lifestyle", "Travel and Adventure",  "Art and Creativity", "hugs", "Nature and Wildlife", "Food and Culinary", "History and Culture","Fitness and Wellness", "Architecture and Design","Space and Astronomy", "Books and Literature", "Motivation and Productivity",  "Luxury and Lifestyle",  "Science and Innovation",   "bedrooms", "romantic",  "Sibling Love", "Date Night",  "Valentine", "Hobbies and Skills",  "happy pattern", "couples", "bmw-night",
@@ -784,7 +785,8 @@ const moreOptionsRef = useRef(null)
     
   }
   function removeClickFeed(event, imageUrl, type, imageId, forSavedByOther= false){    
-    event.stopPropagation()
+    // event.stopPropagation()
+    // event.preventDefault()
     let shareButton = event.currentTarget;
     console.log("share button", shareButton)
     if(forSavedByOther){
@@ -1763,6 +1765,7 @@ state={{ imageData: image }}
 
 {(props.displayFor === "forSavedOthers") ? 
 <>
+
 <Link class="explore_image_link"
  to={`/explore-next/${image.type}/${targetTag}`}>
     <div className="explore_like_content d-flex align-items-center position-absolute explore_images_share home_saved"         
@@ -1792,13 +1795,17 @@ state={{ imageData: image }}
     // ref={moreOptionsRef}
     
 
-          
+          title="Click to see similar images"
                 >
-            <i class="fa-solid fa-arrow-up-right-from-square explore_image_share_icon  touch_none" title="Click to see similar images"></i>
+            {/* <i class="fa-solid fa-arrow-up-right-from-square explore_image_share_icon  touch_none" title="Click to see similar images"></i> */}
+            
+            <i class="fa-solid fa-magnifying-glass explore_image_share_icon  touch_none" ></i>
+
             
             
             </div>  
             </Link>
+            
 
 </>
 : 

@@ -243,7 +243,7 @@ const [buttonText, setButtonText] = useState(0)
 <ExploreLinkButton buttonText="Explore Trending Images" buttonType="explore" />
 <div className="app_divider"/>
 <ExploreHeading forWhich="SavedFeeds" deskTopHeading="Saved By Others" mobileHeading="Saved By Others" />
-<ExploreMasonry componentFrom="home" displayFor="forSaved" featurStoredImage={setFeatureStoredImage} lastUpdatedAt={setLastupdatedTime} />
+<ExploreMasonry componentFrom="home" displayFor="forSavedOthers" featurStoredImage={setFeatureStoredImage} lastUpdatedAt={setLastupdatedTime} />
 <ExploreLinkButton buttonText={buttonTextForSavedOthers[buttonText]} buttonType="explore" />
 <div className="app_divider"/>
 

@@ -783,11 +783,17 @@ const moreOptionsRef = useRef(null)
     }
     
   }
-  function removeClickFeed(event, imageUrl, type, imageId){    
+  function removeClickFeed(event, imageUrl, type, imageId, forSavedByOther= false){    
     event.stopPropagation()
     let shareButton = event.currentTarget;
     console.log("share button", shareButton)
+    if(forSavedByOther){
+         shareButton.firstElementChild.style.backgroundColor = "white";
+      shareButton.firstElementChild.style.color = "";
+      return
+    }
     // if(shareButton.classList.contains('explore_like_content')){
+
     if(shareButton){
       shareButton.firstElementChild.style.backgroundColor = "white";
       shareButton.firstElementChild.style.color = "";
@@ -795,11 +801,13 @@ const moreOptionsRef = useRef(null)
         shareImage(imageUrl)
 
       }else{
+        console.log("image object not url in share button ", imageUrl)
         openMoreOptions(event, type, imageId, imageUrl)
       }
       
     }else{
       if(type === "option"){
+        console.log("image object not url not in share button", imageUrl)
         openMoreOptions(event, type, imageId, imageUrl)
       }
 
@@ -812,6 +820,7 @@ const moreOptionsRef = useRef(null)
 
   const [lastOpenedImageId, setLastOpenedImageId] = useState(null);
 const [clickedImageObj, setClickedImageObj] = useState(null);
+const clickImageObjectRef = useRef(null)
 
 function openMoreOptions(event, type, imageId, clickedImageData) {
   event.stopPropagation(); 
@@ -936,8 +945,10 @@ console.log("clickedImageData", clickedImageData)
 
   setLastOpenedImageId(imageId)
   setClickedImageObj(clickedImageData)
+clickImageObjectRef.current = clickedImageData
+  
+  console.log("see clickimagedata", clickedImageObj, lastOpenedImageId, clickedImageData, clickImageObjectRef)
 
-  // console.log("see clickimagedata", clickedImageObj, lastOpenedImageId)
 }
 useEffect(() => {
   // Close sharer when user scrolls
@@ -1038,10 +1049,10 @@ useEffect(() => {
   }
 }, [clickedImageObj]);
 
-const handleSaveImage = (imageId, clickedImageObj, handleSuggested = false) => {
-  console.log("handle saved ", clickedImageObj)
+const handleSaveImage = (imageId, clickedImageObj, handleSuggested = false) => {  
+  console.log(" image for saved", clickedImageObj)
   if (!clickedImageObj) return;
-
+console.log("it is there")
   try {
     let savedImages
     if(handleSuggested){      
@@ -1067,7 +1078,11 @@ const handleSaveImage = (imageId, clickedImageObj, handleSuggested = false) => {
       localStorage.setItem("savedImages", JSON.stringify(filteredImage));
       toast.success("Image saved");
       setIsSaved(true); 
-      props.fetchSavedImages()
+      console.log("saved images")
+      if(props.fetchSavedImages){
+        props.fetchSavedImages()
+
+      }
     }
     
       
@@ -1746,9 +1761,50 @@ state={{ imageData: image }}
 
 
 
+{(props.displayFor === "forSavedOthers") ? 
+<>
+<Link class="explore_image_link"
+ to={`/explore-next/${image.type}/${targetTag}`}>
+    <div className="explore_like_content d-flex align-items-center position-absolute explore_images_share home_saved"         
 
+             onClick={(event) => {
+      // event.stopPropagation();
+      // event.preventDefault();
+      removeClickFeed(event, image, "", image.id, true);
+    }}
+    onMouseDown={(event) => {
+      event.stopPropagation();
+      event.preventDefault();
+      sendClickFeed(event);
+    }}
+    onTouchStart={(event) => {
+      event?.preventDefault();
+      event?.stopPropagation();
+      sendClickFeed(event);
+          
+    }}
+    onTouchEnd={(event) => {
+      // event.stopPropagation();
+      // event.preventDefault();
+      removeClickFeed(event, image, "", image.id , true);
+    }}
+    onMouseOut={orignalElement}
+    // ref={moreOptionsRef}
+    
 
-            <div className={(props.componentFrom === "home" && props.displayFor === "forExplore") ? `home_explore_icons explore_icons position-absolute` : `explore_icons position-absolute`} onClick={(e) => e.stopPropagation()}  >
+          
+                >
+            <i class="fa-solid fa-arrow-up-right-from-square explore_image_share_icon  touch_none" title="Click to see similar images"></i>
+            
+            
+            </div>  
+            </Link>
+
+</>
+: 
+
+<>
+    <div className={(props.componentFrom === "home" && props.displayFor === "forExplore") ? `home_explore_icons explore_icons position-absolute` : `explore_icons position-absolute`} onClick={(e) => e.stopPropagation()}  >
             <div className="explore_like_content d-flex align-items-center">
               <i className="fa-solid fa-heart"></i>
               <span className="explore_fonts mx-1">{image.likes}</span>
@@ -1825,7 +1881,11 @@ state={{ imageData: image }}
                 >
             <i class="fa-solid fa-ellipsis explore_image_share_icon touch_none"></i>
             
-            </div>    
+            </div>  
+</>
+}
+
+          
           </div>
 
         );

@@ -854,6 +854,7 @@ console.log("clickedImageData", clickedImageData)
   const boxWidth = sharedBox.offsetWidth;
   const boxHeight = sharedBox.offsetHeight;
 
+
   // Adjust horizontal position if overflowing
   if (left + boxWidth > window.scrollX + viewportWidth) {
     left = window.scrollX + viewportWidth - boxWidth - 10; // 10px margin
@@ -872,6 +873,7 @@ console.log("clickedImageData", clickedImageData)
     if (getComputedStyle(sharedBox).opacity === "1") {
       sharedBox.style.opacity = `0%`;
       sharedBox.style.pointerEvents = `none`;
+      
 
         Array.from(exploreTopIcon).forEach((item)=>{
           if(item.classList.contains('show_click_element')){

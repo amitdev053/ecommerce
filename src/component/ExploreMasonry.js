@@ -1626,6 +1626,7 @@ function toImageKitURL(originalUrl, width = 640, quality= 80) {
     }
 
 const breakpointColumnsObj = {
+  // default: props.displayFor === "forSavedOthers" ? 2 : 3,   // 4 columns on large screens
   default: 3,   // 4 columns on large screens
   1100: 3,      // 3 columns if width <= 1100px
   700: 3,       // 2 columns if width <= 700px
@@ -1789,7 +1790,7 @@ state={{ imageData: image }}
 <>
 
 <Link class="explore_image_link"
- to={`/explore-next/${image.type}/${targetTag}`}>
+ to={`/explore-next/${image.type}/${targetTag}`}  onContextMenu={false}>
     <div className="explore_like_content d-flex align-items-center position-absolute explore_images_share home_saved"         
 
              onClick={(event) => {

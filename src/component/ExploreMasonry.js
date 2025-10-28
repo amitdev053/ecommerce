@@ -203,17 +203,39 @@ if (
 setCache(cacheKey, result); // 💾 Save to cache
     if (props.componentFrom === "home") {
       // // console.log("explore images", result.hits);
-      // console.log("yes home props")
-      // setImages(result.hits.splice(0, 7));
-      const maxImages = 7;
-const hits = result.hits.slice(0, maxImages);
-
-// Trim to multiple of 3 (e.g., 6 instead of 7)
-const cleanCount = hits.length - (hits.length % 3);
-const cleanHits = hits.slice(0, cleanCount);
-
-console.log("for home data", props.displayFor, hits, result.hits)
+      
+//       const maxImages = 7;
+// const hits = result.hits.slice(0, maxImages);
+// const cleanCount = hits.length - (hits.length % 3);
+// const cleanHits = hits.slice(0, cleanCount);
+// console.log("for home data", props.displayFor, hits, result.hits)
 // return
+
+ const maxImages = 7;
+  const hits = result.hits.slice(0, maxImages);
+
+  // Trim to multiple of 3 for neat Masonry rows
+  const cleanCount = hits.length - (hits.length % 3);
+  let cleanHits = hits.slice(0, cleanCount);
+
+  // Check if last image is too tall
+  const lastImage = cleanHits[cleanHits.length - 1];
+  const secondLast = cleanHits[cleanHits.length - 2];
+
+  // Sometimes Pixabay gives aspect ratios that create vertical gaps
+  if (
+    lastImage &&
+    secondLast &&
+    lastImage.imageHeight / lastImage.imageWidth > 1.4 && // very tall image
+    secondLast.imageHeight / secondLast.imageWidth < 1.2 // normal width ones
+  ) {
+    // Fill the space with 2 more balanced images
+    const fillImages = result.hits.slice(cleanHits.length, cleanHits.length + 2);
+    cleanHits = [...cleanHits, ...fillImages];
+  }
+
+  console.log("for home data", props.displayFor, cleanHits);
+  
 if(props.displayFor === "forExplore"){
   // setupImageOnPage(result.hits.splice(0, 7))
   setupImageOnPage(cleanHits)

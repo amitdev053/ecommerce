@@ -75,10 +75,13 @@
   }
   .home_explore_icons{
     transform: translate(0px , 0px) !important;
-        color: white;
+        /* color: white; */
+        color: black;
     background: transparent;
     backdrop-filter: blur(10px) !important;
-    background-color: rgb(236 236 236 / 26%) !important;
+    /* background-color: rgb(236 236 236 / 26%) !important; */
+       
+    background-color: white;
   }
   .column:hover .explore_icons{
     transform: translate(0px , 0px);  

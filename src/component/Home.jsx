@@ -76,11 +76,25 @@ const subTitlesForSavedFeeds = [
 ];
 
 const buttonTextForSavedOthers = [
-"Save for Later",
-"Save to My Collection",
-"Add to My Saves",
-"Save This Image",
-"Add to Favorites",  
+ "See What’s Trending",
+  "Explore What Others Love",
+  "Discover Popular Picks",
+  "Join the Hype",
+  "Find Your Next Favorite",
+  "Get Inspired by Others",
+  "Explore Viral Finds",
+  "Browse the Hottest Saves",
+  "See What’s Hot Right Now",
+  "Dive Into Creative Trends",
+];
+
+const buttonTextForFreshFinds = [
+  "See What’s New",
+  "Discover Fresh Picks",
+  "Explore the Latest Drops",
+  "Find Something New",
+  "Uncover Today’s Inspiration",
+  "Check Out What’s Fresh",
 ];
 
 export default function Home() {
@@ -148,6 +162,7 @@ export default function Home() {
 }
 const [currentSubtitleForSaved, setCurrentSubtitleForSaved] = useState(0);
 const [buttonText, setButtonText] = useState(0)
+const [buttonTextForFreshFind, setButtonTextForFreshFinds] = useState(0)
    useEffect(() => {
     // Set heading based on current hour
   //  rotateDeskTopHeading(DeskTopHeadings)
@@ -155,6 +170,7 @@ const [buttonText, setButtonText] = useState(0)
    rotateDeskTopHeading(MobileHeadings, setCurrentHeading)
     rotateDeskTopHeading(subTitlesForSavedFeeds, setCurrentSubtitleForSaved);
     rotateDeskTopHeading(buttonTextForSavedOthers, setButtonText);
+    rotateDeskTopHeading(buttonTextForFreshFinds, setButtonTextForFreshFinds);
   
   }, []);
   
@@ -240,7 +256,7 @@ const [buttonText, setButtonText] = useState(0)
   <ExploreMasonry componentFrom="home" displayFor="forExplore" featurStoredImage={setFeatureStoredImage} lastUpdatedAt={setLastupdatedTime} />
  {/* </Suspense> */}
  
-<ExploreLinkButton buttonText="Explore Trending Images" buttonType="explore" />
+<ExploreLinkButton buttonText={buttonTextForFreshFinds[buttonTextForFreshFind]} buttonType="explore" />
 <div className="app_divider"/>
 <ExploreHeading forWhich="SavedFeeds" deskTopHeading="Saved By Others" mobileHeading="Saved By Others" />
 <ExploreMasonry componentFrom="home" displayFor="forSavedOthers" featurStoredImage={setFeatureStoredImage} lastUpdatedAt={setLastupdatedTime} />
@@ -283,7 +299,7 @@ function ExploreLinkButton(props) {
   return (
     <div className='d-flex justify-content-center align-items-center my-4'>
 
-    <span className="brand_button" style={{color: "white", width: "fit-content", padding: "10px 40px 14px 40px", cursor: "pointer", borderRadius: "10px", fontWeight: 600}}onClick={navigatePage}>{props.buttonText} <i class="fa-solid fa-angles-right icon_space"></i></span>
+    <span className="brand_button" style={{color: "white", width: "fit-content", padding: "10px 20px 14px 20px", cursor: "pointer", borderRadius: "10px", fontWeight: 600}}onClick={navigatePage}>{props.buttonText} <i class="fa-solid fa-angles-right icon_space"></i></span>
     </div>
   )
 }

@@ -676,6 +676,7 @@ function navigateApp(type){
           position: "relative",
           left: overlap + "px",
           zIndex: zIndex,
+          overflow: "hidden"
         }}
       >
         {/* Skeleton placeholder (shown when not loaded) */}

@@ -220,7 +220,16 @@ const [buttonTextForFreshFind, setButtonTextForFreshFinds] = useState(0)
  <div className='app_home_feeds_heading desktop_heading'>{props.deskTopHeading}</div>
  <div className='app_home_feeds_heading mobile_heading'>{props.mobileHeading}</div>
 
- {props.forWhich === "HomeFeeds" ? <span className='last_updated_text'>Last updated at {lastUpdatedTime}min ago</span> : <span className='last_updated_text'>{subTitlesForSavedFeeds[currentHeading]}</span>}
+ {props.forWhich !== "SuggestedFeeds" && 
+ <>
+ {props.forWhich === "HomeFeeds"? <span className='last_updated_text'>Last updated at {lastUpdatedTime}min ago</span> : <span className='last_updated_text'>{subTitlesForSavedFeeds[currentHeading]}</span>}
+ </>
+ }
+
+
+
+
+
  {/* {props.forWhich === "HomeFeeds" && <span className='last_updated_text'>Last updated at {lastUpdatedTime}min ago</span>} */}
     
  </div>
@@ -258,11 +267,16 @@ const [buttonTextForFreshFind, setButtonTextForFreshFinds] = useState(0)
  
 <ExploreLinkButton buttonText={buttonTextForFreshFinds[buttonTextForFreshFind]} buttonType="explore" />
 <div className="app_divider"/>
+
 <ExploreHeading forWhich="SavedFeeds" deskTopHeading="Saved By Others" mobileHeading="Saved By Others" />
 <ExploreMasonry componentFrom="home" displayFor="forSavedOthers" featurStoredImage={setFeatureStoredImage} lastUpdatedAt={setLastupdatedTime} />
 <ExploreLinkButton buttonText={buttonTextForSavedOthers[buttonText]} buttonType="explore" />
 <div className="app_divider"/>
 
+<ExploreHeading forWhich="SuggestedFeeds" deskTopHeading="Suggested for You" mobileHeading="Suggested for You" />
+<ExploreMasonry componentFrom="home" displayFor="forSuggested" featurStoredImage={setFeatureStoredImage} lastUpdatedAt={setLastupdatedTime} />
+<ExploreLinkButton buttonText={`See More You’ll Love`} buttonType="explore" />
+<div className="app_divider"/>
 
 <Products componentFrom="home" />
 <ExploreLinkButton  buttonText="Checkout More Products" buttonType="product" />

@@ -220,15 +220,15 @@ if(props.displayFor === "forExplore"){
   // Fetching for the saved By Others
   try{
           // console.log("explorenext url", exploreNextUrl)
-          window.addEventListener("load", async () => {
+          // window.addEventListener("load", async () => {
             const hourOfYear = Math.floor((Date.now() - new Date(new Date().getFullYear(), 0, 0)) / 3600000);
              const page = (hourOfYear % 5) + 1;
-  const response = await fetch(  `https://pixabay.com/api/?key=45283300-eddb6d21a3d3d06f2a2381d7d&order=popular&editors_choice=true&image_type=photo&page=${page}&per_page=100`);  
+  const response = await fetch(`https://pixabay.com/api/?key=45283300-eddb6d21a3d3d06f2a2381d7d&order=popular&editors_choice=true&image_type=photo&page=${page}&per_page=50`);  
           let savedByOthers = await response.json();
           let higherLikes = getBeautifulImages(savedByOthers.hits, 6)
          
           setupImageOnPage(higherLikes)
-          })
+          // })
   }catch(error){
     console.log("fetching home saved error")
   }

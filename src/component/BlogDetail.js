@@ -65,7 +65,7 @@ function BlogBack(props) {
           let children = Array.from(imageContainer.children)
         let lastChild = children[children.length - 2]
         console.log("last children", lastChild)
-        setDropperImageSize({width: lastChild.offsetWidth, height: lastChild.offsetHeight})
+        setDropperImageSize({width: lastChild?.offsetWidth, height: lastChild?.offsetHeight})
         let imageSrc = lastChild.querySelector('img').src
         lastChild.style.setProperty("border", "2px solid black", "important")
         console.log("Lat image", imageSrc)        

@@ -862,7 +862,7 @@ const clickImageObjectRef = useRef(null)
 function openMoreOptions(event, type, imageId, clickedImageData) {
   event.stopPropagation(); 
   if(props.componentFrom === "home" &&  props.setCurrentObj){
-  props.setCurrentObj(clickedImageData)
+  props.setCurrentObj({clickedImageObj: clickedImageData, clickedImageId: imageId})
   
   console.log("yes suggestest object set")
 
@@ -1095,8 +1095,7 @@ useEffect(() => {
 }, [clickedImageObj]);
 
 const handleSaveImage = (imageId, clickedImageObj, handleSuggested = false) => {  
-clickedImageObj = clickedImageObj || props?.suggestedObjectClickedValue
-  
+clickedImageObj = clickedImageObj || props?.suggestedObjectClickedValue.clickedImageObj
   if (!clickedImageObj) return;
 
   try {
@@ -1159,7 +1158,9 @@ const onDislike = (imageId, clickedImageObj)=>{
 }
 
 const handleHideImage = (imageId, handleDislike = false) => {
-  imageId = imageId || props?.suggestedObjectClickedValue
+
+  imageId = imageId || props?.suggestedObjectClickedValue.clickedImageId
+
   if (!imageId) return;
 
   try {

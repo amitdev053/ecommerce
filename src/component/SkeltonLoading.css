@@ -323,18 +323,16 @@ justify-content: space-between;
 
 
 
-
-
 .home-skeleton-row {
   display: flex;
-  flex-wrap: wrap; /* allow wrapping */
+  flex-wrap: wrap;
   justify-content: center;
   align-items: stretch;
   gap: 16px;
 }
 
 .home-skeleton-row .masonry-skeleton-card {
-  flex: 1 1 calc(33.33% - 16px); /* 3 cards per row */
+  flex: 1 1 calc(33.33% - 16px); /* 3 cards per row on desktop */
   min-width: 200px;
   height: 250px;
   background: linear-gradient(90deg, #f0f0f0 0%, #fafafa 50%, #f0f0f0 100%);
@@ -348,10 +346,12 @@ justify-content: space-between;
   100% { opacity: 0.6; }
 }
 
+/* ✅ Always 2 per row on mobile — no single column */
 @media (max-width: 768px) {
   .home-skeleton-row .masonry-skeleton-card {
-    flex: 1 1 calc(48% - 10px); /* 2 per row on mobile */
+    flex: 1 1 calc(50% - 8px); /* 2 cards per row consistently */
     height: 200px;
+    min-width: unset;
   }
 }
 

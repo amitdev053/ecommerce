@@ -861,6 +861,12 @@ const clickImageObjectRef = useRef(null)
 
 function openMoreOptions(event, type, imageId, clickedImageData) {
   event.stopPropagation(); 
+  if(props.componentFrom === "home" &&  props.setCurrentObj){
+  props.setCurrentObj(clickedImageData)
+  
+  console.log("yes suggestest object set")
+
+}
 console.log("clickedImageData", clickedImageData)
     // Always clear previous active states
     if(document.querySelectorAll('.show_click_element')){
@@ -983,6 +989,8 @@ console.log("clickedImageData", clickedImageData)
   setLastOpenedImageId(imageId)
   setClickedImageObj(clickedImageData)
 clickImageObjectRef.current = clickedImageData
+
+
   
   console.log("see clickimagedata", clickedImageObj, lastOpenedImageId, clickedImageData, clickImageObjectRef)
 
@@ -1087,9 +1095,10 @@ useEffect(() => {
 }, [clickedImageObj]);
 
 const handleSaveImage = (imageId, clickedImageObj, handleSuggested = false) => {  
-  console.log(" image for saved", clickedImageObj)
+clickedImageObj = clickedImageObj || props?.suggestedObjectClickedValue
+  
   if (!clickedImageObj) return;
-console.log("it is there")
+
   try {
     let savedImages
     if(handleSuggested){      
@@ -1150,6 +1159,7 @@ const onDislike = (imageId, clickedImageObj)=>{
 }
 
 const handleHideImage = (imageId, handleDislike = false) => {
+  imageId = imageId || props?.suggestedObjectClickedValue
   if (!imageId) return;
 
   try {
@@ -1195,6 +1205,7 @@ const handleHideImage = (imageId, handleDislike = false) => {
 };
 
   function downloadedImage(lastOpenedImageId, ClickedImageObj) {
+    ClickedImageObj = ClickedImageObj || props?.suggestedObjectClickedValue
     let imageUrl = ClickedImageObj?.largeImageURL
       // Extract extension from the image URL
 
@@ -1897,8 +1908,8 @@ state={{ imageData: image }}
           <div className="explore_like_content d-flex align-items-center position-absolute explore_images_share"         
 
              onClick={(event) => {
-      event.stopPropagation();
-      event.preventDefault();
+      // event.stopPropagation();
+      // event.preventDefault();
       removeClickFeed(event, image, "option", image.id);
     }}
     onMouseDown={(event) => {
@@ -2073,7 +2084,10 @@ state={{ imageData: image }}
     </div>)
 
     }
-    <AppShareer componentFrom="explore" loadingImages={loader} isImageSaved={isSaved}  onSave={() => handleSaveImage(lastOpenedImageId, clickedImageObj)} 
+    <AppShareer componentFrom="explore" loadingImages={loader} isImageSaved={isSaved}  onSave={() =>{ 
+      console.log("before saved onClick", lastOpenedImageId, clickedImageObj)
+      handleSaveImage(lastOpenedImageId, clickedImageObj)
+      }} 
     onHide={()=> handleHideImage(lastOpenedImageId)}
     isHide={isHideImage}
     onDownload={()=>{downloadedImage(lastOpenedImageId, clickedImageObj)}}

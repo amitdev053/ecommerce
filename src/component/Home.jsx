@@ -106,6 +106,7 @@ export default function Home() {
   const buttonRef = useRef(null)
   const [featuredStoredImage, setFeatureStoredImage] = useState([])
   const [lastUpdatedTime, setLastupdatedTime] = useState(new Date().toISOString())
+  const [suggestedState, setSuggestedState] = useState(null)       // for seting the current suggested object
   
 
   useEffect(()=>{
@@ -211,6 +212,8 @@ const [buttonTextForFreshFind, setButtonTextForFreshFinds] = useState(0)
       // shareButton.firstElementChild.style.color = "";         
     }    
   }
+  
+
   function ExploreHeading(props){
     return(
       <>
@@ -258,25 +261,36 @@ const [buttonTextForFreshFind, setButtonTextForFreshFinds] = useState(0)
 <FeatureContext displayedFeaturedImages={featuredStoredImage}   />
 {/* <div className="app_divider"/> */}
 
+{/* for the HomeExploreFeed view  Starts*/}
+
 <ExploreHeading forWhich="HomeFeeds" deskTopHeading={DeskTopHeadings[currentHeading]} mobileHeading={MobileHeadings[currentHeading]} />
 
 {/* <Explore componentFrom="home" /> */}
 {/* <Suspense fallback={<div>Loading Explore...</div>}> */}
-  <ExploreMasonry componentFrom="home" displayFor="forExplore" featurStoredImage={setFeatureStoredImage} lastUpdatedAt={setLastupdatedTime} />
  {/* </Suspense> */}
+
+  <ExploreMasonry componentFrom="home" displayFor="forExplore" featurStoredImage={setFeatureStoredImage} lastUpdatedAt={setLastupdatedTime}  setCurrentObj={setSuggestedState} suggestedObjectClickedValue={suggestedState} />
+  
  
 <ExploreLinkButton buttonText={buttonTextForFreshFinds[buttonTextForFreshFind]} buttonType="explore" />
 <div className="app_divider"/>
+{/* for the HomeExploreFeed view  End*/}
 
+{/* for the SavedByOthers view  Starts*/}
 <ExploreHeading forWhich="SavedFeeds" deskTopHeading="Saved By Others" mobileHeading="Saved By Others" />
-<ExploreMasonry componentFrom="home" displayFor="forSavedOthers" featurStoredImage={setFeatureStoredImage} lastUpdatedAt={setLastupdatedTime} />
+<ExploreMasonry componentFrom="home" displayFor="forSavedOthers" featurStoredImage={setFeatureStoredImage} lastUpdatedAt={setLastupdatedTime} setCurrentObj={setSuggestedState}  suggestedObjectClickedValue={suggestedState}/>
+
 <ExploreLinkButton buttonText={buttonTextForSavedOthers[buttonText]} buttonType="explore" />
 <div className="app_divider"/>
+{/* for the SavedByOthers view  End*/}
+
+{/* for the suggested view  Starts*/}
 
 <ExploreHeading forWhich="SuggestedFeeds" deskTopHeading="Suggested for You" mobileHeading="Suggested for You" />
-<ExploreMasonry componentFrom="home" displayFor="forSuggested" featurStoredImage={setFeatureStoredImage} lastUpdatedAt={setLastupdatedTime} />
+<ExploreMasonry componentFrom="home" displayFor="forSuggested" featurStoredImage={setFeatureStoredImage} lastUpdatedAt={setLastupdatedTime} setCurrentObj={setSuggestedState} suggestedObjectClickedValue={suggestedState} />
 <ExploreLinkButton buttonText={`See More You’ll Love`} buttonType="explore" />
 <div className="app_divider"/>
+{/* for the suggested view  End */}
 
 <Products componentFrom="home" />
 <ExploreLinkButton  buttonText="Checkout More Products" buttonType="product" />

@@ -20,6 +20,7 @@ import { CartProvider } from "./component/CartContext";
 import { BlogAudioProvider, BlogAudioContext } from "./component/BlogAudioContext";
 import BlogAudioPlayer from "./component/BlogAudioPlayer";
 import { getOrSetUserId } from "./analytics";
+import { toast } from "react-toastify";
 
 // Lazy-loaded heavy pages
 const ExploreMasonry = lazy(() => import("./component/ExploreMasonry"));
@@ -60,6 +61,24 @@ function App() {
       });
     }
   }, [location]);
+
+  useEffect(()=>{
+console.log("now app render", location.pathname)
+    if(location.pathname !== "/blogs" && location.pathname !== "/tools" && location.pathname !== "/products"){
+            const lastToastTime = localStorage.getItem("dailyVisits");
+          const now = Date.now();
+
+          // 24 hours in milliseconds
+          const ONE_DAY = 24 * 60 * 60 * 1000;
+
+          if (!lastToastTime || now - parseInt(lastToastTime, 10) > ONE_DAY) {
+            toast.info("Images update every hour");
+            localStorage.setItem("dailyVisits", now.toString());
+          }
+
+    }
+    
+  }, [])
 
   // Set cookie for previous path
   useEffect(() => {

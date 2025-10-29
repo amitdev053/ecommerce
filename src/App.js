@@ -72,7 +72,10 @@ console.log("now app render", location.pathname)
           const ONE_DAY = 24 * 60 * 60 * 1000;
 
           if (!lastToastTime || now - parseInt(lastToastTime, 10) > ONE_DAY) {
-            toast.info("Images update every hour");
+            setTimeout(()=>{
+              toast.info("Images update every hour");
+
+            }, 5000)
             localStorage.setItem("dailyVisits", now.toString());
           }
 

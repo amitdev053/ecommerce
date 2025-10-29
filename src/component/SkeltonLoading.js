@@ -17,23 +17,29 @@ const generateRandomHeights = () => {
     heightOptions[Math.floor(Math.random() * heightOptions.length)]
   );
 };
-// ✅ For home page — show exactly 7 cards
-  if (loadingFor === "home") {
-    const heights = generateRandomHeights(7);
-    return (
-      <div className="masonry-skeleton-wrapper container app_skelton_wrapper my-5 p-0">
-        <div className="masonry-single-row">
-          {heights.map((height, index) => (
-            <div
-              key={index}
-              className="masonry-skeleton-card"
-              style={{ height: `${height}px`, flex: '1 1 13%' }} // around 7 items in one row
-            ></div>
-          ))}
-        </div>
-      </div>
-    );
-  }
+
+if (props.loadingFor === "home") {
+  const heights = Array.from({ length: 6 }, () =>
+    heightOptions[Math.floor(Math.random() * heightOptions.length)]
+  );
+
+  return (
+    <div className="home-skeleton-row container app_skelton_wrapper my-5 p-0">
+      {heights.map((height, index) => (
+        <div
+          key={index}
+          className="masonry-skeleton-card"
+          style={{
+            height: `${height}px`,
+            // flex: '1 1 15%', 
+            // minWidth: '150px',
+          }}
+        ></div>
+      ))}
+    </div>
+  );
+}
+
 
   const skeletonColumns = Array.from({ length: columns }).map((_, colIndex) => {
     const heights = generateRandomHeights();

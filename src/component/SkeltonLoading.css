@@ -325,6 +325,37 @@ justify-content: space-between;
 
 
 
+.home-skeleton-row {
+  display: flex;
+  flex-wrap: wrap; /* allow wrapping */
+  justify-content: center;
+  align-items: stretch;
+  gap: 16px;
+}
+
+.home-skeleton-row .masonry-skeleton-card {
+  flex: 1 1 calc(33.33% - 16px); /* 3 cards per row */
+  min-width: 200px;
+  height: 250px;
+  background: linear-gradient(90deg, #f0f0f0 0%, #fafafa 50%, #f0f0f0 100%);
+  border-radius: 10px;
+  animation: pulse 1.5s infinite ease-in-out;
+}
+
+@keyframes pulse {
+  0% { opacity: 0.6; }
+  50% { opacity: 1; }
+  100% { opacity: 0.6; }
+}
+
+@media (max-width: 768px) {
+  .home-skeleton-row .masonry-skeleton-card {
+    flex: 1 1 calc(48% - 10px); /* 2 per row on mobile */
+    height: 200px;
+  }
+}
+
+
 
 
 

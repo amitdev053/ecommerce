@@ -412,103 +412,79 @@ async function setupImageOnPage(result){
 
   }else{
 
-    
-
-// ✅ Step 1: Prepare all hits with default metadata
-console.log("now results come...here", result.hits);
-const hiddenImages = JSON.parse(localStorage.getItem("hiddenImages")) || [];
-
-const rawHits = result.hits
-  .filter((img) => !hiddenImages.includes(img.id)) // 🚫 Skip hidden before first paint
-  .map((img, i) => ({
-    ...img,
-    _orderIndex: images.length + i,
-    _category: content[index],
-    imageColor: "#ffffff",
-    isValidating: true,
-  }));
-
-// ✅ Step 2: Instantly paint all (fast visual feedback)
-setImages((prevImages) => {
-  const existingIds = new Set(prevImages.map((img) => img.id));
-  const uniqueNewImages = rawHits.filter((img) => !existingIds.has(img.id));
-  return [...prevImages, ...uniqueNewImages];
-});
-
-// ✅ Step 3: Split into two batches (fast first + deferred)
-const immediateBatch = rawHits.slice(0, 8); // first few images = top of viewport
-const deferredBatch = rawHits.slice(8);
-
-(async () => {
-  try {
-    // 🚀 Validate first batch immediately (visible part)
-    const validatedImmediate = await Promise.all(
-      immediateBatch.map(async (img) => {
+    const indexedHits = await Promise.all(result.hits.map(async (img, i) => {
+        let defaultColor = "#ffffff";
+        // let defaultColor = colorCache[img.largeImageURL] || "#f8f9fa";
+        // if (!colorCache[img.largeImageURL]) {
+        //   requestIdleCallback(async () => {
+          // img.webformatURL = "https://pixabay.com/get/g43c5f509c9fb15d2cb21b2f5d43bc5f24e6d624f99d53b08ff555099b61c9abe36565e5dc59235a9dc5796a83b7c513c07a5c5fc1c99d29791e23a7820181ace_640.jpg"
+             // ✅ Check if image URL is valid
         const isValid = await isImageUrlValid(img.webformatURL);
-        return isValid ? { ...img, isValidating: false } : null;
-      })
-    );
-
-    const validImmediate = validatedImmediate.filter(Boolean);
-    setImages((prev) => {
-      const ids = new Set(prev.map((i) => i.id));
-      const unique = validImmediate.filter((i) => !ids.has(i.id));
-      return prev.map((img) =>
-        validImmediate.some((v) => v.id === img.id)
-          ? { ...img, isValidating: false }
-          : img
-      );
-    });
-
-    // ⚙️ Step 4: Validate remaining batch in idle time (non-blocking)
-    requestIdleCallback(async () => {
-      try {
-        const batchSize = 10;
-        let validImages = [];
-
-        for (let i = 0; i < deferredBatch.length; i += batchSize) {
-          const batch = deferredBatch.slice(i, i + batchSize);
-
-          const validatedBatch = await Promise.all(
-            batch.map(async (img) => {
-              const isValid = await isImageUrlValid(img.webformatURL);
-              return isValid ? { ...img, isValidating: false } : null;
-            })
-          );
-
-          validImages = validImages.concat(validatedBatch.filter(Boolean));
+        if (!isValid) {
+          console.warn("Skipping expired/broken image:", img.webformatURL);
+          return null;
         }
+        // try {
+          
+        //   const getColors = await getCachedColor(img.largeImageURL);         
+        //   colorCache[img.largeImageURL] = getColors;
+        //   defaultColor = getColors; 
+        // } catch (e) {
+        //   console.error("Error fetching image colors:", e);
+        // }
+      //   })
+      // }
 
-        // ✅ Merge validated (still excluding hidden)
-        const filteredImages = validImages.filter(
-          (img) => !hiddenImages.includes(img.id)
-        );
 
-        setImages((prev) => {
-          const ids = new Set(prev.map((i) => i.id));
-          const unique = filteredImages.filter((i) => !ids.has(i.id));
-          return prev.map((img) =>
-            filteredImages.some((v) => v.id === img.id)
-              ? { ...img, isValidating: false }
-              : img
-          );
-        });
-      } catch (err) {
-        console.error("Deferred validation failed:", err);
-      } finally {
-        // ✅ Cleanup loaders and flags
-        setloader(false);
-        hasLoadedOnce.current = true;
-        setTrakImage(false);
-        if (bottomLoader) setBottomLoader(false);
+        return {
+          ...img,
+          _orderIndex: images.length + i,
+          _category: content[index],
+          imageColor: defaultColor,
+        };
+      }));
+const validImages = indexedHits.filter(Boolean);
+      const storedScores = JSON.parse(localStorage.getItem("interactionScore") || "{}");
+
+      // const sortedImages = validImages.sort((a, b) => {
+      //   const scoreA = storedScores[a?._category] || 0;
+      //   const scoreB = storedScores[b?._category] || 0;
+      //   return scoreB - scoreA;
+      // });
+        const hiddenImages = JSON.parse(localStorage.getItem("hiddenImages")) || [];
+        const filteredImages = validImages.filter(img => !hiddenImages.includes(img.id));
+   
+      // blogColRef.current.length  = 0
+        // blogColRef.current = [];
+      setImages((prevImages) => {
+        const existingIds = new Set(prevImages.map((img) => img.id));
+        // const uniqueNewImages = validImages.filter((img) => !existingIds.has(img.id));
+        const uniqueNewImages = filteredImages.filter((img) => !existingIds.has(img.id));
+        return [...prevImages, ...uniqueNewImages];
+      });
+
+      
+
+//       const newHits = result.hits.map((img, i) => ({
+//   ...img,
+//   _orderIndex: images.length + i,
+//   _category: content[index],
+//   imageColor: '#e0e0e0',
+// }));
+//       setImages((prevImages) => [...prevImages, ...newHits]);
+
+      
+
+
+     
+      setloader(false);
+      // console.log("images & loader", images, loader)
+      // if(props.componentFrom !== "exploreNext"){
+        setTrakImage(false)
+      // }
+      if(bottomLoader){
+        setBottomLoader(false);
       }
-    });
-  } catch (err) {
-    console.error("Immediate validation failed:", err);
-  }
-})();
-
- 
 
          
   }

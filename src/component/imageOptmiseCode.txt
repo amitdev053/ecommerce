@@ -87,3 +87,102 @@ async function getSavedByOthersImages() {
     console.error("Error fetching saved-by-others images:", error);
   }
 }
+
+-----------------------------------------------------------------------------------------------------------------
+
+
+  
+
+// ✅ Step 1: Prepare all hits with default metadata
+console.log("now results come...here", result.hits);
+const hiddenImages = JSON.parse(localStorage.getItem("hiddenImages")) || [];
+
+const rawHits = result.hits
+  .filter((img) => !hiddenImages.includes(img.id)) // 🚫 Skip hidden before first paint
+  .map((img, i) => ({
+    ...img,
+    _orderIndex: images.length + i,
+    _category: content[index],
+    imageColor: "#ffffff",
+    isValidating: true,
+  }));
+
+// ✅ Step 2: Instantly paint all (fast visual feedback)
+setImages((prevImages) => {
+  const existingIds = new Set(prevImages.map((img) => img.id));
+  const uniqueNewImages = rawHits.filter((img) => !existingIds.has(img.id));
+  return [...prevImages, ...uniqueNewImages];
+});
+
+// ✅ Step 3: Split into two batches (fast first + deferred)
+const immediateBatch = rawHits.slice(0, 8); // first few images = top of viewport
+const deferredBatch = rawHits.slice(8);
+
+(async () => {
+  try {
+    // 🚀 Validate first batch immediately (visible part)
+    const validatedImmediate = await Promise.all(
+      immediateBatch.map(async (img) => {
+        const isValid = await isImageUrlValid(img.webformatURL);
+        return isValid ? { ...img, isValidating: false } : null;
+      })
+    );
+
+    const validImmediate = validatedImmediate.filter(Boolean);
+    setImages((prev) => {
+      const ids = new Set(prev.map((i) => i.id));
+      const unique = validImmediate.filter((i) => !ids.has(i.id));
+      return prev.map((img) =>
+        validImmediate.some((v) => v.id === img.id)
+          ? { ...img, isValidating: false }
+          : img
+      );
+    });
+
+    // ⚙️ Step 4: Validate remaining batch in idle time (non-blocking)
+    requestIdleCallback(async () => {
+      try {
+        const batchSize = 10;
+        let validImages = [];
+
+        for (let i = 0; i < deferredBatch.length; i += batchSize) {
+          const batch = deferredBatch.slice(i, i + batchSize);
+
+          const validatedBatch = await Promise.all(
+            batch.map(async (img) => {
+              const isValid = await isImageUrlValid(img.webformatURL);
+              return isValid ? { ...img, isValidating: false } : null;
+            })
+          );
+
+          validImages = validImages.concat(validatedBatch.filter(Boolean));
+        }
+
+        // ✅ Merge validated (still excluding hidden)
+        const filteredImages = validImages.filter(
+          (img) => !hiddenImages.includes(img.id)
+        );
+
+        setImages((prev) => {
+          const ids = new Set(prev.map((i) => i.id));
+          const unique = filteredImages.filter((i) => !ids.has(i.id));
+          return prev.map((img) =>
+            filteredImages.some((v) => v.id === img.id)
+              ? { ...img, isValidating: false }
+              : img
+          );
+        });
+      } catch (err) {
+        console.error("Deferred validation failed:", err);
+      } finally {
+        // ✅ Cleanup loaders and flags
+        setloader(false);
+        hasLoadedOnce.current = true;
+        setTrakImage(false);
+        if (bottomLoader) setBottomLoader(false);
+      }
+    });
+  } catch (err) {
+    console.error("Immediate validation failed:", err);
+  }
+})();

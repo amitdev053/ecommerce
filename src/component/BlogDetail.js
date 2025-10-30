@@ -319,43 +319,75 @@ if(playButton){
     console.log("see More Details", clickedImage)
   }
   
-  function openViewImage() {
-    let imageDialog = document.getElementById("imageDialog");
-    let imageWrapper = document.getElementById("imageWrapper");
-    let img = imageWrapper.querySelector("img");
+//   function openViewImage() {
+//     let imageDialog = document.getElementById("imageDialog");
+//     let imageWrapper = document.getElementById("imageWrapper");
+//     let img = imageWrapper.querySelector("img");
 
-    if (imageDialog && img) {
-        // imageDialog.style.opacity = "1";
-        // imageDialog.style.zIndex = "9999";
-        imageDialog.classList.add('open_main_image_dialog')
-        imageWrapper.classList.add('open_image_wrapper')
+//     if (imageDialog && img) {
+//         // imageDialog.style.opacity = "1";
+//         // imageDialog.style.zIndex = "9999";
+//         imageDialog.classList.add('open_main_image_dialog')
+//         imageWrapper.classList.add('open_image_wrapper')
      
         
 
         
 
        
-        // imageWrapper.style.width = `${imageSrcForExploreNext.webformatWidth}px`
-        // imageWrapper.style.height = `${imageSrcForExploreNext.webformatHeight}px`
-        if(window.innerWidth <= 480 && window.innerHeight < clickImageObject.webformatHeight){
-              imageWrapper.style.setProperty("width", `${clickImageObject.webformatWidth || droppedImageSize?.width}px`, "important" )
-          imageWrapper.style.setProperty("height", `${400 || 400}px`,  "important")
-          // imageWrapper.style.setProperty("border-radius", `50px`,  "important")
-          // img.style.setProperty("border-radius", `50px`,  "important")
+//         // imageWrapper.style.width = `${imageSrcForExploreNext.webformatWidth}px`
+//         // imageWrapper.style.height = `${imageSrcForExploreNext.webformatHeight}px`
+//         if(window.innerWidth <= 480 && window.innerHeight < clickImageObject.webformatHeight){
+//               imageWrapper.style.setProperty("width", `${clickImageObject.webformatWidth || droppedImageSize?.width}px`, "important" )
+//           imageWrapper.style.setProperty("height", `${400 || 400}px`,  "important")
+//           // imageWrapper.style.setProperty("border-radius", `50px`,  "important")
+//           // img.style.setProperty("border-radius", `50px`,  "important")
           
-          // console.log("image height is grater then window height", )
+//           // console.log("image height is grater then window height", )
 
-        }else{
+//         }else{
 
-          imageWrapper.style.setProperty("width", `${clickImageObject.webformatWidth || droppedImageSize?.width}px`, "important" )
-          imageWrapper.style.setProperty("height", `${clickImageObject.webformatHeight || droppedImageSize?.height}px`,  "important")
-        }
+//           imageWrapper.style.setProperty("width", `${clickImageObject.webformatWidth || droppedImageSize?.width}px`, "important" )
+//           imageWrapper.style.setProperty("height", `${clickImageObject.webformatHeight || droppedImageSize?.height}px`,  "important")
+//         }
 
         
 
        
-    }
+//     }
+// }
+
+function openViewImage() {
+  const imageDialog = document.getElementById("imageDialog");
+  const imageWrapper = document.getElementById("imageWrapper");
+  const img = imageWrapper.querySelector("img");
+
+  if (!imageDialog || !img) return;
+
+  // Defer UI activation until image is decoded
+  img.decode().then(() => {
+    requestAnimationFrame(() => {
+      imageDialog.classList.add('open_main_image_dialog');
+      imageWrapper.classList.add('open_image_wrapper');
+
+      const width = clickImageObject.webformatWidth || droppedImageSize?.width;
+      const height = clickImageObject.webformatHeight || droppedImageSize?.height;
+
+      if (window.innerWidth <= 480 && window.innerHeight < height) {
+        imageWrapper.style.setProperty("width", `${width}px`, "important");
+        imageWrapper.style.setProperty("height", `400px`, "important");
+      } else {
+        imageWrapper.style.setProperty("width", `${width}px`, "important");
+        imageWrapper.style.setProperty("height", `${height}px`, "important");
+      }
+    });
+  }).catch(() => {
+    // fallback if image decode fails
+    imageDialog.classList.add('open_main_image_dialog');
+    imageWrapper.classList.add('open_image_wrapper');
+  });
 }
+
 
   
     

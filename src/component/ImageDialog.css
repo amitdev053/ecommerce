@@ -22,6 +22,7 @@
     opacity: 1;
     z-index: 99999;
 }
+
 .image_dialog_container{
     height: 100vh;
 }
@@ -173,3 +174,27 @@ background: #ffffff
 
     }
 }
+
+
+/* For the optmiseztion ---------------------------*/
+.open_image_wrapper {
+  transition: transform 0.25s ease, opacity 0.25s ease;
+  will-change: transform, opacity;
+}
+/* 
+#imageWrapper {
+  transform: scale(0.9);
+  opacity: 0;
+  transition: transform 0.3s ease, opacity 0.3s ease;
+  will-change: transform, opacity;
+}
+
+#imageWrapper.open_image_wrapper {
+  transform: scale(1);
+  opacity: 1;
+}
+
+#imageWrapper.closing {
+  transform: scale(0.85);
+  opacity: 0;
+} */

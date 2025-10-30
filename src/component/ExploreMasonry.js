@@ -247,7 +247,7 @@ if(props.displayFor === "forExplore"){
 } else if(props.displayFor === "forSuggested"){
 
   
- let imagesForSuggesstion = prepareLayout(result.hits, 10, 20)
+ let imagesForSuggesstion = prepareLayout(result.hits, 10, 18)
 
   setupImageOnPage(imagesForSuggesstion)
 

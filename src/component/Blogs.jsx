@@ -126,7 +126,7 @@ const Blogs = (props) => {
           document.title = `Explore Blogs: | BrowseNext`
         }else{
           console.log("explore", topic)
-          document.title = `Explore ${topic.split('')[0].toUpperCase() + topic.split('').slice(1, topic.length).join("")}: | BrowseNext`
+          document.title = `Explore ${topic?.split('')[0].toUpperCase() + topic?.split('').slice(1, topic.length).join("")}: | BrowseNext`
         }
     
  

@@ -841,9 +841,7 @@ function showMobileIcon(){
   
 
   useEffect(() => {
-    // setImageStates((prevStates) =>
-    //   images.map((_, i) => prevStates[i] || { loaded: false })
-    // );
+  
 
 
     setImageStates((prevStates) => {
@@ -854,6 +852,15 @@ function showMobileIcon(){
     return prevStates;
   });
   }, [images]);
+
+    useEffect(() => {
+      // clearCache();
+   let currentCalculatedIndex = updatedHours();
+
+    getImages(`https://pixabay.com/api/?key=45283300-eddb6d21a3d3d06f2a2381d7d&q=${content[currentCalculatedIndex]}&image_type=photo&page=1`);
+
+    // setImageStates(images.map(() => ({ loaded: false })));
+  }, [index]);
 
   function updatedHours(){
     const referenceTime = new Date("2025-01-01T00:00:00Z").getTime();
@@ -904,12 +911,8 @@ function shareImage(image){
   }
 }
   // Fetch images whenever the index changes
-  useEffect(() => {
-      // clearCache();
-   let currentCalculatedIndex = updatedHours();
-    getImages(`https://pixabay.com/api/?key=45283300-eddb6d21a3d3d06f2a2381d7d&q=${content[currentCalculatedIndex]}&image_type=photo&page=1`);
-    setImageStates(images.map(() => ({ loaded: false })));
-  }, [index]);
+
+  
 const moreOptionsRef = useRef(null)
   function sendClickFeed(event){    
     // event.stopPropagation()
@@ -1764,6 +1767,7 @@ const breakpointColumnsObj = {
 const memorizedImages= useMemo(()=>{
   return   images.map((image, index) => {
         if (!imageStates[index]) return null; 
+
         const { loaded } = imageStates[index];
         const location = window.location.href.split("/")
         const imageTagText = location[location.length - 1]
@@ -1873,7 +1877,7 @@ state={{ imageData: image }}
 
       onLoad={(e) => {
         // handle cached + freshly loaded images
-        console.log("onimage load",e.target.complete)
+        console.log("onimage loads",e.target.complete)
         if (e.target.complete) {
           setImageStates((prev) => {
             const newState = [...prev];

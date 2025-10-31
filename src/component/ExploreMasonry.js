@@ -746,18 +746,18 @@ function showMobileIcon(){
   let categoryIndex;
 
   // Custom time-based overrides
-  if (currentHour >= 20 && currentHour < 21) {
-       categoryIndex = content.indexOf("romantic"); // 8 PM - 9 PM
-  } else if (currentHour >= 21 && currentHour < 22) {    
-       categoryIndex = content.indexOf("Date Night");     // 0 to 10 at night
-  } else if (currentHour >= 22 && currentHour < 24) {    
-    categoryIndex = content.indexOf("bedrooms");   // 10 - 12 at night  
-  } else if (currentHour >= 0 && currentHour < 3) {
-    categoryIndex = content.indexOf("kiss");   // 12 - 3 at night  
-  } else {
+  // if (currentHour >= 20 && currentHour < 21) {
+  //      categoryIndex = content.indexOf("romantic"); // 8 PM - 9 PM
+  // } else if (currentHour >= 21 && currentHour < 22) {    
+  //      categoryIndex = content.indexOf("Date Night");     // 0 to 10 at night
+  // } else if (currentHour >= 22 && currentHour < 24) {    
+  //   categoryIndex = content.indexOf("bedrooms");   // 10 - 12 at night  
+  // } else if (currentHour >= 0 && currentHour < 3) {
+  //   categoryIndex = content.indexOf("kiss");   // 12 - 3 at night  
+  // } else {
     // Normal hourly rotation for other times
     categoryIndex = hoursElapsed % content.length;
-  }
+  // }
       console.log("explore masonary hours",currentTime, hoursElapsed, categoryIndex, referenceTime)
       // return hoursElapsed % content.length;
       if(props.lastUpdatedAt){

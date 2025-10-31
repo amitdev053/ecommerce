@@ -58,7 +58,134 @@ let content = [
   "Vintage Vibes",
   "Neon Aesthetics",
   "Minimalism",
-  "Boho Style"
+  "Boho Style",
+
+   // 👗 Fashion & Lifestyle
+  "Fashion Trends",
+  "Street Style",
+  "Luxury and Lifestyle",
+  "Minimalist Aesthetics",
+  "Boho Style",
+  "Fashion Accessories",
+  "Makeup and Beauty",
+  "Home Decor",
+  "Interior Design",
+  "Modern Bedrooms",
+  "Workspace Inspiration",
+
+  // 🏞️ Nature & Travel
+  "Nature and Wildlife",
+  "Beach Vibes",
+  "Sunsets and Sunrises",
+  "Mountain Views",
+  "Rainy Days",
+  "Snow and Winter",
+  "Nature Trails",
+  "Adventure Travel",
+  "Road Trips",
+  "Cultural Heritage",
+  "Cityscapes",
+  "Skyline Views",
+  "Desert Landscapes",
+  "Tropical Paradise",
+  "Space and Astronomy",
+
+  // 🎨 Art & Creativity
+  "Art and Creativity",
+  "DIY and Crafts",
+  "Photography Inspiration",
+  "Street Art",
+  "Abstract Art",
+  "Color Palettes",
+  "Typography Design",
+  "Digital Art",
+  "Painting Textures",
+
+  // 🧠 Motivation & Learning
+  "Motivation and Productivity",
+  "Quotes and Inspiration",
+  "Self Growth",
+  "Books and Literature",
+  "Education and Learning",
+  "Mindfulness and Meditation",
+  "Focus and Study Setup",
+  "Morning Routines",
+
+  // 🏋️ Health & Fitness
+  "Fitness and Wellness",
+  "Healthy Recipes",
+  "Workout Motivation",
+  "Yoga and Meditation",
+  "Mental Health Awareness",
+  "Sleep and Recovery",
+
+  // 🚀 Tech & Modern Life
+  "Technology Trends",
+  "AI and Innovation",
+  "Science and Discovery",
+  "Gaming Setup",
+  "Coding Aesthetics",
+  "Gadgets and Devices",
+  "Digital Nomad Life",
+  "Futuristic Designs",
+
+  // 🚗 Cars & Lifestyle
+  "Cars and Motorcycles",
+  "Luxury Cars",
+  "BMW Night",
+  "Vintage Cars",
+  "Street Racing",
+  "Garage Goals",
+
+  // ☕ Everyday Aesthetic Vibes
+  "Coffee and Cafes",
+  "Books and Coffee",
+  "Aesthetic Desks",
+  "Cozy Corners",
+  "Rain Window",
+  "Morning Light",
+  "Night Lights",
+  "Neon Aesthetics",
+  "Vintage Vibes",
+  "Happy Patterns",
+
+  // 🥳 Events & Culture
+  "Festivals and Celebrations",
+  "Navratri",
+  "Diwali Lights",
+  "Christmas Decor",
+  "New Year Party",
+  "Cultural Dances",
+  "Wedding Moments",
+  "Street Photography",
+
+  // 🐾 Animals
+  "Pet Love",
+  "Cute Animals",
+  "Wildlife Moments",
+  "Bird Photography",
+
+  // ⚡ Misc / Trending
+  "Adventure Sports",
+  "Space Exploration",
+  "Minimalism",
+  "Photography Tips",
+  "Luxury Interiors",
+  "Creative Portraits",
+
+  // 💞 Emotions & Relationships
+  "Love and Romance",
+  "Couples",
+  "Sibling Love",
+  "Family Time",
+  "Friendship Goals",
+  "Romantic Moments",
+  "Date Night",
+  "Hugs and Kisses",
+  "Cute Gestures",
+
+
+
 ];
 // 🔁 Get the current hour index to rotate categories
 const updatedHours = () => new Date().getHours() % content.length;

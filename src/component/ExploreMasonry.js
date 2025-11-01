@@ -840,66 +840,65 @@ function showMobileIcon(){
 
   
 
-  // useEffect(() => {
-  
+  useEffect(() => {
 
 
-  //   setImageStates((prevStates) => {
-  //   if (images.length > prevStates.length) {
-  //     const newStates = images.slice(prevStates.length).map(() => ({ loaded: false }));
-  //     return [...prevStates, ...newStates];
-  //   }
-  //   return prevStates;
-  // });
-  // }, [images]);
+    setImageStates((prevStates) => {
+    if (images.length > prevStates.length) {
+      const newStates = images.slice(prevStates.length).map(() => ({ loaded: false }));
+      return [...prevStates, ...newStates];
+    }
+    return prevStates;
+  });
+  }, [images]);
 
   useEffect(() => {
   console.log("🟢 imageStates updated:", imageStates);
 }, [imageStates]);
 
-useEffect(() => {
+// useEffect(() => {
 
-    // ✅ Keep previous loaded states
-  setImageStates(prevStates => {
-    const prevMap = new Map(prevStates.map(s => [s.id, s]));
-    return images.map(img =>
-      prevMap.get(img.id) || { id: img.id, loaded: false, visible: false }
-    );
-  });
+//     // ✅ Keep previous loaded states
+//   setImageStates(prevStates => {
+//     const prevMap = new Map(prevStates.map(s => [s.id, s]));
+//     return images.map(img =>
+//       prevMap.get(img.id) || { id: img.id, loaded: false, visible: false }
+//     );
+//   });
 
-    if (props.componentFrom === "home") return;
-  if (!images.length) return;
+//     if (props.componentFrom === "home") return;
+//   if (!images.length) return;
 
- const observer = new IntersectionObserver(
-  (entries) => {
-    entries.forEach((entry) => {
-      const id = entry.target.getAttribute("data-image-ids");
-      if (id && entry.isIntersecting) {
-        setImageStates((prev) =>
-          prev.map((s) =>
-            s.id === Number(id) && !s.visible
-              ? { ...s, visible: true } // ✅ set true only once
-              : s
-          )
-        );
-      }
-    });
-  },
-  { threshold: 0.15 }
-);
+//  const observer = new IntersectionObserver(
+//   (entries) => {
+//     entries.forEach((entry) => {
+//       const id = entry.target.getAttribute("data-image-ids");
+//       if (id && entry.isIntersecting) {
+//         setImageStates((prev) =>
+//           prev.map((s) =>
+//             s.id === Number(id) && !s.visible
+//               ? { ...s, visible: true } // ✅ set true only once
+//               : s
+//           )
+//         );
+//       }
+//     });
+//   },
+//   { threshold: 0.15 }
+// );
 
-const timeout = setTimeout(() => {
-  const elements = document.querySelectorAll(".explore-image");
-  elements.forEach((el) => observer.observe(el));
-}, 100);
+// const timeout = setTimeout(() => {
+//   const elements = document.querySelectorAll(".explore-image");
+//   elements.forEach((el) => observer.observe(el));
+// }, 100);
 
-return () => {
-  clearTimeout(timeout);
-  observer.disconnect();
-};
+// return () => {
+//   clearTimeout(timeout);
+//   observer.disconnect();
+// };
 
 
-}, [images]);
+// }, [images]);
 
 
     useEffect(() => {
@@ -1840,8 +1839,8 @@ function handleVisible(id) {
 }
 const memorizedImages= useMemo(()=>{
   return   images.map((image, index) => {
-        // if (!imageStates[index]) return null; 
-        const state = imageStates.find((s) => s.id === image.id);
+        if (!imageStates[index]) return null; 
+        // const state = imageStates.find((s) => s.id === image.id);
 
         // const { loaded } = imageStates[index];
         const location = window.location.href.split("/")
@@ -1891,15 +1890,16 @@ state={{ imageData: image }}
       overflow: 'hidden',
       position: 'relative',
       height: "100%",
-      contentVisibility: "auto",
+      // contentVisibility: "auto",
+      //   containIntrinsicSize: `${image.webformatHeight}px`,
 
     }}
   
   >
      {/* {!imageStates[index]?.loaded && <div className="skeleton" />} */}
-     {/* {(!imageStates[index]?.loaded || image.isValidating) && <div className="skeleton" id={'skelton' + index} />} */}
+     {(!imageStates[index]?.loaded) && <div className="skeleton" id={'skelton' + index} />}
 
-{!state?.loaded && <div className="skeleton" />}
+{/* {!state?.loaded && <div className="skeleton" />} */}
 
 
             <img
@@ -1943,8 +1943,7 @@ state={{ imageData: image }}
   
   sizes="(max-width: 600px) 100vw, (max-width: 1200px) 50vw, 33vw"
               // loading="lazy"     
-              decoding={state?.visible ? "sync" : "async"}
-loading={state?.visible ? "eager" : "lazy"}
+          
 
                   
               
@@ -1962,7 +1961,24 @@ loading={state?.visible ? "eager" : "lazy"}
 
       onLoad={(e) => {
         // handle cached + freshly loaded images
-      handleLoaded(image.id)
+  //  handleLoaded(image.id)
+  
+     console.log("onimage load",e.target.complete)
+        if (e.target.complete) {
+          setImageStates((prev) => {
+            const newState = [...prev];
+            newState[index] = { loaded: true };
+            
+            // lockObjects(index)
+            if(document.getElementById(`skelton${index}`)){
+            document.getElementById(`skelton${index}`).style.display = "none"
+
+            }
+            return newState;
+          });
+        }
+
+
       }}
               onError={(e) =>{
               const originalUrl = image.webformatURL;

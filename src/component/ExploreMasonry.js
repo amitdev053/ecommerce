@@ -890,7 +890,7 @@ useEffect(() => {
 
   // Use a small delay to ensure new images are actually in DOM
   const timeout = setTimeout(() => {
-    const elements = document.querySelectorAll(".explore_image");
+    const elements = document.querySelectorAll(".explore-image");
     elements.forEach((el) => observer.observe(el));
   }, 100); // 100ms delay ensures DOM update completed
 
@@ -1972,7 +1972,7 @@ state={{ imageData: image }}
                         }}
            
                       alt={generateCaption(image)}
-           
+           data-image-id={image.id}
             />
 
 

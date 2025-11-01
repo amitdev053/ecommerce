@@ -853,8 +853,13 @@ function showMobileIcon(){
   // });
   // }, [images]);
 
+  useEffect(() => {
+  console.log("🟢 imageStates updated:", imageStates);
+}, [imageStates]);
+
 useEffect(() => {
-   // ✅ Keep previous loaded states
+
+    // ✅ Keep previous loaded states
   setImageStates(prevStates => {
     const prevMap = new Map(prevStates.map(s => [s.id, s]));
     return images.map(img =>
@@ -865,34 +870,33 @@ useEffect(() => {
     if (props.componentFrom === "home") return;
   if (!images.length) return;
 
-  const observer = new IntersectionObserver(
-    (entries) => {
-      entries.forEach((entry) => {
-        const id = entry.target.getAttribute("data-image-ids");
-        if (id) {
-          setImageStates((prev) =>
-            prev.map((s) =>
-              s.id === Number(id)
-                ? { ...s, visible: entry.isIntersecting }
-                : s
-            )
-          );
-        }
-      });
-    },
-    { threshold: 0.15 }
-  );
+ const observer = new IntersectionObserver(
+  (entries) => {
+    entries.forEach((entry) => {
+      const id = entry.target.getAttribute("data-image-ids");
+      if (id && entry.isIntersecting) {
+        setImageStates((prev) =>
+          prev.map((s) =>
+            s.id === Number(id) && !s.visible
+              ? { ...s, visible: true } // ✅ set true only once
+              : s
+          )
+        );
+      }
+    });
+  },
+  { threshold: 0.15 }
+);
 
-  // Use a small delay to ensure new images are actually in DOM
-  const timeout = setTimeout(() => {
-    const elements = document.querySelectorAll(".explore-image");
-    elements.forEach((el) => observer.observe(el));
-  }, 100); // 100ms delay ensures DOM update completed
+const timeout = setTimeout(() => {
+  const elements = document.querySelectorAll(".explore-image");
+  elements.forEach((el) => observer.observe(el));
+}, 100);
 
-  return () => {
-    clearTimeout(timeout);
-    observer.disconnect();
-  };
+return () => {
+  clearTimeout(timeout);
+  observer.disconnect();
+};
 
 
 }, [images]);
@@ -1886,7 +1890,9 @@ state={{ imageData: image }}
       aspectRatio: `${image.webformatWidth} / ${image.webformatHeight}`,
       overflow: 'hidden',
       position: 'relative',
-      height: "100%"
+      height: "100%",
+      contentVisibility: "auto",
+
     }}
   
   >
@@ -1937,6 +1943,9 @@ state={{ imageData: image }}
   
   sizes="(max-width: 600px) 100vw, (max-width: 1200px) 50vw, 33vw"
               // loading="lazy"     
+              decoding={state?.visible ? "sync" : "async"}
+loading={state?.visible ? "eager" : "lazy"}
+
                   
               
               onClick={() => updateInteractionScore(image._category, 2)}

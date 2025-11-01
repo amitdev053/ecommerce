@@ -2010,7 +2010,7 @@ state={{ imageData: image }}
                         }}
            
                       alt={generateCaption(image)}
-           data-image-ids={image.id}
+         
             />
 
 

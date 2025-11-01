@@ -853,8 +853,25 @@ function showMobileIcon(){
   }, [images]);
 
   useEffect(() => {
+  imageStates.forEach((state, index) => {
+    if (state.loaded) {  // we only care about images that have been loaded
+      const imgEl = document.querySelector(`img[data-image-ids="${images[index]?.id}"]`);
+      if (imgEl && imgEl.complete && imgEl.naturalWidth === 0) {
+        console.log("🔁 Reloading bitmap for image:", images[index]?.id);
+        const currentSrc = imgEl.src;
+        imgEl.src = ""; // force unload
+        requestAnimationFrame(() => {
+          imgEl.src = currentSrc; // reload from cache
+        });
+      }
+    }
+  });
+}, [imageStates, images]);
+
+  useEffect(() => {
   console.log("🟢 imageStates updated:", imageStates);
 }, [imageStates]);
+
 
 // useEffect(() => {
 
@@ -1958,6 +1975,7 @@ state={{ imageData: image }}
         //         return newState;
         //         });
         // }}
+        data-image-ids={image.id}
 
       onLoad={(e) => {
         // handle cached + freshly loaded images

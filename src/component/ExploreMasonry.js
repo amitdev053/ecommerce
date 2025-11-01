@@ -854,17 +854,12 @@ function showMobileIcon(){
   // }, [images]);
 
 useEffect(() => {
-  setImageStates((prevStates) => {
-    const existingIds = new Set(prevStates.map((s) => s.id));
-    const newStates = [...prevStates];
-
-    images.forEach((img) => {
-      if (!existingIds.has(img.id)) {
-        newStates.push({ id: img.id, loaded: false, visible: false });
-      }
-    });
-
-    return newStates;
+   // ✅ Keep previous loaded states
+  setImageStates(prevStates => {
+    const prevMap = new Map(prevStates.map(s => [s.id, s]));
+    return images.map(img =>
+      prevMap.get(img.id) || { id: img.id, loaded: false, visible: false }
+    );
   });
 
     if (props.componentFrom === "home") return;

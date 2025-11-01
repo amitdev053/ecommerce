@@ -868,7 +868,7 @@ useEffect(() => {
   const observer = new IntersectionObserver(
     (entries) => {
       entries.forEach((entry) => {
-        const id = entry.target.getAttribute("data-image-id");
+        const id = entry.target.getAttribute("data-image-ids");
         if (id) {
           setImageStates((prev) =>
             prev.map((s) =>
@@ -1967,7 +1967,7 @@ state={{ imageData: image }}
                         }}
            
                       alt={generateCaption(image)}
-           data-image-id={image.id}
+           data-image-ids={image.id}
             />
 
 

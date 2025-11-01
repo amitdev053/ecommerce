@@ -840,18 +840,68 @@ function showMobileIcon(){
 
   
 
-  useEffect(() => {
+  // useEffect(() => {
   
 
 
-    setImageStates((prevStates) => {
-    if (images.length > prevStates.length) {
-      const newStates = images.slice(prevStates.length).map(() => ({ loaded: false }));
-      return [...prevStates, ...newStates];
-    }
-    return prevStates;
+  //   setImageStates((prevStates) => {
+  //   if (images.length > prevStates.length) {
+  //     const newStates = images.slice(prevStates.length).map(() => ({ loaded: false }));
+  //     return [...prevStates, ...newStates];
+  //   }
+  //   return prevStates;
+  // });
+  // }, [images]);
+
+useEffect(() => {
+  setImageStates((prevStates) => {
+    const existingIds = new Set(prevStates.map((s) => s.id));
+    const newStates = [...prevStates];
+
+    images.forEach((img) => {
+      if (!existingIds.has(img.id)) {
+        newStates.push({ id: img.id, loaded: false, visible: false });
+      }
+    });
+
+    return newStates;
   });
-  }, [images]);
+
+    if (props.componentFrom === "home") return;
+  if (!images.length) return;
+
+  const observer = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        const id = entry.target.getAttribute("data-image-id");
+        if (id) {
+          setImageStates((prev) =>
+            prev.map((s) =>
+              s.id === Number(id)
+                ? { ...s, visible: entry.isIntersecting }
+                : s
+            )
+          );
+        }
+      });
+    },
+    { threshold: 0.15 }
+  );
+
+  // Use a small delay to ensure new images are actually in DOM
+  const timeout = setTimeout(() => {
+    const elements = document.querySelectorAll(".explore_image");
+    elements.forEach((el) => observer.observe(el));
+  }, 100); // 100ms delay ensures DOM update completed
+
+  return () => {
+    clearTimeout(timeout);
+    observer.disconnect();
+  };
+
+
+}, [images]);
+
 
     useEffect(() => {
       // clearCache();
@@ -861,6 +911,8 @@ function showMobileIcon(){
 
     // setImageStates(images.map(() => ({ loaded: false })));
   }, [index]);
+
+
 
   function updatedHours(){
     const referenceTime = new Date("2025-01-01T00:00:00Z").getTime();
@@ -901,6 +953,79 @@ function showMobileIcon(){
       return categoryIndex;
    
   }
+
+  useEffect(() => {
+
+  console.log("start observing point", loader)
+  if (props.componentFrom === "home") return;
+
+   if (!images.length) return;
+// if (loader) return; 
+
+  const observer = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          // Trigger load
+          console.log("loading...")
+          setBottomLoader(true);
+          handleNextPage();
+
+          // Optionally unobserve this element
+          observer.unobserve(entry.target);
+        }
+      });
+    },
+    { rootMargin: '0px 0px 200px 0px' }
+  );
+
+
+ // wait for DOM nodes to attach
+  // requestAnimationFrame(() => {
+  //   const validElements = blogColRef.current.filter(Boolean);
+  //   console.log("validElement", validElements)
+  //   const lastElement = validElements.at(-2);
+  //   console.log("lastElement", validElements, lastElement)
+  //   if (lastElement) {
+  //     observer.observe(lastElement);
+  //     console.log("Observing element:", lastElement);
+  //   }
+
+  // });
+  
+
+ const waitForLastElement = () => {
+  if(props.componentFrom === "home") return 
+
+    const validElements = blogColRef.current?.filter(Boolean) || [];
+    const lastElement = validElements.at(-2);
+
+    if (lastElement) {
+      console.log("✅ Found lastElement:", lastElement);
+      observer.observe(lastElement);
+    } else {
+      console.log("⏳ Waiting for lastElement to appear...");
+      // Retry every 200ms until available
+      setTimeout(waitForLastElement, 200);
+    }
+  };
+
+  // Start waiting for DOM to stabilize before observing
+  requestAnimationFrame(() => {
+    waitForLastElement();
+  });  
+console.log("intersecting useEffect works", loader)
+
+  return () => {
+    observer.disconnect();
+  };
+  
+}, [images]); 
+
+
+
+
+
 function shareImage(image){
   if(image){
     let currentCalculatedIndex = updatedHours();
@@ -1502,70 +1627,6 @@ if(window.innerWidth < 580){
   
   
 // }, [images.length]);
-useEffect(() => {
-  console.log("start observing point", loader)
-  if (props.componentFrom === "home") return;
-// if (loader) return; 
-
-  const observer = new IntersectionObserver(
-    (entries) => {
-      entries.forEach((entry) => {
-        if (entry.isIntersecting) {
-          // Trigger load
-          console.log("loading...")
-          setBottomLoader(true);
-          handleNextPage();
-
-          // Optionally unobserve this element
-          observer.unobserve(entry.target);
-        }
-      });
-    },
-    { rootMargin: '0px 0px 200px 0px' }
-  );
-
-
- // wait for DOM nodes to attach
-  // requestAnimationFrame(() => {
-  //   const validElements = blogColRef.current.filter(Boolean);
-  //   console.log("validElement", validElements)
-  //   const lastElement = validElements.at(-2);
-  //   console.log("lastElement", validElements, lastElement)
-  //   if (lastElement) {
-  //     observer.observe(lastElement);
-  //     console.log("Observing element:", lastElement);
-  //   }
-
-  // });
-  
-
- const waitForLastElement = () => {
-  if(props.componentFrom === "home") return 
-
-    const validElements = blogColRef.current?.filter(Boolean) || [];
-    const lastElement = validElements.at(-2);
-
-    if (lastElement) {
-      console.log("✅ Found lastElement:", lastElement);
-      observer.observe(lastElement);
-    } else {
-      console.log("⏳ Waiting for lastElement to appear...");
-      // Retry every 200ms until available
-      setTimeout(waitForLastElement, 200);
-    }
-  };
-
-  // Start waiting for DOM to stabilize before observing
-  requestAnimationFrame(() => {
-    waitForLastElement();
-  });  
-console.log("intersecting useEffect works", loader)
-
-  return () => {
-    observer.disconnect();
-  };
-  
-}, [images]); 
 
 // function checkingElement(){
 //   if(exploreRef.current.children.length < 5) return 
@@ -1764,6 +1825,20 @@ const breakpointColumnsObj = {
   500: 2        // 1 column on small screens
 };
 
+function handleLoaded(id) {
+  setImageStates((prev) =>
+    prev.map((img) =>
+      img.id === id ? { ...img, loaded: true } : img
+    )
+  );
+}
+
+
+function handleVisible(id) {
+  setImageStates(prev =>
+    prev.map(img => img.id === id ? { ...img, visible: true } : img)
+  );
+}
 const memorizedImages= useMemo(()=>{
   return   images.map((image, index) => {
         if (!imageStates[index]) return null; 
@@ -1771,6 +1846,7 @@ const memorizedImages= useMemo(()=>{
         const { loaded } = imageStates[index];
         const location = window.location.href.split("/")
         const imageTagText = location[location.length - 1]
+        const state = imageStates.find((s) => s.id === image.id);
 
          let firstTag = image.tags.split(",")[0]?.trim().toLowerCase();
   let secondTag = image.tags.split(",")[1]?.trim().toLowerCase();
@@ -1819,7 +1895,11 @@ state={{ imageData: image }}
   
   >
      {/* {!imageStates[index]?.loaded && <div className="skeleton" />} */}
-     {(!imageStates[index]?.loaded || image.isValidating) && <div className="skeleton" id={'skelton' + index} />}
+     {/* {(!imageStates[index]?.loaded || image.isValidating) && <div className="skeleton" id={'skelton' + index} />} */}
+
+{!state?.loaded && <div className="skeleton" />}
+
+
             <img
             className="explore-image"
                  style={{
@@ -1877,20 +1957,7 @@ state={{ imageData: image }}
 
       onLoad={(e) => {
         // handle cached + freshly loaded images
-        console.log("onimage loads",e.target.complete)
-        if (e.target.complete) {
-          setImageStates((prev) => {
-            const newState = [...prev];
-            newState[index] = { loaded: true };
-            
-            // lockObjects(index)
-            if(document.getElementById(`skelton${index}`)){
-            document.getElementById(`skelton${index}`).style.display = "none"
-
-            }
-            return newState;
-          });
-        }
+      handleLoaded(image.id)
       }}
               onError={(e) =>{
               const originalUrl = image.webformatURL;

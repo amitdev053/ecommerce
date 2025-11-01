@@ -1841,12 +1841,13 @@ function handleVisible(id) {
 }
 const memorizedImages= useMemo(()=>{
   return   images.map((image, index) => {
-        if (!imageStates[index]) return null; 
+        // if (!imageStates[index]) return null; 
+        const state = imageStates.find((s) => s.id === image.id);
 
-        const { loaded } = imageStates[index];
+        // const { loaded } = imageStates[index];
         const location = window.location.href.split("/")
         const imageTagText = location[location.length - 1]
-        const state = imageStates.find((s) => s.id === image.id);
+        
 
          let firstTag = image.tags.split(",")[0]?.trim().toLowerCase();
   let secondTag = image.tags.split(",")[1]?.trim().toLowerCase();
